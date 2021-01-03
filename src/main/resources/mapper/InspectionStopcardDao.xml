@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.beiken.saas.platform.dao.InspectionStopcardDao">
+    <resultMap type="com.beiken.saas.platform.entity.InspectionStopcard" id="InspectionStopcardMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="gmtCreate" column="gmt_create" jdbcType="TIMESTAMP"/>
+        <result property="gmtModified" column="gmt_modified" jdbcType="TIMESTAMP"/>
+        <result property="unsafeAction" column="unsafe_action" jdbcType="VARCHAR"/>
+        <result property="eventType" column="event_type" jdbcType="VARCHAR"/>
+        <result property="siteStep" column="site_step" jdbcType="VARCHAR"/>
+        <result property="submitter" column="submitter" jdbcType="VARCHAR"/>
+        <result property="submitTime" column="submit_time" jdbcType="TIMESTAMP"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="InspectionStopcardMap">
+
+                select
+                  id, gmt_create, gmt_modified, unsafe_action, event_type, site_step, submitter, submit_time, status
+                from safety.inspection_stopcard
+                where id = #{id}
+
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="InspectionStopcardMap">
+
+                select
+                  id, gmt_create, gmt_modified, unsafe_action, event_type, site_step, submitter, submit_time, status
+                from safety.inspection_stopcard
+                limit #{offset}, #{limit}
+
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="InspectionStopcardMap">
+        select
+        id, gmt_create, gmt_modified, unsafe_action, event_type, site_step, submitter, submit_time, status
+        from safety.inspection_stopcard
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="gmtCreate != null">
+                and gmt_create = #{gmtCreate}
+            </if>
+            <if test="gmtModified != null">
+                and gmt_modified = #{gmtModified}
+            </if>
+            <if test="unsafeAction != null and unsafeAction != ''">
+                and unsafe_action = #{unsafeAction}
+            </if>
+            <if test="eventType != null and eventType != ''">
+                and event_type = #{eventType}
+            </if>
+            <if test="siteStep != null and siteStep != ''">
+                and site_step = #{siteStep}
+            </if>
+            <if test="submitter != null and submitter != ''">
+                and submitter = #{submitter}
+            </if>
+            <if test="submitTime != null">
+                and submit_time = #{submitTime}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+
+                insert into safety.inspection_stopcard(gmt_create, gmt_modified, unsafe_action, event_type, site_step, submitter, submit_time, status)
+                values (#{gmtCreate}, #{gmtModified}, #{unsafeAction}, #{eventType}, #{siteStep}, #{submitter}, #{submitTime}, #{status})
+
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into safety.inspection_stopcard(gmt_create, gmt_modified, unsafe_action, event_type, site_step,
+        submitter, submit_time, status)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.gmtCreate}, #{entity.gmtModified}, #{entity.unsafeAction}, #{entity.eventType},
+            #{entity.siteStep}, #{entity.submitter}, #{entity.submitTime}, #{entity.status})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into safety.inspection_stopcard(gmt_create, gmt_modified, unsafe_action, event_type, site_step,
+        submitter, submit_time, status)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.gmtCreate}, #{entity.gmtModified}, #{entity.unsafeAction}, #{entity.eventType},
+            #{entity.siteStep}, #{entity.submitter}, #{entity.submitTime}, #{entity.status})
+        </foreach>
+        on duplicate key update
+        gmt_create = values(gmt_create) , gmt_modified = values(gmt_modified) , unsafe_action = values(unsafe_action) ,
+        event_type = values(event_type) , site_step = values(site_step) , submitter = values(submitter) , submit_time =
+        values(submit_time) , status = values(status)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update safety.inspection_stopcard
+        <set>
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate},
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified = #{gmtModified},
+            </if>
+            <if test="unsafeAction != null and unsafeAction != ''">
+                unsafe_action = #{unsafeAction},
+            </if>
+            <if test="eventType != null and eventType != ''">
+                event_type = #{eventType},
+            </if>
+            <if test="siteStep != null and siteStep != ''">
+                site_step = #{siteStep},
+            </if>
+            <if test="submitter != null and submitter != ''">
+                submitter = #{submitter},
+            </if>
+            <if test="submitTime != null">
+                submit_time = #{submitTime},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+
+                delete from safety.inspection_stopcard where id = #{id}
+
+    </delete>
+</mapper>
