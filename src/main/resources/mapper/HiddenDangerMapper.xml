@@ -17,6 +17,8 @@
     <result column="supervisor_code" jdbcType="VARCHAR" property="supervisorCode" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="deleted" jdbcType="INTEGER" property="deleted" />
+    <result column="task_id" jdbcType="BIGINT" property="taskId" />
+    <result column="task_item_id" jdbcType="BIGINT" property="taskItemId" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -78,7 +80,8 @@
   </sql>
   <sql id="Base_Column_List">
     id, gmt_create, gmt_modified, kind, level, description, onsite_record, onsite_manager, 
-    onsite_manager_code, follow_up, plan_time, supervisor, supervisor_code, status, deleted
+    onsite_manager_code, follow_up, plan_time, supervisor, supervisor_code, status, deleted, 
+    task_id, task_item_id
   </sql>
   <select id="selectByExample" parameterType="com.beiken.saas.platform.pojo.HiddenDangerExample" resultMap="BaseResultMap">
     select
@@ -116,14 +119,14 @@
       kind, level, description, 
       onsite_record, onsite_manager, onsite_manager_code, 
       follow_up, plan_time, supervisor, 
-      supervisor_code, status, deleted
-      )
+      supervisor_code, status, deleted, 
+      task_id, task_item_id)
     values (#{id,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
       #{kind,jdbcType=VARCHAR}, #{level,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
       #{onsiteRecord,jdbcType=VARCHAR}, #{onsiteManager,jdbcType=VARCHAR}, #{onsiteManagerCode,jdbcType=VARCHAR}, 
       #{followUp,jdbcType=VARCHAR}, #{planTime,jdbcType=TIMESTAMP}, #{supervisor,jdbcType=VARCHAR}, 
-      #{supervisorCode,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{deleted,jdbcType=INTEGER}
-      )
+      #{supervisorCode,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{deleted,jdbcType=INTEGER}, 
+      #{taskId,jdbcType=BIGINT}, #{taskItemId,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.beiken.saas.platform.pojo.HiddenDanger">
     insert into hidden_danger
@@ -173,6 +176,12 @@
       <if test="deleted != null">
         deleted,
       </if>
+      <if test="taskId != null">
+        task_id,
+      </if>
+      <if test="taskItemId != null">
+        task_item_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -219,6 +228,12 @@
       </if>
       <if test="deleted != null">
         #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="taskId != null">
+        #{taskId,jdbcType=BIGINT},
+      </if>
+      <if test="taskItemId != null">
+        #{taskItemId,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -276,6 +291,12 @@
       <if test="record.deleted != null">
         deleted = #{record.deleted,jdbcType=INTEGER},
       </if>
+      <if test="record.taskId != null">
+        task_id = #{record.taskId,jdbcType=BIGINT},
+      </if>
+      <if test="record.taskItemId != null">
+        task_item_id = #{record.taskItemId,jdbcType=BIGINT},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -297,7 +318,9 @@
       supervisor = #{record.supervisor,jdbcType=VARCHAR},
       supervisor_code = #{record.supervisorCode,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=INTEGER},
-      deleted = #{record.deleted,jdbcType=INTEGER}
+      deleted = #{record.deleted,jdbcType=INTEGER},
+      task_id = #{record.taskId,jdbcType=BIGINT},
+      task_item_id = #{record.taskItemId,jdbcType=BIGINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -347,6 +370,12 @@
       <if test="deleted != null">
         deleted = #{deleted,jdbcType=INTEGER},
       </if>
+      <if test="taskId != null">
+        task_id = #{taskId,jdbcType=BIGINT},
+      </if>
+      <if test="taskItemId != null">
+        task_item_id = #{taskItemId,jdbcType=BIGINT},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -365,7 +394,9 @@
       supervisor = #{supervisor,jdbcType=VARCHAR},
       supervisor_code = #{supervisorCode,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
-      deleted = #{deleted,jdbcType=INTEGER}
+      deleted = #{deleted,jdbcType=INTEGER},
+      task_id = #{taskId,jdbcType=BIGINT},
+      task_item_id = #{taskItemId,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

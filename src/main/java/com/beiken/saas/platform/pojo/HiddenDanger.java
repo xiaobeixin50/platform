@@ -33,6 +33,10 @@ public class HiddenDanger {
 
     private Integer deleted;
 
+    private Long taskId;
+
+    private Long taskItemId;
+
     public Long getId() {
         return id;
     }
@@ -151,5 +155,21 @@ public class HiddenDanger {
 
     public void setDeleted(Integer deleted) {
         this.deleted = deleted;
+    }
+
+    public Long getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(Long taskId) {
+        this.taskId = taskId;
+    }
+
+    public Long getTaskItemId() {
+        return taskItemId;
+    }
+
+    public void setTaskItemId(Long taskItemId) {
+        this.taskItemId = taskItemId;
     }
 }
