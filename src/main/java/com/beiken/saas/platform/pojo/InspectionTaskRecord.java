@@ -17,15 +17,11 @@ public class InspectionTaskRecord {
 
     private Date inspectTime;
 
-    private String department;
+    private Long depId;
 
-    private String inspector;
+    private Long projectId;
 
-    private String conclusion;
-
-    private String feedbackProblem;
-
-    private String attachment;
+    private Date demandTime;
 
     public Long getId() {
         return id;
@@ -83,43 +79,27 @@ public class InspectionTaskRecord {
         this.inspectTime = inspectTime;
     }
 
-    public String getDepartment() {
-        return department;
+    public Long getDepId() {
+        return depId;
     }
 
-    public void setDepartment(String department) {
-        this.department = department == null ? null : department.trim();
+    public void setDepId(Long depId) {
+        this.depId = depId;
     }
 
-    public String getInspector() {
-        return inspector;
+    public Long getProjectId() {
+        return projectId;
     }
 
-    public void setInspector(String inspector) {
-        this.inspector = inspector == null ? null : inspector.trim();
+    public void setProjectId(Long projectId) {
+        this.projectId = projectId;
     }
 
-    public String getConclusion() {
-        return conclusion;
+    public Date getDemandTime() {
+        return demandTime;
     }
 
-    public void setConclusion(String conclusion) {
-        this.conclusion = conclusion == null ? null : conclusion.trim();
-    }
-
-    public String getFeedbackProblem() {
-        return feedbackProblem;
-    }
-
-    public void setFeedbackProblem(String feedbackProblem) {
-        this.feedbackProblem = feedbackProblem == null ? null : feedbackProblem.trim();
-    }
-
-    public String getAttachment() {
-        return attachment;
-    }
-
-    public void setAttachment(String attachment) {
-        this.attachment = attachment == null ? null : attachment.trim();
+    public void setDemandTime(Date demandTime) {
+        this.demandTime = demandTime;
     }
 }

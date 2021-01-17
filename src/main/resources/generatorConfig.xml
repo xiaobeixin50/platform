@@ -109,6 +109,33 @@
                enableDeleteByExample= "true"
                enableSelectByExample= "true"
                selectByExampleQueryId= "true"> </table>
-
+        <table tableName="attachment"
+               domainObjectName= "Attachment"
+               enableCountByExample= "true"
+               enableUpdateByExample= "true"
+               enableDeleteByExample= "true"
+               enableSelectByExample= "true"
+               selectByExampleQueryId= "true"> </table>
+        <table tableName="mine_project"
+               domainObjectName= "MineProject"
+               enableCountByExample= "true"
+               enableUpdateByExample= "true"
+               enableDeleteByExample= "true"
+               enableSelectByExample= "true"
+               selectByExampleQueryId= "true"> </table>
+        <table tableName="mine_project"
+               domainObjectName= "MineProject"
+               enableCountByExample= "true"
+               enableUpdateByExample= "true"
+               enableDeleteByExample= "true"
+               enableSelectByExample= "true"
+               selectByExampleQueryId= "true"> </table>
+        <table tableName="inspection_item_plan"
+               domainObjectName= "InspectionItemPlan"
+               enableCountByExample= "true"
+               enableUpdateByExample= "true"
+               enableDeleteByExample= "true"
+               enableSelectByExample= "true"
+               selectByExampleQueryId= "true"> </table>
     </context>
 </generatorConfiguration>

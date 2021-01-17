@@ -904,6 +904,256 @@ public class InspectionItemExample {
             addCriterion("feedback_option not between", value1, value2, "feedbackOption");
             return (Criteria) this;
         }
+
+        public Criteria andFeedbackResultIsNull() {
+            addCriterion("feedback_result is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFeedbackResultIsNotNull() {
+            addCriterion("feedback_result is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFeedbackResultEqualTo(String value) {
+            addCriterion("feedback_result =", value, "feedbackResult");
+            return (Criteria) this;
+        }
+
+        public Criteria andFeedbackResultNotEqualTo(String value) {
+            addCriterion("feedback_result <>", value, "feedbackResult");
+            return (Criteria) this;
+        }
+
+        public Criteria andFeedbackResultGreaterThan(String value) {
+            addCriterion("feedback_result >", value, "feedbackResult");
+            return (Criteria) this;
+        }
+
+        public Criteria andFeedbackResultGreaterThanOrEqualTo(String value) {
+            addCriterion("feedback_result >=", value, "feedbackResult");
+            return (Criteria) this;
+        }
+
+        public Criteria andFeedbackResultLessThan(String value) {
+            addCriterion("feedback_result <", value, "feedbackResult");
+            return (Criteria) this;
+        }
+
+        public Criteria andFeedbackResultLessThanOrEqualTo(String value) {
+            addCriterion("feedback_result <=", value, "feedbackResult");
+            return (Criteria) this;
+        }
+
+        public Criteria andFeedbackResultLike(String value) {
+            addCriterion("feedback_result like", value, "feedbackResult");
+            return (Criteria) this;
+        }
+
+        public Criteria andFeedbackResultNotLike(String value) {
+            addCriterion("feedback_result not like", value, "feedbackResult");
+            return (Criteria) this;
+        }
+
+        public Criteria andFeedbackResultIn(List<String> values) {
+            addCriterion("feedback_result in", values, "feedbackResult");
+            return (Criteria) this;
+        }
+
+        public Criteria andFeedbackResultNotIn(List<String> values) {
+            addCriterion("feedback_result not in", values, "feedbackResult");
+            return (Criteria) this;
+        }
+
+        public Criteria andFeedbackResultBetween(String value1, String value2) {
+            addCriterion("feedback_result between", value1, value2, "feedbackResult");
+            return (Criteria) this;
+        }
+
+        public Criteria andFeedbackResultNotBetween(String value1, String value2) {
+            addCriterion("feedback_result not between", value1, value2, "feedbackResult");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskIdIsNull() {
+            addCriterion("task_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskIdIsNotNull() {
+            addCriterion("task_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskIdEqualTo(Long value) {
+            addCriterion("task_id =", value, "taskId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskIdNotEqualTo(Long value) {
+            addCriterion("task_id <>", value, "taskId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskIdGreaterThan(Long value) {
+            addCriterion("task_id >", value, "taskId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("task_id >=", value, "taskId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskIdLessThan(Long value) {
+            addCriterion("task_id <", value, "taskId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskIdLessThanOrEqualTo(Long value) {
+            addCriterion("task_id <=", value, "taskId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskIdIn(List<Long> values) {
+            addCriterion("task_id in", values, "taskId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskIdNotIn(List<Long> values) {
+            addCriterion("task_id not in", values, "taskId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskIdBetween(Long value1, Long value2) {
+            addCriterion("task_id between", value1, value2, "taskId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTaskIdNotBetween(Long value1, Long value2) {
+            addCriterion("task_id not between", value1, value2, "taskId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDepIdIsNull() {
+            addCriterion("dep_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDepIdIsNotNull() {
+            addCriterion("dep_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDepIdEqualTo(Long value) {
+            addCriterion("dep_id =", value, "depId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDepIdNotEqualTo(Long value) {
+            addCriterion("dep_id <>", value, "depId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDepIdGreaterThan(Long value) {
+            addCriterion("dep_id >", value, "depId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDepIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("dep_id >=", value, "depId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDepIdLessThan(Long value) {
+            addCriterion("dep_id <", value, "depId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDepIdLessThanOrEqualTo(Long value) {
+            addCriterion("dep_id <=", value, "depId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDepIdIn(List<Long> values) {
+            addCriterion("dep_id in", values, "depId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDepIdNotIn(List<Long> values) {
+            addCriterion("dep_id not in", values, "depId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDepIdBetween(Long value1, Long value2) {
+            addCriterion("dep_id between", value1, value2, "depId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDepIdNotBetween(Long value1, Long value2) {
+            addCriterion("dep_id not between", value1, value2, "depId");
+            return (Criteria) this;
+        }
+
+        public Criteria andProjectIdIsNull() {
+            addCriterion("project_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andProjectIdIsNotNull() {
+            addCriterion("project_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andProjectIdEqualTo(Long value) {
+            addCriterion("project_id =", value, "projectId");
+            return (Criteria) this;
+        }
+
+        public Criteria andProjectIdNotEqualTo(Long value) {
+            addCriterion("project_id <>", value, "projectId");
+            return (Criteria) this;
+        }
+
+        public Criteria andProjectIdGreaterThan(Long value) {
+            addCriterion("project_id >", value, "projectId");
+            return (Criteria) this;
+        }
+
+        public Criteria andProjectIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("project_id >=", value, "projectId");
+            return (Criteria) this;
+        }
+
+        public Criteria andProjectIdLessThan(Long value) {
+            addCriterion("project_id <", value, "projectId");
+            return (Criteria) this;
+        }
+
+        public Criteria andProjectIdLessThanOrEqualTo(Long value) {
+            addCriterion("project_id <=", value, "projectId");
+            return (Criteria) this;
+        }
+
+        public Criteria andProjectIdIn(List<Long> values) {
+            addCriterion("project_id in", values, "projectId");
+            return (Criteria) this;
+        }
+
+        public Criteria andProjectIdNotIn(List<Long> values) {
+            addCriterion("project_id not in", values, "projectId");
+            return (Criteria) this;
+        }
+
+        public Criteria andProjectIdBetween(Long value1, Long value2) {
+            addCriterion("project_id between", value1, value2, "projectId");
+            return (Criteria) this;
+        }
+
+        public Criteria andProjectIdNotBetween(Long value1, Long value2) {
+            addCriterion("project_id not between", value1, value2, "projectId");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

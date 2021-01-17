@@ -635,66 +635,6 @@ public class InspectionTaskExample {
             return (Criteria) this;
         }
 
-        public Criteria andPlanIdIsNull() {
-            addCriterion("plan_id is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andPlanIdIsNotNull() {
-            addCriterion("plan_id is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andPlanIdEqualTo(Long value) {
-            addCriterion("plan_id =", value, "planId");
-            return (Criteria) this;
-        }
-
-        public Criteria andPlanIdNotEqualTo(Long value) {
-            addCriterion("plan_id <>", value, "planId");
-            return (Criteria) this;
-        }
-
-        public Criteria andPlanIdGreaterThan(Long value) {
-            addCriterion("plan_id >", value, "planId");
-            return (Criteria) this;
-        }
-
-        public Criteria andPlanIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("plan_id >=", value, "planId");
-            return (Criteria) this;
-        }
-
-        public Criteria andPlanIdLessThan(Long value) {
-            addCriterion("plan_id <", value, "planId");
-            return (Criteria) this;
-        }
-
-        public Criteria andPlanIdLessThanOrEqualTo(Long value) {
-            addCriterion("plan_id <=", value, "planId");
-            return (Criteria) this;
-        }
-
-        public Criteria andPlanIdIn(List<Long> values) {
-            addCriterion("plan_id in", values, "planId");
-            return (Criteria) this;
-        }
-
-        public Criteria andPlanIdNotIn(List<Long> values) {
-            addCriterion("plan_id not in", values, "planId");
-            return (Criteria) this;
-        }
-
-        public Criteria andPlanIdBetween(Long value1, Long value2) {
-            addCriterion("plan_id between", value1, value2, "planId");
-            return (Criteria) this;
-        }
-
-        public Criteria andPlanIdNotBetween(Long value1, Long value2) {
-            addCriterion("plan_id not between", value1, value2, "planId");
-            return (Criteria) this;
-        }
-
         public Criteria andDispatchTimeIsNull() {
             addCriterion("dispatch_time is null");
             return (Criteria) this;
@@ -755,76 +695,6 @@ public class InspectionTaskExample {
             return (Criteria) this;
         }
 
-        public Criteria andDispatchScopeIsNull() {
-            addCriterion("dispatch_scope is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andDispatchScopeIsNotNull() {
-            addCriterion("dispatch_scope is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andDispatchScopeEqualTo(String value) {
-            addCriterion("dispatch_scope =", value, "dispatchScope");
-            return (Criteria) this;
-        }
-
-        public Criteria andDispatchScopeNotEqualTo(String value) {
-            addCriterion("dispatch_scope <>", value, "dispatchScope");
-            return (Criteria) this;
-        }
-
-        public Criteria andDispatchScopeGreaterThan(String value) {
-            addCriterion("dispatch_scope >", value, "dispatchScope");
-            return (Criteria) this;
-        }
-
-        public Criteria andDispatchScopeGreaterThanOrEqualTo(String value) {
-            addCriterion("dispatch_scope >=", value, "dispatchScope");
-            return (Criteria) this;
-        }
-
-        public Criteria andDispatchScopeLessThan(String value) {
-            addCriterion("dispatch_scope <", value, "dispatchScope");
-            return (Criteria) this;
-        }
-
-        public Criteria andDispatchScopeLessThanOrEqualTo(String value) {
-            addCriterion("dispatch_scope <=", value, "dispatchScope");
-            return (Criteria) this;
-        }
-
-        public Criteria andDispatchScopeLike(String value) {
-            addCriterion("dispatch_scope like", value, "dispatchScope");
-            return (Criteria) this;
-        }
-
-        public Criteria andDispatchScopeNotLike(String value) {
-            addCriterion("dispatch_scope not like", value, "dispatchScope");
-            return (Criteria) this;
-        }
-
-        public Criteria andDispatchScopeIn(List<String> values) {
-            addCriterion("dispatch_scope in", values, "dispatchScope");
-            return (Criteria) this;
-        }
-
-        public Criteria andDispatchScopeNotIn(List<String> values) {
-            addCriterion("dispatch_scope not in", values, "dispatchScope");
-            return (Criteria) this;
-        }
-
-        public Criteria andDispatchScopeBetween(String value1, String value2) {
-            addCriterion("dispatch_scope between", value1, value2, "dispatchScope");
-            return (Criteria) this;
-        }
-
-        public Criteria andDispatchScopeNotBetween(String value1, String value2) {
-            addCriterion("dispatch_scope not between", value1, value2, "dispatchScope");
-            return (Criteria) this;
-        }
-
         public Criteria andDemandTimeIsNull() {
             addCriterion("demand_time is null");
             return (Criteria) this;
@@ -882,76 +752,6 @@ public class InspectionTaskExample {
 
         public Criteria andDemandTimeNotBetween(Date value1, Date value2) {
             addCriterion("demand_time not between", value1, value2, "demandTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andItemListIsNull() {
-            addCriterion("item_list is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andItemListIsNotNull() {
-            addCriterion("item_list is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andItemListEqualTo(String value) {
-            addCriterion("item_list =", value, "itemList");
-            return (Criteria) this;
-        }
-
-        public Criteria andItemListNotEqualTo(String value) {
-            addCriterion("item_list <>", value, "itemList");
-            return (Criteria) this;
-        }
-
-        public Criteria andItemListGreaterThan(String value) {
-            addCriterion("item_list >", value, "itemList");
-            return (Criteria) this;
-        }
-
-        public Criteria andItemListGreaterThanOrEqualTo(String value) {
-            addCriterion("item_list >=", value, "itemList");
-            return (Criteria) this;
-        }
-
-        public Criteria andItemListLessThan(String value) {
-            addCriterion("item_list <", value, "itemList");
-            return (Criteria) this;
-        }
-
-        public Criteria andItemListLessThanOrEqualTo(String value) {
-            addCriterion("item_list <=", value, "itemList");
-            return (Criteria) this;
-        }
-
-        public Criteria andItemListLike(String value) {
-            addCriterion("item_list like", value, "itemList");
-            return (Criteria) this;
-        }
-
-        public Criteria andItemListNotLike(String value) {
-            addCriterion("item_list not like", value, "itemList");
-            return (Criteria) this;
-        }
-
-        public Criteria andItemListIn(List<String> values) {
-            addCriterion("item_list in", values, "itemList");
-            return (Criteria) this;
-        }
-
-        public Criteria andItemListNotIn(List<String> values) {
-            addCriterion("item_list not in", values, "itemList");
-            return (Criteria) this;
-        }
-
-        public Criteria andItemListBetween(String value1, String value2) {
-            addCriterion("item_list between", value1, value2, "itemList");
-            return (Criteria) this;
-        }
-
-        public Criteria andItemListNotBetween(String value1, String value2) {
-            addCriterion("item_list not between", value1, value2, "itemList");
             return (Criteria) this;
         }
 
@@ -1072,6 +872,126 @@ public class InspectionTaskExample {
 
         public Criteria andSubmitTimeNotBetween(Date value1, Date value2) {
             addCriterion("submit_time not between", value1, value2, "submitTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andDepIdIsNull() {
+            addCriterion("dep_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDepIdIsNotNull() {
+            addCriterion("dep_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDepIdEqualTo(Long value) {
+            addCriterion("dep_id =", value, "depId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDepIdNotEqualTo(Long value) {
+            addCriterion("dep_id <>", value, "depId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDepIdGreaterThan(Long value) {
+            addCriterion("dep_id >", value, "depId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDepIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("dep_id >=", value, "depId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDepIdLessThan(Long value) {
+            addCriterion("dep_id <", value, "depId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDepIdLessThanOrEqualTo(Long value) {
+            addCriterion("dep_id <=", value, "depId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDepIdIn(List<Long> values) {
+            addCriterion("dep_id in", values, "depId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDepIdNotIn(List<Long> values) {
+            addCriterion("dep_id not in", values, "depId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDepIdBetween(Long value1, Long value2) {
+            addCriterion("dep_id between", value1, value2, "depId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDepIdNotBetween(Long value1, Long value2) {
+            addCriterion("dep_id not between", value1, value2, "depId");
+            return (Criteria) this;
+        }
+
+        public Criteria andProjetIdIsNull() {
+            addCriterion("projet_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andProjetIdIsNotNull() {
+            addCriterion("projet_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andProjetIdEqualTo(Long value) {
+            addCriterion("projet_id =", value, "projetId");
+            return (Criteria) this;
+        }
+
+        public Criteria andProjetIdNotEqualTo(Long value) {
+            addCriterion("projet_id <>", value, "projetId");
+            return (Criteria) this;
+        }
+
+        public Criteria andProjetIdGreaterThan(Long value) {
+            addCriterion("projet_id >", value, "projetId");
+            return (Criteria) this;
+        }
+
+        public Criteria andProjetIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("projet_id >=", value, "projetId");
+            return (Criteria) this;
+        }
+
+        public Criteria andProjetIdLessThan(Long value) {
+            addCriterion("projet_id <", value, "projetId");
+            return (Criteria) this;
+        }
+
+        public Criteria andProjetIdLessThanOrEqualTo(Long value) {
+            addCriterion("projet_id <=", value, "projetId");
+            return (Criteria) this;
+        }
+
+        public Criteria andProjetIdIn(List<Long> values) {
+            addCriterion("projet_id in", values, "projetId");
+            return (Criteria) this;
+        }
+
+        public Criteria andProjetIdNotIn(List<Long> values) {
+            addCriterion("projet_id not in", values, "projetId");
+            return (Criteria) this;
+        }
+
+        public Criteria andProjetIdBetween(Long value1, Long value2) {
+            addCriterion("projet_id between", value1, value2, "projetId");
+            return (Criteria) this;
+        }
+
+        public Criteria andProjetIdNotBetween(Long value1, Long value2) {
+            addCriterion("projet_id not between", value1, value2, "projetId");
             return (Criteria) this;
         }
     }

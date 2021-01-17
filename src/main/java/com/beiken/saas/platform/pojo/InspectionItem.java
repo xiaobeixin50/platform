@@ -27,6 +27,14 @@ public class InspectionItem {
 
     private String feedbackOption;
 
+    private String feedbackResult;
+
+    private Long taskId;
+
+    private Long depId;
+
+    private Long projectId;
+
     public Integer getId() {
         return id;
     }
@@ -121,5 +129,37 @@ public class InspectionItem {
 
     public void setFeedbackOption(String feedbackOption) {
         this.feedbackOption = feedbackOption == null ? null : feedbackOption.trim();
+    }
+
+    public String getFeedbackResult() {
+        return feedbackResult;
+    }
+
+    public void setFeedbackResult(String feedbackResult) {
+        this.feedbackResult = feedbackResult == null ? null : feedbackResult.trim();
+    }
+
+    public Long getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(Long taskId) {
+        this.taskId = taskId;
+    }
+
+    public Long getDepId() {
+        return depId;
+    }
+
+    public void setDepId(Long depId) {
+        this.depId = depId;
+    }
+
+    public Long getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(Long projectId) {
+        this.projectId = projectId;
     }
 }

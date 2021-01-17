@@ -14,6 +14,10 @@
     <result column="level" jdbcType="INTEGER" property="level" />
     <result column="description" jdbcType="VARCHAR" property="description" />
     <result column="feedback_option" jdbcType="VARCHAR" property="feedbackOption" />
+    <result column="feedback_result" jdbcType="VARCHAR" property="feedbackResult" />
+    <result column="task_id" jdbcType="BIGINT" property="taskId" />
+    <result column="dep_id" jdbcType="BIGINT" property="depId" />
+    <result column="project_id" jdbcType="BIGINT" property="projectId" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -75,7 +79,7 @@
   </sql>
   <sql id="Base_Column_List">
     id, gmt_create, gmt_modified, creator, modifier, rfid, code, category, device, level, 
-    description, feedback_option
+    description, feedback_option, feedback_result, task_id, dep_id, project_id
   </sql>
   <select id="selectByExample" parameterType="com.beiken.saas.platform.pojo.InspectionItemExample" resultMap="BaseResultMap">
     select
@@ -112,13 +116,15 @@
     insert into inspection_item (id, gmt_create, gmt_modified, 
       creator, modifier, rfid, 
       code, category, device, 
-      level, description, feedback_option
-      )
+      level, description, feedback_option, 
+      feedback_result, task_id, dep_id, 
+      project_id)
     values (#{id,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
       #{creator,jdbcType=VARCHAR}, #{modifier,jdbcType=VARCHAR}, #{rfid,jdbcType=VARCHAR}, 
       #{code,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR}, #{device,jdbcType=VARCHAR}, 
-      #{level,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, #{feedbackOption,jdbcType=VARCHAR}
-      )
+      #{level,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, #{feedbackOption,jdbcType=VARCHAR}, 
+      #{feedbackResult,jdbcType=VARCHAR}, #{taskId,jdbcType=BIGINT}, #{depId,jdbcType=BIGINT}, 
+      #{projectId,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.beiken.saas.platform.pojo.InspectionItem">
     insert into inspection_item
@@ -159,6 +165,18 @@
       <if test="feedbackOption != null">
         feedback_option,
       </if>
+      <if test="feedbackResult != null">
+        feedback_result,
+      </if>
+      <if test="taskId != null">
+        task_id,
+      </if>
+      <if test="depId != null">
+        dep_id,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -196,6 +214,18 @@
       </if>
       <if test="feedbackOption != null">
         #{feedbackOption,jdbcType=VARCHAR},
+      </if>
+      <if test="feedbackResult != null">
+        #{feedbackResult,jdbcType=VARCHAR},
+      </if>
+      <if test="taskId != null">
+        #{taskId,jdbcType=BIGINT},
+      </if>
+      <if test="depId != null">
+        #{depId,jdbcType=BIGINT},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -244,6 +274,18 @@
       <if test="record.feedbackOption != null">
         feedback_option = #{record.feedbackOption,jdbcType=VARCHAR},
       </if>
+      <if test="record.feedbackResult != null">
+        feedback_result = #{record.feedbackResult,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskId != null">
+        task_id = #{record.taskId,jdbcType=BIGINT},
+      </if>
+      <if test="record.depId != null">
+        dep_id = #{record.depId,jdbcType=BIGINT},
+      </if>
+      <if test="record.projectId != null">
+        project_id = #{record.projectId,jdbcType=BIGINT},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -262,7 +304,11 @@
       device = #{record.device,jdbcType=VARCHAR},
       level = #{record.level,jdbcType=INTEGER},
       description = #{record.description,jdbcType=VARCHAR},
-      feedback_option = #{record.feedbackOption,jdbcType=VARCHAR}
+      feedback_option = #{record.feedbackOption,jdbcType=VARCHAR},
+      feedback_result = #{record.feedbackResult,jdbcType=VARCHAR},
+      task_id = #{record.taskId,jdbcType=BIGINT},
+      dep_id = #{record.depId,jdbcType=BIGINT},
+      project_id = #{record.projectId,jdbcType=BIGINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -303,6 +349,18 @@
       <if test="feedbackOption != null">
         feedback_option = #{feedbackOption,jdbcType=VARCHAR},
       </if>
+      <if test="feedbackResult != null">
+        feedback_result = #{feedbackResult,jdbcType=VARCHAR},
+      </if>
+      <if test="taskId != null">
+        task_id = #{taskId,jdbcType=BIGINT},
+      </if>
+      <if test="depId != null">
+        dep_id = #{depId,jdbcType=BIGINT},
+      </if>
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=BIGINT},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -318,7 +376,11 @@
       device = #{device,jdbcType=VARCHAR},
       level = #{level,jdbcType=INTEGER},
       description = #{description,jdbcType=VARCHAR},
-      feedback_option = #{feedbackOption,jdbcType=VARCHAR}
+      feedback_option = #{feedbackOption,jdbcType=VARCHAR},
+      feedback_result = #{feedbackResult,jdbcType=VARCHAR},
+      task_id = #{taskId,jdbcType=BIGINT},
+      dep_id = #{depId,jdbcType=BIGINT},
+      project_id = #{projectId,jdbcType=BIGINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

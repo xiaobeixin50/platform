@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.beiken.saas.platform.mapper.InspectionItemPlanMapper">
+  <resultMap id="BaseResultMap" type="com.beiken.saas.platform.pojo.InspectionItemPlan">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="category_first" jdbcType="VARCHAR" property="categoryFirst" />
+    <result column="category_second" jdbcType="VARCHAR" property="categorySecond" />
+    <result column="catetory_third" jdbcType="VARCHAR" property="catetoryThird" />
+    <result column="category_fourth" jdbcType="VARCHAR" property="categoryFourth" />
+    <result column="task_name" jdbcType="VARCHAR" property="taskName" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="cycle_unit" jdbcType="VARCHAR" property="cycleUnit" />
+    <result column="cycle_count" jdbcType="INTEGER" property="cycleCount" />
+    <result column="check_frequency" jdbcType="INTEGER" property="checkFrequency" />
+    <result column="dispatch_scope" jdbcType="VARCHAR" property="dispatchScope" />
+    <result column="start_time" jdbcType="TIME" property="startTime" />
+    <result column="end_time" jdbcType="TIME" property="endTime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="level" jdbcType="INTEGER" property="level" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, gmt_create, gmt_modified, category_first, category_second, catetory_third, category_fourth, 
+    task_name, content, cycle_unit, cycle_count, check_frequency, dispatch_scope, start_time, 
+    end_time, status, level
+  </sql>
+  <select id="selectByExample" parameterType="com.beiken.saas.platform.pojo.InspectionItemPlanExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from inspection_item_plan
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from inspection_item_plan
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from inspection_item_plan
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.beiken.saas.platform.pojo.InspectionItemPlanExample">
+    delete from inspection_item_plan
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.beiken.saas.platform.pojo.InspectionItemPlan">
+    insert into inspection_item_plan (id, gmt_create, gmt_modified, 
+      category_first, category_second, catetory_third, 
+      category_fourth, task_name, content, 
+      cycle_unit, cycle_count, check_frequency, 
+      dispatch_scope, start_time, end_time, 
+      status, level)
+    values (#{id,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{categoryFirst,jdbcType=VARCHAR}, #{categorySecond,jdbcType=VARCHAR}, #{catetoryThird,jdbcType=VARCHAR}, 
+      #{categoryFourth,jdbcType=VARCHAR}, #{taskName,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{cycleUnit,jdbcType=VARCHAR}, #{cycleCount,jdbcType=INTEGER}, #{checkFrequency,jdbcType=INTEGER}, 
+      #{dispatchScope,jdbcType=VARCHAR}, #{startTime,jdbcType=TIME}, #{endTime,jdbcType=TIME}, 
+      #{status,jdbcType=INTEGER}, #{level,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.beiken.saas.platform.pojo.InspectionItemPlan">
+    insert into inspection_item_plan
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+      <if test="categoryFirst != null">
+        category_first,
+      </if>
+      <if test="categorySecond != null">
+        category_second,
+      </if>
+      <if test="catetoryThird != null">
+        catetory_third,
+      </if>
+      <if test="categoryFourth != null">
+        category_fourth,
+      </if>
+      <if test="taskName != null">
+        task_name,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="cycleUnit != null">
+        cycle_unit,
+      </if>
+      <if test="cycleCount != null">
+        cycle_count,
+      </if>
+      <if test="checkFrequency != null">
+        check_frequency,
+      </if>
+      <if test="dispatchScope != null">
+        dispatch_scope,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="level != null">
+        level,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="categoryFirst != null">
+        #{categoryFirst,jdbcType=VARCHAR},
+      </if>
+      <if test="categorySecond != null">
+        #{categorySecond,jdbcType=VARCHAR},
+      </if>
+      <if test="catetoryThird != null">
+        #{catetoryThird,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryFourth != null">
+        #{categoryFourth,jdbcType=VARCHAR},
+      </if>
+      <if test="taskName != null">
+        #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="cycleUnit != null">
+        #{cycleUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="cycleCount != null">
+        #{cycleCount,jdbcType=INTEGER},
+      </if>
+      <if test="checkFrequency != null">
+        #{checkFrequency,jdbcType=INTEGER},
+      </if>
+      <if test="dispatchScope != null">
+        #{dispatchScope,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIME},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIME},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.beiken.saas.platform.pojo.InspectionItemPlanExample" resultType="java.lang.Long">
+    select count(*) from inspection_item_plan
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update inspection_item_plan
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.gmtCreate != null">
+        gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.gmtModified != null">
+        gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.categoryFirst != null">
+        category_first = #{record.categoryFirst,jdbcType=VARCHAR},
+      </if>
+      <if test="record.categorySecond != null">
+        category_second = #{record.categorySecond,jdbcType=VARCHAR},
+      </if>
+      <if test="record.catetoryThird != null">
+        catetory_third = #{record.catetoryThird,jdbcType=VARCHAR},
+      </if>
+      <if test="record.categoryFourth != null">
+        category_fourth = #{record.categoryFourth,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskName != null">
+        task_name = #{record.taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cycleUnit != null">
+        cycle_unit = #{record.cycleUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cycleCount != null">
+        cycle_count = #{record.cycleCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.checkFrequency != null">
+        check_frequency = #{record.checkFrequency,jdbcType=INTEGER},
+      </if>
+      <if test="record.dispatchScope != null">
+        dispatch_scope = #{record.dispatchScope,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startTime != null">
+        start_time = #{record.startTime,jdbcType=TIME},
+      </if>
+      <if test="record.endTime != null">
+        end_time = #{record.endTime,jdbcType=TIME},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.level != null">
+        level = #{record.level,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update inspection_item_plan
+    set id = #{record.id,jdbcType=BIGINT},
+      gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      category_first = #{record.categoryFirst,jdbcType=VARCHAR},
+      category_second = #{record.categorySecond,jdbcType=VARCHAR},
+      catetory_third = #{record.catetoryThird,jdbcType=VARCHAR},
+      category_fourth = #{record.categoryFourth,jdbcType=VARCHAR},
+      task_name = #{record.taskName,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=VARCHAR},
+      cycle_unit = #{record.cycleUnit,jdbcType=VARCHAR},
+      cycle_count = #{record.cycleCount,jdbcType=INTEGER},
+      check_frequency = #{record.checkFrequency,jdbcType=INTEGER},
+      dispatch_scope = #{record.dispatchScope,jdbcType=VARCHAR},
+      start_time = #{record.startTime,jdbcType=TIME},
+      end_time = #{record.endTime,jdbcType=TIME},
+      status = #{record.status,jdbcType=INTEGER},
+      level = #{record.level,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.beiken.saas.platform.pojo.InspectionItemPlan">
+    update inspection_item_plan
+    <set>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="categoryFirst != null">
+        category_first = #{categoryFirst,jdbcType=VARCHAR},
+      </if>
+      <if test="categorySecond != null">
+        category_second = #{categorySecond,jdbcType=VARCHAR},
+      </if>
+      <if test="catetoryThird != null">
+        catetory_third = #{catetoryThird,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryFourth != null">
+        category_fourth = #{categoryFourth,jdbcType=VARCHAR},
+      </if>
+      <if test="taskName != null">
+        task_name = #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="cycleUnit != null">
+        cycle_unit = #{cycleUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="cycleCount != null">
+        cycle_count = #{cycleCount,jdbcType=INTEGER},
+      </if>
+      <if test="checkFrequency != null">
+        check_frequency = #{checkFrequency,jdbcType=INTEGER},
+      </if>
+      <if test="dispatchScope != null">
+        dispatch_scope = #{dispatchScope,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=TIME},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=TIME},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="level != null">
+        level = #{level,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.beiken.saas.platform.pojo.InspectionItemPlan">
+    update inspection_item_plan
+    set gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      category_first = #{categoryFirst,jdbcType=VARCHAR},
+      category_second = #{categorySecond,jdbcType=VARCHAR},
+      catetory_third = #{catetoryThird,jdbcType=VARCHAR},
+      category_fourth = #{categoryFourth,jdbcType=VARCHAR},
+      task_name = #{taskName,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      cycle_unit = #{cycleUnit,jdbcType=VARCHAR},
+      cycle_count = #{cycleCount,jdbcType=INTEGER},
+      check_frequency = #{checkFrequency,jdbcType=INTEGER},
+      dispatch_scope = #{dispatchScope,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=TIME},
+      end_time = #{endTime,jdbcType=TIME},
+      status = #{status,jdbcType=INTEGER},
+      level = #{level,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

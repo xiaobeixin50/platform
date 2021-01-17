@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.beiken.saas.platform.mapper.InspectionTaskRecordMapper">
-  <resultMap id="BaseResultMap" type="com.beiken.saas.platform.pojo.InspectionTaskRecord">
-    <id column="id" jdbcType="BIGINT" property="id" />
+<mapper namespace="com.beiken.saas.platform.mapper.MineProjectMapper">
+  <resultMap id="BaseResultMap" type="com.beiken.saas.platform.pojo.MineProject">
+    <id column="id" jdbcType="INTEGER" property="id" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
-    <result column="creator" jdbcType="VARCHAR" property="creator" />
-    <result column="modifier" jdbcType="VARCHAR" property="modifier" />
-    <result column="code" jdbcType="VARCHAR" property="code" />
-    <result column="inspect_time" jdbcType="TIMESTAMP" property="inspectTime" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="dep_id" jdbcType="BIGINT" property="depId" />
-    <result column="project_id" jdbcType="BIGINT" property="projectId" />
-    <result column="demand_time" jdbcType="TIMESTAMP" property="demandTime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -72,17 +68,16 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, gmt_create, gmt_modified, creator, modifier, code, inspect_time, dep_id, project_id, 
-    demand_time
+    id, gmt_create, gmt_modified, name, dep_id, status
   </sql>
-  <select id="selectByExample" parameterType="com.beiken.saas.platform.pojo.InspectionTaskRecordExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.beiken.saas.platform.pojo.MineProjectExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     'true' as QUERYID,
     <include refid="Base_Column_List" />
-    from inspection_task_record
+    from mine_project
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -90,34 +85,30 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from inspection_task_record
-    where id = #{id,jdbcType=BIGINT}
+    from mine_project
+    where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from inspection_task_record
-    where id = #{id,jdbcType=BIGINT}
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from mine_project
+    where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.beiken.saas.platform.pojo.InspectionTaskRecordExample">
-    delete from inspection_task_record
+  <delete id="deleteByExample" parameterType="com.beiken.saas.platform.pojo.MineProjectExample">
+    delete from mine_project
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.beiken.saas.platform.pojo.InspectionTaskRecord">
-    insert into inspection_task_record (id, gmt_create, gmt_modified, 
-      creator, modifier, code, 
-      inspect_time, dep_id, project_id, 
-      demand_time)
-    values (#{id,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
-      #{creator,jdbcType=VARCHAR}, #{modifier,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
-      #{inspectTime,jdbcType=TIMESTAMP}, #{depId,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, 
-      #{demandTime,jdbcType=TIMESTAMP})
+  <insert id="insert" parameterType="com.beiken.saas.platform.pojo.MineProject">
+    insert into mine_project (id, gmt_create, gmt_modified, 
+      name, dep_id, status)
+    values (#{id,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{name,jdbcType=VARCHAR}, #{depId,jdbcType=BIGINT}, #{status,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.beiken.saas.platform.pojo.InspectionTaskRecord">
-    insert into inspection_task_record
+  <insert id="insertSelective" parameterType="com.beiken.saas.platform.pojo.MineProject">
+    insert into mine_project
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -128,31 +119,19 @@
       <if test="gmtModified != null">
         gmt_modified,
       </if>
-      <if test="creator != null">
-        creator,
-      </if>
-      <if test="modifier != null">
-        modifier,
-      </if>
-      <if test="code != null">
-        code,
-      </if>
-      <if test="inspectTime != null">
-        inspect_time,
+      <if test="name != null">
+        name,
       </if>
       <if test="depId != null">
         dep_id,
       </if>
-      <if test="projectId != null">
-        project_id,
-      </if>
-      <if test="demandTime != null">
-        demand_time,
+      <if test="status != null">
+        status,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=BIGINT},
+        #{id,jdbcType=INTEGER},
       </if>
       <if test="gmtCreate != null">
         #{gmtCreate,jdbcType=TIMESTAMP},
@@ -160,40 +139,28 @@
       <if test="gmtModified != null">
         #{gmtModified,jdbcType=TIMESTAMP},
       </if>
-      <if test="creator != null">
-        #{creator,jdbcType=VARCHAR},
-      </if>
-      <if test="modifier != null">
-        #{modifier,jdbcType=VARCHAR},
-      </if>
-      <if test="code != null">
-        #{code,jdbcType=VARCHAR},
-      </if>
-      <if test="inspectTime != null">
-        #{inspectTime,jdbcType=TIMESTAMP},
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
       </if>
       <if test="depId != null">
         #{depId,jdbcType=BIGINT},
       </if>
-      <if test="projectId != null">
-        #{projectId,jdbcType=BIGINT},
-      </if>
-      <if test="demandTime != null">
-        #{demandTime,jdbcType=TIMESTAMP},
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.beiken.saas.platform.pojo.InspectionTaskRecordExample" resultType="java.lang.Long">
-    select count(*) from inspection_task_record
+  <select id="countByExample" parameterType="com.beiken.saas.platform.pojo.MineProjectExample" resultType="java.lang.Long">
+    select count(*) from mine_project
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update inspection_task_record
+    update mine_project
     <set>
       <if test="record.id != null">
-        id = #{record.id,jdbcType=BIGINT},
+        id = #{record.id,jdbcType=INTEGER},
       </if>
       <if test="record.gmtCreate != null">
         gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
@@ -201,26 +168,14 @@
       <if test="record.gmtModified != null">
         gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.creator != null">
-        creator = #{record.creator,jdbcType=VARCHAR},
-      </if>
-      <if test="record.modifier != null">
-        modifier = #{record.modifier,jdbcType=VARCHAR},
-      </if>
-      <if test="record.code != null">
-        code = #{record.code,jdbcType=VARCHAR},
-      </if>
-      <if test="record.inspectTime != null">
-        inspect_time = #{record.inspectTime,jdbcType=TIMESTAMP},
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
       </if>
       <if test="record.depId != null">
         dep_id = #{record.depId,jdbcType=BIGINT},
       </if>
-      <if test="record.projectId != null">
-        project_id = #{record.projectId,jdbcType=BIGINT},
-      </if>
-      <if test="record.demandTime != null">
-        demand_time = #{record.demandTime,jdbcType=TIMESTAMP},
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null">
@@ -228,23 +183,19 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update inspection_task_record
-    set id = #{record.id,jdbcType=BIGINT},
+    update mine_project
+    set id = #{record.id,jdbcType=INTEGER},
       gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
-      creator = #{record.creator,jdbcType=VARCHAR},
-      modifier = #{record.modifier,jdbcType=VARCHAR},
-      code = #{record.code,jdbcType=VARCHAR},
-      inspect_time = #{record.inspectTime,jdbcType=TIMESTAMP},
+      name = #{record.name,jdbcType=VARCHAR},
       dep_id = #{record.depId,jdbcType=BIGINT},
-      project_id = #{record.projectId,jdbcType=BIGINT},
-      demand_time = #{record.demandTime,jdbcType=TIMESTAMP}
+      status = #{record.status,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.beiken.saas.platform.pojo.InspectionTaskRecord">
-    update inspection_task_record
+  <update id="updateByPrimaryKeySelective" parameterType="com.beiken.saas.platform.pojo.MineProject">
+    update mine_project
     <set>
       <if test="gmtCreate != null">
         gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
@@ -252,41 +203,25 @@
       <if test="gmtModified != null">
         gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
       </if>
-      <if test="creator != null">
-        creator = #{creator,jdbcType=VARCHAR},
-      </if>
-      <if test="modifier != null">
-        modifier = #{modifier,jdbcType=VARCHAR},
-      </if>
-      <if test="code != null">
-        code = #{code,jdbcType=VARCHAR},
-      </if>
-      <if test="inspectTime != null">
-        inspect_time = #{inspectTime,jdbcType=TIMESTAMP},
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
       </if>
       <if test="depId != null">
         dep_id = #{depId,jdbcType=BIGINT},
       </if>
-      <if test="projectId != null">
-        project_id = #{projectId,jdbcType=BIGINT},
-      </if>
-      <if test="demandTime != null">
-        demand_time = #{demandTime,jdbcType=TIMESTAMP},
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
       </if>
     </set>
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.beiken.saas.platform.pojo.InspectionTaskRecord">
-    update inspection_task_record
+  <update id="updateByPrimaryKey" parameterType="com.beiken.saas.platform.pojo.MineProject">
+    update mine_project
     set gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
-      creator = #{creator,jdbcType=VARCHAR},
-      modifier = #{modifier,jdbcType=VARCHAR},
-      code = #{code,jdbcType=VARCHAR},
-      inspect_time = #{inspectTime,jdbcType=TIMESTAMP},
+      name = #{name,jdbcType=VARCHAR},
       dep_id = #{depId,jdbcType=BIGINT},
-      project_id = #{projectId,jdbcType=BIGINT},
-      demand_time = #{demandTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=BIGINT}
+      status = #{status,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

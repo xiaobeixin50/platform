@@ -19,19 +19,17 @@ public class InspectionTask {
 
     private String title;
 
-    private Long planId;
-
     private Date dispatchTime;
 
-    private String dispatchScope;
-
     private Date demandTime;
-
-    private String itemList;
 
     private Integer status;
 
     private Date submitTime;
+
+    private Long depId;
+
+    private Long projetId;
 
     public Long getId() {
         return id;
@@ -97,14 +95,6 @@ public class InspectionTask {
         this.title = title == null ? null : title.trim();
     }
 
-    public Long getPlanId() {
-        return planId;
-    }
-
-    public void setPlanId(Long planId) {
-        this.planId = planId;
-    }
-
     public Date getDispatchTime() {
         return dispatchTime;
     }
@@ -113,28 +103,12 @@ public class InspectionTask {
         this.dispatchTime = dispatchTime;
     }
 
-    public String getDispatchScope() {
-        return dispatchScope;
-    }
-
-    public void setDispatchScope(String dispatchScope) {
-        this.dispatchScope = dispatchScope == null ? null : dispatchScope.trim();
-    }
-
     public Date getDemandTime() {
         return demandTime;
     }
 
     public void setDemandTime(Date demandTime) {
         this.demandTime = demandTime;
-    }
-
-    public String getItemList() {
-        return itemList;
-    }
-
-    public void setItemList(String itemList) {
-        this.itemList = itemList == null ? null : itemList.trim();
     }
 
     public Integer getStatus() {
@@ -151,5 +125,21 @@ public class InspectionTask {
 
     public void setSubmitTime(Date submitTime) {
         this.submitTime = submitTime;
+    }
+
+    public Long getDepId() {
+        return depId;
+    }
+
+    public void setDepId(Long depId) {
+        this.depId = depId;
+    }
+
+    public Long getProjetId() {
+        return projetId;
+    }
+
+    public void setProjetId(Long projetId) {
+        this.projetId = projetId;
     }
 }
