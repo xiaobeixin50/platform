@@ -131,6 +131,7 @@ public class StatisticsServiceImpl implements StatisticsService {
             list.add(item);
 
         }
+        result.put("list", list);
         return result;
     }
 
