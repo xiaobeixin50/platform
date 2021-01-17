@@ -19,7 +19,10 @@ public interface StatisticsService {
     public List<JSONObject> departmentStatics(Long depId);
 
     //巡检任务统计, 包含分公司和井队的数据？
-    public List<JSONObject> taskStatics(Long depId, Date staticsDate);
+    public JSONObject taskStatics(Long depId, Date staticsDate);
+
+    //按井队查询巡检任务
+    public JSONObject taskStaticsByTeam(Long depId, Date staticsDate);
 
     //监理人员统计
     public List<JSONObject> inspectorStatics(Long depId);

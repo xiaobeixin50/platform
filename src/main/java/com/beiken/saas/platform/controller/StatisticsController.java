@@ -56,9 +56,18 @@ public class StatisticsController {
 
     @ApiOperation("巡检任务统计, 包含分公司和井队的数据？")
     @GetMapping("taskStatics")
-    public Result<List<JSONObject>> taskStatics(Long depId, Date staticsDate) {
+    public Result<JSONObject> taskStatics(Long depId, Date staticsDate) {
 
-        List<JSONObject> result = statisticsService.taskStatics(depId, staticsDate);
+        //TODO: 需改为object + list的结构
+        JSONObject result = statisticsService.taskStatics(depId, staticsDate);
+        return Result.success(result);
+    }
+
+    @ApiOperation("按井队查询巡检任务")
+    @GetMapping("taskStaticsByTeam")
+    public Result<JSONObject> taskStaticsByTeam(Long depId, Date staticsDate) {
+
+        JSONObject result = statisticsService.taskStaticsByTeam(depId, staticsDate);
         return Result.success(result);
     }
 

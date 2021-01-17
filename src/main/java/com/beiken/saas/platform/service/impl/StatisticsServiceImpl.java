@@ -76,7 +76,7 @@ public class StatisticsServiceImpl implements StatisticsService {
     private List<JSONObject> mockTeamList(){
         List<JSONObject> teamList = new ArrayList<>();
         JSONObject team1 = new JSONObject();
-        team1.put("code", "H61W001井");
+        team1.put("place", "H61W001井");
         team1.put("teamName", "12队");
         team1.put("manager","张三");
         team1.put("danger", mockDangerList());
@@ -107,11 +107,19 @@ public class StatisticsServiceImpl implements StatisticsService {
     }
 
     @Override
-    public List<JSONObject> taskStatics(Long depId, Date staticsDate) {
+    public JSONObject taskStatics(Long depId, Date staticsDate) {
+        JSONObject result = new JSONObject();
+        result.put("dailyTotal", 50 );
+        result.put("dailyCompleted", 48);
+        result.put("monthlyTotal", 800);
+        result.put("ratio",95);
+        result.put("ratioOnTime",88);
+        result.put("dangerCount", 20);
         //mock数据
         List<JSONObject> list = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             JSONObject item = new JSONObject();
+            item.put("name", "北疆油服");
             item.put("dailyTotal", 50);
             item.put("dailyCompleted", 48);
 
@@ -119,12 +127,33 @@ public class StatisticsServiceImpl implements StatisticsService {
             item.put("ratio",95);
             item.put("ratioOnTime",88);
             item.put("dangerCount", 20);
-
             item.put("depList", mockDepTask());
             list.add(item);
 
         }
-        return list;
+        return result;
+    }
+
+    @Override
+    public JSONObject taskStaticsByTeam(Long depId, Date staticsDate) {
+        JSONObject result = new JSONObject();
+        result.put("name", "北疆油服 ***区块 ***井");
+        result.put("teamLeader","张三");
+        result.put("superviser", "李四");
+        //mock列表数据
+        List<JSONObject> list = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            JSONObject item = new JSONObject();
+            item.put("taskName" , "***井常规巡检1019");
+            item.put("inspector", "李四");
+            item.put("finishTime", "2020-10-30 08:00");
+            item.put("itemCount", 20);
+            item.put("ratio",95);
+            item.put("dangerCount", 20);
+            list.add(item);
+        }
+        result.put("list", list);
+        return result;
     }
 
     private List<JSONObject> mockDepTask(){
