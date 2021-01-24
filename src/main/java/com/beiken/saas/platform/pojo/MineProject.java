@@ -3,7 +3,7 @@ package com.beiken.saas.platform.pojo;
 import java.util.Date;
 
 public class MineProject {
-    private Integer id;
+    private Long id;
 
     private Date gmtCreate;
 
@@ -15,11 +15,11 @@ public class MineProject {
 
     private Integer status;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

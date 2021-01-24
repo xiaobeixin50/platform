@@ -113,25 +113,28 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.beiken.saas.platform.pojo.InspectionItem">
-    insert into inspection_item (id, gmt_create, gmt_modified, 
-      creator, modifier, rfid, 
-      code, category, device, 
-      level, description, feedback_option, 
-      feedback_result, task_id, dep_id, 
-      project_id)
-    values (#{id,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
-      #{creator,jdbcType=VARCHAR}, #{modifier,jdbcType=VARCHAR}, #{rfid,jdbcType=VARCHAR}, 
-      #{code,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR}, #{device,jdbcType=VARCHAR}, 
-      #{level,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, #{feedbackOption,jdbcType=VARCHAR}, 
-      #{feedbackResult,jdbcType=VARCHAR}, #{taskId,jdbcType=BIGINT}, #{depId,jdbcType=BIGINT}, 
-      #{projectId,jdbcType=BIGINT})
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into inspection_item (gmt_create, gmt_modified, creator, 
+      modifier, rfid, code, 
+      category, device, level, 
+      description, feedback_option, feedback_result, 
+      task_id, dep_id, project_id
+      )
+    values (#{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{creator,jdbcType=VARCHAR}, 
+      #{modifier,jdbcType=VARCHAR}, #{rfid,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
+      #{category,jdbcType=VARCHAR}, #{device,jdbcType=VARCHAR}, #{level,jdbcType=INTEGER}, 
+      #{description,jdbcType=VARCHAR}, #{feedbackOption,jdbcType=VARCHAR}, #{feedbackResult,jdbcType=VARCHAR}, 
+      #{taskId,jdbcType=BIGINT}, #{depId,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.beiken.saas.platform.pojo.InspectionItem">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into inspection_item
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
       <if test="gmtCreate != null">
         gmt_create,
       </if>
@@ -179,9 +182,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
       <if test="gmtCreate != null">
         #{gmtCreate,jdbcType=TIMESTAMP},
       </if>

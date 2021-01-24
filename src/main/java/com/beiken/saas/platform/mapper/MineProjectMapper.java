@@ -10,7 +10,7 @@ public interface MineProjectMapper {
 
     int deleteByExample(MineProjectExample example);
 
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(Long id);
 
     int insert(MineProject record);
 
@@ -18,7 +18,7 @@ public interface MineProjectMapper {
 
     List<MineProject> selectByExample(MineProjectExample example);
 
-    MineProject selectByPrimaryKey(Integer id);
+    MineProject selectByPrimaryKey(Long id);
 
     int updateByExampleSelective(@Param("record") MineProject record, @Param("example") MineProjectExample example);
 

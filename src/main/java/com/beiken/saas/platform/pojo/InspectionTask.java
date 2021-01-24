@@ -31,6 +31,8 @@ public class InspectionTask {
 
     private Long projetId;
 
+    private Long empId;
+
     public Long getId() {
         return id;
     }
@@ -141,5 +143,13 @@ public class InspectionTask {
 
     public void setProjetId(Long projetId) {
         this.projetId = projetId;
+    }
+
+    public Long getEmpId() {
+        return empId;
+    }
+
+    public void setEmpId(Long empId) {
+        this.empId = empId;
     }
 }
