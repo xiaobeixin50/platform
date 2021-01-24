@@ -1,6 +1,7 @@
 package com.beiken.saas.platform.service;
 
-import com.beiken.saas.platform.entity.InspectionTask;
+import com.beiken.saas.platform.biz.vo.TaskRecordVO;
+import com.beiken.saas.platform.pojo.InspectionTask;
 
 import java.util.List;
 
@@ -11,6 +12,8 @@ import java.util.List;
  * @since 2020-11-21 11:15:10
  */
 public interface InspectionTaskService {
+
+    List<TaskRecordVO> getTask(Long empId);
 
     /**
      * 通过ID查询单条数据

@@ -68,20 +68,23 @@ public class InspectionTaskController {
     @ApiOperation("获取巡检任务列表")
     @GetMapping("getList")
     public Result<List<TaskRecordVO>> getTaskList(Long id) {
-        List<TaskRecordVO> data = new ArrayList<>();
-        for(int i =0; i<10; i++){
-            TaskRecordVO task = new TaskRecordVO();
-            task.setCode("test" + i);
-            task.setDemandTime(new Date());
-            task.setTitle("测试任务" + i);
-            task.setProcess(80);
-            task.setItemCount(i);
-            task.setRiskCount(i);
-            task.setFinishTime(new Date());
-            task.setStatus(0);
-            data.add(task);
-        }
-        return Result.success(data);
+
+        List<TaskRecordVO> task = inspectionTaskService.getTask(id);
+        return Result.success(task);
+//        List<TaskRecordVO> data = new ArrayList<>();
+//        for(int i =0; i<10; i++){
+//            TaskRecordVO task = new TaskRecordVO();
+//            task.setCode("test" + i);
+//            task.setDemandTime(new Date());
+//            task.setTitle("测试任务" + i);
+//            task.setProcess(80);
+//            task.setItemCount(i);
+//            task.setRiskCount(i);
+//            task.setFinishTime(new Date());
+//            task.setStatus(0);
+//            data.add(task);
+//        }
+//        return Result.success(data);
     }
 
 }
