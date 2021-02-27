@@ -1,0 +1,135 @@
+package com.beiken.saas.platform.pojo;
+
+import java.util.Date;
+
+public class InspectTaskItem {
+    private Long id;
+
+    private Date gmtCreate;
+
+    private Date gmtModified;
+
+    private String taskCode;
+
+    private String inspcetPlanCode;
+
+    private String bgItemCode;
+
+    private String photo;
+
+    private String extra;
+
+    private String dangerLevel;
+
+    private String breakUser;
+
+    private String resUser;
+
+    private Integer resultStatus;
+
+    private Date endDate;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Date getGmtCreate() {
+        return gmtCreate;
+    }
+
+    public void setGmtCreate(Date gmtCreate) {
+        this.gmtCreate = gmtCreate;
+    }
+
+    public Date getGmtModified() {
+        return gmtModified;
+    }
+
+    public void setGmtModified(Date gmtModified) {
+        this.gmtModified = gmtModified;
+    }
+
+    public String getTaskCode() {
+        return taskCode;
+    }
+
+    public void setTaskCode(String taskCode) {
+        this.taskCode = taskCode == null ? null : taskCode.trim();
+    }
+
+    public String getInspcetPlanCode() {
+        return inspcetPlanCode;
+    }
+
+    public void setInspcetPlanCode(String inspcetPlanCode) {
+        this.inspcetPlanCode = inspcetPlanCode == null ? null : inspcetPlanCode.trim();
+    }
+
+    public String getBgItemCode() {
+        return bgItemCode;
+    }
+
+    public void setBgItemCode(String bgItemCode) {
+        this.bgItemCode = bgItemCode == null ? null : bgItemCode.trim();
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo == null ? null : photo.trim();
+    }
+
+    public String getExtra() {
+        return extra;
+    }
+
+    public void setExtra(String extra) {
+        this.extra = extra == null ? null : extra.trim();
+    }
+
+    public String getDangerLevel() {
+        return dangerLevel;
+    }
+
+    public void setDangerLevel(String dangerLevel) {
+        this.dangerLevel = dangerLevel == null ? null : dangerLevel.trim();
+    }
+
+    public String getBreakUser() {
+        return breakUser;
+    }
+
+    public void setBreakUser(String breakUser) {
+        this.breakUser = breakUser == null ? null : breakUser.trim();
+    }
+
+    public String getResUser() {
+        return resUser;
+    }
+
+    public void setResUser(String resUser) {
+        this.resUser = resUser == null ? null : resUser.trim();
+    }
+
+    public Integer getResultStatus() {
+        return resultStatus;
+    }
+
+    public void setResultStatus(Integer resultStatus) {
+        this.resultStatus = resultStatus;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+}

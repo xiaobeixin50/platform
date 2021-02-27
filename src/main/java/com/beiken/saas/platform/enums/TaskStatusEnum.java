@@ -4,6 +4,4 @@ public enum TaskStatusEnum {
     NotBegin,
     Processing,
     Finished;
-
-
 }

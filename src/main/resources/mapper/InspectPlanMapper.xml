@@ -1,0 +1,526 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.beiken.saas.platform.mapper.InspectPlanMapper">
+  <resultMap id="BaseResultMap" type="com.beiken.saas.platform.pojo.InspectPlan">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="inspect_plan_code" jdbcType="VARCHAR" property="inspectPlanCode" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="priority" jdbcType="VARCHAR" property="priority" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="freq" jdbcType="VARCHAR" property="freq" />
+    <result column="start_date" jdbcType="TIMESTAMP" property="startDate" />
+    <result column="end_date" jdbcType="TIMESTAMP" property="endDate" />
+    <result column="start_time" jdbcType="VARCHAR" property="startTime" />
+    <result column="end_time" jdbcType="VARCHAR" property="endTime" />
+    <result column="every_day" jdbcType="INTEGER" property="everyDay" />
+    <result column="count_day" jdbcType="INTEGER" property="countDay" />
+    <result column="start_number" jdbcType="INTEGER" property="startNumber" />
+    <result column="end_number" jdbcType="INTEGER" property="endNumber" />
+    <result column="bg_code" jdbcType="VARCHAR" property="bgCode" />
+    <result column="step" jdbcType="INTEGER" property="step" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.beiken.saas.platform.pojo.InspectPlan">
+    <result column="extra" jdbcType="LONGVARCHAR" property="extra" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, gmt_create, gmt_modified, inspect_plan_code, name, type, priority, status, freq, 
+    start_date, end_date, start_time, end_time, every_day, count_day, start_number, end_number, 
+    bg_code, step
+  </sql>
+  <sql id="Blob_Column_List">
+    extra
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.beiken.saas.platform.pojo.InspectPlanExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sft_inspect_plan
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >= 0">
+      limit ${limitStart} , ${count}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.beiken.saas.platform.pojo.InspectPlanExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from sft_inspect_plan
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >= 0">
+      limit ${limitStart} , ${count}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sft_inspect_plan
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sft_inspect_plan
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.beiken.saas.platform.pojo.InspectPlanExample">
+    delete from sft_inspect_plan
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.beiken.saas.platform.pojo.InspectPlan">
+    insert into sft_inspect_plan (id, gmt_create, gmt_modified, 
+      inspect_plan_code, name, type, 
+      priority, status, freq, 
+      start_date, end_date, start_time, 
+      end_time, every_day, count_day, 
+      start_number, end_number, bg_code, 
+      step, extra)
+    values (#{id,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{inspectPlanCode,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{priority,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{freq,jdbcType=VARCHAR}, 
+      #{startDate,jdbcType=TIMESTAMP}, #{endDate,jdbcType=TIMESTAMP}, #{startTime,jdbcType=VARCHAR}, 
+      #{endTime,jdbcType=VARCHAR}, #{everyDay,jdbcType=INTEGER}, #{countDay,jdbcType=INTEGER}, 
+      #{startNumber,jdbcType=INTEGER}, #{endNumber,jdbcType=INTEGER}, #{bgCode,jdbcType=VARCHAR}, 
+      #{step,jdbcType=INTEGER}, #{extra,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.beiken.saas.platform.pojo.InspectPlan">
+    insert into sft_inspect_plan
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+      <if test="inspectPlanCode != null">
+        inspect_plan_code,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="priority != null">
+        priority,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="freq != null">
+        freq,
+      </if>
+      <if test="startDate != null">
+        start_date,
+      </if>
+      <if test="endDate != null">
+        end_date,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="everyDay != null">
+        every_day,
+      </if>
+      <if test="countDay != null">
+        count_day,
+      </if>
+      <if test="startNumber != null">
+        start_number,
+      </if>
+      <if test="endNumber != null">
+        end_number,
+      </if>
+      <if test="bgCode != null">
+        bg_code,
+      </if>
+      <if test="step != null">
+        step,
+      </if>
+      <if test="extra != null">
+        extra,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inspectPlanCode != null">
+        #{inspectPlanCode,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null">
+        #{priority,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="freq != null">
+        #{freq,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null">
+        #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null">
+        #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="everyDay != null">
+        #{everyDay,jdbcType=INTEGER},
+      </if>
+      <if test="countDay != null">
+        #{countDay,jdbcType=INTEGER},
+      </if>
+      <if test="startNumber != null">
+        #{startNumber,jdbcType=INTEGER},
+      </if>
+      <if test="endNumber != null">
+        #{endNumber,jdbcType=INTEGER},
+      </if>
+      <if test="bgCode != null">
+        #{bgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="step != null">
+        #{step,jdbcType=INTEGER},
+      </if>
+      <if test="extra != null">
+        #{extra,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.beiken.saas.platform.pojo.InspectPlanExample" resultType="java.lang.Long">
+    select count(*) from sft_inspect_plan
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sft_inspect_plan
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.gmtCreate != null">
+        gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.gmtModified != null">
+        gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.inspectPlanCode != null">
+        inspect_plan_code = #{record.inspectPlanCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null">
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.priority != null">
+        priority = #{record.priority,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.freq != null">
+        freq = #{record.freq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startDate != null">
+        start_date = #{record.startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endDate != null">
+        end_date = #{record.endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.startTime != null">
+        start_time = #{record.startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.endTime != null">
+        end_time = #{record.endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.everyDay != null">
+        every_day = #{record.everyDay,jdbcType=INTEGER},
+      </if>
+      <if test="record.countDay != null">
+        count_day = #{record.countDay,jdbcType=INTEGER},
+      </if>
+      <if test="record.startNumber != null">
+        start_number = #{record.startNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.endNumber != null">
+        end_number = #{record.endNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.bgCode != null">
+        bg_code = #{record.bgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.step != null">
+        step = #{record.step,jdbcType=INTEGER},
+      </if>
+      <if test="record.extra != null">
+        extra = #{record.extra,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update sft_inspect_plan
+    set id = #{record.id,jdbcType=BIGINT},
+      gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      inspect_plan_code = #{record.inspectPlanCode,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=VARCHAR},
+      priority = #{record.priority,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      freq = #{record.freq,jdbcType=VARCHAR},
+      start_date = #{record.startDate,jdbcType=TIMESTAMP},
+      end_date = #{record.endDate,jdbcType=TIMESTAMP},
+      start_time = #{record.startTime,jdbcType=VARCHAR},
+      end_time = #{record.endTime,jdbcType=VARCHAR},
+      every_day = #{record.everyDay,jdbcType=INTEGER},
+      count_day = #{record.countDay,jdbcType=INTEGER},
+      start_number = #{record.startNumber,jdbcType=INTEGER},
+      end_number = #{record.endNumber,jdbcType=INTEGER},
+      bg_code = #{record.bgCode,jdbcType=VARCHAR},
+      step = #{record.step,jdbcType=INTEGER},
+      extra = #{record.extra,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sft_inspect_plan
+    set id = #{record.id,jdbcType=BIGINT},
+      gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      inspect_plan_code = #{record.inspectPlanCode,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=VARCHAR},
+      priority = #{record.priority,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      freq = #{record.freq,jdbcType=VARCHAR},
+      start_date = #{record.startDate,jdbcType=TIMESTAMP},
+      end_date = #{record.endDate,jdbcType=TIMESTAMP},
+      start_time = #{record.startTime,jdbcType=VARCHAR},
+      end_time = #{record.endTime,jdbcType=VARCHAR},
+      every_day = #{record.everyDay,jdbcType=INTEGER},
+      count_day = #{record.countDay,jdbcType=INTEGER},
+      start_number = #{record.startNumber,jdbcType=INTEGER},
+      end_number = #{record.endNumber,jdbcType=INTEGER},
+      bg_code = #{record.bgCode,jdbcType=VARCHAR},
+      step = #{record.step,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.beiken.saas.platform.pojo.InspectPlan">
+    update sft_inspect_plan
+    <set>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inspectPlanCode != null">
+        inspect_plan_code = #{inspectPlanCode,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null">
+        priority = #{priority,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="freq != null">
+        freq = #{freq,jdbcType=VARCHAR},
+      </if>
+      <if test="startDate != null">
+        start_date = #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null">
+        end_date = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="everyDay != null">
+        every_day = #{everyDay,jdbcType=INTEGER},
+      </if>
+      <if test="countDay != null">
+        count_day = #{countDay,jdbcType=INTEGER},
+      </if>
+      <if test="startNumber != null">
+        start_number = #{startNumber,jdbcType=INTEGER},
+      </if>
+      <if test="endNumber != null">
+        end_number = #{endNumber,jdbcType=INTEGER},
+      </if>
+      <if test="bgCode != null">
+        bg_code = #{bgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="step != null">
+        step = #{step,jdbcType=INTEGER},
+      </if>
+      <if test="extra != null">
+        extra = #{extra,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.beiken.saas.platform.pojo.InspectPlan">
+    update sft_inspect_plan
+    set gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      inspect_plan_code = #{inspectPlanCode,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      priority = #{priority,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      freq = #{freq,jdbcType=VARCHAR},
+      start_date = #{startDate,jdbcType=TIMESTAMP},
+      end_date = #{endDate,jdbcType=TIMESTAMP},
+      start_time = #{startTime,jdbcType=VARCHAR},
+      end_time = #{endTime,jdbcType=VARCHAR},
+      every_day = #{everyDay,jdbcType=INTEGER},
+      count_day = #{countDay,jdbcType=INTEGER},
+      start_number = #{startNumber,jdbcType=INTEGER},
+      end_number = #{endNumber,jdbcType=INTEGER},
+      bg_code = #{bgCode,jdbcType=VARCHAR},
+      step = #{step,jdbcType=INTEGER},
+      extra = #{extra,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.beiken.saas.platform.pojo.InspectPlan">
+    update sft_inspect_plan
+    set gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      inspect_plan_code = #{inspectPlanCode,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      priority = #{priority,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      freq = #{freq,jdbcType=VARCHAR},
+      start_date = #{startDate,jdbcType=TIMESTAMP},
+      end_date = #{endDate,jdbcType=TIMESTAMP},
+      start_time = #{startTime,jdbcType=VARCHAR},
+      end_time = #{endTime,jdbcType=VARCHAR},
+      every_day = #{everyDay,jdbcType=INTEGER},
+      count_day = #{countDay,jdbcType=INTEGER},
+      start_number = #{startNumber,jdbcType=INTEGER},
+      end_number = #{endNumber,jdbcType=INTEGER},
+      bg_code = #{bgCode,jdbcType=VARCHAR},
+      step = #{step,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.beiken.saas.platform.mapper.BgInspectItemMapper">
+  <resultMap id="BaseResultMap" type="com.beiken.saas.platform.pojo.BgInspectItem">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="inspect_item_code" jdbcType="VARCHAR" property="inspectItemCode" />
+    <result column="bg_code" jdbcType="VARCHAR" property="bgCode" />
+    <result column="inspect_type" jdbcType="VARCHAR" property="inspectType" />
+    <result column="manage_type" jdbcType="VARCHAR" property="manageType" />
+    <result column="region" jdbcType="VARCHAR" property="region" />
+    <result column="equipment" jdbcType="VARCHAR" property="equipment" />
+    <result column="adapt" jdbcType="VARCHAR" property="adapt" />
+    <result column="danger_level" jdbcType="INTEGER" property="dangerLevel" />
+    <result column="site" jdbcType="VARCHAR" property="site" />
+    <result column="is_photo" jdbcType="INTEGER" property="isPhoto" />
+    <result column="is_card" jdbcType="INTEGER" property="isCard" />
+    <result column="card_site" jdbcType="VARCHAR" property="cardSite" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.beiken.saas.platform.pojo.BgInspectItem">
+    <result column="control_extra" jdbcType="LONGVARCHAR" property="controlExtra" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, gmt_create, gmt_modified, inspect_item_code, bg_code, inspect_type, manage_type, 
+    region, equipment, adapt, danger_level, site, is_photo, is_card, card_site
+  </sql>
+  <sql id="Blob_Column_List">
+    control_extra
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.beiken.saas.platform.pojo.BgInspectItemExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sft_bg_inspect_item
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >= 0">
+      limit ${limitStart} , ${count}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.beiken.saas.platform.pojo.BgInspectItemExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from sft_bg_inspect_item
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >= 0">
+      limit ${limitStart} , ${count}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sft_bg_inspect_item
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sft_bg_inspect_item
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.beiken.saas.platform.pojo.BgInspectItemExample">
+    delete from sft_bg_inspect_item
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.beiken.saas.platform.pojo.BgInspectItem">
+    insert into sft_bg_inspect_item (id, gmt_create, gmt_modified, 
+      inspect_item_code, bg_code, inspect_type, 
+      manage_type, region, equipment, 
+      adapt, danger_level, site, 
+      is_photo, is_card, card_site, 
+      control_extra)
+    values (#{id,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{inspectItemCode,jdbcType=VARCHAR}, #{bgCode,jdbcType=VARCHAR}, #{inspectType,jdbcType=VARCHAR}, 
+      #{manageType,jdbcType=VARCHAR}, #{region,jdbcType=VARCHAR}, #{equipment,jdbcType=VARCHAR}, 
+      #{adapt,jdbcType=VARCHAR}, #{dangerLevel,jdbcType=INTEGER}, #{site,jdbcType=VARCHAR}, 
+      #{isPhoto,jdbcType=INTEGER}, #{isCard,jdbcType=INTEGER}, #{cardSite,jdbcType=VARCHAR}, 
+      #{controlExtra,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.beiken.saas.platform.pojo.BgInspectItem">
+    insert into sft_bg_inspect_item
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+      <if test="inspectItemCode != null">
+        inspect_item_code,
+      </if>
+      <if test="bgCode != null">
+        bg_code,
+      </if>
+      <if test="inspectType != null">
+        inspect_type,
+      </if>
+      <if test="manageType != null">
+        manage_type,
+      </if>
+      <if test="region != null">
+        region,
+      </if>
+      <if test="equipment != null">
+        equipment,
+      </if>
+      <if test="adapt != null">
+        adapt,
+      </if>
+      <if test="dangerLevel != null">
+        danger_level,
+      </if>
+      <if test="site != null">
+        site,
+      </if>
+      <if test="isPhoto != null">
+        is_photo,
+      </if>
+      <if test="isCard != null">
+        is_card,
+      </if>
+      <if test="cardSite != null">
+        card_site,
+      </if>
+      <if test="controlExtra != null">
+        control_extra,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inspectItemCode != null">
+        #{inspectItemCode,jdbcType=VARCHAR},
+      </if>
+      <if test="bgCode != null">
+        #{bgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectType != null">
+        #{inspectType,jdbcType=VARCHAR},
+      </if>
+      <if test="manageType != null">
+        #{manageType,jdbcType=VARCHAR},
+      </if>
+      <if test="region != null">
+        #{region,jdbcType=VARCHAR},
+      </if>
+      <if test="equipment != null">
+        #{equipment,jdbcType=VARCHAR},
+      </if>
+      <if test="adapt != null">
+        #{adapt,jdbcType=VARCHAR},
+      </if>
+      <if test="dangerLevel != null">
+        #{dangerLevel,jdbcType=INTEGER},
+      </if>
+      <if test="site != null">
+        #{site,jdbcType=VARCHAR},
+      </if>
+      <if test="isPhoto != null">
+        #{isPhoto,jdbcType=INTEGER},
+      </if>
+      <if test="isCard != null">
+        #{isCard,jdbcType=INTEGER},
+      </if>
+      <if test="cardSite != null">
+        #{cardSite,jdbcType=VARCHAR},
+      </if>
+      <if test="controlExtra != null">
+        #{controlExtra,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.beiken.saas.platform.pojo.BgInspectItemExample" resultType="java.lang.Long">
+    select count(*) from sft_bg_inspect_item
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sft_bg_inspect_item
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.gmtCreate != null">
+        gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.gmtModified != null">
+        gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.inspectItemCode != null">
+        inspect_item_code = #{record.inspectItemCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bgCode != null">
+        bg_code = #{record.bgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inspectType != null">
+        inspect_type = #{record.inspectType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.manageType != null">
+        manage_type = #{record.manageType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.region != null">
+        region = #{record.region,jdbcType=VARCHAR},
+      </if>
+      <if test="record.equipment != null">
+        equipment = #{record.equipment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adapt != null">
+        adapt = #{record.adapt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dangerLevel != null">
+        danger_level = #{record.dangerLevel,jdbcType=INTEGER},
+      </if>
+      <if test="record.site != null">
+        site = #{record.site,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isPhoto != null">
+        is_photo = #{record.isPhoto,jdbcType=INTEGER},
+      </if>
+      <if test="record.isCard != null">
+        is_card = #{record.isCard,jdbcType=INTEGER},
+      </if>
+      <if test="record.cardSite != null">
+        card_site = #{record.cardSite,jdbcType=VARCHAR},
+      </if>
+      <if test="record.controlExtra != null">
+        control_extra = #{record.controlExtra,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update sft_bg_inspect_item
+    set id = #{record.id,jdbcType=BIGINT},
+      gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      inspect_item_code = #{record.inspectItemCode,jdbcType=VARCHAR},
+      bg_code = #{record.bgCode,jdbcType=VARCHAR},
+      inspect_type = #{record.inspectType,jdbcType=VARCHAR},
+      manage_type = #{record.manageType,jdbcType=VARCHAR},
+      region = #{record.region,jdbcType=VARCHAR},
+      equipment = #{record.equipment,jdbcType=VARCHAR},
+      adapt = #{record.adapt,jdbcType=VARCHAR},
+      danger_level = #{record.dangerLevel,jdbcType=INTEGER},
+      site = #{record.site,jdbcType=VARCHAR},
+      is_photo = #{record.isPhoto,jdbcType=INTEGER},
+      is_card = #{record.isCard,jdbcType=INTEGER},
+      card_site = #{record.cardSite,jdbcType=VARCHAR},
+      control_extra = #{record.controlExtra,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sft_bg_inspect_item
+    set id = #{record.id,jdbcType=BIGINT},
+      gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      inspect_item_code = #{record.inspectItemCode,jdbcType=VARCHAR},
+      bg_code = #{record.bgCode,jdbcType=VARCHAR},
+      inspect_type = #{record.inspectType,jdbcType=VARCHAR},
+      manage_type = #{record.manageType,jdbcType=VARCHAR},
+      region = #{record.region,jdbcType=VARCHAR},
+      equipment = #{record.equipment,jdbcType=VARCHAR},
+      adapt = #{record.adapt,jdbcType=VARCHAR},
+      danger_level = #{record.dangerLevel,jdbcType=INTEGER},
+      site = #{record.site,jdbcType=VARCHAR},
+      is_photo = #{record.isPhoto,jdbcType=INTEGER},
+      is_card = #{record.isCard,jdbcType=INTEGER},
+      card_site = #{record.cardSite,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.beiken.saas.platform.pojo.BgInspectItem">
+    update sft_bg_inspect_item
+    <set>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inspectItemCode != null">
+        inspect_item_code = #{inspectItemCode,jdbcType=VARCHAR},
+      </if>
+      <if test="bgCode != null">
+        bg_code = #{bgCode,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectType != null">
+        inspect_type = #{inspectType,jdbcType=VARCHAR},
+      </if>
+      <if test="manageType != null">
+        manage_type = #{manageType,jdbcType=VARCHAR},
+      </if>
+      <if test="region != null">
+        region = #{region,jdbcType=VARCHAR},
+      </if>
+      <if test="equipment != null">
+        equipment = #{equipment,jdbcType=VARCHAR},
+      </if>
+      <if test="adapt != null">
+        adapt = #{adapt,jdbcType=VARCHAR},
+      </if>
+      <if test="dangerLevel != null">
+        danger_level = #{dangerLevel,jdbcType=INTEGER},
+      </if>
+      <if test="site != null">
+        site = #{site,jdbcType=VARCHAR},
+      </if>
+      <if test="isPhoto != null">
+        is_photo = #{isPhoto,jdbcType=INTEGER},
+      </if>
+      <if test="isCard != null">
+        is_card = #{isCard,jdbcType=INTEGER},
+      </if>
+      <if test="cardSite != null">
+        card_site = #{cardSite,jdbcType=VARCHAR},
+      </if>
+      <if test="controlExtra != null">
+        control_extra = #{controlExtra,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.beiken.saas.platform.pojo.BgInspectItem">
+    update sft_bg_inspect_item
+    set gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      inspect_item_code = #{inspectItemCode,jdbcType=VARCHAR},
+      bg_code = #{bgCode,jdbcType=VARCHAR},
+      inspect_type = #{inspectType,jdbcType=VARCHAR},
+      manage_type = #{manageType,jdbcType=VARCHAR},
+      region = #{region,jdbcType=VARCHAR},
+      equipment = #{equipment,jdbcType=VARCHAR},
+      adapt = #{adapt,jdbcType=VARCHAR},
+      danger_level = #{dangerLevel,jdbcType=INTEGER},
+      site = #{site,jdbcType=VARCHAR},
+      is_photo = #{isPhoto,jdbcType=INTEGER},
+      is_card = #{isCard,jdbcType=INTEGER},
+      card_site = #{cardSite,jdbcType=VARCHAR},
+      control_extra = #{controlExtra,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.beiken.saas.platform.pojo.BgInspectItem">
+    update sft_bg_inspect_item
+    set gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      inspect_item_code = #{inspectItemCode,jdbcType=VARCHAR},
+      bg_code = #{bgCode,jdbcType=VARCHAR},
+      inspect_type = #{inspectType,jdbcType=VARCHAR},
+      manage_type = #{manageType,jdbcType=VARCHAR},
+      region = #{region,jdbcType=VARCHAR},
+      equipment = #{equipment,jdbcType=VARCHAR},
+      adapt = #{adapt,jdbcType=VARCHAR},
+      danger_level = #{dangerLevel,jdbcType=INTEGER},
+      site = #{site,jdbcType=VARCHAR},
+      is_photo = #{isPhoto,jdbcType=INTEGER},
+      is_card = #{isCard,jdbcType=INTEGER},
+      card_site = #{cardSite,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

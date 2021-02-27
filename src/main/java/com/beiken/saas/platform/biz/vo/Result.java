@@ -13,6 +13,10 @@ public class Result<T> {
 
     private Boolean success;
 
+    public static <T> Result<T> success(){
+        return success(null);
+    }
+
     public static <T> Result<T> success(T data){
         Result result = new Result();
         result.msgInfo = "成功";
@@ -22,7 +26,11 @@ public class Result<T> {
         return result;
     }
 
-    public static <T> Result<T> failed(String msgCode, String msgInfo){
+    public static <T> Result<T> error(){
+        return error("ERROR","请求失败");
+    }
+
+    public static <T> Result<T> error(String msgCode, String msgInfo){
         Result result = new Result();
         result.msgCode = msgCode;
         result.msgInfo = msgInfo;

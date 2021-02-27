@@ -9,6 +9,8 @@ public class User {
 
     private Date gmtModified;
 
+    private String empId;
+
     private String account;
 
     private String name;
@@ -17,6 +19,8 @@ public class User {
 
     private Date registerTime;
 
+    private Long roleId;
+
     private String role;
 
     private String profilePhoto;
@@ -24,8 +28,6 @@ public class User {
     private Long depId;
 
     private String depName;
-
-    private String position;
 
     public Long getId() {
         return id;
@@ -49,6 +51,14 @@ public class User {
 
     public void setGmtModified(Date gmtModified) {
         this.gmtModified = gmtModified;
+    }
+
+    public String getEmpId() {
+        return empId;
+    }
+
+    public void setEmpId(String empId) {
+        this.empId = empId == null ? null : empId.trim();
     }
 
     public String getAccount() {
@@ -83,6 +93,14 @@ public class User {
         this.registerTime = registerTime;
     }
 
+    public Long getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
+    }
+
     public String getRole() {
         return role;
     }
@@ -113,13 +131,5 @@ public class User {
 
     public void setDepName(String depName) {
         this.depName = depName == null ? null : depName.trim();
-    }
-
-    public String getPosition() {
-        return position;
-    }
-
-    public void setPosition(String position) {
-        this.position = position == null ? null : position.trim();
     }
 }

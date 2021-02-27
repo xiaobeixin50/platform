@@ -1,6 +1,5 @@
 package com.beiken.saas.platform.controller;
 
-import com.beiken.saas.platform.biz.vo.HiddenDangerVO;
 import com.beiken.saas.platform.biz.vo.Result;
 import com.beiken.saas.platform.utils.OssUtils;
 import io.swagger.annotations.Api;
@@ -32,7 +31,7 @@ public class FileUploadController {
             String resultUrl = URL_PREFIX + objectName;
             return Result.success(resultUrl);
         }catch (Exception e){
-            return Result.failed("UPLOAD_FILE_ERROR", e.getMessage());
+            return Result.error("UPLOAD_FILE_ERROR", e.getMessage());
         }
 
     }
@@ -51,7 +50,7 @@ public class FileUploadController {
             String resultUrl = URL_PREFIX + objectName;
             return Result.success(resultUrl);
         }catch (Exception e){
-            return Result.failed("UPLOAD_FILE_ERROR", e.getMessage());
+            return Result.error("UPLOAD_FILE_ERROR", e.getMessage());
         }
 
     }
@@ -64,7 +63,7 @@ public class FileUploadController {
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
         Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
         if(fileMap == null || fileMap.size() == 0){
-            return Result.failed("UPLOAD_FILE_ERROR", "请上传文件,注意文件的name属性为file");
+            return Result.error("UPLOAD_FILE_ERROR", "请上传文件,注意文件的name属性为file");
         }
         return null;
     }

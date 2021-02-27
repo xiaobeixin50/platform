@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.beiken.saas.platform.mapper.RigMapper">
+  <resultMap id="BaseResultMap" type="com.beiken.saas.platform.pojo.Rig">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="rig_code" jdbcType="VARCHAR" property="rigCode" />
+    <result column="sub_company" jdbcType="VARCHAR" property="subCompany" />
+    <result column="sub_dept" jdbcType="VARCHAR" property="subDept" />
+    <result column="area" jdbcType="VARCHAR" property="area" />
+    <result column="model" jdbcType="VARCHAR" property="model" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.beiken.saas.platform.pojo.Rig">
+    <result column="extra" jdbcType="LONGVARCHAR" property="extra" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, gmt_create, gmt_modified, rig_code, sub_company, sub_dept, area, model, type
+  </sql>
+  <sql id="Blob_Column_List">
+    extra
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.beiken.saas.platform.pojo.RigExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sft_rig
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >= 0">
+      limit ${limitStart} , ${count}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.beiken.saas.platform.pojo.RigExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from sft_rig
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >= 0">
+      limit ${limitStart} , ${count}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sft_rig
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sft_rig
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.beiken.saas.platform.pojo.RigExample">
+    delete from sft_rig
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.beiken.saas.platform.pojo.Rig">
+    insert into sft_rig (id, gmt_create, gmt_modified, 
+      rig_code, sub_company, sub_dept, 
+      area, model, type, 
+      extra)
+    values (#{id,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{rigCode,jdbcType=VARCHAR}, #{subCompany,jdbcType=VARCHAR}, #{subDept,jdbcType=VARCHAR}, 
+      #{area,jdbcType=VARCHAR}, #{model,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{extra,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.beiken.saas.platform.pojo.Rig">
+    insert into sft_rig
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+      <if test="rigCode != null">
+        rig_code,
+      </if>
+      <if test="subCompany != null">
+        sub_company,
+      </if>
+      <if test="subDept != null">
+        sub_dept,
+      </if>
+      <if test="area != null">
+        area,
+      </if>
+      <if test="model != null">
+        model,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="extra != null">
+        extra,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rigCode != null">
+        #{rigCode,jdbcType=VARCHAR},
+      </if>
+      <if test="subCompany != null">
+        #{subCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="subDept != null">
+        #{subDept,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null">
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null">
+        #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="extra != null">
+        #{extra,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.beiken.saas.platform.pojo.RigExample" resultType="java.lang.Long">
+    select count(*) from sft_rig
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sft_rig
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.gmtCreate != null">
+        gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.gmtModified != null">
+        gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.rigCode != null">
+        rig_code = #{record.rigCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subCompany != null">
+        sub_company = #{record.subCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subDept != null">
+        sub_dept = #{record.subDept,jdbcType=VARCHAR},
+      </if>
+      <if test="record.area != null">
+        area = #{record.area,jdbcType=VARCHAR},
+      </if>
+      <if test="record.model != null">
+        model = #{record.model,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null">
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.extra != null">
+        extra = #{record.extra,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update sft_rig
+    set id = #{record.id,jdbcType=BIGINT},
+      gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      rig_code = #{record.rigCode,jdbcType=VARCHAR},
+      sub_company = #{record.subCompany,jdbcType=VARCHAR},
+      sub_dept = #{record.subDept,jdbcType=VARCHAR},
+      area = #{record.area,jdbcType=VARCHAR},
+      model = #{record.model,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=VARCHAR},
+      extra = #{record.extra,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sft_rig
+    set id = #{record.id,jdbcType=BIGINT},
+      gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      rig_code = #{record.rigCode,jdbcType=VARCHAR},
+      sub_company = #{record.subCompany,jdbcType=VARCHAR},
+      sub_dept = #{record.subDept,jdbcType=VARCHAR},
+      area = #{record.area,jdbcType=VARCHAR},
+      model = #{record.model,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.beiken.saas.platform.pojo.Rig">
+    update sft_rig
+    <set>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rigCode != null">
+        rig_code = #{rigCode,jdbcType=VARCHAR},
+      </if>
+      <if test="subCompany != null">
+        sub_company = #{subCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="subDept != null">
+        sub_dept = #{subDept,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null">
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="model != null">
+        model = #{model,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="extra != null">
+        extra = #{extra,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.beiken.saas.platform.pojo.Rig">
+    update sft_rig
+    set gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      rig_code = #{rigCode,jdbcType=VARCHAR},
+      sub_company = #{subCompany,jdbcType=VARCHAR},
+      sub_dept = #{subDept,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      model = #{model,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      extra = #{extra,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.beiken.saas.platform.pojo.Rig">
+    update sft_rig
+    set gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      rig_code = #{rigCode,jdbcType=VARCHAR},
+      sub_company = #{subCompany,jdbcType=VARCHAR},
+      sub_dept = #{subDept,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      model = #{model,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
