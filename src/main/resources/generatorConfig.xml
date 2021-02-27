@@ -6,7 +6,7 @@
     <properties resource="test-jdbc.properties"/>
     <!-- 数据库驱动 -->
     <classPathEntry
-            location="C:\Users\MSI-NB\.m2\repository\mysql\mysql-connector-java\5.1.31\mysql-connector-java-5.1.31.jar"/>
+            location="/Users/panboliang/.m2/repository/mysql/mysql-connector-java/5.1.31/mysql-connector-java-5.1.31.jar"/>
     <context id="DB2Tables" targetRuntime="MyBatis3">
         <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin"/>
         <commentGenerator>
@@ -44,8 +44,8 @@
         <!-- 要生成哪些表 -->
         <!-- tableName:用于自动生成代码的数据库表；domainObjectName:对应于数据库表的javaBean类名 -->
         <!--book_info数据库表明--> <!--别名Book_Info pojo（实体类明）-->
-        <table tableName="external_inspection"
-               domainObjectName="ExternalInspection"
+        <table tableName="sft_bg"
+               domainObjectName="Bg"
 
                enableCountByExample="true"
                enableUpdateByExample="true"
@@ -53,94 +53,86 @@
                enableSelectByExample="true"
                selectByExampleQueryId="true"></table>
 
-        <table tableName="hidden_danger"
-               domainObjectName="HiddenDanger"
+        <table tableName="sft_bg_inspect_item"
+               domainObjectName="BgInspectItem"
 
                enableCountByExample="true"
                enableUpdateByExample="true"
                enableDeleteByExample="true"
                enableSelectByExample="true"
                selectByExampleQueryId="true"></table>
-        <table tableName="inspection_item"
-               domainObjectName="InspectionItem"
-               enableCountByExample="true"
-               enableUpdateByExample="true"
-               enableDeleteByExample="true"
-               enableSelectByExample="true"
-               selectByExampleQueryId="true">
-            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
-        </table>
-        <table tableName="inspection_item_record"
-               domainObjectName="InspectionItemRecord"
+
+        <table tableName="sft_department"
+               domainObjectName="Department"
+
                enableCountByExample="true"
                enableUpdateByExample="true"
                enableDeleteByExample="true"
                enableSelectByExample="true"
                selectByExampleQueryId="true"></table>
-        <table tableName="inspection_plan"
-               domainObjectName="InspectionPlan"
+
+        <table tableName="sft_inspect_plan"
+               domainObjectName="InspectPlan"
+
                enableCountByExample="true"
                enableUpdateByExample="true"
                enableDeleteByExample="true"
                enableSelectByExample="true"
                selectByExampleQueryId="true"></table>
-        <table tableName="inspection_stopcard"
-               domainObjectName="InspectionStopcard"
+
+        <table tableName="sft_inspect_plan_dept"
+               domainObjectName="InspectPlanDept"
+
                enableCountByExample="true"
                enableUpdateByExample="true"
                enableDeleteByExample="true"
                enableSelectByExample="true"
                selectByExampleQueryId="true"></table>
-        <table tableName="inspection_task"
-               domainObjectName="InspectionTask"
-               enableCountByExample="true"
-               enableUpdateByExample="true"
-               enableDeleteByExample="true"
-               enableSelectByExample="true"
-               selectByExampleQueryId="true">
-            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
-        </table>
-        <table tableName="inspection_task_record"
-               domainObjectName="InspectionTaskRecord"
+
+        <table tableName="sft_inspect_task"
+               domainObjectName="InspectTask"
+
                enableCountByExample="true"
                enableUpdateByExample="true"
                enableDeleteByExample="true"
                enableSelectByExample="true"
                selectByExampleQueryId="true"></table>
-        <table tableName="user"
+
+        <table tableName="sft_inspect_task_item"
+               domainObjectName="InspectTaskItem"
+
+               enableCountByExample="true"
+               enableUpdateByExample="true"
+               enableDeleteByExample="true"
+               enableSelectByExample="true"
+               selectByExampleQueryId="true"></table>
+
+        <table tableName="sft_rig"
+               domainObjectName="Rig"
+
+               enableCountByExample="true"
+               enableUpdateByExample="true"
+               enableDeleteByExample="true"
+               enableSelectByExample="true"
+               selectByExampleQueryId="true"></table>
+
+        <table tableName="sft_role"
+               domainObjectName="Role"
+
+               enableCountByExample="true"
+               enableUpdateByExample="true"
+               enableDeleteByExample="true"
+               enableSelectByExample="true"
+               selectByExampleQueryId="true"></table>
+
+        <table tableName="sft_user"
                domainObjectName="User"
+
                enableCountByExample="true"
                enableUpdateByExample="true"
                enableDeleteByExample="true"
                enableSelectByExample="true"
                selectByExampleQueryId="true"></table>
-        <table tableName="attachment"
-               domainObjectName="Attachment"
-               enableCountByExample="true"
-               enableUpdateByExample="true"
-               enableDeleteByExample="true"
-               enableSelectByExample="true"
-               selectByExampleQueryId="true"></table>
-        <table tableName="mine_project"
-               domainObjectName="MineProject"
-               enableCountByExample="true"
-               enableUpdateByExample="true"
-               enableDeleteByExample="true"
-               enableSelectByExample="true"
-               selectByExampleQueryId="true"></table>
-        <table tableName="mine_project"
-               domainObjectName="MineProject"
-               enableCountByExample="true"
-               enableUpdateByExample="true"
-               enableDeleteByExample="true"
-               enableSelectByExample="true"
-               selectByExampleQueryId="true"></table>
-        <table tableName="inspection_item_plan"
-               domainObjectName="InspectionItemPlan"
-               enableCountByExample="true"
-               enableUpdateByExample="true"
-               enableDeleteByExample="true"
-               enableSelectByExample="true"
-               selectByExampleQueryId="true"></table>
+
     </context>
 </generatorConfiguration>
