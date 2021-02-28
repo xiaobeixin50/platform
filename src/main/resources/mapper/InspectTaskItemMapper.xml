@@ -5,14 +5,15 @@
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="item_cdoe" jdbcType="VARCHAR" property="itemCdoe" />
     <result column="task_code" jdbcType="VARCHAR" property="taskCode" />
-    <result column="inspcet_plan_code" jdbcType="VARCHAR" property="inspcetPlanCode" />
+    <result column="inspect_plan_code" jdbcType="VARCHAR" property="inspectPlanCode" />
     <result column="bg_item_code" jdbcType="VARCHAR" property="bgItemCode" />
     <result column="photo" jdbcType="VARCHAR" property="photo" />
     <result column="extra" jdbcType="VARCHAR" property="extra" />
     <result column="danger_level" jdbcType="VARCHAR" property="dangerLevel" />
     <result column="break_user" jdbcType="VARCHAR" property="breakUser" />
-    <result column="res_user" jdbcType="VARCHAR" property="resUser" />
+    <result column="responsbility_user" jdbcType="VARCHAR" property="responsbilityUser" />
     <result column="result_status" jdbcType="INTEGER" property="resultStatus" />
     <result column="end_date" jdbcType="TIMESTAMP" property="endDate" />
   </resultMap>
@@ -75,8 +76,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, gmt_create, gmt_modified, task_code, inspcet_plan_code, bg_item_code, photo, 
-    extra, danger_level, break_user, res_user, result_status, end_date
+    id, gmt_create, gmt_modified, item_cdoe, task_code, inspect_plan_code, bg_item_code, 
+    photo, extra, danger_level, break_user, responsbility_user, result_status, end_date
   </sql>
   <select id="selectByExample" parameterType="com.beiken.saas.platform.pojo.InspectTaskItemExample" resultMap="BaseResultMap">
     select
@@ -114,15 +115,15 @@
   </delete>
   <insert id="insert" parameterType="com.beiken.saas.platform.pojo.InspectTaskItem">
     insert into sft_inspect_task_item (id, gmt_create, gmt_modified, 
-      task_code, inspcet_plan_code, bg_item_code, 
-      photo, extra, danger_level, 
-      break_user, res_user, result_status, 
-      end_date)
+      item_cdoe, task_code, inspect_plan_code, 
+      bg_item_code, photo, extra, 
+      danger_level, break_user, responsbility_user, 
+      result_status, end_date)
     values (#{id,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
-      #{taskCode,jdbcType=VARCHAR}, #{inspcetPlanCode,jdbcType=VARCHAR}, #{bgItemCode,jdbcType=VARCHAR}, 
-      #{photo,jdbcType=VARCHAR}, #{extra,jdbcType=VARCHAR}, #{dangerLevel,jdbcType=VARCHAR}, 
-      #{breakUser,jdbcType=VARCHAR}, #{resUser,jdbcType=VARCHAR}, #{resultStatus,jdbcType=INTEGER}, 
-      #{endDate,jdbcType=TIMESTAMP})
+      #{itemCdoe,jdbcType=VARCHAR}, #{taskCode,jdbcType=VARCHAR}, #{inspectPlanCode,jdbcType=VARCHAR}, 
+      #{bgItemCode,jdbcType=VARCHAR}, #{photo,jdbcType=VARCHAR}, #{extra,jdbcType=VARCHAR}, 
+      #{dangerLevel,jdbcType=VARCHAR}, #{breakUser,jdbcType=VARCHAR}, #{responsbilityUser,jdbcType=VARCHAR}, 
+      #{resultStatus,jdbcType=INTEGER}, #{endDate,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.beiken.saas.platform.pojo.InspectTaskItem">
     insert into sft_inspect_task_item
@@ -136,11 +137,14 @@
       <if test="gmtModified != null">
         gmt_modified,
       </if>
+      <if test="itemCdoe != null">
+        item_cdoe,
+      </if>
       <if test="taskCode != null">
         task_code,
       </if>
-      <if test="inspcetPlanCode != null">
-        inspcet_plan_code,
+      <if test="inspectPlanCode != null">
+        inspect_plan_code,
       </if>
       <if test="bgItemCode != null">
         bg_item_code,
@@ -157,8 +161,8 @@
       <if test="breakUser != null">
         break_user,
       </if>
-      <if test="resUser != null">
-        res_user,
+      <if test="responsbilityUser != null">
+        responsbility_user,
       </if>
       <if test="resultStatus != null">
         result_status,
@@ -177,11 +181,14 @@
       <if test="gmtModified != null">
         #{gmtModified,jdbcType=TIMESTAMP},
       </if>
+      <if test="itemCdoe != null">
+        #{itemCdoe,jdbcType=VARCHAR},
+      </if>
       <if test="taskCode != null">
         #{taskCode,jdbcType=VARCHAR},
       </if>
-      <if test="inspcetPlanCode != null">
-        #{inspcetPlanCode,jdbcType=VARCHAR},
+      <if test="inspectPlanCode != null">
+        #{inspectPlanCode,jdbcType=VARCHAR},
       </if>
       <if test="bgItemCode != null">
         #{bgItemCode,jdbcType=VARCHAR},
@@ -198,8 +205,8 @@
       <if test="breakUser != null">
         #{breakUser,jdbcType=VARCHAR},
       </if>
-      <if test="resUser != null">
-        #{resUser,jdbcType=VARCHAR},
+      <if test="responsbilityUser != null">
+        #{responsbilityUser,jdbcType=VARCHAR},
       </if>
       <if test="resultStatus != null">
         #{resultStatus,jdbcType=INTEGER},
@@ -227,11 +234,14 @@
       <if test="record.gmtModified != null">
         gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.itemCdoe != null">
+        item_cdoe = #{record.itemCdoe,jdbcType=VARCHAR},
+      </if>
       <if test="record.taskCode != null">
         task_code = #{record.taskCode,jdbcType=VARCHAR},
       </if>
-      <if test="record.inspcetPlanCode != null">
-        inspcet_plan_code = #{record.inspcetPlanCode,jdbcType=VARCHAR},
+      <if test="record.inspectPlanCode != null">
+        inspect_plan_code = #{record.inspectPlanCode,jdbcType=VARCHAR},
       </if>
       <if test="record.bgItemCode != null">
         bg_item_code = #{record.bgItemCode,jdbcType=VARCHAR},
@@ -248,8 +258,8 @@
       <if test="record.breakUser != null">
         break_user = #{record.breakUser,jdbcType=VARCHAR},
       </if>
-      <if test="record.resUser != null">
-        res_user = #{record.resUser,jdbcType=VARCHAR},
+      <if test="record.responsbilityUser != null">
+        responsbility_user = #{record.responsbilityUser,jdbcType=VARCHAR},
       </if>
       <if test="record.resultStatus != null">
         result_status = #{record.resultStatus,jdbcType=INTEGER},
@@ -267,14 +277,15 @@
     set id = #{record.id,jdbcType=BIGINT},
       gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      item_cdoe = #{record.itemCdoe,jdbcType=VARCHAR},
       task_code = #{record.taskCode,jdbcType=VARCHAR},
-      inspcet_plan_code = #{record.inspcetPlanCode,jdbcType=VARCHAR},
+      inspect_plan_code = #{record.inspectPlanCode,jdbcType=VARCHAR},
       bg_item_code = #{record.bgItemCode,jdbcType=VARCHAR},
       photo = #{record.photo,jdbcType=VARCHAR},
       extra = #{record.extra,jdbcType=VARCHAR},
       danger_level = #{record.dangerLevel,jdbcType=VARCHAR},
       break_user = #{record.breakUser,jdbcType=VARCHAR},
-      res_user = #{record.resUser,jdbcType=VARCHAR},
+      responsbility_user = #{record.responsbilityUser,jdbcType=VARCHAR},
       result_status = #{record.resultStatus,jdbcType=INTEGER},
       end_date = #{record.endDate,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
@@ -290,11 +301,14 @@
       <if test="gmtModified != null">
         gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
       </if>
+      <if test="itemCdoe != null">
+        item_cdoe = #{itemCdoe,jdbcType=VARCHAR},
+      </if>
       <if test="taskCode != null">
         task_code = #{taskCode,jdbcType=VARCHAR},
       </if>
-      <if test="inspcetPlanCode != null">
-        inspcet_plan_code = #{inspcetPlanCode,jdbcType=VARCHAR},
+      <if test="inspectPlanCode != null">
+        inspect_plan_code = #{inspectPlanCode,jdbcType=VARCHAR},
       </if>
       <if test="bgItemCode != null">
         bg_item_code = #{bgItemCode,jdbcType=VARCHAR},
@@ -311,8 +325,8 @@
       <if test="breakUser != null">
         break_user = #{breakUser,jdbcType=VARCHAR},
       </if>
-      <if test="resUser != null">
-        res_user = #{resUser,jdbcType=VARCHAR},
+      <if test="responsbilityUser != null">
+        responsbility_user = #{responsbilityUser,jdbcType=VARCHAR},
       </if>
       <if test="resultStatus != null">
         result_status = #{resultStatus,jdbcType=INTEGER},
@@ -327,14 +341,15 @@
     update sft_inspect_task_item
     set gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      item_cdoe = #{itemCdoe,jdbcType=VARCHAR},
       task_code = #{taskCode,jdbcType=VARCHAR},
-      inspcet_plan_code = #{inspcetPlanCode,jdbcType=VARCHAR},
+      inspect_plan_code = #{inspectPlanCode,jdbcType=VARCHAR},
       bg_item_code = #{bgItemCode,jdbcType=VARCHAR},
       photo = #{photo,jdbcType=VARCHAR},
       extra = #{extra,jdbcType=VARCHAR},
       danger_level = #{dangerLevel,jdbcType=VARCHAR},
       break_user = #{breakUser,jdbcType=VARCHAR},
-      res_user = #{resUser,jdbcType=VARCHAR},
+      responsbility_user = #{responsbilityUser,jdbcType=VARCHAR},
       result_status = #{resultStatus,jdbcType=INTEGER},
       end_date = #{endDate,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}

@@ -312,6 +312,76 @@ public class InspectTaskItemExample {
             return (Criteria) this;
         }
 
+        public Criteria andItemCdoeIsNull() {
+            addCriterion("item_cdoe is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemCdoeIsNotNull() {
+            addCriterion("item_cdoe is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemCdoeEqualTo(String value) {
+            addCriterion("item_cdoe =", value, "itemCdoe");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemCdoeNotEqualTo(String value) {
+            addCriterion("item_cdoe <>", value, "itemCdoe");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemCdoeGreaterThan(String value) {
+            addCriterion("item_cdoe >", value, "itemCdoe");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemCdoeGreaterThanOrEqualTo(String value) {
+            addCriterion("item_cdoe >=", value, "itemCdoe");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemCdoeLessThan(String value) {
+            addCriterion("item_cdoe <", value, "itemCdoe");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemCdoeLessThanOrEqualTo(String value) {
+            addCriterion("item_cdoe <=", value, "itemCdoe");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemCdoeLike(String value) {
+            addCriterion("item_cdoe like", value, "itemCdoe");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemCdoeNotLike(String value) {
+            addCriterion("item_cdoe not like", value, "itemCdoe");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemCdoeIn(List<String> values) {
+            addCriterion("item_cdoe in", values, "itemCdoe");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemCdoeNotIn(List<String> values) {
+            addCriterion("item_cdoe not in", values, "itemCdoe");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemCdoeBetween(String value1, String value2) {
+            addCriterion("item_cdoe between", value1, value2, "itemCdoe");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemCdoeNotBetween(String value1, String value2) {
+            addCriterion("item_cdoe not between", value1, value2, "itemCdoe");
+            return (Criteria) this;
+        }
+
         public Criteria andTaskCodeIsNull() {
             addCriterion("task_code is null");
             return (Criteria) this;
@@ -382,73 +452,73 @@ public class InspectTaskItemExample {
             return (Criteria) this;
         }
 
-        public Criteria andInspcetPlanCodeIsNull() {
-            addCriterion("inspcet_plan_code is null");
+        public Criteria andInspectPlanCodeIsNull() {
+            addCriterion("inspect_plan_code is null");
             return (Criteria) this;
         }
 
-        public Criteria andInspcetPlanCodeIsNotNull() {
-            addCriterion("inspcet_plan_code is not null");
+        public Criteria andInspectPlanCodeIsNotNull() {
+            addCriterion("inspect_plan_code is not null");
             return (Criteria) this;
         }
 
-        public Criteria andInspcetPlanCodeEqualTo(String value) {
-            addCriterion("inspcet_plan_code =", value, "inspcetPlanCode");
+        public Criteria andInspectPlanCodeEqualTo(String value) {
+            addCriterion("inspect_plan_code =", value, "inspectPlanCode");
             return (Criteria) this;
         }
 
-        public Criteria andInspcetPlanCodeNotEqualTo(String value) {
-            addCriterion("inspcet_plan_code <>", value, "inspcetPlanCode");
+        public Criteria andInspectPlanCodeNotEqualTo(String value) {
+            addCriterion("inspect_plan_code <>", value, "inspectPlanCode");
             return (Criteria) this;
         }
 
-        public Criteria andInspcetPlanCodeGreaterThan(String value) {
-            addCriterion("inspcet_plan_code >", value, "inspcetPlanCode");
+        public Criteria andInspectPlanCodeGreaterThan(String value) {
+            addCriterion("inspect_plan_code >", value, "inspectPlanCode");
             return (Criteria) this;
         }
 
-        public Criteria andInspcetPlanCodeGreaterThanOrEqualTo(String value) {
-            addCriterion("inspcet_plan_code >=", value, "inspcetPlanCode");
+        public Criteria andInspectPlanCodeGreaterThanOrEqualTo(String value) {
+            addCriterion("inspect_plan_code >=", value, "inspectPlanCode");
             return (Criteria) this;
         }
 
-        public Criteria andInspcetPlanCodeLessThan(String value) {
-            addCriterion("inspcet_plan_code <", value, "inspcetPlanCode");
+        public Criteria andInspectPlanCodeLessThan(String value) {
+            addCriterion("inspect_plan_code <", value, "inspectPlanCode");
             return (Criteria) this;
         }
 
-        public Criteria andInspcetPlanCodeLessThanOrEqualTo(String value) {
-            addCriterion("inspcet_plan_code <=", value, "inspcetPlanCode");
+        public Criteria andInspectPlanCodeLessThanOrEqualTo(String value) {
+            addCriterion("inspect_plan_code <=", value, "inspectPlanCode");
             return (Criteria) this;
         }
 
-        public Criteria andInspcetPlanCodeLike(String value) {
-            addCriterion("inspcet_plan_code like", value, "inspcetPlanCode");
+        public Criteria andInspectPlanCodeLike(String value) {
+            addCriterion("inspect_plan_code like", value, "inspectPlanCode");
             return (Criteria) this;
         }
 
-        public Criteria andInspcetPlanCodeNotLike(String value) {
-            addCriterion("inspcet_plan_code not like", value, "inspcetPlanCode");
+        public Criteria andInspectPlanCodeNotLike(String value) {
+            addCriterion("inspect_plan_code not like", value, "inspectPlanCode");
             return (Criteria) this;
         }
 
-        public Criteria andInspcetPlanCodeIn(List<String> values) {
-            addCriterion("inspcet_plan_code in", values, "inspcetPlanCode");
+        public Criteria andInspectPlanCodeIn(List<String> values) {
+            addCriterion("inspect_plan_code in", values, "inspectPlanCode");
             return (Criteria) this;
         }
 
-        public Criteria andInspcetPlanCodeNotIn(List<String> values) {
-            addCriterion("inspcet_plan_code not in", values, "inspcetPlanCode");
+        public Criteria andInspectPlanCodeNotIn(List<String> values) {
+            addCriterion("inspect_plan_code not in", values, "inspectPlanCode");
             return (Criteria) this;
         }
 
-        public Criteria andInspcetPlanCodeBetween(String value1, String value2) {
-            addCriterion("inspcet_plan_code between", value1, value2, "inspcetPlanCode");
+        public Criteria andInspectPlanCodeBetween(String value1, String value2) {
+            addCriterion("inspect_plan_code between", value1, value2, "inspectPlanCode");
             return (Criteria) this;
         }
 
-        public Criteria andInspcetPlanCodeNotBetween(String value1, String value2) {
-            addCriterion("inspcet_plan_code not between", value1, value2, "inspcetPlanCode");
+        public Criteria andInspectPlanCodeNotBetween(String value1, String value2) {
+            addCriterion("inspect_plan_code not between", value1, value2, "inspectPlanCode");
             return (Criteria) this;
         }
 
@@ -802,73 +872,73 @@ public class InspectTaskItemExample {
             return (Criteria) this;
         }
 
-        public Criteria andResUserIsNull() {
-            addCriterion("res_user is null");
+        public Criteria andResponsbilityUserIsNull() {
+            addCriterion("responsbility_user is null");
             return (Criteria) this;
         }
 
-        public Criteria andResUserIsNotNull() {
-            addCriterion("res_user is not null");
+        public Criteria andResponsbilityUserIsNotNull() {
+            addCriterion("responsbility_user is not null");
             return (Criteria) this;
         }
 
-        public Criteria andResUserEqualTo(String value) {
-            addCriterion("res_user =", value, "resUser");
+        public Criteria andResponsbilityUserEqualTo(String value) {
+            addCriterion("responsbility_user =", value, "responsbilityUser");
             return (Criteria) this;
         }
 
-        public Criteria andResUserNotEqualTo(String value) {
-            addCriterion("res_user <>", value, "resUser");
+        public Criteria andResponsbilityUserNotEqualTo(String value) {
+            addCriterion("responsbility_user <>", value, "responsbilityUser");
             return (Criteria) this;
         }
 
-        public Criteria andResUserGreaterThan(String value) {
-            addCriterion("res_user >", value, "resUser");
+        public Criteria andResponsbilityUserGreaterThan(String value) {
+            addCriterion("responsbility_user >", value, "responsbilityUser");
             return (Criteria) this;
         }
 
-        public Criteria andResUserGreaterThanOrEqualTo(String value) {
-            addCriterion("res_user >=", value, "resUser");
+        public Criteria andResponsbilityUserGreaterThanOrEqualTo(String value) {
+            addCriterion("responsbility_user >=", value, "responsbilityUser");
             return (Criteria) this;
         }
 
-        public Criteria andResUserLessThan(String value) {
-            addCriterion("res_user <", value, "resUser");
+        public Criteria andResponsbilityUserLessThan(String value) {
+            addCriterion("responsbility_user <", value, "responsbilityUser");
             return (Criteria) this;
         }
 
-        public Criteria andResUserLessThanOrEqualTo(String value) {
-            addCriterion("res_user <=", value, "resUser");
+        public Criteria andResponsbilityUserLessThanOrEqualTo(String value) {
+            addCriterion("responsbility_user <=", value, "responsbilityUser");
             return (Criteria) this;
         }
 
-        public Criteria andResUserLike(String value) {
-            addCriterion("res_user like", value, "resUser");
+        public Criteria andResponsbilityUserLike(String value) {
+            addCriterion("responsbility_user like", value, "responsbilityUser");
             return (Criteria) this;
         }
 
-        public Criteria andResUserNotLike(String value) {
-            addCriterion("res_user not like", value, "resUser");
+        public Criteria andResponsbilityUserNotLike(String value) {
+            addCriterion("responsbility_user not like", value, "responsbilityUser");
             return (Criteria) this;
         }
 
-        public Criteria andResUserIn(List<String> values) {
-            addCriterion("res_user in", values, "resUser");
+        public Criteria andResponsbilityUserIn(List<String> values) {
+            addCriterion("responsbility_user in", values, "responsbilityUser");
             return (Criteria) this;
         }
 
-        public Criteria andResUserNotIn(List<String> values) {
-            addCriterion("res_user not in", values, "resUser");
+        public Criteria andResponsbilityUserNotIn(List<String> values) {
+            addCriterion("responsbility_user not in", values, "responsbilityUser");
             return (Criteria) this;
         }
 
-        public Criteria andResUserBetween(String value1, String value2) {
-            addCriterion("res_user between", value1, value2, "resUser");
+        public Criteria andResponsbilityUserBetween(String value1, String value2) {
+            addCriterion("responsbility_user between", value1, value2, "responsbilityUser");
             return (Criteria) this;
         }
 
-        public Criteria andResUserNotBetween(String value1, String value2) {
-            addCriterion("res_user not between", value1, value2, "resUser");
+        public Criteria andResponsbilityUserNotBetween(String value1, String value2) {
+            addCriterion("responsbility_user not between", value1, value2, "responsbilityUser");
             return (Criteria) this;
         }
 

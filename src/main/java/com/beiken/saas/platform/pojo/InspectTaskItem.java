@@ -9,9 +9,11 @@ public class InspectTaskItem {
 
     private Date gmtModified;
 
+    private String itemCdoe;
+
     private String taskCode;
 
-    private String inspcetPlanCode;
+    private String inspectPlanCode;
 
     private String bgItemCode;
 
@@ -23,7 +25,7 @@ public class InspectTaskItem {
 
     private String breakUser;
 
-    private String resUser;
+    private String responsbilityUser;
 
     private Integer resultStatus;
 
@@ -53,6 +55,14 @@ public class InspectTaskItem {
         this.gmtModified = gmtModified;
     }
 
+    public String getItemCdoe() {
+        return itemCdoe;
+    }
+
+    public void setItemCdoe(String itemCdoe) {
+        this.itemCdoe = itemCdoe == null ? null : itemCdoe.trim();
+    }
+
     public String getTaskCode() {
         return taskCode;
     }
@@ -61,12 +71,12 @@ public class InspectTaskItem {
         this.taskCode = taskCode == null ? null : taskCode.trim();
     }
 
-    public String getInspcetPlanCode() {
-        return inspcetPlanCode;
+    public String getInspectPlanCode() {
+        return inspectPlanCode;
     }
 
-    public void setInspcetPlanCode(String inspcetPlanCode) {
-        this.inspcetPlanCode = inspcetPlanCode == null ? null : inspcetPlanCode.trim();
+    public void setInspectPlanCode(String inspectPlanCode) {
+        this.inspectPlanCode = inspectPlanCode == null ? null : inspectPlanCode.trim();
     }
 
     public String getBgItemCode() {
@@ -109,12 +119,12 @@ public class InspectTaskItem {
         this.breakUser = breakUser == null ? null : breakUser.trim();
     }
 
-    public String getResUser() {
-        return resUser;
+    public String getResponsbilityUser() {
+        return responsbilityUser;
     }
 
-    public void setResUser(String resUser) {
-        this.resUser = resUser == null ? null : resUser.trim();
+    public void setResponsbilityUser(String responsbilityUser) {
+        this.responsbilityUser = responsbilityUser == null ? null : responsbilityUser.trim();
     }
 
     public Integer getResultStatus() {

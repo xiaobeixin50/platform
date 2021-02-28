@@ -20,11 +20,11 @@ public class TaskVO extends InspectPlanVO implements Serializable{
 
     private String taskCode;
 
-    private Date startTime;
+    private Date taskStartTime;
 
-    private Date endTime;
+    private Date taskEndTime;
 
-    private Date finishTime;
+    private Date taskFinishTime;
 
     private Integer status;
 

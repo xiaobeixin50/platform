@@ -11,7 +11,7 @@ public class InspectTask {
 
     private String taskCode;
 
-    private String inspcetPlanCode;
+    private String inspectPlanCode;
 
     private Date startTime;
 
@@ -20,6 +20,14 @@ public class InspectTask {
     private Date finishTime;
 
     private Integer status;
+
+    private String deptCode;
+
+    private String deptName;
+
+    private Long inspectUserId;
+
+    private String inspectUserName;
 
     public Long getId() {
         return id;
@@ -53,12 +61,12 @@ public class InspectTask {
         this.taskCode = taskCode == null ? null : taskCode.trim();
     }
 
-    public String getInspcetPlanCode() {
-        return inspcetPlanCode;
+    public String getInspectPlanCode() {
+        return inspectPlanCode;
     }
 
-    public void setInspcetPlanCode(String inspcetPlanCode) {
-        this.inspcetPlanCode = inspcetPlanCode == null ? null : inspcetPlanCode.trim();
+    public void setInspectPlanCode(String inspectPlanCode) {
+        this.inspectPlanCode = inspectPlanCode == null ? null : inspectPlanCode.trim();
     }
 
     public Date getStartTime() {
@@ -91,5 +99,37 @@ public class InspectTask {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getDeptCode() {
+        return deptCode;
+    }
+
+    public void setDeptCode(String deptCode) {
+        this.deptCode = deptCode == null ? null : deptCode.trim();
+    }
+
+    public String getDeptName() {
+        return deptName;
+    }
+
+    public void setDeptName(String deptName) {
+        this.deptName = deptName == null ? null : deptName.trim();
+    }
+
+    public Long getInspectUserId() {
+        return inspectUserId;
+    }
+
+    public void setInspectUserId(Long inspectUserId) {
+        this.inspectUserId = inspectUserId;
+    }
+
+    public String getInspectUserName() {
+        return inspectUserName;
+    }
+
+    public void setInspectUserName(String inspectUserName) {
+        this.inspectUserName = inspectUserName == null ? null : inspectUserName.trim();
     }
 }

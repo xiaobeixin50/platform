@@ -382,73 +382,73 @@ public class InspectTaskExample {
             return (Criteria) this;
         }
 
-        public Criteria andInspcetPlanCodeIsNull() {
-            addCriterion("inspcet_plan_code is null");
+        public Criteria andInspectPlanCodeIsNull() {
+            addCriterion("inspect_plan_code is null");
             return (Criteria) this;
         }
 
-        public Criteria andInspcetPlanCodeIsNotNull() {
-            addCriterion("inspcet_plan_code is not null");
+        public Criteria andInspectPlanCodeIsNotNull() {
+            addCriterion("inspect_plan_code is not null");
             return (Criteria) this;
         }
 
-        public Criteria andInspcetPlanCodeEqualTo(String value) {
-            addCriterion("inspcet_plan_code =", value, "inspcetPlanCode");
+        public Criteria andInspectPlanCodeEqualTo(String value) {
+            addCriterion("inspect_plan_code =", value, "inspectPlanCode");
             return (Criteria) this;
         }
 
-        public Criteria andInspcetPlanCodeNotEqualTo(String value) {
-            addCriterion("inspcet_plan_code <>", value, "inspcetPlanCode");
+        public Criteria andInspectPlanCodeNotEqualTo(String value) {
+            addCriterion("inspect_plan_code <>", value, "inspectPlanCode");
             return (Criteria) this;
         }
 
-        public Criteria andInspcetPlanCodeGreaterThan(String value) {
-            addCriterion("inspcet_plan_code >", value, "inspcetPlanCode");
+        public Criteria andInspectPlanCodeGreaterThan(String value) {
+            addCriterion("inspect_plan_code >", value, "inspectPlanCode");
             return (Criteria) this;
         }
 
-        public Criteria andInspcetPlanCodeGreaterThanOrEqualTo(String value) {
-            addCriterion("inspcet_plan_code >=", value, "inspcetPlanCode");
+        public Criteria andInspectPlanCodeGreaterThanOrEqualTo(String value) {
+            addCriterion("inspect_plan_code >=", value, "inspectPlanCode");
             return (Criteria) this;
         }
 
-        public Criteria andInspcetPlanCodeLessThan(String value) {
-            addCriterion("inspcet_plan_code <", value, "inspcetPlanCode");
+        public Criteria andInspectPlanCodeLessThan(String value) {
+            addCriterion("inspect_plan_code <", value, "inspectPlanCode");
             return (Criteria) this;
         }
 
-        public Criteria andInspcetPlanCodeLessThanOrEqualTo(String value) {
-            addCriterion("inspcet_plan_code <=", value, "inspcetPlanCode");
+        public Criteria andInspectPlanCodeLessThanOrEqualTo(String value) {
+            addCriterion("inspect_plan_code <=", value, "inspectPlanCode");
             return (Criteria) this;
         }
 
-        public Criteria andInspcetPlanCodeLike(String value) {
-            addCriterion("inspcet_plan_code like", value, "inspcetPlanCode");
+        public Criteria andInspectPlanCodeLike(String value) {
+            addCriterion("inspect_plan_code like", value, "inspectPlanCode");
             return (Criteria) this;
         }
 
-        public Criteria andInspcetPlanCodeNotLike(String value) {
-            addCriterion("inspcet_plan_code not like", value, "inspcetPlanCode");
+        public Criteria andInspectPlanCodeNotLike(String value) {
+            addCriterion("inspect_plan_code not like", value, "inspectPlanCode");
             return (Criteria) this;
         }
 
-        public Criteria andInspcetPlanCodeIn(List<String> values) {
-            addCriterion("inspcet_plan_code in", values, "inspcetPlanCode");
+        public Criteria andInspectPlanCodeIn(List<String> values) {
+            addCriterion("inspect_plan_code in", values, "inspectPlanCode");
             return (Criteria) this;
         }
 
-        public Criteria andInspcetPlanCodeNotIn(List<String> values) {
-            addCriterion("inspcet_plan_code not in", values, "inspcetPlanCode");
+        public Criteria andInspectPlanCodeNotIn(List<String> values) {
+            addCriterion("inspect_plan_code not in", values, "inspectPlanCode");
             return (Criteria) this;
         }
 
-        public Criteria andInspcetPlanCodeBetween(String value1, String value2) {
-            addCriterion("inspcet_plan_code between", value1, value2, "inspcetPlanCode");
+        public Criteria andInspectPlanCodeBetween(String value1, String value2) {
+            addCriterion("inspect_plan_code between", value1, value2, "inspectPlanCode");
             return (Criteria) this;
         }
 
-        public Criteria andInspcetPlanCodeNotBetween(String value1, String value2) {
-            addCriterion("inspcet_plan_code not between", value1, value2, "inspcetPlanCode");
+        public Criteria andInspectPlanCodeNotBetween(String value1, String value2) {
+            addCriterion("inspect_plan_code not between", value1, value2, "inspectPlanCode");
             return (Criteria) this;
         }
 
@@ -689,6 +689,276 @@ public class InspectTaskExample {
 
         public Criteria andStatusNotBetween(Integer value1, Integer value2) {
             addCriterion("status not between", value1, value2, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptCodeIsNull() {
+            addCriterion("dept_code is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptCodeIsNotNull() {
+            addCriterion("dept_code is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptCodeEqualTo(String value) {
+            addCriterion("dept_code =", value, "deptCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptCodeNotEqualTo(String value) {
+            addCriterion("dept_code <>", value, "deptCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptCodeGreaterThan(String value) {
+            addCriterion("dept_code >", value, "deptCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptCodeGreaterThanOrEqualTo(String value) {
+            addCriterion("dept_code >=", value, "deptCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptCodeLessThan(String value) {
+            addCriterion("dept_code <", value, "deptCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptCodeLessThanOrEqualTo(String value) {
+            addCriterion("dept_code <=", value, "deptCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptCodeLike(String value) {
+            addCriterion("dept_code like", value, "deptCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptCodeNotLike(String value) {
+            addCriterion("dept_code not like", value, "deptCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptCodeIn(List<String> values) {
+            addCriterion("dept_code in", values, "deptCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptCodeNotIn(List<String> values) {
+            addCriterion("dept_code not in", values, "deptCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptCodeBetween(String value1, String value2) {
+            addCriterion("dept_code between", value1, value2, "deptCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptCodeNotBetween(String value1, String value2) {
+            addCriterion("dept_code not between", value1, value2, "deptCode");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptNameIsNull() {
+            addCriterion("dept_name is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptNameIsNotNull() {
+            addCriterion("dept_name is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptNameEqualTo(String value) {
+            addCriterion("dept_name =", value, "deptName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptNameNotEqualTo(String value) {
+            addCriterion("dept_name <>", value, "deptName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptNameGreaterThan(String value) {
+            addCriterion("dept_name >", value, "deptName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptNameGreaterThanOrEqualTo(String value) {
+            addCriterion("dept_name >=", value, "deptName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptNameLessThan(String value) {
+            addCriterion("dept_name <", value, "deptName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptNameLessThanOrEqualTo(String value) {
+            addCriterion("dept_name <=", value, "deptName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptNameLike(String value) {
+            addCriterion("dept_name like", value, "deptName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptNameNotLike(String value) {
+            addCriterion("dept_name not like", value, "deptName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptNameIn(List<String> values) {
+            addCriterion("dept_name in", values, "deptName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptNameNotIn(List<String> values) {
+            addCriterion("dept_name not in", values, "deptName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptNameBetween(String value1, String value2) {
+            addCriterion("dept_name between", value1, value2, "deptName");
+            return (Criteria) this;
+        }
+
+        public Criteria andDeptNameNotBetween(String value1, String value2) {
+            addCriterion("dept_name not between", value1, value2, "deptName");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserIdIsNull() {
+            addCriterion("inspect_user_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserIdIsNotNull() {
+            addCriterion("inspect_user_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserIdEqualTo(Long value) {
+            addCriterion("inspect_user_id =", value, "inspectUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserIdNotEqualTo(Long value) {
+            addCriterion("inspect_user_id <>", value, "inspectUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserIdGreaterThan(Long value) {
+            addCriterion("inspect_user_id >", value, "inspectUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("inspect_user_id >=", value, "inspectUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserIdLessThan(Long value) {
+            addCriterion("inspect_user_id <", value, "inspectUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserIdLessThanOrEqualTo(Long value) {
+            addCriterion("inspect_user_id <=", value, "inspectUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserIdIn(List<Long> values) {
+            addCriterion("inspect_user_id in", values, "inspectUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserIdNotIn(List<Long> values) {
+            addCriterion("inspect_user_id not in", values, "inspectUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserIdBetween(Long value1, Long value2) {
+            addCriterion("inspect_user_id between", value1, value2, "inspectUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserIdNotBetween(Long value1, Long value2) {
+            addCriterion("inspect_user_id not between", value1, value2, "inspectUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserNameIsNull() {
+            addCriterion("inspect_user_name is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserNameIsNotNull() {
+            addCriterion("inspect_user_name is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserNameEqualTo(String value) {
+            addCriterion("inspect_user_name =", value, "inspectUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserNameNotEqualTo(String value) {
+            addCriterion("inspect_user_name <>", value, "inspectUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserNameGreaterThan(String value) {
+            addCriterion("inspect_user_name >", value, "inspectUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserNameGreaterThanOrEqualTo(String value) {
+            addCriterion("inspect_user_name >=", value, "inspectUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserNameLessThan(String value) {
+            addCriterion("inspect_user_name <", value, "inspectUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserNameLessThanOrEqualTo(String value) {
+            addCriterion("inspect_user_name <=", value, "inspectUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserNameLike(String value) {
+            addCriterion("inspect_user_name like", value, "inspectUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserNameNotLike(String value) {
+            addCriterion("inspect_user_name not like", value, "inspectUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserNameIn(List<String> values) {
+            addCriterion("inspect_user_name in", values, "inspectUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserNameNotIn(List<String> values) {
+            addCriterion("inspect_user_name not in", values, "inspectUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserNameBetween(String value1, String value2) {
+            addCriterion("inspect_user_name between", value1, value2, "inspectUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserNameNotBetween(String value1, String value2) {
+            addCriterion("inspect_user_name not between", value1, value2, "inspectUserName");
             return (Criteria) this;
         }
     }
