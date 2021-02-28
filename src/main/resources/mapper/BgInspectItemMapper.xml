@@ -5,7 +5,7 @@
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
-    <result column="inspect_item_code" jdbcType="VARCHAR" property="inspectItemCode" />
+    <result column="bg_item_code" jdbcType="VARCHAR" property="bgItemCode" />
     <result column="bg_code" jdbcType="VARCHAR" property="bgCode" />
     <result column="inspect_type" jdbcType="VARCHAR" property="inspectType" />
     <result column="manage_type" jdbcType="VARCHAR" property="manageType" />
@@ -80,8 +80,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, gmt_create, gmt_modified, inspect_item_code, bg_code, inspect_type, manage_type, 
-    region, equipment, adapt, danger_level, site, is_photo, is_card, card_site
+    id, gmt_create, gmt_modified, bg_item_code, bg_code, inspect_type, manage_type, region, 
+    equipment, adapt, danger_level, site, is_photo, is_card, card_site
   </sql>
   <sql id="Blob_Column_List">
     control_extra
@@ -144,13 +144,13 @@
   </delete>
   <insert id="insert" parameterType="com.beiken.saas.platform.pojo.BgInspectItem">
     insert into sft_bg_inspect_item (id, gmt_create, gmt_modified, 
-      inspect_item_code, bg_code, inspect_type, 
+      bg_item_code, bg_code, inspect_type, 
       manage_type, region, equipment, 
       adapt, danger_level, site, 
       is_photo, is_card, card_site, 
       control_extra)
     values (#{id,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
-      #{inspectItemCode,jdbcType=VARCHAR}, #{bgCode,jdbcType=VARCHAR}, #{inspectType,jdbcType=VARCHAR}, 
+      #{bgItemCode,jdbcType=VARCHAR}, #{bgCode,jdbcType=VARCHAR}, #{inspectType,jdbcType=VARCHAR}, 
       #{manageType,jdbcType=VARCHAR}, #{region,jdbcType=VARCHAR}, #{equipment,jdbcType=VARCHAR}, 
       #{adapt,jdbcType=VARCHAR}, #{dangerLevel,jdbcType=INTEGER}, #{site,jdbcType=VARCHAR}, 
       #{isPhoto,jdbcType=INTEGER}, #{isCard,jdbcType=INTEGER}, #{cardSite,jdbcType=VARCHAR}, 
@@ -168,8 +168,8 @@
       <if test="gmtModified != null">
         gmt_modified,
       </if>
-      <if test="inspectItemCode != null">
-        inspect_item_code,
+      <if test="bgItemCode != null">
+        bg_item_code,
       </if>
       <if test="bgCode != null">
         bg_code,
@@ -218,8 +218,8 @@
       <if test="gmtModified != null">
         #{gmtModified,jdbcType=TIMESTAMP},
       </if>
-      <if test="inspectItemCode != null">
-        #{inspectItemCode,jdbcType=VARCHAR},
+      <if test="bgItemCode != null">
+        #{bgItemCode,jdbcType=VARCHAR},
       </if>
       <if test="bgCode != null">
         #{bgCode,jdbcType=VARCHAR},
@@ -277,8 +277,8 @@
       <if test="record.gmtModified != null">
         gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.inspectItemCode != null">
-        inspect_item_code = #{record.inspectItemCode,jdbcType=VARCHAR},
+      <if test="record.bgItemCode != null">
+        bg_item_code = #{record.bgItemCode,jdbcType=VARCHAR},
       </if>
       <if test="record.bgCode != null">
         bg_code = #{record.bgCode,jdbcType=VARCHAR},
@@ -326,7 +326,7 @@
     set id = #{record.id,jdbcType=BIGINT},
       gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
-      inspect_item_code = #{record.inspectItemCode,jdbcType=VARCHAR},
+      bg_item_code = #{record.bgItemCode,jdbcType=VARCHAR},
       bg_code = #{record.bgCode,jdbcType=VARCHAR},
       inspect_type = #{record.inspectType,jdbcType=VARCHAR},
       manage_type = #{record.manageType,jdbcType=VARCHAR},
@@ -348,7 +348,7 @@
     set id = #{record.id,jdbcType=BIGINT},
       gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
-      inspect_item_code = #{record.inspectItemCode,jdbcType=VARCHAR},
+      bg_item_code = #{record.bgItemCode,jdbcType=VARCHAR},
       bg_code = #{record.bgCode,jdbcType=VARCHAR},
       inspect_type = #{record.inspectType,jdbcType=VARCHAR},
       manage_type = #{record.manageType,jdbcType=VARCHAR},
@@ -373,8 +373,8 @@
       <if test="gmtModified != null">
         gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
       </if>
-      <if test="inspectItemCode != null">
-        inspect_item_code = #{inspectItemCode,jdbcType=VARCHAR},
+      <if test="bgItemCode != null">
+        bg_item_code = #{bgItemCode,jdbcType=VARCHAR},
       </if>
       <if test="bgCode != null">
         bg_code = #{bgCode,jdbcType=VARCHAR},
@@ -419,7 +419,7 @@
     update sft_bg_inspect_item
     set gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
-      inspect_item_code = #{inspectItemCode,jdbcType=VARCHAR},
+      bg_item_code = #{bgItemCode,jdbcType=VARCHAR},
       bg_code = #{bgCode,jdbcType=VARCHAR},
       inspect_type = #{inspectType,jdbcType=VARCHAR},
       manage_type = #{manageType,jdbcType=VARCHAR},
@@ -438,7 +438,7 @@
     update sft_bg_inspect_item
     set gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
-      inspect_item_code = #{inspectItemCode,jdbcType=VARCHAR},
+      bg_item_code = #{bgItemCode,jdbcType=VARCHAR},
       bg_code = #{bgCode,jdbcType=VARCHAR},
       inspect_type = #{inspectType,jdbcType=VARCHAR},
       manage_type = #{manageType,jdbcType=VARCHAR},

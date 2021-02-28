@@ -9,7 +9,7 @@ public class InspectTaskItem {
 
     private Date gmtModified;
 
-    private String itemCdoe;
+    private String itemCode;
 
     private String taskCode;
 
@@ -55,12 +55,12 @@ public class InspectTaskItem {
         this.gmtModified = gmtModified;
     }
 
-    public String getItemCdoe() {
-        return itemCdoe;
+    public String getItemCode() {
+        return itemCode;
     }
 
-    public void setItemCdoe(String itemCdoe) {
-        this.itemCdoe = itemCdoe == null ? null : itemCdoe.trim();
+    public void setItemCode(String itemCode) {
+        this.itemCode = itemCode == null ? null : itemCode.trim();
     }
 
     public String getTaskCode() {

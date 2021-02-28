@@ -13,5 +13,9 @@ import java.io.Serializable;
 public class TaskQuery extends BaseQuery implements Serializable{
     private static final long serialVersionUID = -5762736742607387827L;
 
+    private Long inspectUserId;
+
+    private String inspectUserName;
+
 
 }

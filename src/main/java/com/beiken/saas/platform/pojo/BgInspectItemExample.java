@@ -312,73 +312,73 @@ public class BgInspectItemExample {
             return (Criteria) this;
         }
 
-        public Criteria andInspectItemCodeIsNull() {
-            addCriterion("inspect_item_code is null");
+        public Criteria andBgItemCodeIsNull() {
+            addCriterion("bg_item_code is null");
             return (Criteria) this;
         }
 
-        public Criteria andInspectItemCodeIsNotNull() {
-            addCriterion("inspect_item_code is not null");
+        public Criteria andBgItemCodeIsNotNull() {
+            addCriterion("bg_item_code is not null");
             return (Criteria) this;
         }
 
-        public Criteria andInspectItemCodeEqualTo(String value) {
-            addCriterion("inspect_item_code =", value, "inspectItemCode");
+        public Criteria andBgItemCodeEqualTo(String value) {
+            addCriterion("bg_item_code =", value, "bgItemCode");
             return (Criteria) this;
         }
 
-        public Criteria andInspectItemCodeNotEqualTo(String value) {
-            addCriterion("inspect_item_code <>", value, "inspectItemCode");
+        public Criteria andBgItemCodeNotEqualTo(String value) {
+            addCriterion("bg_item_code <>", value, "bgItemCode");
             return (Criteria) this;
         }
 
-        public Criteria andInspectItemCodeGreaterThan(String value) {
-            addCriterion("inspect_item_code >", value, "inspectItemCode");
+        public Criteria andBgItemCodeGreaterThan(String value) {
+            addCriterion("bg_item_code >", value, "bgItemCode");
             return (Criteria) this;
         }
 
-        public Criteria andInspectItemCodeGreaterThanOrEqualTo(String value) {
-            addCriterion("inspect_item_code >=", value, "inspectItemCode");
+        public Criteria andBgItemCodeGreaterThanOrEqualTo(String value) {
+            addCriterion("bg_item_code >=", value, "bgItemCode");
             return (Criteria) this;
         }
 
-        public Criteria andInspectItemCodeLessThan(String value) {
-            addCriterion("inspect_item_code <", value, "inspectItemCode");
+        public Criteria andBgItemCodeLessThan(String value) {
+            addCriterion("bg_item_code <", value, "bgItemCode");
             return (Criteria) this;
         }
 
-        public Criteria andInspectItemCodeLessThanOrEqualTo(String value) {
-            addCriterion("inspect_item_code <=", value, "inspectItemCode");
+        public Criteria andBgItemCodeLessThanOrEqualTo(String value) {
+            addCriterion("bg_item_code <=", value, "bgItemCode");
             return (Criteria) this;
         }
 
-        public Criteria andInspectItemCodeLike(String value) {
-            addCriterion("inspect_item_code like", value, "inspectItemCode");
+        public Criteria andBgItemCodeLike(String value) {
+            addCriterion("bg_item_code like", value, "bgItemCode");
             return (Criteria) this;
         }
 
-        public Criteria andInspectItemCodeNotLike(String value) {
-            addCriterion("inspect_item_code not like", value, "inspectItemCode");
+        public Criteria andBgItemCodeNotLike(String value) {
+            addCriterion("bg_item_code not like", value, "bgItemCode");
             return (Criteria) this;
         }
 
-        public Criteria andInspectItemCodeIn(List<String> values) {
-            addCriterion("inspect_item_code in", values, "inspectItemCode");
+        public Criteria andBgItemCodeIn(List<String> values) {
+            addCriterion("bg_item_code in", values, "bgItemCode");
             return (Criteria) this;
         }
 
-        public Criteria andInspectItemCodeNotIn(List<String> values) {
-            addCriterion("inspect_item_code not in", values, "inspectItemCode");
+        public Criteria andBgItemCodeNotIn(List<String> values) {
+            addCriterion("bg_item_code not in", values, "bgItemCode");
             return (Criteria) this;
         }
 
-        public Criteria andInspectItemCodeBetween(String value1, String value2) {
-            addCriterion("inspect_item_code between", value1, value2, "inspectItemCode");
+        public Criteria andBgItemCodeBetween(String value1, String value2) {
+            addCriterion("bg_item_code between", value1, value2, "bgItemCode");
             return (Criteria) this;
         }
 
-        public Criteria andInspectItemCodeNotBetween(String value1, String value2) {
-            addCriterion("inspect_item_code not between", value1, value2, "inspectItemCode");
+        public Criteria andBgItemCodeNotBetween(String value1, String value2) {
+            addCriterion("bg_item_code not between", value1, value2, "bgItemCode");
             return (Criteria) this;
         }
 

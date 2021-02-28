@@ -1,6 +1,5 @@
 package com.beiken.saas.platform.biz.vo;
 
-import com.beiken.saas.platform.pojo.InspectTaskItem;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -30,6 +29,6 @@ public class TaskVO extends InspectPlanVO implements Serializable{
 
     private Integer dangerNum;
 
-    private List<InspectTaskItem> taskItems;
+    private List<TaskItemVO> taskItems;
 
 }

@@ -312,73 +312,73 @@ public class InspectTaskItemExample {
             return (Criteria) this;
         }
 
-        public Criteria andItemCdoeIsNull() {
-            addCriterion("item_cdoe is null");
+        public Criteria andItemCodeIsNull() {
+            addCriterion("item_code is null");
             return (Criteria) this;
         }
 
-        public Criteria andItemCdoeIsNotNull() {
-            addCriterion("item_cdoe is not null");
+        public Criteria andItemCodeIsNotNull() {
+            addCriterion("item_code is not null");
             return (Criteria) this;
         }
 
-        public Criteria andItemCdoeEqualTo(String value) {
-            addCriterion("item_cdoe =", value, "itemCdoe");
+        public Criteria andItemCodeEqualTo(String value) {
+            addCriterion("item_code =", value, "itemCode");
             return (Criteria) this;
         }
 
-        public Criteria andItemCdoeNotEqualTo(String value) {
-            addCriterion("item_cdoe <>", value, "itemCdoe");
+        public Criteria andItemCodeNotEqualTo(String value) {
+            addCriterion("item_code <>", value, "itemCode");
             return (Criteria) this;
         }
 
-        public Criteria andItemCdoeGreaterThan(String value) {
-            addCriterion("item_cdoe >", value, "itemCdoe");
+        public Criteria andItemCodeGreaterThan(String value) {
+            addCriterion("item_code >", value, "itemCode");
             return (Criteria) this;
         }
 
-        public Criteria andItemCdoeGreaterThanOrEqualTo(String value) {
-            addCriterion("item_cdoe >=", value, "itemCdoe");
+        public Criteria andItemCodeGreaterThanOrEqualTo(String value) {
+            addCriterion("item_code >=", value, "itemCode");
             return (Criteria) this;
         }
 
-        public Criteria andItemCdoeLessThan(String value) {
-            addCriterion("item_cdoe <", value, "itemCdoe");
+        public Criteria andItemCodeLessThan(String value) {
+            addCriterion("item_code <", value, "itemCode");
             return (Criteria) this;
         }
 
-        public Criteria andItemCdoeLessThanOrEqualTo(String value) {
-            addCriterion("item_cdoe <=", value, "itemCdoe");
+        public Criteria andItemCodeLessThanOrEqualTo(String value) {
+            addCriterion("item_code <=", value, "itemCode");
             return (Criteria) this;
         }
 
-        public Criteria andItemCdoeLike(String value) {
-            addCriterion("item_cdoe like", value, "itemCdoe");
+        public Criteria andItemCodeLike(String value) {
+            addCriterion("item_code like", value, "itemCode");
             return (Criteria) this;
         }
 
-        public Criteria andItemCdoeNotLike(String value) {
-            addCriterion("item_cdoe not like", value, "itemCdoe");
+        public Criteria andItemCodeNotLike(String value) {
+            addCriterion("item_code not like", value, "itemCode");
             return (Criteria) this;
         }
 
-        public Criteria andItemCdoeIn(List<String> values) {
-            addCriterion("item_cdoe in", values, "itemCdoe");
+        public Criteria andItemCodeIn(List<String> values) {
+            addCriterion("item_code in", values, "itemCode");
             return (Criteria) this;
         }
 
-        public Criteria andItemCdoeNotIn(List<String> values) {
-            addCriterion("item_cdoe not in", values, "itemCdoe");
+        public Criteria andItemCodeNotIn(List<String> values) {
+            addCriterion("item_code not in", values, "itemCode");
             return (Criteria) this;
         }
 
-        public Criteria andItemCdoeBetween(String value1, String value2) {
-            addCriterion("item_cdoe between", value1, value2, "itemCdoe");
+        public Criteria andItemCodeBetween(String value1, String value2) {
+            addCriterion("item_code between", value1, value2, "itemCode");
             return (Criteria) this;
         }
 
-        public Criteria andItemCdoeNotBetween(String value1, String value2) {
-            addCriterion("item_cdoe not between", value1, value2, "itemCdoe");
+        public Criteria andItemCodeNotBetween(String value1, String value2) {
+            addCriterion("item_code not between", value1, value2, "itemCode");
             return (Criteria) this;
         }
 

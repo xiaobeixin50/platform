@@ -9,7 +9,7 @@ public class BgInspectItem {
 
     private Date gmtModified;
 
-    private String inspectItemCode;
+    private String bgItemCode;
 
     private String bgCode;
 
@@ -59,12 +59,12 @@ public class BgInspectItem {
         this.gmtModified = gmtModified;
     }
 
-    public String getInspectItemCode() {
-        return inspectItemCode;
+    public String getBgItemCode() {
+        return bgItemCode;
     }
 
-    public void setInspectItemCode(String inspectItemCode) {
-        this.inspectItemCode = inspectItemCode == null ? null : inspectItemCode.trim();
+    public void setBgItemCode(String bgItemCode) {
+        this.bgItemCode = bgItemCode == null ? null : bgItemCode.trim();
     }
 
     public String getBgCode() {
