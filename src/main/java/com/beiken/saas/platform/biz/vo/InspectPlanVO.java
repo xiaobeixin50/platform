@@ -1,7 +1,11 @@
 package com.beiken.saas.platform.biz.vo;
 
+import com.beiken.saas.platform.pojo.Department;
 import com.beiken.saas.platform.pojo.InspectPlan;
+import com.beiken.saas.platform.pojo.User;
 import lombok.Data;
+
+import java.util.Map;
 
 /**
  * User: panboliang
@@ -11,15 +15,18 @@ import lombok.Data;
 @Data
 public class InspectPlanVO extends InspectPlan {
 
-    private String deptCode;
+    /**
+     * 受检单位,key->deptCode
+     */
+    private Map<String, Department> deptInfoMap;
 
-    private String deptName;
-
-    private String deptParentCode;
-
-    private String deptParentName;
+    /**
+     * 受检单位上级单位,key->deptCode
+     */
+    private Map<String, Department> deptParentInfoMap;
 
     private Long itemNum;
 
+    private Map<Long, User> inspectUserMap;
 }
 

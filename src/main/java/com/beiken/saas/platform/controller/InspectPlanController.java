@@ -22,7 +22,7 @@ import java.util.List;
  * Date: 21/2/27
  * Time: 下午5:45
  */
-@Api(value = "/plan", description = "检查计划相关接口", tags = "检查计划")
+@Api(value = "/inspect/plan", description = "检查计划相关接口", tags = "检查计划")
 @RestController
 @RequestMapping("/inspect/plan")
 @Slf4j
