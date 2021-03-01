@@ -6,12 +6,10 @@ import com.beiken.saas.platform.biz.vo.TaskItemVO;
 import com.beiken.saas.platform.biz.vo.TaskVO;
 import com.beiken.saas.platform.manage.TaskManager;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -23,7 +21,6 @@ import javax.annotation.Resource;
 @Api(value = "/custom", description = "用户端相关接口", tags = "用户端接口")
 @RestController
 @RequestMapping("/custom/task")
-@Slf4j
 public class CustomTaskController {
 
     @Resource
@@ -31,39 +28,42 @@ public class CustomTaskController {
 
     @ApiOperation("获取单人任务列表")
     @ResponseBody
-    @RequestMapping(value = "/list")
+    @GetMapping(value = "/list")
+    @ApiImplicitParams({@ApiImplicitParam(name = "inspectUserId", value = "检查人id", required = true, dataType = "Long")})
     public Result list(@RequestParam Long inspectUserId) {
         try {
             PageBo<TaskVO> pageBo = taskManager.listByUser(inspectUserId);
             return Result.success(pageBo);
         } catch (Exception e) {
-            log.error("list error", e);
+            //log.error("list error", e);
             return Result.error("ERROR", e.getMessage());
         }
     }
 
     @ApiOperation("获取任务检查项")
     @ResponseBody
-    @RequestMapping(value = "/list/item")
+    @GetMapping(value = "/list/item")
+    @ApiImplicitParams({@ApiImplicitParam(name = "taskCode", value = "任务编码", required = true, dataType = "String")})
     public Result listItem(@RequestParam String taskCode) {
         try {
             PageBo<TaskItemVO> pageBo = taskManager.listTaskItem(taskCode);
             return Result.success(pageBo);
         } catch (Exception e) {
-            log.error("list error", e);
+            //log.error("list error", e);
             return Result.error("ERROR", e.getMessage());
         }
     }
 
     @ApiOperation("合格/不合格")
     @ResponseBody
-    @RequestMapping(value = "/update-status")
-    public Result listItem(TaskItemVO taskItemVO) {
+    @GetMapping(value = "/update-status")
+    @ApiImplicitParams({@ApiImplicitParam(name = "taskItemVO", value = "任务项", required = true, dataType = "TaskItemVO", paramType = "TaskItemVO")})
+    public Result update(TaskItemVO taskItemVO) {
         try {
             taskManager.updateTaskItem(taskItemVO);
             return Result.success();
         } catch (Exception e) {
-            log.error("list error", e);
+            //log.error("list error", e);
             return Result.error("ERROR", e.getMessage());
         }
     }

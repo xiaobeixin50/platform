@@ -42,6 +42,7 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
+			<version>1.18.16</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -90,6 +91,12 @@
 			<artifactId>pagehelper-spring-boot-starter</artifactId>
 			<version>1.2.10</version>
 		</dependency>
+
+		<dependency>
+			<groupId>mysql </groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.31 </version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -99,13 +106,13 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 			<!--mybatis-generator插件-->
-			<plugin>
-				<!--Mybatis-generator插件,用于自动生成Mapper和POJO-->
+			<!--<plugin>
+				&lt;!&ndash;Mybatis-generator插件,用于自动生成Mapper和POJO&ndash;&gt;
 				<groupId>org.mybatis.generator </groupId>
 				<artifactId>mybatis-generator-maven-plugin </artifactId>
 				<version>1.3.7</version>
 				<configuration>
-					<!--配置文件的位置 一定要改成配置文件的位置-->
+					&lt;!&ndash;配置文件的位置 一定要改成配置文件的位置&ndash;&gt;
 					<configurationFile>src/main/resources/generatorConfig.xml </configurationFile>
 					<verbose>true</verbose>
 					<overwrite>true</overwrite>
@@ -127,7 +134,7 @@
 					</dependency>
 				</dependencies>
 			</plugin>
-
+-->
 		</plugins>
 	</build>
 

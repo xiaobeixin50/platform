@@ -2,10 +2,12 @@ package com.beiken.saas.platform.biz.vo;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Data
-public class UserVO {
+public class UserVO implements Serializable{
+    private static final long serialVersionUID = -3437250780069149654L;
     /**
      * 主键
      */
