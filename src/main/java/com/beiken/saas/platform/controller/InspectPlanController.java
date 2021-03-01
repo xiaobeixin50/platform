@@ -9,10 +9,7 @@ import com.beiken.saas.platform.pojo.InspectPlanDeptDO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -33,7 +30,7 @@ public class InspectPlanController {
 
     @ApiOperation("计划列表")
     @ResponseBody
-    @RequestMapping(value = "/list")
+    @PostMapping(value = "/list")
     public Result list(PlanQuery planQuery) {
         try {
             PageBo<InspectPlanVO> pageBo = planManager.planList(planQuery);
@@ -46,7 +43,7 @@ public class InspectPlanController {
 
     @ApiOperation("填写基本信息")
     @ResponseBody
-    @RequestMapping(value = "/add/step1")
+    @PostMapping(value = "/add/step1")
     public Result add(InspectPlanVO inspectPlanVO) {
         try {
             return planManager.add(inspectPlanVO);
@@ -58,7 +55,7 @@ public class InspectPlanController {
 
     @ApiOperation("查看步骤信息")
     @ResponseBody
-    @RequestMapping(value = "/info")
+    @GetMapping(value = "/info")
     public Result info(@RequestParam String inspectPlanCode) {
         try {
             return planManager.info(inspectPlanCode);
@@ -70,7 +67,7 @@ public class InspectPlanController {
 
     @ApiOperation("选择周期接口")
     @ResponseBody
-    @RequestMapping(value = "/update")
+    @PostMapping(value = "/update")
     public Result update(InspectPlanVO inspectPlanVO) {
         try {
             return planManager.updateByPlanCode(inspectPlanVO);
@@ -82,7 +79,7 @@ public class InspectPlanController {
 
     @ApiOperation("添加受检单位接口")
     @ResponseBody
-    @RequestMapping(value = "/add/dept")
+    @PostMapping(value = "/add/dept")
     public Result addPlanDept(List<InspectPlanDeptDO> inspectPlanDepts) {
         try {
             return planManager.addPlanDept(inspectPlanDepts);
@@ -94,7 +91,7 @@ public class InspectPlanController {
 
     @ApiOperation("添加受检单位接口")
     @ResponseBody
-    @RequestMapping(value = "/delete")
+    @GetMapping(value = "/delete")
     public Result delete(@RequestParam String inspectCode) {
         try {
             return planManager.delete(inspectCode);

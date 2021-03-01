@@ -7,10 +7,7 @@ import com.beiken.saas.platform.biz.vo.TaskVO;
 import com.beiken.saas.platform.manage.TaskManager;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -29,7 +26,7 @@ public class TaskController {
 
     @ApiOperation("任务列表")
     @ResponseBody
-    @RequestMapping(value = "/list")
+    @PostMapping(value = "/list")
     public Result list(TaskQuery taskQuery) {
         try {
             PageBo<TaskVO> pageBo = taskManager.list(taskQuery);
@@ -44,7 +41,7 @@ public class TaskController {
 
     @ApiOperation("任务详情")
     @ResponseBody
-    @RequestMapping(value = "/info")
+    @GetMapping(value = "/info")
     public Result info(@RequestParam String taskCode) {
         try {
             TaskVO info = taskManager.info(taskCode);
