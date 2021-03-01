@@ -2,7 +2,7 @@ package com.beiken.saas.platform.manage;
 
 
 import com.beiken.saas.platform.mapper.BgInspectItemMapper;
-import com.beiken.saas.platform.pojo.BgInspectItemExample;
+import com.beiken.saas.platform.pojo.BgInspectItemDOExample;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -20,7 +20,7 @@ public class BgManager {
 
 
     public Long countBgItemByCode(String bgCode) {
-        BgInspectItemExample example = new BgInspectItemExample();
+        BgInspectItemDOExample example = new BgInspectItemDOExample();
         example.createCriteria().andBgCodeEqualTo(bgCode);
         return bgInspectItemMapper.countByExample(example);
     }

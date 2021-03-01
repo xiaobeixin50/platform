@@ -42,9 +42,9 @@ public class TaskManager {
     public PageBo<TaskVO> list(TaskQuery taskQuery) {
         PageBo<TaskVO> pageBo = new PageBo<>();
         List<TaskVO> taskList = Lists.newArrayList();
-        InspectTaskExample taskExample = buildTaskExample(taskQuery);
-        List<InspectTask> inspectTasks = taskMapper.selectByExample(taskExample);
-        for (InspectTask inspectTask : inspectTasks) {
+        InspectTaskDOExample taskExample = buildTaskExample(taskQuery);
+        List<InspectTaskDO> inspectTasks = taskMapper.selectByExample(taskExample);
+        for (InspectTaskDO inspectTask : inspectTasks) {
             TaskVO taskVO = new TaskVO();
             BeanUtils.copyProperties(inspectTask, taskVO);
             taskList.add(taskVO);
@@ -59,10 +59,10 @@ public class TaskManager {
         PageBo<TaskVO> pageBo = new PageBo<>();
         List<TaskVO> taskList = Lists.newArrayList();
 
-        InspectTaskExample example = new InspectTaskExample();
+        InspectTaskDOExample example = new InspectTaskDOExample();
         example.createCriteria().andInspectUserIdEqualTo(inspectUserId);
-        List<InspectTask> inspectTasks = taskMapper.selectByExample(example);
-        for (InspectTask inspectTask : inspectTasks) {
+        List<InspectTaskDO> inspectTasks = taskMapper.selectByExample(example);
+        for (InspectTaskDO inspectTask : inspectTasks) {
             TaskVO taskVO = new TaskVO();
             BeanUtils.copyProperties(inspectTask, taskVO);
             taskVO.setTaskStartTime(inspectTask.getStartTime());
@@ -79,17 +79,18 @@ public class TaskManager {
         PageBo<TaskItemVO> pageBo = new PageBo<>();
         List<TaskItemVO> taskItemList = Lists.newArrayList();
 
-        InspectTaskItemExample example = new InspectTaskItemExample();
+        InspectTaskItemDOExample example = new InspectTaskItemDOExample();
         example.createCriteria().andTaskCodeEqualTo(taskCode);
-        List<InspectTaskItem> taskItems = taskItemMapper.selectByExample(example);
-        Set<String> bgItemCodeSet = taskItems.stream().map(InspectTaskItem::getBgItemCode).collect(Collectors.toSet());
+        List<InspectTaskItemDO> taskItems = taskItemMapper.selectByExample(example);
+        Set<String> bgItemCodeSet = taskItems.stream().map(InspectTaskItemDO::getBgItemCode).collect(Collectors.toSet());
 
-        BgInspectItemExample bgItemExample = new BgInspectItemExample();
+        BgInspectItemDOExample bgItemExample = new BgInspectItemDOExample();
         bgItemExample.createCriteria().andBgItemCodeIn(Lists.newArrayList(bgItemCodeSet));
-        List<BgInspectItem> bgInspectItems = bgInspectItemMapper.selectByExample(bgItemExample);
+        List<BgInspectItemDO> bgInspectItems = bgInspectItemMapper.selectByExample(bgItemExample);
         if (!CollectionUtils.isEmpty(bgInspectItems)) {
-            Map<String, BgInspectItem> bgItemMap = bgInspectItems.stream().collect(Collectors.toMap(BgInspectItem::getBgItemCode, p -> p));
-            for (InspectTaskItem taskItem : taskItems) {
+            Map<String, BgInspectItemDO> bgItemMap = bgInspectItems.stream()
+                    .collect(Collectors.toMap(BgInspectItemDO::getBgItemCode, p -> p));
+            for (InspectTaskItemDO taskItem : taskItems) {
                 TaskItemVO taskItemVO = new TaskItemVO();
                 BeanUtils.copyProperties(taskItem, taskItemVO);
                 if (!bgItemMap.containsKey(taskItem.getBgItemCode())) {
@@ -108,10 +109,10 @@ public class TaskManager {
 
     public void updateTaskItem(TaskItemVO taskItemVO) {
 
-        InspectTaskItemExample example = new InspectTaskItemExample();
+        InspectTaskItemDOExample example = new InspectTaskItemDOExample();
         example.createCriteria().andTaskCodeEqualTo(taskItemVO.getItemCode());
 
-        InspectTaskItem inspectTaskItem = new InspectTaskItem();
+        InspectTaskItemDO inspectTaskItem = new InspectTaskItemDO();
         BeanUtils.copyProperties(taskItemVO, inspectTaskItem);
         taskItemMapper.updateByExampleSelective(inspectTaskItem, example);
     }
@@ -119,11 +120,11 @@ public class TaskManager {
     //todo 需要详细信息
     public TaskVO info(String taskCode) {
         TaskVO taskVO = new TaskVO();
-        InspectTaskExample example = new InspectTaskExample();
+        InspectTaskDOExample example = new InspectTaskDOExample();
         example.createCriteria().andTaskCodeEqualTo(taskCode);
-        List<InspectTask> taskList = taskMapper.selectByExample(example);
+        List<InspectTaskDO> taskList = taskMapper.selectByExample(example);
         if (!CollectionUtils.isEmpty(taskList)) {
-            InspectTask inspectTask = taskList.get(0);
+            InspectTaskDO inspectTask = taskList.get(0);
             BeanUtils.copyProperties(inspectTask, taskVO);
         }
         //todo
@@ -131,14 +132,14 @@ public class TaskManager {
     }
 
 
-    private InspectTaskExample buildTaskExample(TaskQuery taskQuery) {
-        InspectTaskExample example = new InspectTaskExample();
+    private InspectTaskDOExample buildTaskExample(TaskQuery taskQuery) {
+        InspectTaskDOExample example = new InspectTaskDOExample();
         example.setLimitStart(taskQuery.getPageNo());
         example.setCount((taskQuery.getPageNo() - 1) * taskQuery.getPageSize());
         return example;
         /*
         if (StringUtils.isNotBlank(planQuery.getDeptName())) {
-            InspectPlanDeptExample deptExample = new InspectPlanDeptExample();
+            InspectPlanDeptExample deptExample = new InspectPlanDeptDOExample();
             deptExample.createCriteria().andDeptNameLike(Constants.LIKE + planQuery.getDeptName() + Constants.LIKE);
             List<InspectPlanDept> inspectPlanDepts = inspectPlanDeptMapper.selectByExample(deptExample);
             Set<String> inspectPlanCodeSet = inspectPlanDepts.stream().map(InspectPlanDept::getInspcetPlanCode).collect(Collectors.toSet());

@@ -1,6 +1,6 @@
 package com.beiken.saas.platform.biz.vo;
 
-import com.beiken.saas.platform.pojo.BgInspectItem;
+import com.beiken.saas.platform.pojo.BgInspectItemDO;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -12,7 +12,7 @@ import java.util.Date;
  * Time: 下午4:18
  */
 @Data
-public class TaskItemVO extends BgInspectItem implements Serializable {
+public class TaskItemVO extends BgInspectItemDO implements Serializable {
     private static final long serialVersionUID = -6984849536115165582L;
 
     private String itemCode;

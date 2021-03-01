@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.beiken.saas.platform.mapper.InspectPlanDeptMapper">
-  <resultMap id="BaseResultMap" type="com.beiken.saas.platform.pojo.InspectPlanDeptDO">
+<mapper namespace="com.beiken.saas.platform.mapper.HiddenDangerCheckMapper">
+  <resultMap id="BaseResultMap" type="com.beiken.saas.platform.pojo.HiddenDangerCheckDO">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
-    <result column="inspcet_plan_code" jdbcType="VARCHAR" property="inspcetPlanCode" />
-    <result column="dept_code" jdbcType="VARCHAR" property="deptCode" />
-    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
-    <result column="dept_parent_code" jdbcType="VARCHAR" property="deptParentCode" />
-    <result column="dept_parent_name" jdbcType="VARCHAR" property="deptParentName" />
+    <result column="danger_code" jdbcType="VARCHAR" property="dangerCode" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="extra" jdbcType="VARCHAR" property="extra" />
+    <result column="status" jdbcType="INTEGER" property="status" />
     <result column="inspect_user_id" jdbcType="BIGINT" property="inspectUserId" />
     <result column="inspect_user_name" jdbcType="VARCHAR" property="inspectUserName" />
+    <result column="inspect_user_role" jdbcType="VARCHAR" property="inspectUserRole" />
+    <result column="inspect_user_dept" jdbcType="VARCHAR" property="inspectUserDept" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -72,17 +73,17 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, gmt_create, gmt_modified, inspcet_plan_code, dept_code, dept_name, dept_parent_code, 
-    dept_parent_name, inspect_user_id, inspect_user_name
+    id, gmt_create, gmt_modified, danger_code, type, extra, status, inspect_user_id, 
+    inspect_user_name, inspect_user_role, inspect_user_dept
   </sql>
-  <select id="selectByExample" parameterType="com.beiken.saas.platform.pojo.InspectPlanDeptDOExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.beiken.saas.platform.pojo.HiddenDangerCheckDOExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     'true' as QUERYID,
     <include refid="Base_Column_List" />
-    from sft_inspect_plan_dept
+    from sft_hidden_danger_check
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -96,31 +97,31 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from sft_inspect_plan_dept
+    from sft_hidden_danger_check
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from sft_inspect_plan_dept
+    delete from sft_hidden_danger_check
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.beiken.saas.platform.pojo.InspectPlanDeptDOExample">
-    delete from sft_inspect_plan_dept
+  <delete id="deleteByExample" parameterType="com.beiken.saas.platform.pojo.HiddenDangerCheckDOExample">
+    delete from sft_hidden_danger_check
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.beiken.saas.platform.pojo.InspectPlanDeptDO">
-    insert into sft_inspect_plan_dept (id, gmt_create, gmt_modified, 
-      inspcet_plan_code, dept_code, dept_name, 
-      dept_parent_code, dept_parent_name, inspect_user_id, 
-      inspect_user_name)
+  <insert id="insert" parameterType="com.beiken.saas.platform.pojo.HiddenDangerCheckDO">
+    insert into sft_hidden_danger_check (id, gmt_create, gmt_modified, 
+      danger_code, type, extra, 
+      status, inspect_user_id, inspect_user_name, 
+      inspect_user_role, inspect_user_dept)
     values (#{id,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
-      #{inspcetPlanCode,jdbcType=VARCHAR}, #{deptCode,jdbcType=VARCHAR}, #{deptName,jdbcType=VARCHAR}, 
-      #{deptParentCode,jdbcType=VARCHAR}, #{deptParentName,jdbcType=VARCHAR}, #{inspectUserId,jdbcType=BIGINT}, 
-      #{inspectUserName,jdbcType=VARCHAR})
+      #{dangerCode,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{extra,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{inspectUserId,jdbcType=BIGINT}, #{inspectUserName,jdbcType=VARCHAR}, 
+      #{inspectUserRole,jdbcType=VARCHAR}, #{inspectUserDept,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.beiken.saas.platform.pojo.InspectPlanDeptDO">
-    insert into sft_inspect_plan_dept
+  <insert id="insertSelective" parameterType="com.beiken.saas.platform.pojo.HiddenDangerCheckDO">
+    insert into sft_hidden_danger_check
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -131,26 +132,29 @@
       <if test="gmtModified != null">
         gmt_modified,
       </if>
-      <if test="inspcetPlanCode != null">
-        inspcet_plan_code,
+      <if test="dangerCode != null">
+        danger_code,
       </if>
-      <if test="deptCode != null">
-        dept_code,
+      <if test="type != null">
+        type,
       </if>
-      <if test="deptName != null">
-        dept_name,
+      <if test="extra != null">
+        extra,
       </if>
-      <if test="deptParentCode != null">
-        dept_parent_code,
-      </if>
-      <if test="deptParentName != null">
-        dept_parent_name,
+      <if test="status != null">
+        status,
       </if>
       <if test="inspectUserId != null">
         inspect_user_id,
       </if>
       <if test="inspectUserName != null">
         inspect_user_name,
+      </if>
+      <if test="inspectUserRole != null">
+        inspect_user_role,
+      </if>
+      <if test="inspectUserDept != null">
+        inspect_user_dept,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -163,20 +167,17 @@
       <if test="gmtModified != null">
         #{gmtModified,jdbcType=TIMESTAMP},
       </if>
-      <if test="inspcetPlanCode != null">
-        #{inspcetPlanCode,jdbcType=VARCHAR},
+      <if test="dangerCode != null">
+        #{dangerCode,jdbcType=VARCHAR},
       </if>
-      <if test="deptCode != null">
-        #{deptCode,jdbcType=VARCHAR},
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
       </if>
-      <if test="deptName != null">
-        #{deptName,jdbcType=VARCHAR},
+      <if test="extra != null">
+        #{extra,jdbcType=VARCHAR},
       </if>
-      <if test="deptParentCode != null">
-        #{deptParentCode,jdbcType=VARCHAR},
-      </if>
-      <if test="deptParentName != null">
-        #{deptParentName,jdbcType=VARCHAR},
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
       </if>
       <if test="inspectUserId != null">
         #{inspectUserId,jdbcType=BIGINT},
@@ -184,16 +185,22 @@
       <if test="inspectUserName != null">
         #{inspectUserName,jdbcType=VARCHAR},
       </if>
+      <if test="inspectUserRole != null">
+        #{inspectUserRole,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectUserDept != null">
+        #{inspectUserDept,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.beiken.saas.platform.pojo.InspectPlanDeptDOExample" resultType="java.lang.Long">
-    select count(*) from sft_inspect_plan_dept
+  <select id="countByExample" parameterType="com.beiken.saas.platform.pojo.HiddenDangerCheckDOExample" resultType="java.lang.Long">
+    select count(*) from sft_hidden_danger_check
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update sft_inspect_plan_dept
+    update sft_hidden_danger_check
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
@@ -204,20 +211,17 @@
       <if test="record.gmtModified != null">
         gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.inspcetPlanCode != null">
-        inspcet_plan_code = #{record.inspcetPlanCode,jdbcType=VARCHAR},
+      <if test="record.dangerCode != null">
+        danger_code = #{record.dangerCode,jdbcType=VARCHAR},
       </if>
-      <if test="record.deptCode != null">
-        dept_code = #{record.deptCode,jdbcType=VARCHAR},
+      <if test="record.type != null">
+        type = #{record.type,jdbcType=VARCHAR},
       </if>
-      <if test="record.deptName != null">
-        dept_name = #{record.deptName,jdbcType=VARCHAR},
+      <if test="record.extra != null">
+        extra = #{record.extra,jdbcType=VARCHAR},
       </if>
-      <if test="record.deptParentCode != null">
-        dept_parent_code = #{record.deptParentCode,jdbcType=VARCHAR},
-      </if>
-      <if test="record.deptParentName != null">
-        dept_parent_name = #{record.deptParentName,jdbcType=VARCHAR},
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
       </if>
       <if test="record.inspectUserId != null">
         inspect_user_id = #{record.inspectUserId,jdbcType=BIGINT},
@@ -225,29 +229,36 @@
       <if test="record.inspectUserName != null">
         inspect_user_name = #{record.inspectUserName,jdbcType=VARCHAR},
       </if>
+      <if test="record.inspectUserRole != null">
+        inspect_user_role = #{record.inspectUserRole,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inspectUserDept != null">
+        inspect_user_dept = #{record.inspectUserDept,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update sft_inspect_plan_dept
+    update sft_hidden_danger_check
     set id = #{record.id,jdbcType=BIGINT},
       gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
-      inspcet_plan_code = #{record.inspcetPlanCode,jdbcType=VARCHAR},
-      dept_code = #{record.deptCode,jdbcType=VARCHAR},
-      dept_name = #{record.deptName,jdbcType=VARCHAR},
-      dept_parent_code = #{record.deptParentCode,jdbcType=VARCHAR},
-      dept_parent_name = #{record.deptParentName,jdbcType=VARCHAR},
+      danger_code = #{record.dangerCode,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=VARCHAR},
+      extra = #{record.extra,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
       inspect_user_id = #{record.inspectUserId,jdbcType=BIGINT},
-      inspect_user_name = #{record.inspectUserName,jdbcType=VARCHAR}
+      inspect_user_name = #{record.inspectUserName,jdbcType=VARCHAR},
+      inspect_user_role = #{record.inspectUserRole,jdbcType=VARCHAR},
+      inspect_user_dept = #{record.inspectUserDept,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.beiken.saas.platform.pojo.InspectPlanDeptDO">
-    update sft_inspect_plan_dept
+  <update id="updateByPrimaryKeySelective" parameterType="com.beiken.saas.platform.pojo.HiddenDangerCheckDO">
+    update sft_hidden_danger_check
     <set>
       <if test="gmtCreate != null">
         gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
@@ -255,20 +266,17 @@
       <if test="gmtModified != null">
         gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
       </if>
-      <if test="inspcetPlanCode != null">
-        inspcet_plan_code = #{inspcetPlanCode,jdbcType=VARCHAR},
+      <if test="dangerCode != null">
+        danger_code = #{dangerCode,jdbcType=VARCHAR},
       </if>
-      <if test="deptCode != null">
-        dept_code = #{deptCode,jdbcType=VARCHAR},
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
       </if>
-      <if test="deptName != null">
-        dept_name = #{deptName,jdbcType=VARCHAR},
+      <if test="extra != null">
+        extra = #{extra,jdbcType=VARCHAR},
       </if>
-      <if test="deptParentCode != null">
-        dept_parent_code = #{deptParentCode,jdbcType=VARCHAR},
-      </if>
-      <if test="deptParentName != null">
-        dept_parent_name = #{deptParentName,jdbcType=VARCHAR},
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
       </if>
       <if test="inspectUserId != null">
         inspect_user_id = #{inspectUserId,jdbcType=BIGINT},
@@ -276,20 +284,27 @@
       <if test="inspectUserName != null">
         inspect_user_name = #{inspectUserName,jdbcType=VARCHAR},
       </if>
+      <if test="inspectUserRole != null">
+        inspect_user_role = #{inspectUserRole,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectUserDept != null">
+        inspect_user_dept = #{inspectUserDept,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.beiken.saas.platform.pojo.InspectPlanDeptDO">
-    update sft_inspect_plan_dept
+  <update id="updateByPrimaryKey" parameterType="com.beiken.saas.platform.pojo.HiddenDangerCheckDO">
+    update sft_hidden_danger_check
     set gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
-      inspcet_plan_code = #{inspcetPlanCode,jdbcType=VARCHAR},
-      dept_code = #{deptCode,jdbcType=VARCHAR},
-      dept_name = #{deptName,jdbcType=VARCHAR},
-      dept_parent_code = #{deptParentCode,jdbcType=VARCHAR},
-      dept_parent_name = #{deptParentName,jdbcType=VARCHAR},
+      danger_code = #{dangerCode,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      extra = #{extra,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
       inspect_user_id = #{inspectUserId,jdbcType=BIGINT},
-      inspect_user_name = #{inspectUserName,jdbcType=VARCHAR}
+      inspect_user_name = #{inspectUserName,jdbcType=VARCHAR},
+      inspect_user_role = #{inspectUserRole,jdbcType=VARCHAR},
+      inspect_user_dept = #{inspectUserDept,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

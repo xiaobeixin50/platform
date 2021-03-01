@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.beiken.saas.platform.mapper.InspectPlanMapper">
-  <resultMap id="BaseResultMap" type="com.beiken.saas.platform.pojo.InspectPlan">
+  <resultMap id="BaseResultMap" type="com.beiken.saas.platform.pojo.InspectPlanDO">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
@@ -22,7 +22,7 @@
     <result column="bg_code" jdbcType="VARCHAR" property="bgCode" />
     <result column="step" jdbcType="INTEGER" property="step" />
   </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.beiken.saas.platform.pojo.InspectPlan">
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.beiken.saas.platform.pojo.InspectPlanDO">
     <result column="extra" jdbcType="LONGVARCHAR" property="extra" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -91,7 +91,7 @@
   <sql id="Blob_Column_List">
     extra
   </sql>
-  <select id="selectByExampleWithBLOBs" parameterType="com.beiken.saas.platform.pojo.InspectPlanExample" resultMap="ResultMapWithBLOBs">
+  <select id="selectByExampleWithBLOBs" parameterType="com.beiken.saas.platform.pojo.InspectPlanDOExample" resultMap="ResultMapWithBLOBs">
     select
     <if test="distinct">
       distinct
@@ -111,7 +111,7 @@
       limit ${limitStart} , ${count}
     </if>
   </select>
-  <select id="selectByExample" parameterType="com.beiken.saas.platform.pojo.InspectPlanExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.beiken.saas.platform.pojo.InspectPlanDOExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -141,13 +141,13 @@
     delete from sft_inspect_plan
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.beiken.saas.platform.pojo.InspectPlanExample">
+  <delete id="deleteByExample" parameterType="com.beiken.saas.platform.pojo.InspectPlanDOExample">
     delete from sft_inspect_plan
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.beiken.saas.platform.pojo.InspectPlan">
+  <insert id="insert" parameterType="com.beiken.saas.platform.pojo.InspectPlanDO">
     insert into sft_inspect_plan (id, gmt_create, gmt_modified, 
       inspect_plan_code, name, type, 
       priority, status, freq, 
@@ -163,7 +163,7 @@
       #{startNumber,jdbcType=INTEGER}, #{endNumber,jdbcType=INTEGER}, #{bgCode,jdbcType=VARCHAR}, 
       #{step,jdbcType=INTEGER}, #{extra,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.beiken.saas.platform.pojo.InspectPlan">
+  <insert id="insertSelective" parameterType="com.beiken.saas.platform.pojo.InspectPlanDO">
     insert into sft_inspect_plan
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -290,7 +290,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.beiken.saas.platform.pojo.InspectPlanExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.beiken.saas.platform.pojo.InspectPlanDOExample" resultType="java.lang.Long">
     select count(*) from sft_inspect_plan
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -415,7 +415,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.beiken.saas.platform.pojo.InspectPlan">
+  <update id="updateByPrimaryKeySelective" parameterType="com.beiken.saas.platform.pojo.InspectPlanDO">
     update sft_inspect_plan
     <set>
       <if test="gmtCreate != null">
@@ -478,7 +478,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.beiken.saas.platform.pojo.InspectPlan">
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.beiken.saas.platform.pojo.InspectPlanDO">
     update sft_inspect_plan
     set gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
@@ -501,7 +501,7 @@
       extra = #{extra,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.beiken.saas.platform.pojo.InspectPlan">
+  <update id="updateByPrimaryKey" parameterType="com.beiken.saas.platform.pojo.InspectPlanDO">
     update sft_inspect_plan
     set gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},

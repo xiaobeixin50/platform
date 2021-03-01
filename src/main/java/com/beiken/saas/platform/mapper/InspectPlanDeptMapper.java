@@ -1,30 +1,30 @@
 package com.beiken.saas.platform.mapper;
 
-import com.beiken.saas.platform.pojo.InspectPlanDept;
-import com.beiken.saas.platform.pojo.InspectPlanDeptExample;
+import com.beiken.saas.platform.pojo.InspectPlanDeptDO;
+import com.beiken.saas.platform.pojo.InspectPlanDeptDOExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface InspectPlanDeptMapper {
-    long countByExample(InspectPlanDeptExample example);
+    long countByExample(InspectPlanDeptDOExample example);
 
-    int deleteByExample(InspectPlanDeptExample example);
+    int deleteByExample(InspectPlanDeptDOExample example);
 
     int deleteByPrimaryKey(Long id);
 
-    int insert(InspectPlanDept record);
+    int insert(InspectPlanDeptDO record);
 
-    int insertSelective(InspectPlanDept record);
+    int insertSelective(InspectPlanDeptDO record);
 
-    List<InspectPlanDept> selectByExample(InspectPlanDeptExample example);
+    List<InspectPlanDeptDO> selectByExample(InspectPlanDeptDOExample example);
 
-    InspectPlanDept selectByPrimaryKey(Long id);
+    InspectPlanDeptDO selectByPrimaryKey(Long id);
 
-    int updateByExampleSelective(@Param("record") InspectPlanDept record, @Param("example") InspectPlanDeptExample example);
+    int updateByExampleSelective(@Param("record") InspectPlanDeptDO record, @Param("example") InspectPlanDeptDOExample example);
 
-    int updateByExample(@Param("record") InspectPlanDept record, @Param("example") InspectPlanDeptExample example);
+    int updateByExample(@Param("record") InspectPlanDeptDO record, @Param("example") InspectPlanDeptDOExample example);
 
-    int updateByPrimaryKeySelective(InspectPlanDept record);
+    int updateByPrimaryKeySelective(InspectPlanDeptDO record);
 
-    int updateByPrimaryKey(InspectPlanDept record);
+    int updateByPrimaryKey(InspectPlanDeptDO record);
 }

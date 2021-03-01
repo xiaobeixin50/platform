@@ -1,30 +1,31 @@
 package com.beiken.saas.platform.mapper;
 
-import com.beiken.saas.platform.pojo.InspectTaskItem;
-import com.beiken.saas.platform.pojo.InspectTaskItemExample;
-import java.util.List;
+import com.beiken.saas.platform.pojo.InspectTaskItemDO;
+import com.beiken.saas.platform.pojo.InspectTaskItemDOExample;
 import org.apache.ibatis.annotations.Param;
 
-public interface InspectTaskItemMapper {
-    long countByExample(InspectTaskItemExample example);
+import java.util.List;
 
-    int deleteByExample(InspectTaskItemExample example);
+public interface InspectTaskItemMapper {
+    long countByExample(InspectTaskItemDOExample example);
+
+    int deleteByExample(InspectTaskItemDOExample example);
 
     int deleteByPrimaryKey(Long id);
 
-    int insert(InspectTaskItem record);
+    int insert(InspectTaskItemDO record);
 
-    int insertSelective(InspectTaskItem record);
+    int insertSelective(InspectTaskItemDO record);
 
-    List<InspectTaskItem> selectByExample(InspectTaskItemExample example);
+    List<InspectTaskItemDO> selectByExample(InspectTaskItemDOExample example);
 
-    InspectTaskItem selectByPrimaryKey(Long id);
+    InspectTaskItemDO selectByPrimaryKey(Long id);
 
-    int updateByExampleSelective(@Param("record") InspectTaskItem record, @Param("example") InspectTaskItemExample example);
+    int updateByExampleSelective(@Param("record") InspectTaskItemDO record, @Param("example") InspectTaskItemDOExample example);
 
-    int updateByExample(@Param("record") InspectTaskItem record, @Param("example") InspectTaskItemExample example);
+    int updateByExample(@Param("record") InspectTaskItemDO record, @Param("example") InspectTaskItemDOExample example);
 
-    int updateByPrimaryKeySelective(InspectTaskItem record);
+    int updateByPrimaryKeySelective(InspectTaskItemDO record);
 
-    int updateByPrimaryKey(InspectTaskItem record);
+    int updateByPrimaryKey(InspectTaskItemDO record);
 }

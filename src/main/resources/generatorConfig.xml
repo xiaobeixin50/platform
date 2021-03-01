@@ -47,7 +47,8 @@
         <!-- tableName:用于自动生成代码的数据库表；domainObjectName:对应于数据库表的javaBean类名 -->
         <!--book_info数据库表明--> <!--别名Book_Info pojo（实体类明）-->
         <table tableName="sft_bg"
-               domainObjectName="Bg"
+               domainObjectName="BgDO"
+               mapperName="BgMapper"
 
                enableCountByExample="true"
                enableUpdateByExample="true"
@@ -56,7 +57,8 @@
                selectByExampleQueryId="true"></table>
 
         <table tableName="sft_bg_inspect_item"
-               domainObjectName="BgInspectItem"
+               domainObjectName="BgInspectItemDO"
+               mapperName="BgInspectItemMapper"
 
                enableCountByExample="true"
                enableUpdateByExample="true"
@@ -65,7 +67,8 @@
                selectByExampleQueryId="true"></table>
 
         <table tableName="sft_department"
-               domainObjectName="Department"
+               domainObjectName="DepartmentDO"
+               mapperName="DepartmentMapper"
 
                enableCountByExample="true"
                enableUpdateByExample="true"
@@ -74,7 +77,9 @@
                selectByExampleQueryId="true"></table>
 
         <table tableName="sft_inspect_plan"
-               domainObjectName="InspectPlan"
+               domainObjectName="InspectPlanDO"
+               mapperName="InspectPlanMapper"
+
 
                enableCountByExample="true"
                enableUpdateByExample="true"
@@ -83,7 +88,8 @@
                selectByExampleQueryId="true"></table>
 
         <table tableName="sft_inspect_plan_dept"
-               domainObjectName="InspectPlanDept"
+               domainObjectName="InspectPlanDeptDO"
+               mapperName="InspectPlanDeptMapper"
 
                enableCountByExample="true"
                enableUpdateByExample="true"
@@ -92,7 +98,8 @@
                selectByExampleQueryId="true"></table>
 
         <table tableName="sft_inspect_task"
-               domainObjectName="InspectTask"
+               domainObjectName="InspectTaskDO"
+               mapperName="InspectTaskMapper"
 
                enableCountByExample="true"
                enableUpdateByExample="true"
@@ -101,7 +108,8 @@
                selectByExampleQueryId="true"></table>
 
         <table tableName="sft_inspect_task_item"
-               domainObjectName="InspectTaskItem"
+               domainObjectName="InspectTaskItemDO"
+               mapperName="InspectTaskItemMapper"
 
                enableCountByExample="true"
                enableUpdateByExample="true"
@@ -110,7 +118,8 @@
                selectByExampleQueryId="true"></table>
 
         <table tableName="sft_rig"
-               domainObjectName="Rig"
+               domainObjectName="RigDO"
+               mapperName="RigMapper"
 
                enableCountByExample="true"
                enableUpdateByExample="true"
@@ -119,7 +128,8 @@
                selectByExampleQueryId="true"></table>
 
         <table tableName="sft_role"
-               domainObjectName="Role"
+               domainObjectName="RoleDO"
+               mapperName="RoleMapper"
 
                enableCountByExample="true"
                enableUpdateByExample="true"
@@ -128,13 +138,35 @@
                selectByExampleQueryId="true"></table>
 
         <table tableName="sft_user"
-               domainObjectName="User"
+               domainObjectName="UserDO"
+               mapperName="UserMapper"
 
                enableCountByExample="true"
                enableUpdateByExample="true"
                enableDeleteByExample="true"
                enableSelectByExample="true"
                selectByExampleQueryId="true"></table>
+
+        <table tableName="sft_hidden_danger"
+               domainObjectName="HiddenDangerDO"
+               mapperName="HiddenDangerMapper"
+
+               enableCountByExample="true"
+               enableUpdateByExample="true"
+               enableDeleteByExample="true"
+               enableSelectByExample="true"
+               selectByExampleQueryId="true"></table>
+
+        <table tableName="sft_hidden_danger_check"
+               domainObjectName="HiddenDangerCheckDO"
+               mapperName="HiddenDangerCheckMapper"
+
+               enableCountByExample="true"
+               enableUpdateByExample="true"
+               enableDeleteByExample="true"
+               enableSelectByExample="true"
+               selectByExampleQueryId="true"></table>
+
 
     </context>
 </generatorConfiguration>

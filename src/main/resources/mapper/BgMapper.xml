@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.beiken.saas.platform.mapper.BgMapper">
-  <resultMap id="BaseResultMap" type="com.beiken.saas.platform.pojo.Bg">
+  <resultMap id="BaseResultMap" type="com.beiken.saas.platform.pojo.BgDO">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
@@ -9,7 +9,7 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="type" jdbcType="VARCHAR" property="type" />
   </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.beiken.saas.platform.pojo.Bg">
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.beiken.saas.platform.pojo.BgDO">
     <result column="extra" jdbcType="LONGVARCHAR" property="extra" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -76,7 +76,7 @@
   <sql id="Blob_Column_List">
     extra
   </sql>
-  <select id="selectByExampleWithBLOBs" parameterType="com.beiken.saas.platform.pojo.BgExample" resultMap="ResultMapWithBLOBs">
+  <select id="selectByExampleWithBLOBs" parameterType="com.beiken.saas.platform.pojo.BgDOExample" resultMap="ResultMapWithBLOBs">
     select
     <if test="distinct">
       distinct
@@ -96,7 +96,7 @@
       limit ${limitStart} , ${count}
     </if>
   </select>
-  <select id="selectByExample" parameterType="com.beiken.saas.platform.pojo.BgExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.beiken.saas.platform.pojo.BgDOExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -126,13 +126,13 @@
     delete from sft_bg
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.beiken.saas.platform.pojo.BgExample">
+  <delete id="deleteByExample" parameterType="com.beiken.saas.platform.pojo.BgDOExample">
     delete from sft_bg
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.beiken.saas.platform.pojo.Bg">
+  <insert id="insert" parameterType="com.beiken.saas.platform.pojo.BgDO">
     insert into sft_bg (id, gmt_create, gmt_modified, 
       bg_code, name, type, 
       extra)
@@ -140,7 +140,7 @@
       #{bgCode,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
       #{extra,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.beiken.saas.platform.pojo.Bg">
+  <insert id="insertSelective" parameterType="com.beiken.saas.platform.pojo.BgDO">
     insert into sft_bg
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -189,7 +189,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.beiken.saas.platform.pojo.BgExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.beiken.saas.platform.pojo.BgDOExample" resultType="java.lang.Long">
     select count(*) from sft_bg
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -249,7 +249,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.beiken.saas.platform.pojo.Bg">
+  <update id="updateByPrimaryKeySelective" parameterType="com.beiken.saas.platform.pojo.BgDO">
     update sft_bg
     <set>
       <if test="gmtCreate != null">
@@ -273,7 +273,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.beiken.saas.platform.pojo.Bg">
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.beiken.saas.platform.pojo.BgDO">
     update sft_bg
     set gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
@@ -283,7 +283,7 @@
       extra = #{extra,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.beiken.saas.platform.pojo.Bg">
+  <update id="updateByPrimaryKey" parameterType="com.beiken.saas.platform.pojo.BgDO">
     update sft_bg
     set gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},

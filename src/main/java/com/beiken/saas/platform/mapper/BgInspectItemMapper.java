@@ -1,36 +1,36 @@
 package com.beiken.saas.platform.mapper;
 
-import com.beiken.saas.platform.pojo.BgInspectItem;
-import com.beiken.saas.platform.pojo.BgInspectItemExample;
+import com.beiken.saas.platform.pojo.BgInspectItemDO;
+import com.beiken.saas.platform.pojo.BgInspectItemDOExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface BgInspectItemMapper {
-    long countByExample(BgInspectItemExample example);
+    long countByExample(BgInspectItemDOExample example);
 
-    int deleteByExample(BgInspectItemExample example);
+    int deleteByExample(BgInspectItemDOExample example);
 
     int deleteByPrimaryKey(Long id);
 
-    int insert(BgInspectItem record);
+    int insert(BgInspectItemDO record);
 
-    int insertSelective(BgInspectItem record);
+    int insertSelective(BgInspectItemDO record);
 
-    List<BgInspectItem> selectByExampleWithBLOBs(BgInspectItemExample example);
+    List<BgInspectItemDO> selectByExampleWithBLOBs(BgInspectItemDOExample example);
 
-    List<BgInspectItem> selectByExample(BgInspectItemExample example);
+    List<BgInspectItemDO> selectByExample(BgInspectItemDOExample example);
 
-    BgInspectItem selectByPrimaryKey(Long id);
+    BgInspectItemDO selectByPrimaryKey(Long id);
 
-    int updateByExampleSelective(@Param("record") BgInspectItem record, @Param("example") BgInspectItemExample example);
+    int updateByExampleSelective(@Param("record") BgInspectItemDO record, @Param("example") BgInspectItemDOExample example);
 
-    int updateByExampleWithBLOBs(@Param("record") BgInspectItem record, @Param("example") BgInspectItemExample example);
+    int updateByExampleWithBLOBs(@Param("record") BgInspectItemDO record, @Param("example") BgInspectItemDOExample example);
 
-    int updateByExample(@Param("record") BgInspectItem record, @Param("example") BgInspectItemExample example);
+    int updateByExample(@Param("record") BgInspectItemDO record, @Param("example") BgInspectItemDOExample example);
 
-    int updateByPrimaryKeySelective(BgInspectItem record);
+    int updateByPrimaryKeySelective(BgInspectItemDO record);
 
-    int updateByPrimaryKeyWithBLOBs(BgInspectItem record);
+    int updateByPrimaryKeyWithBLOBs(BgInspectItemDO record);
 
-    int updateByPrimaryKey(BgInspectItem record);
+    int updateByPrimaryKey(BgInspectItemDO record);
 }

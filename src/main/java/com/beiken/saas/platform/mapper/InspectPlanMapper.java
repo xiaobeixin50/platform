@@ -1,36 +1,36 @@
 package com.beiken.saas.platform.mapper;
 
-import com.beiken.saas.platform.pojo.InspectPlan;
-import com.beiken.saas.platform.pojo.InspectPlanExample;
+import com.beiken.saas.platform.pojo.InspectPlanDO;
+import com.beiken.saas.platform.pojo.InspectPlanDOExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface InspectPlanMapper {
-    long countByExample(InspectPlanExample example);
+    long countByExample(InspectPlanDOExample example);
 
-    int deleteByExample(InspectPlanExample example);
+    int deleteByExample(InspectPlanDOExample example);
 
     int deleteByPrimaryKey(Long id);
 
-    int insert(InspectPlan record);
+    int insert(InspectPlanDO record);
 
-    int insertSelective(InspectPlan record);
+    int insertSelective(InspectPlanDO record);
 
-    List<InspectPlan> selectByExampleWithBLOBs(InspectPlanExample example);
+    List<InspectPlanDO> selectByExampleWithBLOBs(InspectPlanDOExample example);
 
-    List<InspectPlan> selectByExample(InspectPlanExample example);
+    List<InspectPlanDO> selectByExample(InspectPlanDOExample example);
 
-    InspectPlan selectByPrimaryKey(Long id);
+    InspectPlanDO selectByPrimaryKey(Long id);
 
-    int updateByExampleSelective(@Param("record") InspectPlan record, @Param("example") InspectPlanExample example);
+    int updateByExampleSelective(@Param("record") InspectPlanDO record, @Param("example") InspectPlanDOExample example);
 
-    int updateByExampleWithBLOBs(@Param("record") InspectPlan record, @Param("example") InspectPlanExample example);
+    int updateByExampleWithBLOBs(@Param("record") InspectPlanDO record, @Param("example") InspectPlanDOExample example);
 
-    int updateByExample(@Param("record") InspectPlan record, @Param("example") InspectPlanExample example);
+    int updateByExample(@Param("record") InspectPlanDO record, @Param("example") InspectPlanDOExample example);
 
-    int updateByPrimaryKeySelective(InspectPlan record);
+    int updateByPrimaryKeySelective(InspectPlanDO record);
 
-    int updateByPrimaryKeyWithBLOBs(InspectPlan record);
+    int updateByPrimaryKeyWithBLOBs(InspectPlanDO record);
 
-    int updateByPrimaryKey(InspectPlan record);
+    int updateByPrimaryKey(InspectPlanDO record);
 }

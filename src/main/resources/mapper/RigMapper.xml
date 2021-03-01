@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.beiken.saas.platform.mapper.RigMapper">
-  <resultMap id="BaseResultMap" type="com.beiken.saas.platform.pojo.Rig">
+  <resultMap id="BaseResultMap" type="com.beiken.saas.platform.pojo.RigDO">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
     <result column="rig_code" jdbcType="VARCHAR" property="rigCode" />
-    <result column="sub_company" jdbcType="VARCHAR" property="subCompany" />
-    <result column="sub_dept" jdbcType="VARCHAR" property="subDept" />
+    <result column="dept_code" jdbcType="VARCHAR" property="deptCode" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="dept_parent_code" jdbcType="VARCHAR" property="deptParentCode" />
+    <result column="dept_parent_name" jdbcType="VARCHAR" property="deptParentName" />
     <result column="area" jdbcType="VARCHAR" property="area" />
     <result column="model" jdbcType="VARCHAR" property="model" />
     <result column="type" jdbcType="VARCHAR" property="type" />
   </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.beiken.saas.platform.pojo.Rig">
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.beiken.saas.platform.pojo.RigDO">
     <result column="extra" jdbcType="LONGVARCHAR" property="extra" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -74,12 +76,13 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, gmt_create, gmt_modified, rig_code, sub_company, sub_dept, area, model, type
+    id, gmt_create, gmt_modified, rig_code, dept_code, dept_name, dept_parent_code, dept_parent_name, 
+    area, model, type
   </sql>
   <sql id="Blob_Column_List">
     extra
   </sql>
-  <select id="selectByExampleWithBLOBs" parameterType="com.beiken.saas.platform.pojo.RigExample" resultMap="ResultMapWithBLOBs">
+  <select id="selectByExampleWithBLOBs" parameterType="com.beiken.saas.platform.pojo.RigDOExample" resultMap="ResultMapWithBLOBs">
     select
     <if test="distinct">
       distinct
@@ -99,7 +102,7 @@
       limit ${limitStart} , ${count}
     </if>
   </select>
-  <select id="selectByExample" parameterType="com.beiken.saas.platform.pojo.RigExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.beiken.saas.platform.pojo.RigDOExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -129,23 +132,25 @@
     delete from sft_rig
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.beiken.saas.platform.pojo.RigExample">
+  <delete id="deleteByExample" parameterType="com.beiken.saas.platform.pojo.RigDOExample">
     delete from sft_rig
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.beiken.saas.platform.pojo.Rig">
+  <insert id="insert" parameterType="com.beiken.saas.platform.pojo.RigDO">
     insert into sft_rig (id, gmt_create, gmt_modified, 
-      rig_code, sub_company, sub_dept, 
-      area, model, type, 
-      extra)
+      rig_code, dept_code, dept_name, 
+      dept_parent_code, dept_parent_name, area, 
+      model, type, extra
+      )
     values (#{id,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
-      #{rigCode,jdbcType=VARCHAR}, #{subCompany,jdbcType=VARCHAR}, #{subDept,jdbcType=VARCHAR}, 
-      #{area,jdbcType=VARCHAR}, #{model,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
-      #{extra,jdbcType=LONGVARCHAR})
+      #{rigCode,jdbcType=VARCHAR}, #{deptCode,jdbcType=VARCHAR}, #{deptName,jdbcType=VARCHAR}, 
+      #{deptParentCode,jdbcType=VARCHAR}, #{deptParentName,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, 
+      #{model,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{extra,jdbcType=LONGVARCHAR}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.beiken.saas.platform.pojo.Rig">
+  <insert id="insertSelective" parameterType="com.beiken.saas.platform.pojo.RigDO">
     insert into sft_rig
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -160,11 +165,17 @@
       <if test="rigCode != null">
         rig_code,
       </if>
-      <if test="subCompany != null">
-        sub_company,
+      <if test="deptCode != null">
+        dept_code,
       </if>
-      <if test="subDept != null">
-        sub_dept,
+      <if test="deptName != null">
+        dept_name,
+      </if>
+      <if test="deptParentCode != null">
+        dept_parent_code,
+      </if>
+      <if test="deptParentName != null">
+        dept_parent_name,
       </if>
       <if test="area != null">
         area,
@@ -192,11 +203,17 @@
       <if test="rigCode != null">
         #{rigCode,jdbcType=VARCHAR},
       </if>
-      <if test="subCompany != null">
-        #{subCompany,jdbcType=VARCHAR},
+      <if test="deptCode != null">
+        #{deptCode,jdbcType=VARCHAR},
       </if>
-      <if test="subDept != null">
-        #{subDept,jdbcType=VARCHAR},
+      <if test="deptName != null">
+        #{deptName,jdbcType=VARCHAR},
+      </if>
+      <if test="deptParentCode != null">
+        #{deptParentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="deptParentName != null">
+        #{deptParentName,jdbcType=VARCHAR},
       </if>
       <if test="area != null">
         #{area,jdbcType=VARCHAR},
@@ -212,7 +229,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.beiken.saas.platform.pojo.RigExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.beiken.saas.platform.pojo.RigDOExample" resultType="java.lang.Long">
     select count(*) from sft_rig
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -233,11 +250,17 @@
       <if test="record.rigCode != null">
         rig_code = #{record.rigCode,jdbcType=VARCHAR},
       </if>
-      <if test="record.subCompany != null">
-        sub_company = #{record.subCompany,jdbcType=VARCHAR},
+      <if test="record.deptCode != null">
+        dept_code = #{record.deptCode,jdbcType=VARCHAR},
       </if>
-      <if test="record.subDept != null">
-        sub_dept = #{record.subDept,jdbcType=VARCHAR},
+      <if test="record.deptName != null">
+        dept_name = #{record.deptName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deptParentCode != null">
+        dept_parent_code = #{record.deptParentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deptParentName != null">
+        dept_parent_name = #{record.deptParentName,jdbcType=VARCHAR},
       </if>
       <if test="record.area != null">
         area = #{record.area,jdbcType=VARCHAR},
@@ -262,8 +285,10 @@
       gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
       rig_code = #{record.rigCode,jdbcType=VARCHAR},
-      sub_company = #{record.subCompany,jdbcType=VARCHAR},
-      sub_dept = #{record.subDept,jdbcType=VARCHAR},
+      dept_code = #{record.deptCode,jdbcType=VARCHAR},
+      dept_name = #{record.deptName,jdbcType=VARCHAR},
+      dept_parent_code = #{record.deptParentCode,jdbcType=VARCHAR},
+      dept_parent_name = #{record.deptParentName,jdbcType=VARCHAR},
       area = #{record.area,jdbcType=VARCHAR},
       model = #{record.model,jdbcType=VARCHAR},
       type = #{record.type,jdbcType=VARCHAR},
@@ -278,8 +303,10 @@
       gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
       rig_code = #{record.rigCode,jdbcType=VARCHAR},
-      sub_company = #{record.subCompany,jdbcType=VARCHAR},
-      sub_dept = #{record.subDept,jdbcType=VARCHAR},
+      dept_code = #{record.deptCode,jdbcType=VARCHAR},
+      dept_name = #{record.deptName,jdbcType=VARCHAR},
+      dept_parent_code = #{record.deptParentCode,jdbcType=VARCHAR},
+      dept_parent_name = #{record.deptParentName,jdbcType=VARCHAR},
       area = #{record.area,jdbcType=VARCHAR},
       model = #{record.model,jdbcType=VARCHAR},
       type = #{record.type,jdbcType=VARCHAR}
@@ -287,7 +314,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.beiken.saas.platform.pojo.Rig">
+  <update id="updateByPrimaryKeySelective" parameterType="com.beiken.saas.platform.pojo.RigDO">
     update sft_rig
     <set>
       <if test="gmtCreate != null">
@@ -299,11 +326,17 @@
       <if test="rigCode != null">
         rig_code = #{rigCode,jdbcType=VARCHAR},
       </if>
-      <if test="subCompany != null">
-        sub_company = #{subCompany,jdbcType=VARCHAR},
+      <if test="deptCode != null">
+        dept_code = #{deptCode,jdbcType=VARCHAR},
       </if>
-      <if test="subDept != null">
-        sub_dept = #{subDept,jdbcType=VARCHAR},
+      <if test="deptName != null">
+        dept_name = #{deptName,jdbcType=VARCHAR},
+      </if>
+      <if test="deptParentCode != null">
+        dept_parent_code = #{deptParentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="deptParentName != null">
+        dept_parent_name = #{deptParentName,jdbcType=VARCHAR},
       </if>
       <if test="area != null">
         area = #{area,jdbcType=VARCHAR},
@@ -320,26 +353,30 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.beiken.saas.platform.pojo.Rig">
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.beiken.saas.platform.pojo.RigDO">
     update sft_rig
     set gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
       rig_code = #{rigCode,jdbcType=VARCHAR},
-      sub_company = #{subCompany,jdbcType=VARCHAR},
-      sub_dept = #{subDept,jdbcType=VARCHAR},
+      dept_code = #{deptCode,jdbcType=VARCHAR},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      dept_parent_code = #{deptParentCode,jdbcType=VARCHAR},
+      dept_parent_name = #{deptParentName,jdbcType=VARCHAR},
       area = #{area,jdbcType=VARCHAR},
       model = #{model,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR},
       extra = #{extra,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.beiken.saas.platform.pojo.Rig">
+  <update id="updateByPrimaryKey" parameterType="com.beiken.saas.platform.pojo.RigDO">
     update sft_rig
     set gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
       rig_code = #{rigCode,jdbcType=VARCHAR},
-      sub_company = #{subCompany,jdbcType=VARCHAR},
-      sub_dept = #{subDept,jdbcType=VARCHAR},
+      dept_code = #{deptCode,jdbcType=VARCHAR},
+      dept_name = #{deptName,jdbcType=VARCHAR},
+      dept_parent_code = #{deptParentCode,jdbcType=VARCHAR},
+      dept_parent_name = #{deptParentName,jdbcType=VARCHAR},
       area = #{area,jdbcType=VARCHAR},
       model = #{model,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR}

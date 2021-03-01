@@ -1,36 +1,36 @@
 package com.beiken.saas.platform.mapper;
 
-import com.beiken.saas.platform.pojo.Bg;
-import com.beiken.saas.platform.pojo.BgExample;
+import com.beiken.saas.platform.pojo.BgDO;
+import com.beiken.saas.platform.pojo.BgDOExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface BgMapper {
-    long countByExample(BgExample example);
+    long countByExample(BgDOExample example);
 
-    int deleteByExample(BgExample example);
+    int deleteByExample(BgDOExample example);
 
     int deleteByPrimaryKey(Long id);
 
-    int insert(Bg record);
+    int insert(BgDO record);
 
-    int insertSelective(Bg record);
+    int insertSelective(BgDO record);
 
-    List<Bg> selectByExampleWithBLOBs(BgExample example);
+    List<BgDO> selectByExampleWithBLOBs(BgDOExample example);
 
-    List<Bg> selectByExample(BgExample example);
+    List<BgDO> selectByExample(BgDOExample example);
 
-    Bg selectByPrimaryKey(Long id);
+    BgDO selectByPrimaryKey(Long id);
 
-    int updateByExampleSelective(@Param("record") Bg record, @Param("example") BgExample example);
+    int updateByExampleSelective(@Param("record") BgDO record, @Param("example") BgDOExample example);
 
-    int updateByExampleWithBLOBs(@Param("record") Bg record, @Param("example") BgExample example);
+    int updateByExampleWithBLOBs(@Param("record") BgDO record, @Param("example") BgDOExample example);
 
-    int updateByExample(@Param("record") Bg record, @Param("example") BgExample example);
+    int updateByExample(@Param("record") BgDO record, @Param("example") BgDOExample example);
 
-    int updateByPrimaryKeySelective(Bg record);
+    int updateByPrimaryKeySelective(BgDO record);
 
-    int updateByPrimaryKeyWithBLOBs(Bg record);
+    int updateByPrimaryKeyWithBLOBs(BgDO record);
 
-    int updateByPrimaryKey(Bg record);
+    int updateByPrimaryKey(BgDO record);
 }

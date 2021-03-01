@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.beiken.saas.platform.mapper.InspectTaskItemMapper">
-  <resultMap id="BaseResultMap" type="com.beiken.saas.platform.pojo.InspectTaskItem">
+  <resultMap id="BaseResultMap" type="com.beiken.saas.platform.pojo.InspectTaskItemDO">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
@@ -9,11 +9,6 @@
     <result column="task_code" jdbcType="VARCHAR" property="taskCode" />
     <result column="inspect_plan_code" jdbcType="VARCHAR" property="inspectPlanCode" />
     <result column="bg_item_code" jdbcType="VARCHAR" property="bgItemCode" />
-    <result column="photo" jdbcType="VARCHAR" property="photo" />
-    <result column="extra" jdbcType="VARCHAR" property="extra" />
-    <result column="danger_level" jdbcType="VARCHAR" property="dangerLevel" />
-    <result column="break_user" jdbcType="VARCHAR" property="breakUser" />
-    <result column="responsbility_user" jdbcType="VARCHAR" property="responsbilityUser" />
     <result column="result_status" jdbcType="INTEGER" property="resultStatus" />
     <result column="end_date" jdbcType="TIMESTAMP" property="endDate" />
   </resultMap>
@@ -77,9 +72,9 @@
   </sql>
   <sql id="Base_Column_List">
     id, gmt_create, gmt_modified, item_code, task_code, inspect_plan_code, bg_item_code, 
-    photo, extra, danger_level, break_user, responsbility_user, result_status, end_date
+    result_status, end_date
   </sql>
-  <select id="selectByExample" parameterType="com.beiken.saas.platform.pojo.InspectTaskItemExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.beiken.saas.platform.pojo.InspectTaskItemDOExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -107,25 +102,23 @@
     delete from sft_inspect_task_item
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.beiken.saas.platform.pojo.InspectTaskItemExample">
+  <delete id="deleteByExample" parameterType="com.beiken.saas.platform.pojo.InspectTaskItemDOExample">
     delete from sft_inspect_task_item
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.beiken.saas.platform.pojo.InspectTaskItem">
+  <insert id="insert" parameterType="com.beiken.saas.platform.pojo.InspectTaskItemDO">
     insert into sft_inspect_task_item (id, gmt_create, gmt_modified, 
       item_code, task_code, inspect_plan_code, 
-      bg_item_code, photo, extra, 
-      danger_level, break_user, responsbility_user, 
-      result_status, end_date)
+      bg_item_code, result_status, end_date
+      )
     values (#{id,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
       #{itemCode,jdbcType=VARCHAR}, #{taskCode,jdbcType=VARCHAR}, #{inspectPlanCode,jdbcType=VARCHAR}, 
-      #{bgItemCode,jdbcType=VARCHAR}, #{photo,jdbcType=VARCHAR}, #{extra,jdbcType=VARCHAR}, 
-      #{dangerLevel,jdbcType=VARCHAR}, #{breakUser,jdbcType=VARCHAR}, #{responsbilityUser,jdbcType=VARCHAR}, 
-      #{resultStatus,jdbcType=INTEGER}, #{endDate,jdbcType=TIMESTAMP})
+      #{bgItemCode,jdbcType=VARCHAR}, #{resultStatus,jdbcType=INTEGER}, #{endDate,jdbcType=TIMESTAMP}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.beiken.saas.platform.pojo.InspectTaskItem">
+  <insert id="insertSelective" parameterType="com.beiken.saas.platform.pojo.InspectTaskItemDO">
     insert into sft_inspect_task_item
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -148,21 +141,6 @@
       </if>
       <if test="bgItemCode != null">
         bg_item_code,
-      </if>
-      <if test="photo != null">
-        photo,
-      </if>
-      <if test="extra != null">
-        extra,
-      </if>
-      <if test="dangerLevel != null">
-        danger_level,
-      </if>
-      <if test="breakUser != null">
-        break_user,
-      </if>
-      <if test="responsbilityUser != null">
-        responsbility_user,
       </if>
       <if test="resultStatus != null">
         result_status,
@@ -193,21 +171,6 @@
       <if test="bgItemCode != null">
         #{bgItemCode,jdbcType=VARCHAR},
       </if>
-      <if test="photo != null">
-        #{photo,jdbcType=VARCHAR},
-      </if>
-      <if test="extra != null">
-        #{extra,jdbcType=VARCHAR},
-      </if>
-      <if test="dangerLevel != null">
-        #{dangerLevel,jdbcType=VARCHAR},
-      </if>
-      <if test="breakUser != null">
-        #{breakUser,jdbcType=VARCHAR},
-      </if>
-      <if test="responsbilityUser != null">
-        #{responsbilityUser,jdbcType=VARCHAR},
-      </if>
       <if test="resultStatus != null">
         #{resultStatus,jdbcType=INTEGER},
       </if>
@@ -216,7 +179,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.beiken.saas.platform.pojo.InspectTaskItemExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.beiken.saas.platform.pojo.InspectTaskItemDOExample" resultType="java.lang.Long">
     select count(*) from sft_inspect_task_item
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -246,21 +209,6 @@
       <if test="record.bgItemCode != null">
         bg_item_code = #{record.bgItemCode,jdbcType=VARCHAR},
       </if>
-      <if test="record.photo != null">
-        photo = #{record.photo,jdbcType=VARCHAR},
-      </if>
-      <if test="record.extra != null">
-        extra = #{record.extra,jdbcType=VARCHAR},
-      </if>
-      <if test="record.dangerLevel != null">
-        danger_level = #{record.dangerLevel,jdbcType=VARCHAR},
-      </if>
-      <if test="record.breakUser != null">
-        break_user = #{record.breakUser,jdbcType=VARCHAR},
-      </if>
-      <if test="record.responsbilityUser != null">
-        responsbility_user = #{record.responsbilityUser,jdbcType=VARCHAR},
-      </if>
       <if test="record.resultStatus != null">
         result_status = #{record.resultStatus,jdbcType=INTEGER},
       </if>
@@ -281,18 +229,13 @@
       task_code = #{record.taskCode,jdbcType=VARCHAR},
       inspect_plan_code = #{record.inspectPlanCode,jdbcType=VARCHAR},
       bg_item_code = #{record.bgItemCode,jdbcType=VARCHAR},
-      photo = #{record.photo,jdbcType=VARCHAR},
-      extra = #{record.extra,jdbcType=VARCHAR},
-      danger_level = #{record.dangerLevel,jdbcType=VARCHAR},
-      break_user = #{record.breakUser,jdbcType=VARCHAR},
-      responsbility_user = #{record.responsbilityUser,jdbcType=VARCHAR},
       result_status = #{record.resultStatus,jdbcType=INTEGER},
       end_date = #{record.endDate,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.beiken.saas.platform.pojo.InspectTaskItem">
+  <update id="updateByPrimaryKeySelective" parameterType="com.beiken.saas.platform.pojo.InspectTaskItemDO">
     update sft_inspect_task_item
     <set>
       <if test="gmtCreate != null">
@@ -313,21 +256,6 @@
       <if test="bgItemCode != null">
         bg_item_code = #{bgItemCode,jdbcType=VARCHAR},
       </if>
-      <if test="photo != null">
-        photo = #{photo,jdbcType=VARCHAR},
-      </if>
-      <if test="extra != null">
-        extra = #{extra,jdbcType=VARCHAR},
-      </if>
-      <if test="dangerLevel != null">
-        danger_level = #{dangerLevel,jdbcType=VARCHAR},
-      </if>
-      <if test="breakUser != null">
-        break_user = #{breakUser,jdbcType=VARCHAR},
-      </if>
-      <if test="responsbilityUser != null">
-        responsbility_user = #{responsbilityUser,jdbcType=VARCHAR},
-      </if>
       <if test="resultStatus != null">
         result_status = #{resultStatus,jdbcType=INTEGER},
       </if>
@@ -337,7 +265,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.beiken.saas.platform.pojo.InspectTaskItem">
+  <update id="updateByPrimaryKey" parameterType="com.beiken.saas.platform.pojo.InspectTaskItemDO">
     update sft_inspect_task_item
     set gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
@@ -345,11 +273,6 @@
       task_code = #{taskCode,jdbcType=VARCHAR},
       inspect_plan_code = #{inspectPlanCode,jdbcType=VARCHAR},
       bg_item_code = #{bgItemCode,jdbcType=VARCHAR},
-      photo = #{photo,jdbcType=VARCHAR},
-      extra = #{extra,jdbcType=VARCHAR},
-      danger_level = #{dangerLevel,jdbcType=VARCHAR},
-      break_user = #{breakUser,jdbcType=VARCHAR},
-      responsbility_user = #{responsbilityUser,jdbcType=VARCHAR},
       result_status = #{resultStatus,jdbcType=INTEGER},
       end_date = #{endDate,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}

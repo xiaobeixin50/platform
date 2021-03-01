@@ -5,7 +5,7 @@ import com.beiken.saas.platform.biz.query.PlanQuery;
 import com.beiken.saas.platform.biz.vo.InspectPlanVO;
 import com.beiken.saas.platform.biz.vo.Result;
 import com.beiken.saas.platform.manage.InspectPlanManager;
-import com.beiken.saas.platform.pojo.InspectPlanDept;
+import com.beiken.saas.platform.pojo.InspectPlanDeptDO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -83,7 +83,7 @@ public class InspectPlanController {
     @ApiOperation("添加受检单位接口")
     @ResponseBody
     @RequestMapping(value = "/add/dept")
-    public Result addPlanDept(List<InspectPlanDept> inspectPlanDepts) {
+    public Result addPlanDept(List<InspectPlanDeptDO> inspectPlanDepts) {
         try {
             return planManager.addPlanDept(inspectPlanDepts);
         } catch (Exception e) {

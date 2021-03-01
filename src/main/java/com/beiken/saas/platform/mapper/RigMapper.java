@@ -1,36 +1,37 @@
 package com.beiken.saas.platform.mapper;
 
-import com.beiken.saas.platform.pojo.Rig;
-import com.beiken.saas.platform.pojo.RigExample;
-import java.util.List;
+import com.beiken.saas.platform.pojo.RigDO;
+import com.beiken.saas.platform.pojo.RigDOExample;
 import org.apache.ibatis.annotations.Param;
 
-public interface RigMapper {
-    long countByExample(RigExample example);
+import java.util.List;
 
-    int deleteByExample(RigExample example);
+public interface RigMapper {
+    long countByExample(RigDOExample example);
+
+    int deleteByExample(RigDOExample example);
 
     int deleteByPrimaryKey(Long id);
 
-    int insert(Rig record);
+    int insert(RigDO record);
 
-    int insertSelective(Rig record);
+    int insertSelective(RigDO record);
 
-    List<Rig> selectByExampleWithBLOBs(RigExample example);
+    List<RigDO> selectByExampleWithBLOBs(RigDOExample example);
 
-    List<Rig> selectByExample(RigExample example);
+    List<RigDO> selectByExample(RigDOExample example);
 
-    Rig selectByPrimaryKey(Long id);
+    RigDO selectByPrimaryKey(Long id);
 
-    int updateByExampleSelective(@Param("record") Rig record, @Param("example") RigExample example);
+    int updateByExampleSelective(@Param("record") RigDO record, @Param("example") RigDOExample example);
 
-    int updateByExampleWithBLOBs(@Param("record") Rig record, @Param("example") RigExample example);
+    int updateByExampleWithBLOBs(@Param("record") RigDO record, @Param("example") RigDOExample example);
 
-    int updateByExample(@Param("record") Rig record, @Param("example") RigExample example);
+    int updateByExample(@Param("record") RigDO record, @Param("example") RigDOExample example);
 
-    int updateByPrimaryKeySelective(Rig record);
+    int updateByPrimaryKeySelective(RigDO record);
 
-    int updateByPrimaryKeyWithBLOBs(Rig record);
+    int updateByPrimaryKeyWithBLOBs(RigDO record);
 
-    int updateByPrimaryKey(Rig record);
+    int updateByPrimaryKey(RigDO record);
 }

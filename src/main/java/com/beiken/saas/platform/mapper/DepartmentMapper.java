@@ -1,30 +1,30 @@
 package com.beiken.saas.platform.mapper;
 
-import com.beiken.saas.platform.pojo.Department;
-import com.beiken.saas.platform.pojo.DepartmentExample;
+import com.beiken.saas.platform.pojo.DepartmentDO;
+import com.beiken.saas.platform.pojo.DepartmentDOExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface DepartmentMapper {
-    long countByExample(DepartmentExample example);
+    long countByExample(DepartmentDOExample example);
 
-    int deleteByExample(DepartmentExample example);
+    int deleteByExample(DepartmentDOExample example);
 
     int deleteByPrimaryKey(Long id);
 
-    int insert(Department record);
+    int insert(DepartmentDO record);
 
-    int insertSelective(Department record);
+    int insertSelective(DepartmentDO record);
 
-    List<Department> selectByExample(DepartmentExample example);
+    List<DepartmentDO> selectByExample(DepartmentDOExample example);
 
-    Department selectByPrimaryKey(Long id);
+    DepartmentDO selectByPrimaryKey(Long id);
 
-    int updateByExampleSelective(@Param("record") Department record, @Param("example") DepartmentExample example);
+    int updateByExampleSelective(@Param("record") DepartmentDO record, @Param("example") DepartmentDOExample example);
 
-    int updateByExample(@Param("record") Department record, @Param("example") DepartmentExample example);
+    int updateByExample(@Param("record") DepartmentDO record, @Param("example") DepartmentDOExample example);
 
-    int updateByPrimaryKeySelective(Department record);
+    int updateByPrimaryKeySelective(DepartmentDO record);
 
-    int updateByPrimaryKey(Department record);
+    int updateByPrimaryKey(DepartmentDO record);
 }

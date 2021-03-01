@@ -1,30 +1,30 @@
 package com.beiken.saas.platform.mapper;
 
-import com.beiken.saas.platform.pojo.User;
-import com.beiken.saas.platform.pojo.UserExample;
+import com.beiken.saas.platform.pojo.UserDO;
+import com.beiken.saas.platform.pojo.UserDOExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper {
-    long countByExample(UserExample example);
+    long countByExample(UserDOExample example);
 
-    int deleteByExample(UserExample example);
+    int deleteByExample(UserDOExample example);
 
     int deleteByPrimaryKey(Long id);
 
-    int insert(User record);
+    int insert(UserDO record);
 
-    int insertSelective(User record);
+    int insertSelective(UserDO record);
 
-    List<User> selectByExample(UserExample example);
+    List<UserDO> selectByExample(UserDOExample example);
 
-    User selectByPrimaryKey(Long id);
+    UserDO selectByPrimaryKey(Long id);
 
-    int updateByExampleSelective(@Param("record") User record, @Param("example") UserExample example);
+    int updateByExampleSelective(@Param("record") UserDO record, @Param("example") UserDOExample example);
 
-    int updateByExample(@Param("record") User record, @Param("example") UserExample example);
+    int updateByExample(@Param("record") UserDO record, @Param("example") UserDOExample example);
 
-    int updateByPrimaryKeySelective(User record);
+    int updateByPrimaryKeySelective(UserDO record);
 
-    int updateByPrimaryKey(User record);
+    int updateByPrimaryKey(UserDO record);
 }

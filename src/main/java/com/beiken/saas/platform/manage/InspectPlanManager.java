@@ -7,10 +7,7 @@ import com.beiken.saas.platform.biz.vo.Result;
 import com.beiken.saas.platform.enums.Constants;
 import com.beiken.saas.platform.mapper.InspectPlanDeptMapper;
 import com.beiken.saas.platform.mapper.InspectPlanMapper;
-import com.beiken.saas.platform.pojo.InspectPlan;
-import com.beiken.saas.platform.pojo.InspectPlanDept;
-import com.beiken.saas.platform.pojo.InspectPlanDeptExample;
-import com.beiken.saas.platform.pojo.InspectPlanExample;
+import com.beiken.saas.platform.pojo.*;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.apache.commons.lang3.StringUtils;
@@ -42,12 +39,13 @@ public class InspectPlanManager {
     public PageBo<InspectPlanVO> planList(PlanQuery planQuery) {
         PageBo<InspectPlanVO> pageBo = new PageBo<>();
         List<InspectPlanVO> result = Lists.newArrayList();
-        InspectPlanExample example = buildPlanExample(planQuery);
-        List<InspectPlan> inspectPlans = inspectPlanMapper.selectByExampleWithBLOBs(example);
-        Set<String> planCodeList = inspectPlans.stream().map(InspectPlan::getInspectPlanCode).collect(Collectors.toSet());
-        Map<String, List<InspectPlanDept>> deptMap = queryPlanDeptByCodes(planCodeList);
+        InspectPlanDOExample example = buildPlanExample(planQuery);
+        List<InspectPlanDO> inspectPlans = inspectPlanMapper.selectByExampleWithBLOBs(example);
+        Set<String> planCodeList = inspectPlans.stream()
+                .map(InspectPlanDO::getInspectPlanCode).collect(Collectors.toSet());
+        Map<String, List<InspectPlanDeptDO>> deptMap = queryPlanDeptByCodes(planCodeList);
 
-        for (InspectPlan inspectPlan : inspectPlans) {
+        for (InspectPlanDO inspectPlan : inspectPlans) {
             InspectPlanVO planVO = new InspectPlanVO();
             BeanUtils.copyProperties(inspectPlan, planVO);
             if (Objects.nonNull(deptMap.get(inspectPlan.getInspectPlanCode()))) {
@@ -70,7 +68,7 @@ public class InspectPlanManager {
     }
 
     public Result add(InspectPlanVO inspectPlanVO) {
-        InspectPlan inspectPlan = new InspectPlan();
+        InspectPlanDO inspectPlan = new InspectPlanDO();
         BeanUtils.copyProperties(inspectPlanVO, inspectPlan);
         inspectPlan.setId(null);
         inspectPlanMapper.insert(inspectPlan);
@@ -88,8 +86,8 @@ public class InspectPlanManager {
         return Result.error();
     }
 
-    public Result addPlanDept(List<InspectPlanDept> inspectPlanDepts) {
-        for (InspectPlanDept inspectPlanDept : inspectPlanDepts) {
+    public Result addPlanDept(List<InspectPlanDeptDO> inspectPlanDepts) {
+        for (InspectPlanDeptDO inspectPlanDept : inspectPlanDepts) {
             inspectPlanDept.setId(null);
             inspectPlanDeptMapper.insert(inspectPlanDept);
         }
@@ -100,10 +98,10 @@ public class InspectPlanManager {
         if (StringUtils.isBlank(inspectPlanVO.getInspectPlanCode())) {
             return Result.error("ERROR", "检查计划编号为空");
         }
-        InspectPlan inspectPlan = new InspectPlan();
+        InspectPlanDO inspectPlan = new InspectPlanDO();
         BeanUtils.copyProperties(inspectPlanVO, inspectPlan);
         inspectPlan.setId(null);
-        InspectPlanExample example = new InspectPlanExample();
+        InspectPlanDOExample example = new InspectPlanDOExample();
         example.createCriteria().andInspectPlanCodeEqualTo(inspectPlan.getInspectPlanCode());
         inspectPlanMapper.updateByExampleSelective(inspectPlan, example);
         return Result.success();
@@ -113,22 +111,22 @@ public class InspectPlanManager {
         if (StringUtils.isBlank(inspectCode)) {
             return Result.error("ERROR", "检查计划编号为空");
         }
-        InspectPlanExample example = new InspectPlanExample();
+        InspectPlanDOExample example = new InspectPlanDOExample();
         example.createCriteria().andInspectPlanCodeEqualTo(inspectCode);
         inspectPlanMapper.deleteByExample(example);
 
-        InspectPlanDeptExample deptExample = new InspectPlanDeptExample();
+        InspectPlanDeptDOExample deptExample = new InspectPlanDeptDOExample();
         deptExample.createCriteria().andInspcetPlanCodeEqualTo(inspectCode);
         inspectPlanDeptMapper.deleteByExample(deptExample);
 
         return Result.success();
     }
 
-    private InspectPlanExample buildPlanExample(PlanQuery planQuery) {
-        InspectPlanExample example = new InspectPlanExample();
+    private InspectPlanDOExample buildPlanExample(PlanQuery planQuery) {
+        InspectPlanDOExample example = new InspectPlanDOExample();
         example.setLimitStart(planQuery.getPageNo());
         example.setCount((planQuery.getPageNo() - 1) * planQuery.getPageSize());
-        InspectPlanExample.Criteria criteria = example.createCriteria()
+        InspectPlanDOExample.Criteria criteria = example.createCriteria()
                 .andInspectPlanCodeLike(Constants.LIKE + planQuery.getPlanCode() + Constants.LIKE)
                 .andNameLike(Constants.LIKE + planQuery.getPlanName() + Constants.LIKE)
                 .andTypeEqualTo(planQuery.getType())
@@ -138,24 +136,24 @@ public class InspectPlanManager {
 
         //受检单位搜索
         if (StringUtils.isNotBlank(planQuery.getDeptName())) {
-            InspectPlanDeptExample deptExample = new InspectPlanDeptExample();
+            InspectPlanDeptDOExample deptExample = new InspectPlanDeptDOExample();
             deptExample.createCriteria().andDeptNameLike(Constants.LIKE + planQuery.getDeptName() + Constants.LIKE);
-            List<InspectPlanDept> inspectPlanDepts = inspectPlanDeptMapper.selectByExample(deptExample);
-            Set<String> inspectPlanCodeSet = inspectPlanDepts.stream().map(InspectPlanDept::getInspcetPlanCode).collect(Collectors.toSet());
+            List<InspectPlanDeptDO> inspectPlanDepts = inspectPlanDeptMapper.selectByExample(deptExample);
+            Set<String> inspectPlanCodeSet = inspectPlanDepts.stream().map(InspectPlanDeptDO::getInspcetPlanCode).collect(Collectors.toSet());
             criteria.andInspectPlanCodeIn(Lists.newArrayList(inspectPlanCodeSet));
         }
         return example;
     }
 
-    public Map<String, List<InspectPlanDept>> queryPlanDeptByCodes(Set<String> planCodes) {
-        Map<String, List<InspectPlanDept>> resultMap = Maps.newHashMap();
+    public Map<String, List<InspectPlanDeptDO>> queryPlanDeptByCodes(Set<String> planCodes) {
+        Map<String, List<InspectPlanDeptDO>> resultMap = Maps.newHashMap();
 
-        InspectPlanDeptExample example = new InspectPlanDeptExample();
+        InspectPlanDeptDOExample example = new InspectPlanDeptDOExample();
         example.createCriteria().andInspcetPlanCodeIn(Lists.newArrayList(planCodes));
-        List<InspectPlanDept> inspectPlanDepts = inspectPlanDeptMapper.selectByExample(example);
-        for (InspectPlanDept planDept : inspectPlanDepts) {
+        List<InspectPlanDeptDO> inspectPlanDepts = inspectPlanDeptMapper.selectByExample(example);
+        for (InspectPlanDeptDO planDept : inspectPlanDepts) {
             if (!resultMap.containsKey(planDept.getInspcetPlanCode())) {
-                List<InspectPlanDept> deptList = Lists.newArrayList();
+                List<InspectPlanDeptDO> deptList = Lists.newArrayList();
                 deptList.add(planDept);
                 resultMap.put(planDept.getInspcetPlanCode(), deptList);
                 continue;
