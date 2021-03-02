@@ -18,7 +18,7 @@ import javax.annotation.Resource;
  * Date: 21/2/28
  * Time: 下午4:07
  */
-@Api(value = "/custom", description = "用户端相关接口", tags = "用户端接口")
+@Api(value = "/custom", description = "用户端巡检任务相关接口", tags = "巡检任务接口")
 @RestController
 @RequestMapping("/custom/task")
 public class CustomTaskController {
