@@ -107,6 +107,7 @@ public class TaskManager {
         return pageBo;
     }
 
+    //todo 需要插入隐患表中
     public void updateTaskItem(TaskItemVO taskItemVO) {
 
         InspectTaskItemDOExample example = new InspectTaskItemDOExample();

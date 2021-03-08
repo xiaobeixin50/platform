@@ -11,7 +11,7 @@ import java.io.Serializable;
  * Time: 下午8:17
  */
 @Data
-public class DangerQuery implements Serializable{
+public class DangerQuery extends BaseQuery implements Serializable{
     private static final long serialVersionUID = 8895826397920513204L;
 
     @ApiModelProperty(name = "dangerLevel", value = "隐患级别"
@@ -20,7 +20,7 @@ public class DangerQuery implements Serializable{
 
     @ApiModelProperty(name = "resultStatus", value = "隐患状态"
             , required = false, example = "")
-    private String resultStatus;
+    private Integer resultStatus;
 
     @ApiModelProperty(name = "sort", value = "排序规则"
             , required = false, example = "AES/DESC")

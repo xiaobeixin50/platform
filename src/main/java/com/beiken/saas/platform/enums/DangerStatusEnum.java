@@ -29,7 +29,7 @@ public enum DangerStatusEnum {
 
     private String msg;
 
-    private static final Map<Integer, DangerStatusEnum> MAP = Maps.newHashMap();
+    public static final Map<Integer, DangerStatusEnum> MAP = Maps.newHashMap();
 
     static {
         for (DangerStatusEnum item : DangerStatusEnum.values()) {

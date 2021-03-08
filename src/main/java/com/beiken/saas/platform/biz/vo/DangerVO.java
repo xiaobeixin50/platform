@@ -138,4 +138,8 @@ public class DangerVO implements Serializable{
     @ApiModelProperty(name = "changePlan", value = "整改计划"
             , example = "")
     private String changePlan;
+
+    @ApiModelProperty(name = "processNum", value = "流程展示数量"
+            , example = "")
+    private Integer processNum;
 }
