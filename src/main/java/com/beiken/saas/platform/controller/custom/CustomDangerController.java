@@ -4,6 +4,7 @@ import com.beiken.saas.platform.biz.bo.PageBo;
 import com.beiken.saas.platform.biz.query.DangerQuery;
 import com.beiken.saas.platform.biz.vo.DangerVO;
 import com.beiken.saas.platform.biz.vo.Result;
+import com.beiken.saas.platform.enums.Constants;
 import com.beiken.saas.platform.manage.DangerManager;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -13,6 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Objects;
 
 /**
  * User: panboliang
@@ -30,17 +32,20 @@ public class CustomDangerController {
     @ApiOperation("隐患列表")
     @ResponseBody
     @GetMapping(value = "/list")
-    @ApiImplicitParams({@ApiImplicitParam(name = "inspectUserId", value = "监理id", required = true, dataType = "Long")})
-    public Result list(@RequestParam Long inspectUserId, DangerQuery dangerQuery) {
+    @ApiImplicitParams({@ApiImplicitParam(name = "userId", value = "监理id/井队长id", required = true, dataType = "Long")})
+    public Result list(@RequestParam Long userId, DangerQuery dangerQuery) {
         try {
             if (StringUtils.isBlank(dangerQuery.getSort())) {
                 dangerQuery.setSort("ASC");
             }
-            PageBo<DangerVO> pageBo = dangerManager.listByUser(inspectUserId, dangerQuery);
+            if (Objects.isNull(dangerQuery.getRoleType())) {
+                return Result.error(Constants.ERROR, "角色参数错误");
+            }
+            PageBo<DangerVO> pageBo = dangerManager.listByUser(userId, dangerQuery);
             return Result.success(pageBo);
         } catch (Exception e) {
             //log.error("list error", e);
-            return Result.error("ERROR", e.getMessage());
+            return Result.error(Constants.ERROR, e.getMessage());
         }
     }
 
@@ -48,12 +53,12 @@ public class CustomDangerController {
     @ResponseBody
     @PostMapping(value = "/update/{dangerCode}")
     @ApiImplicitParams({@ApiImplicitParam(name = "dangerCode", value = "监理id", required = true, dataType = "Long")})
-    public Result list(@PathVariable String dangerCode, DangerVO dangerVO) {
+    public Result update(@PathVariable String dangerCode, DangerVO dangerVO) {
         try {
             return Result.success();
         } catch (Exception e) {
             //log.error("list error", e);
-            return Result.error("ERROR", e.getMessage());
+            return Result.error(Constants.ERROR, e.getMessage());
         }
     }
 }

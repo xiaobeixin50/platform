@@ -43,9 +43,9 @@ public class DangerVO implements Serializable{
             , example = "")
     private String bgItemCode;
 
-    @ApiModelProperty(name = "deptCode", value = "被检单位code"
+    @ApiModelProperty(name = "deptId", value = "被检单位id"
             , example = "")
-    private String deptCode;
+    private String deptId;
 
     @ApiModelProperty(name = "deptName", value = "被检单位名"
             , example = "")
@@ -67,9 +67,13 @@ public class DangerVO implements Serializable{
             , example = "")
     private String breakUser;
 
-    @ApiModelProperty(name = "responsbilityUser", value = "责任人"
+    @ApiModelProperty(name = "responsebilityUserId", value = "责任人id-默认井队长"
             , example = "")
-    private String responsbilityUser;
+    private Long responsebilityUserId;
+
+    @ApiModelProperty(name = "responsebilityUser", value = "责任人"
+            , example = "")
+    private String responsebilityUser;
 
     @ApiModelProperty(name = "changeEndDate", value = "整改结束时间"
             , example = "")

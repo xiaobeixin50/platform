@@ -2,11 +2,13 @@ package com.beiken.saas.platform.manage;
 
 import com.beiken.saas.platform.biz.bo.PageBo;
 import com.beiken.saas.platform.biz.query.TaskQuery;
-import com.beiken.saas.platform.biz.vo.TaskItemVO;
-import com.beiken.saas.platform.biz.vo.TaskVO;
+import com.beiken.saas.platform.biz.vo.*;
+import com.beiken.saas.platform.enums.RigStatusEnum;
+import com.beiken.saas.platform.enums.TaskStatusEnum;
 import com.beiken.saas.platform.mapper.BgInspectItemMapper;
 import com.beiken.saas.platform.mapper.InspectTaskItemMapper;
 import com.beiken.saas.platform.mapper.InspectTaskMapper;
+import com.beiken.saas.platform.mapper.RigMapper;
 import com.beiken.saas.platform.pojo.*;
 import com.google.common.collect.Lists;
 import org.springframework.beans.BeanUtils;
@@ -33,9 +35,12 @@ public class TaskManager {
     private InspectTaskItemMapper taskItemMapper;
     @Resource
     private BgInspectItemMapper bgInspectItemMapper;
+    @Resource
+    private RigMapper rigMapper;
 
     /**
      * 后台列表
+     *
      * @param taskQuery
      * @return
      */
@@ -55,6 +60,12 @@ public class TaskManager {
         return pageBo;
     }
 
+    /**
+     * 获取巡检任务
+     *
+     * @param inspectUserId
+     * @return
+     */
     public PageBo<TaskVO> listByUser(Long inspectUserId) {
         PageBo<TaskVO> pageBo = new PageBo<>();
         List<TaskVO> taskList = Lists.newArrayList();
@@ -75,6 +86,12 @@ public class TaskManager {
         return pageBo;
     }
 
+    /**
+     * 获取巡检任务检查项
+     *
+     * @param taskCode
+     * @return
+     */
     public PageBo<TaskItemVO> listTaskItem(String taskCode) {
         PageBo<TaskItemVO> pageBo = new PageBo<>();
         List<TaskItemVO> taskItemList = Lists.newArrayList();
@@ -105,6 +122,46 @@ public class TaskManager {
         pageBo.setItemList(taskItemList);
         pageBo.setTotalSize(count);
         return pageBo;
+    }
+
+    public UserRigVO getTaskUserRig(Long userId) {
+        UserRigVO userRigVO = new UserRigVO();
+        userRigVO.setUserId(userId);
+
+        InspectTaskDOExample example = new InspectTaskDOExample();
+        example.createCriteria()
+                .andInspectUserIdEqualTo(userId)
+                .andStatusIn(Lists.newArrayList(TaskStatusEnum.BEGIN.getStatus(),
+                        TaskStatusEnum.FINISH.getStatus()));
+        List<InspectTaskDO> inspectTaskDOs = taskMapper.selectByExample(example);
+        if (CollectionUtils.isEmpty(inspectTaskDOs)) {
+            return null;
+        }
+        Set<Long> deptCodeSets = inspectTaskDOs.stream().map(InspectTaskDO::getDeptId).collect(Collectors.toSet());
+        RigDOExample rigExample = new RigDOExample();
+        rigExample.createCriteria()
+                .andDeptIdIn(Lists.newArrayList(deptCodeSets))
+                .andStatusIn(Lists.newArrayList(RigStatusEnum.BEGIN.getStatus(), RigStatusEnum.FINISH.getStatus()));
+        List<RigDO> rigDOLists = rigMapper.selectByExample(rigExample);
+        if (CollectionUtils.isEmpty(rigDOLists)) {
+            return null;
+        }
+
+        List<DeptVO> deptList = Lists.newArrayList();
+        List<RigVO> rigList = Lists.newArrayList();
+        for (RigDO rigDO : rigDOLists) {
+            RigVO rigVO = new RigVO();
+            BeanUtils.copyProperties(rigDO, rigVO);
+            rigList.add(rigVO);
+
+            DeptVO deptVO = new DeptVO();
+            deptVO.setDeptId(rigDO.getDeptId());
+            deptVO.setDeptName(rigDO.getDeptName());
+            deptList.add(deptVO);
+        }
+        userRigVO.setDeptList(deptList);
+        userRigVO.setRigList(rigList);
+        return userRigVO;
     }
 
     //todo 需要插入隐患表中

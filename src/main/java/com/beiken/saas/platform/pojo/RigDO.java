@@ -11,7 +11,7 @@ public class RigDO {
 
     private String rigCode;
 
-    private String deptCode;
+    private Long deptId;
 
     private String deptName;
 
@@ -24,6 +24,8 @@ public class RigDO {
     private String model;
 
     private String type;
+
+    private Integer status;
 
     private String extra;
 
@@ -59,12 +61,12 @@ public class RigDO {
         this.rigCode = rigCode == null ? null : rigCode.trim();
     }
 
-    public String getDeptCode() {
-        return deptCode;
+    public Long getDeptId() {
+        return deptId;
     }
 
-    public void setDeptCode(String deptCode) {
-        this.deptCode = deptCode == null ? null : deptCode.trim();
+    public void setDeptId(Long deptId) {
+        this.deptId = deptId;
     }
 
     public String getDeptName() {
@@ -113,6 +115,14 @@ public class RigDO {
 
     public void setType(String type) {
         this.type = type == null ? null : type.trim();
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public String getExtra() {

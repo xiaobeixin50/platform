@@ -2,9 +2,8 @@ package com.beiken.saas.platform.mapper;
 
 import com.beiken.saas.platform.pojo.RigDO;
 import com.beiken.saas.platform.pojo.RigDOExample;
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface RigMapper {
     long countByExample(RigDOExample example);

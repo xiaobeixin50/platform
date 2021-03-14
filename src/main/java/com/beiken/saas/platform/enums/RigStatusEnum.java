@@ -9,29 +9,29 @@ import java.util.Map;
  * Date: 21/2/27
  * Time: 下午5:56
  */
-public enum TaskStatusEnum {
+public enum RigStatusEnum {
 
-    NOT_BEGIN(0, "未完成"),
-    BEGIN(1, "已完成"),
-    FINISH(2, "已过期");
+    NOT_BEGIN(0, "已停用"),
+    BEGIN(1, "进行中"),
+    FINISH(2,"已结束");
 
     private Integer status;
 
     private String msg;
 
-    private static final Map<Integer, TaskStatusEnum> MAP = Maps.newHashMap();
+    private static final Map<Integer, RigStatusEnum> MAP = Maps.newHashMap();
 
     static {
-        for (TaskStatusEnum item : TaskStatusEnum.values()) {
+        for (RigStatusEnum item : RigStatusEnum.values()) {
             MAP.put(item.status, item);
         }
     }
 
-    public static TaskStatusEnum index(Integer status) {
-        return status == null ? null : MAP.get(status);
+    public static RigStatusEnum index(Integer status) {
+        return status == null? null:MAP.get(status);
     }
 
-    TaskStatusEnum(Integer status, String msg) {
+    RigStatusEnum(Integer status, String msg) {
         this.status = status;
         this.msg = msg;
     }

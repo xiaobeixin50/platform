@@ -6,7 +6,7 @@
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
     <result column="inspcet_plan_code" jdbcType="VARCHAR" property="inspcetPlanCode" />
-    <result column="dept_code" jdbcType="VARCHAR" property="deptCode" />
+    <result column="dept_id" jdbcType="BIGINT" property="deptId" />
     <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
     <result column="dept_parent_code" jdbcType="VARCHAR" property="deptParentCode" />
     <result column="dept_parent_name" jdbcType="VARCHAR" property="deptParentName" />
@@ -72,7 +72,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, gmt_create, gmt_modified, inspcet_plan_code, dept_code, dept_name, dept_parent_code, 
+    id, gmt_create, gmt_modified, inspcet_plan_code, dept_id, dept_name, dept_parent_code, 
     dept_parent_name, inspect_user_id, inspect_user_name
   </sql>
   <select id="selectByExample" parameterType="com.beiken.saas.platform.pojo.InspectPlanDeptDOExample" resultMap="BaseResultMap">
@@ -111,11 +111,11 @@
   </delete>
   <insert id="insert" parameterType="com.beiken.saas.platform.pojo.InspectPlanDeptDO">
     insert into sft_inspect_plan_dept (id, gmt_create, gmt_modified, 
-      inspcet_plan_code, dept_code, dept_name, 
+      inspcet_plan_code, dept_id, dept_name, 
       dept_parent_code, dept_parent_name, inspect_user_id, 
       inspect_user_name)
     values (#{id,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
-      #{inspcetPlanCode,jdbcType=VARCHAR}, #{deptCode,jdbcType=VARCHAR}, #{deptName,jdbcType=VARCHAR}, 
+      #{inspcetPlanCode,jdbcType=VARCHAR}, #{deptId,jdbcType=BIGINT}, #{deptName,jdbcType=VARCHAR}, 
       #{deptParentCode,jdbcType=VARCHAR}, #{deptParentName,jdbcType=VARCHAR}, #{inspectUserId,jdbcType=BIGINT}, 
       #{inspectUserName,jdbcType=VARCHAR})
   </insert>
@@ -134,8 +134,8 @@
       <if test="inspcetPlanCode != null">
         inspcet_plan_code,
       </if>
-      <if test="deptCode != null">
-        dept_code,
+      <if test="deptId != null">
+        dept_id,
       </if>
       <if test="deptName != null">
         dept_name,
@@ -166,8 +166,8 @@
       <if test="inspcetPlanCode != null">
         #{inspcetPlanCode,jdbcType=VARCHAR},
       </if>
-      <if test="deptCode != null">
-        #{deptCode,jdbcType=VARCHAR},
+      <if test="deptId != null">
+        #{deptId,jdbcType=BIGINT},
       </if>
       <if test="deptName != null">
         #{deptName,jdbcType=VARCHAR},
@@ -207,8 +207,8 @@
       <if test="record.inspcetPlanCode != null">
         inspcet_plan_code = #{record.inspcetPlanCode,jdbcType=VARCHAR},
       </if>
-      <if test="record.deptCode != null">
-        dept_code = #{record.deptCode,jdbcType=VARCHAR},
+      <if test="record.deptId != null">
+        dept_id = #{record.deptId,jdbcType=BIGINT},
       </if>
       <if test="record.deptName != null">
         dept_name = #{record.deptName,jdbcType=VARCHAR},
@@ -236,7 +236,7 @@
       gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
       inspcet_plan_code = #{record.inspcetPlanCode,jdbcType=VARCHAR},
-      dept_code = #{record.deptCode,jdbcType=VARCHAR},
+      dept_id = #{record.deptId,jdbcType=BIGINT},
       dept_name = #{record.deptName,jdbcType=VARCHAR},
       dept_parent_code = #{record.deptParentCode,jdbcType=VARCHAR},
       dept_parent_name = #{record.deptParentName,jdbcType=VARCHAR},
@@ -258,8 +258,8 @@
       <if test="inspcetPlanCode != null">
         inspcet_plan_code = #{inspcetPlanCode,jdbcType=VARCHAR},
       </if>
-      <if test="deptCode != null">
-        dept_code = #{deptCode,jdbcType=VARCHAR},
+      <if test="deptId != null">
+        dept_id = #{deptId,jdbcType=BIGINT},
       </if>
       <if test="deptName != null">
         dept_name = #{deptName,jdbcType=VARCHAR},
@@ -284,7 +284,7 @@
     set gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
       inspcet_plan_code = #{inspcetPlanCode,jdbcType=VARCHAR},
-      dept_code = #{deptCode,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=BIGINT},
       dept_name = #{deptName,jdbcType=VARCHAR},
       dept_parent_code = #{deptParentCode,jdbcType=VARCHAR},
       dept_parent_name = #{deptParentName,jdbcType=VARCHAR},

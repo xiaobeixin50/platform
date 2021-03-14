@@ -18,27 +18,34 @@ import java.util.List;
  */
 @Component
 public class DangerManager {
+
+    private static final Integer INSPECT_USER = 0;
+
     @Resource
     private HiddenDangerMapper dangerMapper;
 
-    public PageBo<DangerVO> listByUser(Long inspectUserId, DangerQuery dangerQuery) {
-        HiddenDangerDOExample example = buildDangerExample(inspectUserId, dangerQuery);
+    public PageBo<DangerVO> listByUser(Long userId, DangerQuery dangerQuery) {
+        HiddenDangerDOExample example = buildDangerExample(userId, dangerQuery);
         List<HiddenDangerDO> hiddenDangerDOs = dangerMapper.selectByExample(example);
-
         return null;
     }
 
-    private HiddenDangerDOExample buildDangerExample(Long inspectUserId, DangerQuery dangerQuery) {
+    private HiddenDangerDOExample buildDangerExample(Long userId, DangerQuery dangerQuery) {
         HiddenDangerDOExample example = new HiddenDangerDOExample();
         example.setLimitStart(dangerQuery.getPageNo());
         example.setCount((dangerQuery.getPageNo() - 1) * dangerQuery.getPageSize());
         example.setOrderByClause("change_end_date " + dangerQuery.getSort());
 
-        example.createCriteria()
-                .andInspectUserIdEqualTo(inspectUserId)
+        HiddenDangerDOExample.Criteria criteria = example.createCriteria()
                 .andDangerLevelEqualTo(dangerQuery.getDangerLevel())
                 .andResultStatusEqualTo(dangerQuery.getResultStatus());
-        return  example;
+        if (INSPECT_USER.equals(dangerQuery.getRoleType())) {
+            criteria.andInspectUserIdEqualTo(userId);
+        } else {
+            criteria.andResponsebilityUserIdEqualTo(userId);
+        }
+
+        return null;
     }
 
 }

@@ -8,4 +8,6 @@ package com.beiken.saas.platform.enums;
 public class Constants {
 
     public static final String LIKE = "%";
+
+    public static final String ERROR = "ERROR";
 }

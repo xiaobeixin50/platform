@@ -21,7 +21,7 @@ public class InspectTaskDO {
 
     private Integer status;
 
-    private String deptCode;
+    private Long deptId;
 
     private String deptName;
 
@@ -101,12 +101,12 @@ public class InspectTaskDO {
         this.status = status;
     }
 
-    public String getDeptCode() {
-        return deptCode;
+    public Long getDeptId() {
+        return deptId;
     }
 
-    public void setDeptCode(String deptCode) {
-        this.deptCode = deptCode == null ? null : deptCode.trim();
+    public void setDeptId(Long deptId) {
+        this.deptId = deptId;
     }
 
     public String getDeptName() {

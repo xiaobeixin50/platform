@@ -31,7 +31,9 @@ public class HiddenDangerDO {
 
     private String breakUser;
 
-    private String responsbilityUser;
+    private Long responsebilityUserId;
+
+    private String responsebilityUser;
 
     private Date changeEndDate;
 
@@ -64,6 +66,8 @@ public class HiddenDangerDO {
     private String changeUserName;
 
     private Date changeSubmitTime;
+
+    private Integer dangerType;
 
     private String changePlan;
 
@@ -179,12 +183,20 @@ public class HiddenDangerDO {
         this.breakUser = breakUser == null ? null : breakUser.trim();
     }
 
-    public String getResponsbilityUser() {
-        return responsbilityUser;
+    public Long getResponsebilityUserId() {
+        return responsebilityUserId;
     }
 
-    public void setResponsbilityUser(String responsbilityUser) {
-        this.responsbilityUser = responsbilityUser == null ? null : responsbilityUser.trim();
+    public void setResponsebilityUserId(Long responsebilityUserId) {
+        this.responsebilityUserId = responsebilityUserId;
+    }
+
+    public String getResponsebilityUser() {
+        return responsebilityUser;
+    }
+
+    public void setResponsebilityUser(String responsebilityUser) {
+        this.responsebilityUser = responsebilityUser == null ? null : responsebilityUser.trim();
     }
 
     public Date getChangeEndDate() {
@@ -313,6 +325,14 @@ public class HiddenDangerDO {
 
     public void setChangeSubmitTime(Date changeSubmitTime) {
         this.changeSubmitTime = changeSubmitTime;
+    }
+
+    public Integer getDangerType() {
+        return dangerType;
+    }
+
+    public void setDangerType(Integer dangerType) {
+        this.dangerType = dangerType;
     }
 
     public String getChangePlan() {

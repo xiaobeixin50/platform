@@ -2,9 +2,8 @@ package com.beiken.saas.platform.mapper;
 
 import com.beiken.saas.platform.pojo.InspectTaskDO;
 import com.beiken.saas.platform.pojo.InspectTaskDOExample;
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface InspectTaskMapper {
     long countByExample(InspectTaskDOExample example);

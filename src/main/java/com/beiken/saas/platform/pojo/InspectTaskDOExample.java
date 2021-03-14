@@ -692,73 +692,63 @@ public class InspectTaskDOExample {
             return (Criteria) this;
         }
 
-        public Criteria andDeptCodeIsNull() {
-            addCriterion("dept_code is null");
+        public Criteria andDeptIdIsNull() {
+            addCriterion("dept_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andDeptCodeIsNotNull() {
-            addCriterion("dept_code is not null");
+        public Criteria andDeptIdIsNotNull() {
+            addCriterion("dept_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDeptCodeEqualTo(String value) {
-            addCriterion("dept_code =", value, "deptCode");
+        public Criteria andDeptIdEqualTo(Long value) {
+            addCriterion("dept_id =", value, "deptId");
             return (Criteria) this;
         }
 
-        public Criteria andDeptCodeNotEqualTo(String value) {
-            addCriterion("dept_code <>", value, "deptCode");
+        public Criteria andDeptIdNotEqualTo(Long value) {
+            addCriterion("dept_id <>", value, "deptId");
             return (Criteria) this;
         }
 
-        public Criteria andDeptCodeGreaterThan(String value) {
-            addCriterion("dept_code >", value, "deptCode");
+        public Criteria andDeptIdGreaterThan(Long value) {
+            addCriterion("dept_id >", value, "deptId");
             return (Criteria) this;
         }
 
-        public Criteria andDeptCodeGreaterThanOrEqualTo(String value) {
-            addCriterion("dept_code >=", value, "deptCode");
+        public Criteria andDeptIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("dept_id >=", value, "deptId");
             return (Criteria) this;
         }
 
-        public Criteria andDeptCodeLessThan(String value) {
-            addCriterion("dept_code <", value, "deptCode");
+        public Criteria andDeptIdLessThan(Long value) {
+            addCriterion("dept_id <", value, "deptId");
             return (Criteria) this;
         }
 
-        public Criteria andDeptCodeLessThanOrEqualTo(String value) {
-            addCriterion("dept_code <=", value, "deptCode");
+        public Criteria andDeptIdLessThanOrEqualTo(Long value) {
+            addCriterion("dept_id <=", value, "deptId");
             return (Criteria) this;
         }
 
-        public Criteria andDeptCodeLike(String value) {
-            addCriterion("dept_code like", value, "deptCode");
+        public Criteria andDeptIdIn(List<Long> values) {
+            addCriterion("dept_id in", values, "deptId");
             return (Criteria) this;
         }
 
-        public Criteria andDeptCodeNotLike(String value) {
-            addCriterion("dept_code not like", value, "deptCode");
+        public Criteria andDeptIdNotIn(List<Long> values) {
+            addCriterion("dept_id not in", values, "deptId");
             return (Criteria) this;
         }
 
-        public Criteria andDeptCodeIn(List<String> values) {
-            addCriterion("dept_code in", values, "deptCode");
+        public Criteria andDeptIdBetween(Long value1, Long value2) {
+            addCriterion("dept_id between", value1, value2, "deptId");
             return (Criteria) this;
         }
 
-        public Criteria andDeptCodeNotIn(List<String> values) {
-            addCriterion("dept_code not in", values, "deptCode");
-            return (Criteria) this;
-        }
-
-        public Criteria andDeptCodeBetween(String value1, String value2) {
-            addCriterion("dept_code between", value1, value2, "deptCode");
-            return (Criteria) this;
-        }
-
-        public Criteria andDeptCodeNotBetween(String value1, String value2) {
-            addCriterion("dept_code not between", value1, value2, "deptCode");
+        public Criteria andDeptIdNotBetween(Long value1, Long value2) {
+            addCriterion("dept_id not between", value1, value2, "deptId");
             return (Criteria) this;
         }
 

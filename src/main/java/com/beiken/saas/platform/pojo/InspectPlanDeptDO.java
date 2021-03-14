@@ -11,7 +11,7 @@ public class InspectPlanDeptDO {
 
     private String inspcetPlanCode;
 
-    private String deptCode;
+    private Long deptId;
 
     private String deptName;
 
@@ -55,12 +55,12 @@ public class InspectPlanDeptDO {
         this.inspcetPlanCode = inspcetPlanCode == null ? null : inspcetPlanCode.trim();
     }
 
-    public String getDeptCode() {
-        return deptCode;
+    public Long getDeptId() {
+        return deptId;
     }
 
-    public void setDeptCode(String deptCode) {
-        this.deptCode = deptCode == null ? null : deptCode.trim();
+    public void setDeptId(Long deptId) {
+        this.deptId = deptId;
     }
 
     public String getDeptName() {

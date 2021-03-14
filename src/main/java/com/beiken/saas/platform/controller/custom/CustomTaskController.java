@@ -4,6 +4,8 @@ import com.beiken.saas.platform.biz.bo.PageBo;
 import com.beiken.saas.platform.biz.vo.Result;
 import com.beiken.saas.platform.biz.vo.TaskItemVO;
 import com.beiken.saas.platform.biz.vo.TaskVO;
+import com.beiken.saas.platform.biz.vo.UserRigVO;
+import com.beiken.saas.platform.enums.Constants;
 import com.beiken.saas.platform.manage.TaskManager;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -12,6 +14,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Objects;
 
 /**
  * User: panboliang
@@ -36,12 +39,29 @@ public class CustomTaskController {
             return Result.success(pageBo);
         } catch (Exception e) {
             //log.error("list error", e);
-            return Result.error("ERROR", e.getMessage());
+            return Result.error(Constants.ERROR, e.getMessage());
+        }
+    }
+
+    @ApiOperation("获取当前用户所在的的井队/对应的子公司和对应的钻井号")
+    @ResponseBody
+    @GetMapping(value = "/rig/{userId}")
+    @ApiImplicitParams({@ApiImplicitParam(name = "userId", value = "用户id", required = true, dataType = "Long")})
+    public Result getDeptByUser(@PathVariable Long userId) {
+        try {
+            UserRigVO taskUserRig = taskManager.getTaskUserRig(userId);
+            if (Objects.isNull(taskUserRig)) {
+                return Result.error("ERROR", "暂无可用任务");
+            }
+            return Result.success(taskUserRig);
+        } catch (Exception e) {
+            //log.error("list error", e);
+            return Result.error(Constants.ERROR, e.getMessage());
         }
     }
 
 
-    @ApiOperation("获取任务检查项")
+    @ApiOperation("获取任务检查项,即任务详情")
     @ResponseBody
     @GetMapping(value = "/list/item")
     @ApiImplicitParams({@ApiImplicitParam(name = "taskCode", value = "任务编码", required = true, dataType = "String")})
@@ -51,7 +71,7 @@ public class CustomTaskController {
             return Result.success(pageBo);
         } catch (Exception e) {
             //log.error("list error", e);
-            return Result.error("ERROR", e.getMessage());
+            return Result.error(Constants.ERROR, e.getMessage());
         }
     }
 
@@ -65,7 +85,7 @@ public class CustomTaskController {
             return Result.success();
         } catch (Exception e) {
             //log.error("list error", e);
-            return Result.error("ERROR", e.getMessage());
+            return Result.error(Constants.ERROR, e.getMessage());
         }
     }
 }

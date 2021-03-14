@@ -26,4 +26,9 @@ public class DangerQuery extends BaseQuery implements Serializable{
             , required = false, example = "AES/DESC")
     private String sort;
 
+    @ApiModelProperty(name = "roleType", value = "0-监理, 1-井队长"
+            , required = false, example = "")
+    private Integer roleType;
+
+
 }
