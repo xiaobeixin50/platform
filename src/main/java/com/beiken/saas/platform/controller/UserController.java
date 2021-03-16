@@ -3,6 +3,7 @@ package com.beiken.saas.platform.controller;
 import com.beiken.saas.platform.biz.bo.PageBo;
 import com.beiken.saas.platform.biz.query.UserQuery;
 import com.beiken.saas.platform.biz.vo.Result;
+import com.beiken.saas.platform.biz.vo.SelfVO;
 import com.beiken.saas.platform.biz.vo.UserVO;
 import com.beiken.saas.platform.enums.Constants;
 import com.beiken.saas.platform.mapper.UserMapper;
@@ -36,7 +37,7 @@ public class UserController {
     @ApiOperation("用户信息")
     @ResponseBody
     @GetMapping(value = "/info")
-    public Result<PageBo<UserVO>> info(UserQuery userQuery) {
+    public Result<PageBo<UserVO>> info(@RequestBody UserQuery userQuery) {
         try {
             UserDOExample example = new UserDOExample();
             example.createCriteria()
@@ -56,7 +57,7 @@ public class UserController {
     @ApiOperation("用户信息")
     @ResponseBody
     @PostMapping(value = "/login")
-    public Result login(UserQuery userQuery) {
+    public Result login(@RequestBody UserQuery userQuery) {
         try {
             if (StringUtils.isBlank(userQuery.getPassword()) ||
                     StringUtils.isBlank(userQuery.getAccountId())) {
@@ -71,7 +72,24 @@ public class UserController {
             if (CollectionUtils.isEmpty(userVOPageBo.getItemList())){
                 return Result.error("ERROR", "用户名或密码不正确");
             }
-            return Result.success(userVOPageBo);
+            UserVO userVO = userVOPageBo.getItemList().get(0);
+            return Result.success(userVO);
+        } catch (Exception e) {
+            //log.error("list error", e);
+            return Result.error("ERROR", e.getMessage());
+        }
+    }
+
+    @ApiOperation("我的接口")
+    @ResponseBody
+    @PostMapping(value = "/self/{userId}")
+    public Result self(@PathVariable Long userId) {
+        try {
+            //todo pbl self
+            SelfVO selfVO = new SelfVO();
+            selfVO.setAfterTimeTask(5L);
+            selfVO.setDangerNum(10L);
+            return Result.success(selfVO);
         } catch (Exception e) {
             //log.error("list error", e);
             return Result.error("ERROR", e.getMessage());
@@ -81,7 +99,7 @@ public class UserController {
     @ApiOperation("添加用户")
     @ResponseBody
     @PostMapping(value = "/add")
-    public Result add(UserVO userVO) {
+    public Result add(@RequestBody UserVO userVO) {
         try {
             if (StringUtils.isBlank(userVO.getPassword())) {
                 userVO.setPassword("123456");

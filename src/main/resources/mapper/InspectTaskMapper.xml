@@ -5,14 +5,15 @@
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="task_code" jdbcType="VARCHAR" property="taskCode" />
     <result column="inspect_plan_code" jdbcType="VARCHAR" property="inspectPlanCode" />
     <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
     <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
     <result column="finish_time" jdbcType="TIMESTAMP" property="finishTime" />
     <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="dept_id" jdbcType="BIGINT" property="deptId" />
-    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <result column="rig_id" jdbcType="BIGINT" property="rigId" />
+    <result column="rig_code" jdbcType="VARCHAR" property="rigCode" />
     <result column="inspect_user_id" jdbcType="BIGINT" property="inspectUserId" />
     <result column="inspect_user_name" jdbcType="VARCHAR" property="inspectUserName" />
   </resultMap>
@@ -75,8 +76,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, gmt_create, gmt_modified, task_code, inspect_plan_code, start_time, end_time, 
-    finish_time, status, dept_id, dept_name, inspect_user_id, inspect_user_name
+    id, gmt_create, gmt_modified, name, task_code, inspect_plan_code, start_time, end_time, 
+    finish_time, status, rig_id, rig_code, inspect_user_id, inspect_user_name
   </sql>
   <select id="selectByExample" parameterType="com.beiken.saas.platform.pojo.InspectTaskDOExample" resultMap="BaseResultMap">
     select
@@ -114,15 +115,15 @@
   </delete>
   <insert id="insert" parameterType="com.beiken.saas.platform.pojo.InspectTaskDO">
     insert into sft_inspect_task (id, gmt_create, gmt_modified, 
-      task_code, inspect_plan_code, start_time, 
-      end_time, finish_time, status, 
-      dept_id, dept_name, inspect_user_id, 
-      inspect_user_name)
+      name, task_code, inspect_plan_code, 
+      start_time, end_time, finish_time, 
+      status, rig_id, rig_code, 
+      inspect_user_id, inspect_user_name)
     values (#{id,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
-      #{taskCode,jdbcType=VARCHAR}, #{inspectPlanCode,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP}, 
-      #{endTime,jdbcType=TIMESTAMP}, #{finishTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, 
-      #{deptId,jdbcType=BIGINT}, #{deptName,jdbcType=VARCHAR}, #{inspectUserId,jdbcType=BIGINT}, 
-      #{inspectUserName,jdbcType=VARCHAR})
+      #{name,jdbcType=VARCHAR}, #{taskCode,jdbcType=VARCHAR}, #{inspectPlanCode,jdbcType=VARCHAR}, 
+      #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{finishTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=INTEGER}, #{rigId,jdbcType=BIGINT}, #{rigCode,jdbcType=VARCHAR}, 
+      #{inspectUserId,jdbcType=BIGINT}, #{inspectUserName,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.beiken.saas.platform.pojo.InspectTaskDO">
     insert into sft_inspect_task
@@ -135,6 +136,9 @@
       </if>
       <if test="gmtModified != null">
         gmt_modified,
+      </if>
+      <if test="name != null">
+        name,
       </if>
       <if test="taskCode != null">
         task_code,
@@ -154,11 +158,11 @@
       <if test="status != null">
         status,
       </if>
-      <if test="deptId != null">
-        dept_id,
+      <if test="rigId != null">
+        rig_id,
       </if>
-      <if test="deptName != null">
-        dept_name,
+      <if test="rigCode != null">
+        rig_code,
       </if>
       <if test="inspectUserId != null">
         inspect_user_id,
@@ -176,6 +180,9 @@
       </if>
       <if test="gmtModified != null">
         #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
       </if>
       <if test="taskCode != null">
         #{taskCode,jdbcType=VARCHAR},
@@ -195,11 +202,11 @@
       <if test="status != null">
         #{status,jdbcType=INTEGER},
       </if>
-      <if test="deptId != null">
-        #{deptId,jdbcType=BIGINT},
+      <if test="rigId != null">
+        #{rigId,jdbcType=BIGINT},
       </if>
-      <if test="deptName != null">
-        #{deptName,jdbcType=VARCHAR},
+      <if test="rigCode != null">
+        #{rigCode,jdbcType=VARCHAR},
       </if>
       <if test="inspectUserId != null">
         #{inspectUserId,jdbcType=BIGINT},
@@ -227,6 +234,9 @@
       <if test="record.gmtModified != null">
         gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
       <if test="record.taskCode != null">
         task_code = #{record.taskCode,jdbcType=VARCHAR},
       </if>
@@ -245,11 +255,11 @@
       <if test="record.status != null">
         status = #{record.status,jdbcType=INTEGER},
       </if>
-      <if test="record.deptId != null">
-        dept_id = #{record.deptId,jdbcType=BIGINT},
+      <if test="record.rigId != null">
+        rig_id = #{record.rigId,jdbcType=BIGINT},
       </if>
-      <if test="record.deptName != null">
-        dept_name = #{record.deptName,jdbcType=VARCHAR},
+      <if test="record.rigCode != null">
+        rig_code = #{record.rigCode,jdbcType=VARCHAR},
       </if>
       <if test="record.inspectUserId != null">
         inspect_user_id = #{record.inspectUserId,jdbcType=BIGINT},
@@ -267,14 +277,15 @@
     set id = #{record.id,jdbcType=BIGINT},
       gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      name = #{record.name,jdbcType=VARCHAR},
       task_code = #{record.taskCode,jdbcType=VARCHAR},
       inspect_plan_code = #{record.inspectPlanCode,jdbcType=VARCHAR},
       start_time = #{record.startTime,jdbcType=TIMESTAMP},
       end_time = #{record.endTime,jdbcType=TIMESTAMP},
       finish_time = #{record.finishTime,jdbcType=TIMESTAMP},
       status = #{record.status,jdbcType=INTEGER},
-      dept_id = #{record.deptId,jdbcType=BIGINT},
-      dept_name = #{record.deptName,jdbcType=VARCHAR},
+      rig_id = #{record.rigId,jdbcType=BIGINT},
+      rig_code = #{record.rigCode,jdbcType=VARCHAR},
       inspect_user_id = #{record.inspectUserId,jdbcType=BIGINT},
       inspect_user_name = #{record.inspectUserName,jdbcType=VARCHAR}
     <if test="_parameter != null">
@@ -289,6 +300,9 @@
       </if>
       <if test="gmtModified != null">
         gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
       </if>
       <if test="taskCode != null">
         task_code = #{taskCode,jdbcType=VARCHAR},
@@ -308,11 +322,11 @@
       <if test="status != null">
         status = #{status,jdbcType=INTEGER},
       </if>
-      <if test="deptId != null">
-        dept_id = #{deptId,jdbcType=BIGINT},
+      <if test="rigId != null">
+        rig_id = #{rigId,jdbcType=BIGINT},
       </if>
-      <if test="deptName != null">
-        dept_name = #{deptName,jdbcType=VARCHAR},
+      <if test="rigCode != null">
+        rig_code = #{rigCode,jdbcType=VARCHAR},
       </if>
       <if test="inspectUserId != null">
         inspect_user_id = #{inspectUserId,jdbcType=BIGINT},
@@ -327,14 +341,15 @@
     update sft_inspect_task
     set gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      name = #{name,jdbcType=VARCHAR},
       task_code = #{taskCode,jdbcType=VARCHAR},
       inspect_plan_code = #{inspectPlanCode,jdbcType=VARCHAR},
       start_time = #{startTime,jdbcType=TIMESTAMP},
       end_time = #{endTime,jdbcType=TIMESTAMP},
       finish_time = #{finishTime,jdbcType=TIMESTAMP},
       status = #{status,jdbcType=INTEGER},
-      dept_id = #{deptId,jdbcType=BIGINT},
-      dept_name = #{deptName,jdbcType=VARCHAR},
+      rig_id = #{rigId,jdbcType=BIGINT},
+      rig_code = #{rigCode,jdbcType=VARCHAR},
       inspect_user_id = #{inspectUserId,jdbcType=BIGINT},
       inspect_user_name = #{inspectUserName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}

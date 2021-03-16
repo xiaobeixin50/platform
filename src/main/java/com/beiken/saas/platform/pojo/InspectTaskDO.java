@@ -9,6 +9,8 @@ public class InspectTaskDO {
 
     private Date gmtModified;
 
+    private String name;
+
     private String taskCode;
 
     private String inspectPlanCode;
@@ -21,9 +23,9 @@ public class InspectTaskDO {
 
     private Integer status;
 
-    private Long deptId;
+    private Long rigId;
 
-    private String deptName;
+    private String rigCode;
 
     private Long inspectUserId;
 
@@ -51,6 +53,14 @@ public class InspectTaskDO {
 
     public void setGmtModified(Date gmtModified) {
         this.gmtModified = gmtModified;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
     }
 
     public String getTaskCode() {
@@ -101,20 +111,20 @@ public class InspectTaskDO {
         this.status = status;
     }
 
-    public Long getDeptId() {
-        return deptId;
+    public Long getRigId() {
+        return rigId;
     }
 
-    public void setDeptId(Long deptId) {
-        this.deptId = deptId;
+    public void setRigId(Long rigId) {
+        this.rigId = rigId;
     }
 
-    public String getDeptName() {
-        return deptName;
+    public String getRigCode() {
+        return rigCode;
     }
 
-    public void setDeptName(String deptName) {
-        this.deptName = deptName == null ? null : deptName.trim();
+    public void setRigCode(String rigCode) {
+        this.rigCode = rigCode == null ? null : rigCode.trim();
     }
 
     public Long getInspectUserId() {

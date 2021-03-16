@@ -31,9 +31,9 @@ public class CustomDangerController {
 
     @ApiOperation("隐患列表")
     @ResponseBody
-    @GetMapping(value = "/list")
+    @PostMapping(value = "/list/{userId}")
     @ApiImplicitParams({@ApiImplicitParam(name = "userId", value = "监理id/井队长id", required = true, dataType = "Long")})
-    public Result list(@RequestParam Long userId, DangerQuery dangerQuery) {
+    public Result list(@PathVariable Long userId, @RequestBody DangerQuery dangerQuery) {
         try {
             if (StringUtils.isBlank(dangerQuery.getSort())) {
                 dangerQuery.setSort("ASC");
@@ -53,7 +53,7 @@ public class CustomDangerController {
     @ResponseBody
     @PostMapping(value = "/update/{dangerCode}")
     @ApiImplicitParams({@ApiImplicitParam(name = "dangerCode", value = "监理id", required = true, dataType = "Long")})
-    public Result update(@PathVariable String dangerCode, DangerVO dangerVO) {
+    public Result update(@PathVariable String dangerCode, @RequestBody DangerVO dangerVO) {
         try {
             return Result.success();
         } catch (Exception e) {

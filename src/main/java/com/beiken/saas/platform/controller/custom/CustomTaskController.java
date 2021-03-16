@@ -1,12 +1,10 @@
 package com.beiken.saas.platform.controller.custom;
 
 import com.beiken.saas.platform.biz.bo.PageBo;
-import com.beiken.saas.platform.biz.vo.Result;
-import com.beiken.saas.platform.biz.vo.TaskItemVO;
-import com.beiken.saas.platform.biz.vo.TaskVO;
-import com.beiken.saas.platform.biz.vo.UserRigVO;
+import com.beiken.saas.platform.biz.vo.*;
 import com.beiken.saas.platform.enums.Constants;
 import com.beiken.saas.platform.manage.TaskManager;
+import com.google.common.collect.Maps;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -14,7 +12,8 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.Objects;
+import java.util.List;
+import java.util.Map;
 
 /**
  * User: panboliang
@@ -31,11 +30,12 @@ public class CustomTaskController {
 
     @ApiOperation("获取单人任务列表")
     @ResponseBody
-    @GetMapping(value = "/list")
-    @ApiImplicitParams({@ApiImplicitParam(name = "inspectUserId", value = "检查人id", required = true, dataType = "Long")})
-    public Result list(@RequestParam Long inspectUserId) {
+    @GetMapping(value = "/list/{userId}/{rigCode}")
+    @ApiImplicitParams({@ApiImplicitParam(name = "userId", value = "检查人id", required = true, dataType = "Long")
+            , @ApiImplicitParam(name = "rigCode", value = "井code", required = true, dataType = "String")})
+    public Result list(@PathVariable Long userId, @PathVariable String rigCode) {
         try {
-            PageBo<TaskVO> pageBo = taskManager.listByUser(inspectUserId);
+            PageBo<TaskListVO> pageBo = taskManager.listByUser(userId, rigCode);
             return Result.success(pageBo);
         } catch (Exception e) {
             //log.error("list error", e);
@@ -50,9 +50,11 @@ public class CustomTaskController {
     public Result getDeptByUser(@PathVariable Long userId) {
         try {
             UserRigVO taskUserRig = taskManager.getTaskUserRig(userId);
-            if (Objects.isNull(taskUserRig)) {
-                return Result.error("ERROR", "暂无可用任务");
-            }
+            Map<DeptVO, List<RigVO>> map = Maps.newHashMap();
+            taskUserRig.setTaskTitleMap(map);
+//            if (Objects.isNull(taskUserRig)) {
+//                return Result.error("ERROR", "暂无可用任务");
+//            }
             return Result.success(taskUserRig);
         } catch (Exception e) {
             //log.error("list error", e);
@@ -67,7 +69,7 @@ public class CustomTaskController {
     @ApiImplicitParams({@ApiImplicitParam(name = "taskCode", value = "任务编码", required = true, dataType = "String")})
     public Result listItem(@RequestParam String taskCode) {
         try {
-            PageBo<TaskItemVO> pageBo = taskManager.listTaskItem(taskCode);
+            PageBo<TaskItemListVO> pageBo = taskManager.listTaskItem(taskCode);
             return Result.success(pageBo);
         } catch (Exception e) {
             //log.error("list error", e);
@@ -77,9 +79,9 @@ public class CustomTaskController {
 
     @ApiOperation("合格/不合格")
     @ResponseBody
-    @GetMapping(value = "/update-status")
+    @PostMapping(value = "/update-status")
     @ApiImplicitParams({@ApiImplicitParam(name = "taskItemVO", value = "任务项", required = true, dataType = "TaskItemVO", paramType = "TaskItemVO")})
-    public Result update(TaskItemVO taskItemVO) {
+    public Result update(@RequestBody TaskItemVO taskItemVO) {
         try {
             taskManager.updateTaskItem(taskItemVO);
             return Result.success();

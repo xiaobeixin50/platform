@@ -27,7 +27,7 @@ public class TaskController {
     @ApiOperation("任务列表")
     @ResponseBody
     @PostMapping(value = "/list")
-    public Result list(TaskQuery taskQuery) {
+    public Result list(@RequestBody TaskQuery taskQuery) {
         try {
             PageBo<TaskVO> pageBo = taskManager.list(taskQuery);
             return Result.success(pageBo);

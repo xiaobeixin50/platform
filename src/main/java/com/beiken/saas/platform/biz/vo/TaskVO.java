@@ -147,4 +147,12 @@ public class TaskVO implements Serializable {
             , required = false, example = "")
     private List<TaskItemVO> taskItems;
 
+    @ApiModelProperty(name = "taskItemNum", value = "任务检查项总个数"
+            , required = false, example = "")
+    private Long taskItemNum;
+
+    @ApiModelProperty(name = "finishTaskItemNum", value = "完成占比"
+            , required = false, example = "")
+    private Double finishTaskItemNum;
+
 }

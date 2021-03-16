@@ -9,8 +9,6 @@ public class InspectTaskItemDO {
 
     private Date gmtModified;
 
-    private String itemCode;
-
     private String taskCode;
 
     private String inspectPlanCode;
@@ -43,14 +41,6 @@ public class InspectTaskItemDO {
 
     public void setGmtModified(Date gmtModified) {
         this.gmtModified = gmtModified;
-    }
-
-    public String getItemCode() {
-        return itemCode;
-    }
-
-    public void setItemCode(String itemCode) {
-        this.itemCode = itemCode == null ? null : itemCode.trim();
     }
 
     public String getTaskCode() {

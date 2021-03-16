@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 /**
  * User: panboliang
@@ -18,10 +19,7 @@ public class UserRigVO implements Serializable{
     @ApiModelProperty(name = "userId", value = "用户id")
     private Long userId;
 
-    @ApiModelProperty(name = "deptList", value = "所属井队和子公司")
-    private List<DeptVO> deptList;
-
-    @ApiModelProperty(name = "rigList", value = "管理的井")
-    private List<RigVO> rigList;
+    @ApiModelProperty(name = "taskTitleMap", value = "所属井队和子公司以及下面的井")
+    private Map<DeptVO, List<RigVO>> taskTitleMap;
 
 }

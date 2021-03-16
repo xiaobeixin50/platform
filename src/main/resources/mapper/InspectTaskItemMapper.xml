@@ -5,7 +5,6 @@
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
-    <result column="item_code" jdbcType="VARCHAR" property="itemCode" />
     <result column="task_code" jdbcType="VARCHAR" property="taskCode" />
     <result column="inspect_plan_code" jdbcType="VARCHAR" property="inspectPlanCode" />
     <result column="bg_item_code" jdbcType="VARCHAR" property="bgItemCode" />
@@ -71,8 +70,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, gmt_create, gmt_modified, item_code, task_code, inspect_plan_code, bg_item_code, 
-    result_status, end_date
+    id, gmt_create, gmt_modified, task_code, inspect_plan_code, bg_item_code, result_status, 
+    end_date
   </sql>
   <select id="selectByExample" parameterType="com.beiken.saas.platform.pojo.InspectTaskItemDOExample" resultMap="BaseResultMap">
     select
@@ -110,13 +109,11 @@
   </delete>
   <insert id="insert" parameterType="com.beiken.saas.platform.pojo.InspectTaskItemDO">
     insert into sft_inspect_task_item (id, gmt_create, gmt_modified, 
-      item_code, task_code, inspect_plan_code, 
-      bg_item_code, result_status, end_date
-      )
+      task_code, inspect_plan_code, bg_item_code, 
+      result_status, end_date)
     values (#{id,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
-      #{itemCode,jdbcType=VARCHAR}, #{taskCode,jdbcType=VARCHAR}, #{inspectPlanCode,jdbcType=VARCHAR}, 
-      #{bgItemCode,jdbcType=VARCHAR}, #{resultStatus,jdbcType=INTEGER}, #{endDate,jdbcType=TIMESTAMP}
-      )
+      #{taskCode,jdbcType=VARCHAR}, #{inspectPlanCode,jdbcType=VARCHAR}, #{bgItemCode,jdbcType=VARCHAR}, 
+      #{resultStatus,jdbcType=INTEGER}, #{endDate,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.beiken.saas.platform.pojo.InspectTaskItemDO">
     insert into sft_inspect_task_item
@@ -129,9 +126,6 @@
       </if>
       <if test="gmtModified != null">
         gmt_modified,
-      </if>
-      <if test="itemCode != null">
-        item_code,
       </if>
       <if test="taskCode != null">
         task_code,
@@ -158,9 +152,6 @@
       </if>
       <if test="gmtModified != null">
         #{gmtModified,jdbcType=TIMESTAMP},
-      </if>
-      <if test="itemCode != null">
-        #{itemCode,jdbcType=VARCHAR},
       </if>
       <if test="taskCode != null">
         #{taskCode,jdbcType=VARCHAR},
@@ -197,9 +188,6 @@
       <if test="record.gmtModified != null">
         gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.itemCode != null">
-        item_code = #{record.itemCode,jdbcType=VARCHAR},
-      </if>
       <if test="record.taskCode != null">
         task_code = #{record.taskCode,jdbcType=VARCHAR},
       </if>
@@ -225,7 +213,6 @@
     set id = #{record.id,jdbcType=BIGINT},
       gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
-      item_code = #{record.itemCode,jdbcType=VARCHAR},
       task_code = #{record.taskCode,jdbcType=VARCHAR},
       inspect_plan_code = #{record.inspectPlanCode,jdbcType=VARCHAR},
       bg_item_code = #{record.bgItemCode,jdbcType=VARCHAR},
@@ -243,9 +230,6 @@
       </if>
       <if test="gmtModified != null">
         gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
-      </if>
-      <if test="itemCode != null">
-        item_code = #{itemCode,jdbcType=VARCHAR},
       </if>
       <if test="taskCode != null">
         task_code = #{taskCode,jdbcType=VARCHAR},
@@ -269,7 +253,6 @@
     update sft_inspect_task_item
     set gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
-      item_code = #{itemCode,jdbcType=VARCHAR},
       task_code = #{taskCode,jdbcType=VARCHAR},
       inspect_plan_code = #{inspectPlanCode,jdbcType=VARCHAR},
       bg_item_code = #{bgItemCode,jdbcType=VARCHAR},
