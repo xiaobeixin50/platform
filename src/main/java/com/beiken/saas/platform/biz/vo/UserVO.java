@@ -65,6 +65,20 @@ public class UserVO implements Serializable{
     @ApiModelProperty(name = "depName", value = "部门名"
             , required = false, example = "")
     private String depName;
+
+    /**
+     * 部门id
+     */
+    @ApiModelProperty(name = "parentDepId", value = "公司id"
+            , required = false, example = "")
+    private Long parentDepId;
+
+    /**
+     * 部门名称
+     */
+    @ApiModelProperty(name = "parentDepName", value = "公司名"
+            , required = false, example = "")
+    private String parentDepName;
     /**
      * 职位
      */

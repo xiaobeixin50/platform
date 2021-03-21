@@ -1021,6 +1021,66 @@ public class InspectTaskDOExample {
             addCriterion("inspect_user_name not between", value1, value2, "inspectUserName");
             return (Criteria) this;
         }
+
+        public Criteria andQuicklyIsNull() {
+            addCriterion("quickly is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andQuicklyIsNotNull() {
+            addCriterion("quickly is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andQuicklyEqualTo(Integer value) {
+            addCriterion("quickly =", value, "quickly");
+            return (Criteria) this;
+        }
+
+        public Criteria andQuicklyNotEqualTo(Integer value) {
+            addCriterion("quickly <>", value, "quickly");
+            return (Criteria) this;
+        }
+
+        public Criteria andQuicklyGreaterThan(Integer value) {
+            addCriterion("quickly >", value, "quickly");
+            return (Criteria) this;
+        }
+
+        public Criteria andQuicklyGreaterThanOrEqualTo(Integer value) {
+            addCriterion("quickly >=", value, "quickly");
+            return (Criteria) this;
+        }
+
+        public Criteria andQuicklyLessThan(Integer value) {
+            addCriterion("quickly <", value, "quickly");
+            return (Criteria) this;
+        }
+
+        public Criteria andQuicklyLessThanOrEqualTo(Integer value) {
+            addCriterion("quickly <=", value, "quickly");
+            return (Criteria) this;
+        }
+
+        public Criteria andQuicklyIn(List<Integer> values) {
+            addCriterion("quickly in", values, "quickly");
+            return (Criteria) this;
+        }
+
+        public Criteria andQuicklyNotIn(List<Integer> values) {
+            addCriterion("quickly not in", values, "quickly");
+            return (Criteria) this;
+        }
+
+        public Criteria andQuicklyBetween(Integer value1, Integer value2) {
+            addCriterion("quickly between", value1, value2, "quickly");
+            return (Criteria) this;
+        }
+
+        public Criteria andQuicklyNotBetween(Integer value1, Integer value2) {
+            addCriterion("quickly not between", value1, value2, "quickly");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

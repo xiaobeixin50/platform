@@ -4,7 +4,9 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * User: panboliang
@@ -19,15 +21,20 @@ public class TaskItemListVO implements Serializable {
             , required = false, example = "")
     private String site;
 
+    @ApiModelProperty(name = "taskCode", value = "任务编码"
+            , required = false, example = "")
+    private String taskCode;
+
     @ApiModelProperty(name = "equipment", value = "设备:例如:压力表"
             , required = false, example = "")
-    private String equipment;
+    private Map<String, List<Extra>> equipment;
 
-    private List<Extra> list;
-
+    @ApiModelProperty(name = "siteStatus", value = "目录状态"
+            , required = false, example = "")
+    private Integer siteStatus;
 
     @Data
-    private class Extra implements Serializable{
+    public static class Extra implements Serializable{
         private static final long serialVersionUID = -4916287407723367855L;
 
         @ApiModelProperty(name = "bgCode", value = "检查项编码"
@@ -41,5 +48,38 @@ public class TaskItemListVO implements Serializable {
         @ApiModelProperty(name = "adapt", value = "适用情况"
                 , required = false, example = "")
         private String adapt;
+
+        @ApiModelProperty(name = "status", value = "状态"
+                , required = false, example = "")
+        private String status;
+
+        @ApiModelProperty(name = "responsebilityUserName", value = "责任人"
+                , required = false, example = "")
+        private String responsebilityUserName;
+
+        @ApiModelProperty(name = "breakUserName", value = "违章人"
+                , required = false, example = "")
+        private String breakUserName;
+
+        @ApiModelProperty(name = "inspectUserName", value = "检查人"
+                , required = false, example = "")
+        private String inspectUserName;
+
+
+        @ApiModelProperty(name = "changeEndDate", value = "整改结束时间"
+                , example = "")
+        private Date changeEndDate;
+
+        @ApiModelProperty(name = "reportTime", value = "上报时间"
+                , example = "")
+        private Date reportTime;
+
+        @ApiModelProperty(name = "dangerLevel", value = "隐患级别"
+                , required = false, example = "")
+        private String dangerLevel;
+
+        @ApiModelProperty(name = "dangerCode", value = "隐患编号"
+                , required = false, example = "")
+        private String dangerCode;
     }
 }

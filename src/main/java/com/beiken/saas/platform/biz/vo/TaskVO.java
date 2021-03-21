@@ -46,7 +46,7 @@ public class TaskVO implements Serializable {
     private String priority;
 
     @ApiModelProperty(name = "status", value = "任务状态"
-            , required = false, example = "0-未完成,1-进行中,2-已完成,3-超时")
+            , required = false, example = "0-未完成，1-已完成，2-已过期")
     private Integer status;
 
     @ApiModelProperty(name = "freq", value = "频次"
@@ -154,5 +154,9 @@ public class TaskVO implements Serializable {
     @ApiModelProperty(name = "finishTaskItemNum", value = "完成占比"
             , required = false, example = "")
     private Double finishTaskItemNum;
+
+    @ApiModelProperty(name = "quickly", value = "是否紧急,0-不紧急,1-紧急"
+            , required = false, example = "")
+    private Integer quickly;
 
 }

@@ -62,7 +62,7 @@ public class TaskManager {
      * @param userId
      * @return
      */
-    public PageBo<TaskListVO> listByUser(Long userId, String rigCode) {
+    public PageBo<TaskListVO> listByUser(Long userId, String rigCode, Integer pageNo, Integer pageSize) {
         PageBo<TaskListVO> pageBo = new PageBo<>();
         List<TaskListVO> taskList = Lists.newArrayList();
 

@@ -30,5 +30,16 @@ public class DangerQuery extends BaseQuery implements Serializable{
             , required = false, example = "")
     private Integer roleType;
 
+    @ApiModelProperty(name = "inspectRig", value = "检查范围,即检查井队编号"
+            , required = false, example = "")
+    private String inspectRig;
+
+    @ApiModelProperty(name = "inspectEquipment", value = "检查设备"
+            , required = false, example = "")
+    private String inspectEquipment;
+
+    @ApiModelProperty(name = "reportType", value = "上报类型"
+            , required = false, example = "")
+    private String reportType;
 
 }

@@ -43,21 +43,21 @@ public class DangerVO implements Serializable{
             , example = "")
     private String bgItemCode;
 
-    @ApiModelProperty(name = "deptId", value = "被检单位id"
+    @ApiModelProperty(name = "deptId", value = "被检单位id/井队"
             , example = "")
-    private String deptId;
+    private Long deptId;
 
     @ApiModelProperty(name = "deptName", value = "被检单位名"
             , example = "")
     private String deptName;
 
-    @ApiModelProperty(name = "deptParentCode", value = "被检单位上级code"
+    @ApiModelProperty(name = "parentDeptId", value = "被检单位上级id,即子公司"
             , example = "")
-    private String deptParentCode;
+    private Long parentDeptId;
 
-    @ApiModelProperty(name = "deptParentName", value = "被检单位上级名"
+    @ApiModelProperty(name = "parentDeptName", value = "被检单位上级名,子公司名"
             , example = "")
-    private String deptParentName;
+    private String parentDeptName;
 
     @ApiModelProperty(name = "dangerLevel", value = "隐患级别"
             , example = "")

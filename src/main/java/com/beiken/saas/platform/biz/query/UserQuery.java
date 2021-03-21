@@ -29,4 +29,8 @@ public class UserQuery implements Serializable {
     @ApiModelProperty(name = "password", value = "密码"
             , required = false, example = "")
     private String password;
+
+    private Integer pageNo;
+
+    private Integer pageSize;
 }

@@ -20,6 +20,6 @@ public class UserRigVO implements Serializable{
     private Long userId;
 
     @ApiModelProperty(name = "taskTitleMap", value = "所属井队和子公司以及下面的井")
-    private Map<DeptVO, List<RigVO>> taskTitleMap;
+    private Map<String, List<RigVO>> taskTitleMap;
 
 }

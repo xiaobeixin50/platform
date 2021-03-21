@@ -31,6 +31,8 @@ public class InspectTaskDO {
 
     private String inspectUserName;
 
+    private Integer quickly;
+
     public Long getId() {
         return id;
     }
@@ -141,5 +143,13 @@ public class InspectTaskDO {
 
     public void setInspectUserName(String inspectUserName) {
         this.inspectUserName = inspectUserName == null ? null : inspectUserName.trim();
+    }
+
+    public Integer getQuickly() {
+        return quickly;
+    }
+
+    public void setQuickly(Integer quickly) {
+        this.quickly = quickly;
     }
 }

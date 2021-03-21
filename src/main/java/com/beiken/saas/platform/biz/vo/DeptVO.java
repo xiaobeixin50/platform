@@ -22,4 +22,8 @@ public class DeptVO implements Serializable{
 
     @ApiModelProperty(name = "deptType", value = "井队/子公司")
     private String deptType;
+
+    @ApiModelProperty(name = "userVO", value = "责任人,默认井队长")
+    private UserVO userVO;
+
 }

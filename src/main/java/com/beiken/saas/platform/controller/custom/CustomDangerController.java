@@ -6,6 +6,7 @@ import com.beiken.saas.platform.biz.vo.DangerVO;
 import com.beiken.saas.platform.biz.vo.Result;
 import com.beiken.saas.platform.enums.Constants;
 import com.beiken.saas.platform.manage.DangerManager;
+import com.google.common.collect.Lists;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -14,7 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.Objects;
+import java.util.List;
 
 /**
  * User: panboliang
@@ -38,10 +39,16 @@ public class CustomDangerController {
             if (StringUtils.isBlank(dangerQuery.getSort())) {
                 dangerQuery.setSort("ASC");
             }
-            if (Objects.isNull(dangerQuery.getRoleType())) {
+           /* if (Objects.isNull(dangerQuery.getRoleType())) {
                 return Result.error(Constants.ERROR, "角色参数错误");
-            }
-            PageBo<DangerVO> pageBo = dangerManager.listByUser(userId, dangerQuery);
+            }*/
+            //PageBo<DangerVO> pageBo = dangerManager.listByUser(userId, dangerQuery);
+            PageBo<DangerVO> pageBo = new PageBo<>();
+            DangerVO dangerVO = new DangerVO();
+            dangerVO.setDangerCode("VODS-234324");
+            List<DangerVO> list = Lists.newArrayList();
+            list.add(dangerVO);
+            pageBo.setItemList(list);
             return Result.success(pageBo);
         } catch (Exception e) {
             //log.error("list error", e);
@@ -50,10 +57,10 @@ public class CustomDangerController {
     }
 
     @ApiOperation("除了列表以外的都用这个接口")
-    @ResponseBody
-    @PostMapping(value = "/update/{dangerCode}")
-    @ApiImplicitParams({@ApiImplicitParam(name = "dangerCode", value = "监理id", required = true, dataType = "Long")})
-    public Result update(@PathVariable String dangerCode, @RequestBody DangerVO dangerVO) {
+      @ResponseBody
+      @PostMapping(value = "/update/{dangerCode}")
+      @ApiImplicitParams({@ApiImplicitParam(name = "dangerCode", value = "监理id", required = true, dataType = "Long")})
+      public Result update(@PathVariable String dangerCode, @RequestBody DangerVO dangerVO) {
         try {
             return Result.success();
         } catch (Exception e) {
@@ -61,4 +68,19 @@ public class CustomDangerController {
             return Result.error(Constants.ERROR, e.getMessage());
         }
     }
+
+    @ApiOperation("主动上报")
+    @ResponseBody
+    @PostMapping(value = "/add")
+    @ApiImplicitParams({@ApiImplicitParam(name = "dangerVO", value = "dangerVO", required = true, dataType = "DangerVO")})
+    public Result add(@RequestBody DangerVO dangerVO) {
+        try {
+            return Result.success();
+        } catch (Exception e) {
+            //log.error("list error", e);
+            return Result.error(Constants.ERROR, e.getMessage());
+        }
+    }
+
+
 }

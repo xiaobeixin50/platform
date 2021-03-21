@@ -4,12 +4,10 @@ import com.beiken.saas.platform.biz.bo.PageBo;
 import com.beiken.saas.platform.biz.query.DangerQuery;
 import com.beiken.saas.platform.biz.vo.DangerVO;
 import com.beiken.saas.platform.mapper.HiddenDangerMapper;
-import com.beiken.saas.platform.pojo.HiddenDangerDO;
 import com.beiken.saas.platform.pojo.HiddenDangerDOExample;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * User: panboliang
@@ -25,8 +23,8 @@ public class DangerManager {
     private HiddenDangerMapper dangerMapper;
 
     public PageBo<DangerVO> listByUser(Long userId, DangerQuery dangerQuery) {
-        HiddenDangerDOExample example = buildDangerExample(userId, dangerQuery);
-        List<HiddenDangerDO> hiddenDangerDOs = dangerMapper.selectByExample(example);
+        //HiddenDangerDOExample example = buildDangerExample(userId, dangerQuery);
+        //List<HiddenDangerDO> hiddenDangerDOs = dangerMapper.selectByExample(example);
         return null;
     }
 
