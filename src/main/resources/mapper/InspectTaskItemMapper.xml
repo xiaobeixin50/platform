@@ -10,6 +10,8 @@
     <result column="bg_item_code" jdbcType="VARCHAR" property="bgItemCode" />
     <result column="result_status" jdbcType="INTEGER" property="resultStatus" />
     <result column="end_date" jdbcType="TIMESTAMP" property="endDate" />
+    <result column="report_extra" jdbcType="VARCHAR" property="reportExtra" />
+    <result column="report_time" jdbcType="TIMESTAMP" property="reportTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -71,7 +73,7 @@
   </sql>
   <sql id="Base_Column_List">
     id, gmt_create, gmt_modified, task_code, inspect_plan_code, bg_item_code, result_status, 
-    end_date
+    end_date, report_extra, report_time
   </sql>
   <select id="selectByExample" parameterType="com.beiken.saas.platform.pojo.InspectTaskItemDOExample" resultMap="BaseResultMap">
     select
@@ -110,10 +112,12 @@
   <insert id="insert" parameterType="com.beiken.saas.platform.pojo.InspectTaskItemDO">
     insert into sft_inspect_task_item (id, gmt_create, gmt_modified, 
       task_code, inspect_plan_code, bg_item_code, 
-      result_status, end_date)
+      result_status, end_date, report_extra, 
+      report_time)
     values (#{id,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
       #{taskCode,jdbcType=VARCHAR}, #{inspectPlanCode,jdbcType=VARCHAR}, #{bgItemCode,jdbcType=VARCHAR}, 
-      #{resultStatus,jdbcType=INTEGER}, #{endDate,jdbcType=TIMESTAMP})
+      #{resultStatus,jdbcType=INTEGER}, #{endDate,jdbcType=TIMESTAMP}, #{reportExtra,jdbcType=VARCHAR}, 
+      #{reportTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.beiken.saas.platform.pojo.InspectTaskItemDO">
     insert into sft_inspect_task_item
@@ -142,6 +146,12 @@
       <if test="endDate != null">
         end_date,
       </if>
+      <if test="reportExtra != null">
+        report_extra,
+      </if>
+      <if test="reportTime != null">
+        report_time,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -167,6 +177,12 @@
       </if>
       <if test="endDate != null">
         #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reportExtra != null">
+        #{reportExtra,jdbcType=VARCHAR},
+      </if>
+      <if test="reportTime != null">
+        #{reportTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -203,6 +219,12 @@
       <if test="record.endDate != null">
         end_date = #{record.endDate,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.reportExtra != null">
+        report_extra = #{record.reportExtra,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reportTime != null">
+        report_time = #{record.reportTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -217,7 +239,9 @@
       inspect_plan_code = #{record.inspectPlanCode,jdbcType=VARCHAR},
       bg_item_code = #{record.bgItemCode,jdbcType=VARCHAR},
       result_status = #{record.resultStatus,jdbcType=INTEGER},
-      end_date = #{record.endDate,jdbcType=TIMESTAMP}
+      end_date = #{record.endDate,jdbcType=TIMESTAMP},
+      report_extra = #{record.reportExtra,jdbcType=VARCHAR},
+      report_time = #{record.reportTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -246,6 +270,12 @@
       <if test="endDate != null">
         end_date = #{endDate,jdbcType=TIMESTAMP},
       </if>
+      <if test="reportExtra != null">
+        report_extra = #{reportExtra,jdbcType=VARCHAR},
+      </if>
+      <if test="reportTime != null">
+        report_time = #{reportTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -257,7 +287,9 @@
       inspect_plan_code = #{inspectPlanCode,jdbcType=VARCHAR},
       bg_item_code = #{bgItemCode,jdbcType=VARCHAR},
       result_status = #{resultStatus,jdbcType=INTEGER},
-      end_date = #{endDate,jdbcType=TIMESTAMP}
+      end_date = #{endDate,jdbcType=TIMESTAMP},
+      report_extra = #{reportExtra,jdbcType=VARCHAR},
+      report_time = #{reportTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

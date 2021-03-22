@@ -11,7 +11,7 @@ import java.util.Map;
  */
 public enum RigStatusEnum {
 
-    NOT_BEGIN(0, "已停用"),
+    NOT_BEGIN(0, "未开始"),
     BEGIN(1, "进行中"),
     FINISH(2,"已结束");
 

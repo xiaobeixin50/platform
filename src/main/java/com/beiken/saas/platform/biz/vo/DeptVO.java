@@ -26,4 +26,25 @@ public class DeptVO implements Serializable{
     @ApiModelProperty(name = "userVO", value = "责任人,默认井队长")
     private UserVO userVO;
 
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (!(object instanceof DeptVO)) return false;
+
+        DeptVO deptVO = (DeptVO) object;
+
+        if (deptId != null ? !deptId.equals(deptVO.deptId) : deptVO.deptId != null) return false;
+        if (deptName != null ? !deptName.equals(deptVO.deptName) : deptVO.deptName != null) return false;
+        return !(deptType != null ? !deptType.equals(deptVO.deptType) : deptVO.deptType != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = deptId != null ? deptId.hashCode() : 0;
+        result = 31 * result + (deptName != null ? deptName.hashCode() : 0);
+        result = 31 * result + (deptType != null ? deptType.hashCode() : 0);
+        return result;
+    }
 }

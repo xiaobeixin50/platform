@@ -91,20 +91,20 @@ public class TaskItemVO implements Serializable {
             , required = false, example = "")
     private String photo;
 
-    @ApiModelProperty(name = "extra", value = "说明"
+    @ApiModelProperty(name = "reportExtra", value = "说明"
             , required = false, example = "")
-    private String extra;
+    private String reportExtra;
 
     @ApiModelProperty(name = "breakUser", value = "任务检查项"
             , required = false, example = "违章人")
-    private String breakUser;
+    private String breakUserName;
 
-    @ApiModelProperty(name = "responsbilityUser", value = "责任人"
+    @ApiModelProperty(name = "responsibilityUser", value = "责任人"
             , required = false, example = "")
-    private String responsbilityUser;
+    private String responsibilityUser;
 
     @ApiModelProperty(name = "resultStatus", value = "检查项结果"
-            , required = false, example = "合格/不合格")
+            , required = false, example = "0-合格/1-不合格/2-不涉及")
     private Integer resultStatus;
 
     @ApiModelProperty(name = "endDate", value = "整改截止日期"

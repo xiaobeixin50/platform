@@ -13,7 +13,7 @@ public class HiddenDangerDO {
 
     private String photo;
 
-    private String extra;
+    private String reportExtra;
 
     private String taskCode;
 
@@ -29,17 +29,17 @@ public class HiddenDangerDO {
 
     private String dangerLevel;
 
-    private String breakUser;
+    private String breakUserName;
 
-    private Long responsebilityUserId;
+    private Long responsibilityUserId;
 
-    private String responsebilityUser;
+    private String responsibilityUser;
 
     private Date changeEndDate;
 
     private Integer resultStatus;
 
-    private String reportType;
+    private Integer reportType;
 
     private Long inspectUserId;
 
@@ -66,8 +66,6 @@ public class HiddenDangerDO {
     private String changeUserName;
 
     private Date changeSubmitTime;
-
-    private Integer dangerType;
 
     private String changePlan;
 
@@ -111,12 +109,12 @@ public class HiddenDangerDO {
         this.photo = photo == null ? null : photo.trim();
     }
 
-    public String getExtra() {
-        return extra;
+    public String getReportExtra() {
+        return reportExtra;
     }
 
-    public void setExtra(String extra) {
-        this.extra = extra == null ? null : extra.trim();
+    public void setReportExtra(String reportExtra) {
+        this.reportExtra = reportExtra == null ? null : reportExtra.trim();
     }
 
     public String getTaskCode() {
@@ -175,28 +173,28 @@ public class HiddenDangerDO {
         this.dangerLevel = dangerLevel == null ? null : dangerLevel.trim();
     }
 
-    public String getBreakUser() {
-        return breakUser;
+    public String getBreakUserName() {
+        return breakUserName;
     }
 
-    public void setBreakUser(String breakUser) {
-        this.breakUser = breakUser == null ? null : breakUser.trim();
+    public void setBreakUserName(String breakUserName) {
+        this.breakUserName = breakUserName == null ? null : breakUserName.trim();
     }
 
-    public Long getResponsebilityUserId() {
-        return responsebilityUserId;
+    public Long getResponsibilityUserId() {
+        return responsibilityUserId;
     }
 
-    public void setResponsebilityUserId(Long responsebilityUserId) {
-        this.responsebilityUserId = responsebilityUserId;
+    public void setResponsibilityUserId(Long responsibilityUserId) {
+        this.responsibilityUserId = responsibilityUserId;
     }
 
-    public String getResponsebilityUser() {
-        return responsebilityUser;
+    public String getResponsibilityUser() {
+        return responsibilityUser;
     }
 
-    public void setResponsebilityUser(String responsebilityUser) {
-        this.responsebilityUser = responsebilityUser == null ? null : responsebilityUser.trim();
+    public void setResponsibilityUser(String responsibilityUser) {
+        this.responsibilityUser = responsibilityUser == null ? null : responsibilityUser.trim();
     }
 
     public Date getChangeEndDate() {
@@ -215,12 +213,12 @@ public class HiddenDangerDO {
         this.resultStatus = resultStatus;
     }
 
-    public String getReportType() {
+    public Integer getReportType() {
         return reportType;
     }
 
-    public void setReportType(String reportType) {
-        this.reportType = reportType == null ? null : reportType.trim();
+    public void setReportType(Integer reportType) {
+        this.reportType = reportType;
     }
 
     public Long getInspectUserId() {
@@ -325,14 +323,6 @@ public class HiddenDangerDO {
 
     public void setChangeSubmitTime(Date changeSubmitTime) {
         this.changeSubmitTime = changeSubmitTime;
-    }
-
-    public Integer getDangerType() {
-        return dangerType;
-    }
-
-    public void setDangerType(Integer dangerType) {
-        this.dangerType = dangerType;
     }
 
     public String getChangePlan() {

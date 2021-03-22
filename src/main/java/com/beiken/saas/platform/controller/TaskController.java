@@ -44,8 +44,8 @@ public class TaskController {
     @GetMapping(value = "/info")
     public Result info(@RequestParam String taskCode) {
         try {
-            TaskVO info = taskManager.info(taskCode);
-            return Result.success(info);
+           // TaskVO info = taskManager.info(taskCode);
+            return Result.success();
         } catch (Exception e) {
             //log.error("list error", e);
             return Result.error("ERROR", e.getMessage());

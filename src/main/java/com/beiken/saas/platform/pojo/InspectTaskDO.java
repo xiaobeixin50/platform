@@ -33,6 +33,10 @@ public class InspectTaskDO {
 
     private Integer quickly;
 
+    private Long deptId;
+
+    private String deptName;
+
     public Long getId() {
         return id;
     }
@@ -151,5 +155,21 @@ public class InspectTaskDO {
 
     public void setQuickly(Integer quickly) {
         this.quickly = quickly;
+    }
+
+    public Long getDeptId() {
+        return deptId;
+    }
+
+    public void setDeptId(Long deptId) {
+        this.deptId = deptId;
+    }
+
+    public String getDeptName() {
+        return deptName;
+    }
+
+    public void setDeptName(String deptName) {
+        this.deptName = deptName == null ? null : deptName.trim();
     }
 }

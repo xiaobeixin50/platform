@@ -130,8 +130,8 @@ public class GeneratorController {
     private List<GeneratorVO> getDangerStatus() {
         GeneratorVO generatorVO1 = new GeneratorVO();
         generatorVO1.setCode("DANGER_STATUS");
-        generatorVO1.setText("0");
-        generatorVO1.setValue("已解决");
+        generatorVO1.setText("已解决");
+        generatorVO1.setValue("0");
         GeneratorVO generatorVO2 = new GeneratorVO();
         GeneratorVO generatorVO3 = new GeneratorVO();
         GeneratorVO generatorVO4 = new GeneratorVO();
@@ -140,28 +140,28 @@ public class GeneratorController {
         GeneratorVO generatorVO7 = new GeneratorVO();
 
         generatorVO2.setCode("DANGER_STATUS");
-        generatorVO2.setText("1");
-        generatorVO2.setValue("待分级");
+        generatorVO2.setText("待分级");
+        generatorVO2.setValue("1");
 
         generatorVO3.setCode("DANGER_STATUS");
-        generatorVO3.setText("2");
-        generatorVO3.setValue("待环保部门出方案");
+        generatorVO3.setText("待环保部门出方案");
+        generatorVO3.setValue("2");
 
         generatorVO4.setCode("DANGER_STATUS");
-        generatorVO4.setText("3");
-        generatorVO4.setValue("待责任单位出方案");
+        generatorVO4.setText("待责任单位出方案");
+        generatorVO4.setValue("3");
 
         generatorVO5.setCode("DANGER_STATUS");
-        generatorVO5.setText("4");
-        generatorVO5.setValue("待整改");
+        generatorVO5.setText("待整改");
+        generatorVO5.setValue("4");
 
         generatorVO6.setCode("DANGER_STATUS");
-        generatorVO6.setText("5");
-        generatorVO6.setValue("待环保部门验收");
+        generatorVO6.setText("待环保部门验收");
+        generatorVO6.setValue("5");
 
         generatorVO7.setCode("DANGER_STATUS");
-        generatorVO7.setText("6");
-        generatorVO7.setValue("待确认");
+        generatorVO7.setText("待确认");
+        generatorVO7.setValue("6");
         List<GeneratorVO> dangerList = Lists.newArrayList();
         dangerList.add(generatorVO7);
         dangerList.add(generatorVO6);
@@ -176,23 +176,23 @@ public class GeneratorController {
     private List<GeneratorVO> getDangerLevel() {
         GeneratorVO generatorVO1 = new GeneratorVO();
         generatorVO1.setCode("DANGER_LEVEL");
-        generatorVO1.setText("0");
-        generatorVO1.setValue("一级");
+        generatorVO1.setText("一级隐患");
+        generatorVO1.setValue("0");
         GeneratorVO generatorVO2 = new GeneratorVO();
         GeneratorVO generatorVO3 = new GeneratorVO();
         GeneratorVO generatorVO4 = new GeneratorVO();
 
         generatorVO2.setCode("DANGER_LEVEL");
-        generatorVO2.setText("1");
-        generatorVO2.setValue("二级");
+        generatorVO2.setText("二级隐患");
+        generatorVO2.setValue("1");
 
         generatorVO3.setCode("DANGER_LEVEL");
-        generatorVO3.setText("2");
-        generatorVO3.setValue("三级");
+        generatorVO3.setText("三级隐患");
+        generatorVO3.setValue("2");
 
         generatorVO4.setCode("DANGER_LEVEL");
-        generatorVO4.setText("3");
-        generatorVO4.setValue("四级");
+        generatorVO4.setText("四级隐患");
+        generatorVO4.setValue("3");
 
         List<GeneratorVO> dangerList = Lists.newArrayList();
 
@@ -206,14 +206,14 @@ public class GeneratorController {
     private List<GeneratorVO> getDangerReortType() {
         GeneratorVO generatorVO1 = new GeneratorVO();
         generatorVO1.setCode("DANGER_REPORT_TYPE");
-        generatorVO1.setText("0");
-        generatorVO1.setValue("任务上报");
+        generatorVO1.setText("任务上报");
+        generatorVO1.setValue("0");
         GeneratorVO generatorVO2 = new GeneratorVO();
 
 
         generatorVO2.setCode("DANGER_REPORT_TYPE");
-        generatorVO2.setText("1");
-        generatorVO2.setValue("现场快报");
+        generatorVO2.setText("现场快报");
+        generatorVO2.setValue("1");
 
         List<GeneratorVO> dangerList = Lists.newArrayList();
 

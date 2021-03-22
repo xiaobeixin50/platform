@@ -37,6 +37,10 @@ public class TaskItemListVO implements Serializable {
     public static class Extra implements Serializable{
         private static final long serialVersionUID = -4916287407723367855L;
 
+        @ApiModelProperty(name = "taskCode", value = "taskCode"
+                , required = false, example = "")
+        private String taskCode;
+
         @ApiModelProperty(name = "bgCode", value = "检查项编码"
                 , required = false, example = "")
         private String bgCode;
@@ -53,18 +57,29 @@ public class TaskItemListVO implements Serializable {
                 , required = false, example = "")
         private String status;
 
-        @ApiModelProperty(name = "responsebilityUserName", value = "责任人"
+        @ApiModelProperty(name = "responsibilityUserName", value = "责任人"
                 , required = false, example = "")
-        private String responsebilityUserName;
+        private String responsibilityUserName;
+
+        @ApiModelProperty(name = "responsibilityUserId", value = "责任人id"
+                , required = false, example = "")
+        private Long responsibilityUserId;
 
         @ApiModelProperty(name = "breakUserName", value = "违章人"
                 , required = false, example = "")
         private String breakUserName;
 
+        @ApiModelProperty(name = "inspectUserId", value = "检查人id"
+                , required = false, example = "")
+        private Long inspectUserId;
+
         @ApiModelProperty(name = "inspectUserName", value = "检查人"
                 , required = false, example = "")
         private String inspectUserName;
 
+        @ApiModelProperty(name = "deptId", value = "受检井队id"
+                , required = false, example = "")
+        private Long deptId;
 
         @ApiModelProperty(name = "changeEndDate", value = "整改结束时间"
                 , example = "")
@@ -81,5 +96,9 @@ public class TaskItemListVO implements Serializable {
         @ApiModelProperty(name = "dangerCode", value = "隐患编号"
                 , required = false, example = "")
         private String dangerCode;
+
+        @ApiModelProperty(name = "extra", value = "情况说明"
+                , required = false, example = "")
+        private String reportExtra;
     }
 }

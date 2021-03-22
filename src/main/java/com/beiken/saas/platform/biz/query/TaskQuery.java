@@ -17,5 +17,6 @@ public class TaskQuery extends BaseQuery implements Serializable{
 
     private String inspectUserName;
 
+    private String rigCode;
 
 }

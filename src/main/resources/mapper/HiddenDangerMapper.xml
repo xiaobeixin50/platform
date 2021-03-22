@@ -7,7 +7,7 @@
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
     <result column="danger_code" jdbcType="VARCHAR" property="dangerCode" />
     <result column="photo" jdbcType="VARCHAR" property="photo" />
-    <result column="extra" jdbcType="VARCHAR" property="extra" />
+    <result column="report_extra" jdbcType="VARCHAR" property="reportExtra" />
     <result column="task_code" jdbcType="VARCHAR" property="taskCode" />
     <result column="bg_item_code" jdbcType="VARCHAR" property="bgItemCode" />
     <result column="dept_code" jdbcType="VARCHAR" property="deptCode" />
@@ -15,12 +15,12 @@
     <result column="dept_parent_code" jdbcType="VARCHAR" property="deptParentCode" />
     <result column="dept_parent_name" jdbcType="VARCHAR" property="deptParentName" />
     <result column="danger_level" jdbcType="VARCHAR" property="dangerLevel" />
-    <result column="break_user" jdbcType="VARCHAR" property="breakUser" />
-    <result column="responsebility_user_id" jdbcType="BIGINT" property="responsebilityUserId" />
-    <result column="responsebility_user" jdbcType="VARCHAR" property="responsebilityUser" />
+    <result column="break_user_name" jdbcType="VARCHAR" property="breakUserName" />
+    <result column="responsibility_user_id" jdbcType="BIGINT" property="responsibilityUserId" />
+    <result column="responsibility_user" jdbcType="VARCHAR" property="responsibilityUser" />
     <result column="change_end_date" jdbcType="TIMESTAMP" property="changeEndDate" />
     <result column="result_status" jdbcType="INTEGER" property="resultStatus" />
-    <result column="report_type" jdbcType="VARCHAR" property="reportType" />
+    <result column="report_type" jdbcType="INTEGER" property="reportType" />
     <result column="inspect_user_id" jdbcType="BIGINT" property="inspectUserId" />
     <result column="inspect_user_name" jdbcType="VARCHAR" property="inspectUserName" />
     <result column="report_status" jdbcType="VARCHAR" property="reportStatus" />
@@ -34,7 +34,6 @@
     <result column="change_user_id" jdbcType="INTEGER" property="changeUserId" />
     <result column="change_user_name" jdbcType="VARCHAR" property="changeUserName" />
     <result column="change_submit_time" jdbcType="TIMESTAMP" property="changeSubmitTime" />
-    <result column="danger_type" jdbcType="INTEGER" property="dangerType" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.beiken.saas.platform.pojo.HiddenDangerDO">
     <result column="change_plan" jdbcType="LONGVARCHAR" property="changePlan" />
@@ -98,12 +97,12 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, gmt_create, gmt_modified, danger_code, photo, extra, task_code, bg_item_code, 
-    dept_code, dept_name, dept_parent_code, dept_parent_name, danger_level, break_user, 
-    responsebility_user_id, responsebility_user, change_end_date, result_status, report_type, 
+    id, gmt_create, gmt_modified, danger_code, photo, report_extra, task_code, bg_item_code, 
+    dept_code, dept_name, dept_parent_code, dept_parent_name, danger_level, break_user_name, 
+    responsibility_user_id, responsibility_user, change_end_date, result_status, report_type, 
     inspect_user_id, inspect_user_name, report_status, report_time, confirm_time, dis_level_user_id, 
     dis_level_user_name, dis_level_time, change_attach, change_money, change_user_id, 
-    change_user_name, change_submit_time, danger_type
+    change_user_name, change_submit_time
   </sql>
   <sql id="Blob_Column_List">
     change_plan
@@ -166,29 +165,29 @@
   </delete>
   <insert id="insert" parameterType="com.beiken.saas.platform.pojo.HiddenDangerDO">
     insert into sft_hidden_danger (id, gmt_create, gmt_modified, 
-      danger_code, photo, extra, 
+      danger_code, photo, report_extra, 
       task_code, bg_item_code, dept_code, 
       dept_name, dept_parent_code, dept_parent_name, 
-      danger_level, break_user, responsebility_user_id, 
-      responsebility_user, change_end_date, result_status, 
+      danger_level, break_user_name, responsibility_user_id, 
+      responsibility_user, change_end_date, result_status, 
       report_type, inspect_user_id, inspect_user_name, 
       report_status, report_time, confirm_time, 
       dis_level_user_id, dis_level_user_name, dis_level_time, 
       change_attach, change_money, change_user_id, 
-      change_user_name, change_submit_time, danger_type, 
-      change_plan)
+      change_user_name, change_submit_time, change_plan
+      )
     values (#{id,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
-      #{dangerCode,jdbcType=VARCHAR}, #{photo,jdbcType=VARCHAR}, #{extra,jdbcType=VARCHAR}, 
+      #{dangerCode,jdbcType=VARCHAR}, #{photo,jdbcType=VARCHAR}, #{reportExtra,jdbcType=VARCHAR}, 
       #{taskCode,jdbcType=VARCHAR}, #{bgItemCode,jdbcType=VARCHAR}, #{deptCode,jdbcType=VARCHAR}, 
       #{deptName,jdbcType=VARCHAR}, #{deptParentCode,jdbcType=VARCHAR}, #{deptParentName,jdbcType=VARCHAR}, 
-      #{dangerLevel,jdbcType=VARCHAR}, #{breakUser,jdbcType=VARCHAR}, #{responsebilityUserId,jdbcType=BIGINT}, 
-      #{responsebilityUser,jdbcType=VARCHAR}, #{changeEndDate,jdbcType=TIMESTAMP}, #{resultStatus,jdbcType=INTEGER}, 
-      #{reportType,jdbcType=VARCHAR}, #{inspectUserId,jdbcType=BIGINT}, #{inspectUserName,jdbcType=VARCHAR}, 
+      #{dangerLevel,jdbcType=VARCHAR}, #{breakUserName,jdbcType=VARCHAR}, #{responsibilityUserId,jdbcType=BIGINT}, 
+      #{responsibilityUser,jdbcType=VARCHAR}, #{changeEndDate,jdbcType=TIMESTAMP}, #{resultStatus,jdbcType=INTEGER}, 
+      #{reportType,jdbcType=INTEGER}, #{inspectUserId,jdbcType=BIGINT}, #{inspectUserName,jdbcType=VARCHAR}, 
       #{reportStatus,jdbcType=VARCHAR}, #{reportTime,jdbcType=TIMESTAMP}, #{confirmTime,jdbcType=TIMESTAMP}, 
       #{disLevelUserId,jdbcType=BIGINT}, #{disLevelUserName,jdbcType=VARCHAR}, #{disLevelTime,jdbcType=TIMESTAMP}, 
       #{changeAttach,jdbcType=VARCHAR}, #{changeMoney,jdbcType=DOUBLE}, #{changeUserId,jdbcType=INTEGER}, 
-      #{changeUserName,jdbcType=VARCHAR}, #{changeSubmitTime,jdbcType=TIMESTAMP}, #{dangerType,jdbcType=INTEGER}, 
-      #{changePlan,jdbcType=LONGVARCHAR})
+      #{changeUserName,jdbcType=VARCHAR}, #{changeSubmitTime,jdbcType=TIMESTAMP}, #{changePlan,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.beiken.saas.platform.pojo.HiddenDangerDO">
     insert into sft_hidden_danger
@@ -208,8 +207,8 @@
       <if test="photo != null">
         photo,
       </if>
-      <if test="extra != null">
-        extra,
+      <if test="reportExtra != null">
+        report_extra,
       </if>
       <if test="taskCode != null">
         task_code,
@@ -232,14 +231,14 @@
       <if test="dangerLevel != null">
         danger_level,
       </if>
-      <if test="breakUser != null">
-        break_user,
+      <if test="breakUserName != null">
+        break_user_name,
       </if>
-      <if test="responsebilityUserId != null">
-        responsebility_user_id,
+      <if test="responsibilityUserId != null">
+        responsibility_user_id,
       </if>
-      <if test="responsebilityUser != null">
-        responsebility_user,
+      <if test="responsibilityUser != null">
+        responsibility_user,
       </if>
       <if test="changeEndDate != null">
         change_end_date,
@@ -289,9 +288,6 @@
       <if test="changeSubmitTime != null">
         change_submit_time,
       </if>
-      <if test="dangerType != null">
-        danger_type,
-      </if>
       <if test="changePlan != null">
         change_plan,
       </if>
@@ -312,8 +308,8 @@
       <if test="photo != null">
         #{photo,jdbcType=VARCHAR},
       </if>
-      <if test="extra != null">
-        #{extra,jdbcType=VARCHAR},
+      <if test="reportExtra != null">
+        #{reportExtra,jdbcType=VARCHAR},
       </if>
       <if test="taskCode != null">
         #{taskCode,jdbcType=VARCHAR},
@@ -336,14 +332,14 @@
       <if test="dangerLevel != null">
         #{dangerLevel,jdbcType=VARCHAR},
       </if>
-      <if test="breakUser != null">
-        #{breakUser,jdbcType=VARCHAR},
+      <if test="breakUserName != null">
+        #{breakUserName,jdbcType=VARCHAR},
       </if>
-      <if test="responsebilityUserId != null">
-        #{responsebilityUserId,jdbcType=BIGINT},
+      <if test="responsibilityUserId != null">
+        #{responsibilityUserId,jdbcType=BIGINT},
       </if>
-      <if test="responsebilityUser != null">
-        #{responsebilityUser,jdbcType=VARCHAR},
+      <if test="responsibilityUser != null">
+        #{responsibilityUser,jdbcType=VARCHAR},
       </if>
       <if test="changeEndDate != null">
         #{changeEndDate,jdbcType=TIMESTAMP},
@@ -352,7 +348,7 @@
         #{resultStatus,jdbcType=INTEGER},
       </if>
       <if test="reportType != null">
-        #{reportType,jdbcType=VARCHAR},
+        #{reportType,jdbcType=INTEGER},
       </if>
       <if test="inspectUserId != null">
         #{inspectUserId,jdbcType=BIGINT},
@@ -393,9 +389,6 @@
       <if test="changeSubmitTime != null">
         #{changeSubmitTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="dangerType != null">
-        #{dangerType,jdbcType=INTEGER},
-      </if>
       <if test="changePlan != null">
         #{changePlan,jdbcType=LONGVARCHAR},
       </if>
@@ -425,8 +418,8 @@
       <if test="record.photo != null">
         photo = #{record.photo,jdbcType=VARCHAR},
       </if>
-      <if test="record.extra != null">
-        extra = #{record.extra,jdbcType=VARCHAR},
+      <if test="record.reportExtra != null">
+        report_extra = #{record.reportExtra,jdbcType=VARCHAR},
       </if>
       <if test="record.taskCode != null">
         task_code = #{record.taskCode,jdbcType=VARCHAR},
@@ -449,14 +442,14 @@
       <if test="record.dangerLevel != null">
         danger_level = #{record.dangerLevel,jdbcType=VARCHAR},
       </if>
-      <if test="record.breakUser != null">
-        break_user = #{record.breakUser,jdbcType=VARCHAR},
+      <if test="record.breakUserName != null">
+        break_user_name = #{record.breakUserName,jdbcType=VARCHAR},
       </if>
-      <if test="record.responsebilityUserId != null">
-        responsebility_user_id = #{record.responsebilityUserId,jdbcType=BIGINT},
+      <if test="record.responsibilityUserId != null">
+        responsibility_user_id = #{record.responsibilityUserId,jdbcType=BIGINT},
       </if>
-      <if test="record.responsebilityUser != null">
-        responsebility_user = #{record.responsebilityUser,jdbcType=VARCHAR},
+      <if test="record.responsibilityUser != null">
+        responsibility_user = #{record.responsibilityUser,jdbcType=VARCHAR},
       </if>
       <if test="record.changeEndDate != null">
         change_end_date = #{record.changeEndDate,jdbcType=TIMESTAMP},
@@ -465,7 +458,7 @@
         result_status = #{record.resultStatus,jdbcType=INTEGER},
       </if>
       <if test="record.reportType != null">
-        report_type = #{record.reportType,jdbcType=VARCHAR},
+        report_type = #{record.reportType,jdbcType=INTEGER},
       </if>
       <if test="record.inspectUserId != null">
         inspect_user_id = #{record.inspectUserId,jdbcType=BIGINT},
@@ -506,9 +499,6 @@
       <if test="record.changeSubmitTime != null">
         change_submit_time = #{record.changeSubmitTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.dangerType != null">
-        danger_type = #{record.dangerType,jdbcType=INTEGER},
-      </if>
       <if test="record.changePlan != null">
         change_plan = #{record.changePlan,jdbcType=LONGVARCHAR},
       </if>
@@ -524,7 +514,7 @@
       gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
       danger_code = #{record.dangerCode,jdbcType=VARCHAR},
       photo = #{record.photo,jdbcType=VARCHAR},
-      extra = #{record.extra,jdbcType=VARCHAR},
+      report_extra = #{record.reportExtra,jdbcType=VARCHAR},
       task_code = #{record.taskCode,jdbcType=VARCHAR},
       bg_item_code = #{record.bgItemCode,jdbcType=VARCHAR},
       dept_code = #{record.deptCode,jdbcType=VARCHAR},
@@ -532,12 +522,12 @@
       dept_parent_code = #{record.deptParentCode,jdbcType=VARCHAR},
       dept_parent_name = #{record.deptParentName,jdbcType=VARCHAR},
       danger_level = #{record.dangerLevel,jdbcType=VARCHAR},
-      break_user = #{record.breakUser,jdbcType=VARCHAR},
-      responsebility_user_id = #{record.responsebilityUserId,jdbcType=BIGINT},
-      responsebility_user = #{record.responsebilityUser,jdbcType=VARCHAR},
+      break_user_name = #{record.breakUserName,jdbcType=VARCHAR},
+      responsibility_user_id = #{record.responsibilityUserId,jdbcType=BIGINT},
+      responsibility_user = #{record.responsibilityUser,jdbcType=VARCHAR},
       change_end_date = #{record.changeEndDate,jdbcType=TIMESTAMP},
       result_status = #{record.resultStatus,jdbcType=INTEGER},
-      report_type = #{record.reportType,jdbcType=VARCHAR},
+      report_type = #{record.reportType,jdbcType=INTEGER},
       inspect_user_id = #{record.inspectUserId,jdbcType=BIGINT},
       inspect_user_name = #{record.inspectUserName,jdbcType=VARCHAR},
       report_status = #{record.reportStatus,jdbcType=VARCHAR},
@@ -551,7 +541,6 @@
       change_user_id = #{record.changeUserId,jdbcType=INTEGER},
       change_user_name = #{record.changeUserName,jdbcType=VARCHAR},
       change_submit_time = #{record.changeSubmitTime,jdbcType=TIMESTAMP},
-      danger_type = #{record.dangerType,jdbcType=INTEGER},
       change_plan = #{record.changePlan,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -564,7 +553,7 @@
       gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
       danger_code = #{record.dangerCode,jdbcType=VARCHAR},
       photo = #{record.photo,jdbcType=VARCHAR},
-      extra = #{record.extra,jdbcType=VARCHAR},
+      report_extra = #{record.reportExtra,jdbcType=VARCHAR},
       task_code = #{record.taskCode,jdbcType=VARCHAR},
       bg_item_code = #{record.bgItemCode,jdbcType=VARCHAR},
       dept_code = #{record.deptCode,jdbcType=VARCHAR},
@@ -572,12 +561,12 @@
       dept_parent_code = #{record.deptParentCode,jdbcType=VARCHAR},
       dept_parent_name = #{record.deptParentName,jdbcType=VARCHAR},
       danger_level = #{record.dangerLevel,jdbcType=VARCHAR},
-      break_user = #{record.breakUser,jdbcType=VARCHAR},
-      responsebility_user_id = #{record.responsebilityUserId,jdbcType=BIGINT},
-      responsebility_user = #{record.responsebilityUser,jdbcType=VARCHAR},
+      break_user_name = #{record.breakUserName,jdbcType=VARCHAR},
+      responsibility_user_id = #{record.responsibilityUserId,jdbcType=BIGINT},
+      responsibility_user = #{record.responsibilityUser,jdbcType=VARCHAR},
       change_end_date = #{record.changeEndDate,jdbcType=TIMESTAMP},
       result_status = #{record.resultStatus,jdbcType=INTEGER},
-      report_type = #{record.reportType,jdbcType=VARCHAR},
+      report_type = #{record.reportType,jdbcType=INTEGER},
       inspect_user_id = #{record.inspectUserId,jdbcType=BIGINT},
       inspect_user_name = #{record.inspectUserName,jdbcType=VARCHAR},
       report_status = #{record.reportStatus,jdbcType=VARCHAR},
@@ -590,8 +579,7 @@
       change_money = #{record.changeMoney,jdbcType=DOUBLE},
       change_user_id = #{record.changeUserId,jdbcType=INTEGER},
       change_user_name = #{record.changeUserName,jdbcType=VARCHAR},
-      change_submit_time = #{record.changeSubmitTime,jdbcType=TIMESTAMP},
-      danger_type = #{record.dangerType,jdbcType=INTEGER}
+      change_submit_time = #{record.changeSubmitTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -611,8 +599,8 @@
       <if test="photo != null">
         photo = #{photo,jdbcType=VARCHAR},
       </if>
-      <if test="extra != null">
-        extra = #{extra,jdbcType=VARCHAR},
+      <if test="reportExtra != null">
+        report_extra = #{reportExtra,jdbcType=VARCHAR},
       </if>
       <if test="taskCode != null">
         task_code = #{taskCode,jdbcType=VARCHAR},
@@ -635,14 +623,14 @@
       <if test="dangerLevel != null">
         danger_level = #{dangerLevel,jdbcType=VARCHAR},
       </if>
-      <if test="breakUser != null">
-        break_user = #{breakUser,jdbcType=VARCHAR},
+      <if test="breakUserName != null">
+        break_user_name = #{breakUserName,jdbcType=VARCHAR},
       </if>
-      <if test="responsebilityUserId != null">
-        responsebility_user_id = #{responsebilityUserId,jdbcType=BIGINT},
+      <if test="responsibilityUserId != null">
+        responsibility_user_id = #{responsibilityUserId,jdbcType=BIGINT},
       </if>
-      <if test="responsebilityUser != null">
-        responsebility_user = #{responsebilityUser,jdbcType=VARCHAR},
+      <if test="responsibilityUser != null">
+        responsibility_user = #{responsibilityUser,jdbcType=VARCHAR},
       </if>
       <if test="changeEndDate != null">
         change_end_date = #{changeEndDate,jdbcType=TIMESTAMP},
@@ -651,7 +639,7 @@
         result_status = #{resultStatus,jdbcType=INTEGER},
       </if>
       <if test="reportType != null">
-        report_type = #{reportType,jdbcType=VARCHAR},
+        report_type = #{reportType,jdbcType=INTEGER},
       </if>
       <if test="inspectUserId != null">
         inspect_user_id = #{inspectUserId,jdbcType=BIGINT},
@@ -692,9 +680,6 @@
       <if test="changeSubmitTime != null">
         change_submit_time = #{changeSubmitTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="dangerType != null">
-        danger_type = #{dangerType,jdbcType=INTEGER},
-      </if>
       <if test="changePlan != null">
         change_plan = #{changePlan,jdbcType=LONGVARCHAR},
       </if>
@@ -707,7 +692,7 @@
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
       danger_code = #{dangerCode,jdbcType=VARCHAR},
       photo = #{photo,jdbcType=VARCHAR},
-      extra = #{extra,jdbcType=VARCHAR},
+      report_extra = #{reportExtra,jdbcType=VARCHAR},
       task_code = #{taskCode,jdbcType=VARCHAR},
       bg_item_code = #{bgItemCode,jdbcType=VARCHAR},
       dept_code = #{deptCode,jdbcType=VARCHAR},
@@ -715,12 +700,12 @@
       dept_parent_code = #{deptParentCode,jdbcType=VARCHAR},
       dept_parent_name = #{deptParentName,jdbcType=VARCHAR},
       danger_level = #{dangerLevel,jdbcType=VARCHAR},
-      break_user = #{breakUser,jdbcType=VARCHAR},
-      responsebility_user_id = #{responsebilityUserId,jdbcType=BIGINT},
-      responsebility_user = #{responsebilityUser,jdbcType=VARCHAR},
+      break_user_name = #{breakUserName,jdbcType=VARCHAR},
+      responsibility_user_id = #{responsibilityUserId,jdbcType=BIGINT},
+      responsibility_user = #{responsibilityUser,jdbcType=VARCHAR},
       change_end_date = #{changeEndDate,jdbcType=TIMESTAMP},
       result_status = #{resultStatus,jdbcType=INTEGER},
-      report_type = #{reportType,jdbcType=VARCHAR},
+      report_type = #{reportType,jdbcType=INTEGER},
       inspect_user_id = #{inspectUserId,jdbcType=BIGINT},
       inspect_user_name = #{inspectUserName,jdbcType=VARCHAR},
       report_status = #{reportStatus,jdbcType=VARCHAR},
@@ -734,7 +719,6 @@
       change_user_id = #{changeUserId,jdbcType=INTEGER},
       change_user_name = #{changeUserName,jdbcType=VARCHAR},
       change_submit_time = #{changeSubmitTime,jdbcType=TIMESTAMP},
-      danger_type = #{dangerType,jdbcType=INTEGER},
       change_plan = #{changePlan,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -744,7 +728,7 @@
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
       danger_code = #{dangerCode,jdbcType=VARCHAR},
       photo = #{photo,jdbcType=VARCHAR},
-      extra = #{extra,jdbcType=VARCHAR},
+      report_extra = #{reportExtra,jdbcType=VARCHAR},
       task_code = #{taskCode,jdbcType=VARCHAR},
       bg_item_code = #{bgItemCode,jdbcType=VARCHAR},
       dept_code = #{deptCode,jdbcType=VARCHAR},
@@ -752,12 +736,12 @@
       dept_parent_code = #{deptParentCode,jdbcType=VARCHAR},
       dept_parent_name = #{deptParentName,jdbcType=VARCHAR},
       danger_level = #{dangerLevel,jdbcType=VARCHAR},
-      break_user = #{breakUser,jdbcType=VARCHAR},
-      responsebility_user_id = #{responsebilityUserId,jdbcType=BIGINT},
-      responsebility_user = #{responsebilityUser,jdbcType=VARCHAR},
+      break_user_name = #{breakUserName,jdbcType=VARCHAR},
+      responsibility_user_id = #{responsibilityUserId,jdbcType=BIGINT},
+      responsibility_user = #{responsibilityUser,jdbcType=VARCHAR},
       change_end_date = #{changeEndDate,jdbcType=TIMESTAMP},
       result_status = #{resultStatus,jdbcType=INTEGER},
-      report_type = #{reportType,jdbcType=VARCHAR},
+      report_type = #{reportType,jdbcType=INTEGER},
       inspect_user_id = #{inspectUserId,jdbcType=BIGINT},
       inspect_user_name = #{inspectUserName,jdbcType=VARCHAR},
       report_status = #{reportStatus,jdbcType=VARCHAR},
@@ -770,8 +754,7 @@
       change_money = #{changeMoney,jdbcType=DOUBLE},
       change_user_id = #{changeUserId,jdbcType=INTEGER},
       change_user_name = #{changeUserName,jdbcType=VARCHAR},
-      change_submit_time = #{changeSubmitTime,jdbcType=TIMESTAMP},
-      danger_type = #{dangerType,jdbcType=INTEGER}
+      change_submit_time = #{changeSubmitTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

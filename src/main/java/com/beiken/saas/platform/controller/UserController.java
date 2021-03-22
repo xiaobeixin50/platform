@@ -7,7 +7,11 @@ import com.beiken.saas.platform.biz.vo.Result;
 import com.beiken.saas.platform.biz.vo.SelfVO;
 import com.beiken.saas.platform.biz.vo.UserVO;
 import com.beiken.saas.platform.enums.Constants;
+import com.beiken.saas.platform.manage.TaskManager;
+import com.beiken.saas.platform.mapper.DepartmentMapper;
 import com.beiken.saas.platform.mapper.UserMapper;
+import com.beiken.saas.platform.pojo.DepartmentDO;
+import com.beiken.saas.platform.pojo.DepartmentDOExample;
 import com.beiken.saas.platform.pojo.UserDO;
 import com.beiken.saas.platform.pojo.UserDOExample;
 import com.beiken.saas.platform.utils.MD5Util;
@@ -21,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * User: panboliang
@@ -34,8 +39,12 @@ public class UserController {
 
     @Resource
     private UserMapper userMapper;
+    @Resource
+    private DepartmentMapper departmentMapper;
+    @Resource
+    private TaskManager taskManager;
 
-    @ApiOperation("用户信息")
+    @ApiOperation("用户信息-个人资料接口(移动管理后台和客户端都可以用)")
     @ResponseBody
     @PostMapping(value = "/info")
     public Result<UserVO> info(@RequestBody UserQuery userQuery) {
@@ -48,33 +57,46 @@ public class UserController {
             if (userQuery.getUserId() != null) {
                 criteria.andIdEqualTo(userQuery.getUserId());
             }
-            if (userQuery.getUserName() != null) {
-                criteria.andNameEqualTo(userQuery.getUserName());
-            }
+//            if (userQuery.getUserName() != null) {
+//                criteria.andNameEqualTo(userQuery.getUserName());
+//            }
             List<UserDO> userDOs = userMapper.selectByExample(example);
             if (CollectionUtils.isEmpty(userDOs)) {
-                return Result.error("ERROR","未查询到当前用户");
+                return Result.error(Constants.ERROR,"未查询到当前用户");
             }
             UserDO userDO = userDOs.get(0);
+            Long depId = userDO.getDepId();
+
             UserVO userVO = new UserVO();
             BeanUtils.copyProperties(userDO, userVO);
+
+            DepartmentDO departmentDO = departmentMapper.selectByPrimaryKey(depId);
+            if (Objects.nonNull(departmentDO)) {
+                DepartmentDOExample deptExample = new DepartmentDOExample();
+                deptExample.createCriteria()
+                        .andIdEqualTo(departmentDO.getParentId());
+                List<DepartmentDO> departmentDOs = departmentMapper.selectByExample(deptExample);
+                if (!CollectionUtils.isEmpty(departmentDOs)) {
+                    DepartmentDO parentDept = departmentDOs.get(0);
+                    userVO.setParentDepId(parentDept.getId());
+                    userVO.setParentDepName(parentDept.getDeptName());
+                }
+            }
             return Result.success(userVO);
         } catch (Exception e) {
             //log.error("list error", e);
-            return Result.error("ERROR", e.getMessage());
+            return Result.error(Constants.ERROR, e.getMessage());
         }
     }
 
-
-
-    @ApiOperation("用户信息")
+    @ApiOperation("用户登录接口")
     @ResponseBody
     @PostMapping(value = "/login")
     public Result login(@RequestBody UserQuery userQuery) {
         try {
             if (StringUtils.isBlank(userQuery.getPassword()) ||
                     StringUtils.isBlank(userQuery.getAccountId())) {
-                return Result.error("ERROR", "用户名密码不正确");
+                return Result.error(Constants.ERROR, "用户名密码不正确");
             }
             String password = MD5Util.getMD5Str(userQuery.getPassword());
             UserDOExample example = new UserDOExample();
@@ -83,25 +105,23 @@ public class UserController {
                     .andPasswordEqualTo(password);
             PageBo<UserVO> userVOPageBo = getUserVOPageBo(example);
             if (CollectionUtils.isEmpty(userVOPageBo.getItemList())){
-                return Result.error("ERROR", "用户名或密码不正确");
+                return Result.error(Constants.ERROR, "用户名或密码不正确");
             }
             UserVO userVO = userVOPageBo.getItemList().get(0);
+            userVO.setPassword(null);
             return Result.success(userVO);
         } catch (Exception e) {
             //log.error("list error", e);
-            return Result.error("ERROR", e.getMessage());
+            return Result.error(Constants.ERROR, e.getMessage());
         }
     }
 
-    @ApiOperation("我的接口")
+    @ApiOperation("我的接口-客户端")
     @ResponseBody
     @GetMapping(value = "/self/{userId}")
     public Result self(@PathVariable Long userId) {
         try {
-            //todo pbl self
-            SelfVO selfVO = new SelfVO();
-            selfVO.setAfterTimeTask(5L);
-            selfVO.setDangerNum(10L);
+            SelfVO selfVO = taskManager.countTaskAndDanger(userId);
             return Result.success(selfVO);
         } catch (Exception e) {
             //log.error("list error", e);
@@ -116,7 +136,7 @@ public class UserController {
     public Result searchDept(String deptName, Long deptId, @RequestParam Integer type, Integer pageNo, Integer pageSize) {
         try {
             List<DeptVO> list = Lists.newArrayList();
-            if (Constants.ZERO.equals(type)) {
+            if (Constants.ZERO_INT.equals(type)) {
                 DeptVO deptVO1 = new DeptVO();
                 deptVO1.setDeptId(1L);
                 deptVO1.setDeptName("北疆油服第一公司");
@@ -125,7 +145,7 @@ public class UserController {
                 deptVO2.setDeptName("南疆油服第二公司");
                 list.add(deptVO1);
                 list.add(deptVO2);
-            } else if (Constants.ONE.equals(type)){
+            } else if (Constants.ONE_INT.equals(type)){
                 DeptVO deptVO1 = new DeptVO();
                 UserVO userVO1 = new UserVO();
                 userVO1.setId(1L);
@@ -214,5 +234,24 @@ public class UserController {
         PageBo<UserVO> pageBo = new PageBo<>();
         pageBo.setItemList(result);
         return pageBo;
+    }
+
+    //先写这儿吧
+    public UserDO getCaptUserByDeptId(Long deptId, Integer roleType) {
+        UserDOExample example = new UserDOExample();
+        UserDOExample.Criteria criteria = example.createCriteria()
+                .andDepIdEqualTo(deptId);
+        if (Constants.ZERO_INT.equals(roleType)) {
+            criteria.andRoleEqualTo("井队长");
+        } else if(Constants.ONE_INT.equals(roleType)) {
+            criteria.andRoleEqualTo("监理");
+        } else {
+            criteria.andRoleEqualTo("一线员工");
+        }
+        List<UserDO> userDOs = userMapper.selectByExample(example);
+        if (CollectionUtils.isEmpty(userDOs)) {
+            return null;
+        }
+        return userDOs.get(0);
     }
 }

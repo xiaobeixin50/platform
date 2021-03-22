@@ -17,6 +17,8 @@
     <result column="inspect_user_id" jdbcType="BIGINT" property="inspectUserId" />
     <result column="inspect_user_name" jdbcType="VARCHAR" property="inspectUserName" />
     <result column="quickly" jdbcType="INTEGER" property="quickly" />
+    <result column="dept_id" jdbcType="BIGINT" property="deptId" />
+    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -78,7 +80,8 @@
   </sql>
   <sql id="Base_Column_List">
     id, gmt_create, gmt_modified, name, task_code, inspect_plan_code, start_time, end_time, 
-    finish_time, status, rig_id, rig_code, inspect_user_id, inspect_user_name, quickly
+    finish_time, status, rig_id, rig_code, inspect_user_id, inspect_user_name, quickly, 
+    dept_id, dept_name
   </sql>
   <select id="selectByExample" parameterType="com.beiken.saas.platform.pojo.InspectTaskDOExample" resultMap="BaseResultMap">
     select
@@ -119,14 +122,14 @@
       name, task_code, inspect_plan_code, 
       start_time, end_time, finish_time, 
       status, rig_id, rig_code, 
-      inspect_user_id, inspect_user_name, quickly
-      )
+      inspect_user_id, inspect_user_name, quickly, 
+      dept_id, dept_name)
     values (#{id,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
       #{name,jdbcType=VARCHAR}, #{taskCode,jdbcType=VARCHAR}, #{inspectPlanCode,jdbcType=VARCHAR}, 
       #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{finishTime,jdbcType=TIMESTAMP}, 
       #{status,jdbcType=INTEGER}, #{rigId,jdbcType=BIGINT}, #{rigCode,jdbcType=VARCHAR}, 
-      #{inspectUserId,jdbcType=BIGINT}, #{inspectUserName,jdbcType=VARCHAR}, #{quickly,jdbcType=INTEGER}
-      )
+      #{inspectUserId,jdbcType=BIGINT}, #{inspectUserName,jdbcType=VARCHAR}, #{quickly,jdbcType=INTEGER}, 
+      #{deptId,jdbcType=BIGINT}, #{deptName,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.beiken.saas.platform.pojo.InspectTaskDO">
     insert into sft_inspect_task
@@ -176,6 +179,12 @@
       <if test="quickly != null">
         quickly,
       </if>
+      <if test="deptId != null">
+        dept_id,
+      </if>
+      <if test="deptName != null">
+        dept_name,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -222,6 +231,12 @@
       </if>
       <if test="quickly != null">
         #{quickly,jdbcType=INTEGER},
+      </if>
+      <if test="deptId != null">
+        #{deptId,jdbcType=BIGINT},
+      </if>
+      <if test="deptName != null">
+        #{deptName,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -279,6 +294,12 @@
       <if test="record.quickly != null">
         quickly = #{record.quickly,jdbcType=INTEGER},
       </if>
+      <if test="record.deptId != null">
+        dept_id = #{record.deptId,jdbcType=BIGINT},
+      </if>
+      <if test="record.deptName != null">
+        dept_name = #{record.deptName,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -300,7 +321,9 @@
       rig_code = #{record.rigCode,jdbcType=VARCHAR},
       inspect_user_id = #{record.inspectUserId,jdbcType=BIGINT},
       inspect_user_name = #{record.inspectUserName,jdbcType=VARCHAR},
-      quickly = #{record.quickly,jdbcType=INTEGER}
+      quickly = #{record.quickly,jdbcType=INTEGER},
+      dept_id = #{record.deptId,jdbcType=BIGINT},
+      dept_name = #{record.deptName,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -350,6 +373,12 @@
       <if test="quickly != null">
         quickly = #{quickly,jdbcType=INTEGER},
       </if>
+      <if test="deptId != null">
+        dept_id = #{deptId,jdbcType=BIGINT},
+      </if>
+      <if test="deptName != null">
+        dept_name = #{deptName,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -368,7 +397,9 @@
       rig_code = #{rigCode,jdbcType=VARCHAR},
       inspect_user_id = #{inspectUserId,jdbcType=BIGINT},
       inspect_user_name = #{inspectUserName,jdbcType=VARCHAR},
-      quickly = #{quickly,jdbcType=INTEGER}
+      quickly = #{quickly,jdbcType=INTEGER},
+      dept_id = #{deptId,jdbcType=BIGINT},
+      dept_name = #{deptName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

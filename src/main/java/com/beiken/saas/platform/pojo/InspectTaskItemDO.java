@@ -19,6 +19,10 @@ public class InspectTaskItemDO {
 
     private Date endDate;
 
+    private String reportExtra;
+
+    private Date reportTime;
+
     public Long getId() {
         return id;
     }
@@ -81,5 +85,21 @@ public class InspectTaskItemDO {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public String getReportExtra() {
+        return reportExtra;
+    }
+
+    public void setReportExtra(String reportExtra) {
+        this.reportExtra = reportExtra == null ? null : reportExtra.trim();
+    }
+
+    public Date getReportTime() {
+        return reportTime;
+    }
+
+    public void setReportTime(Date reportTime) {
+        this.reportTime = reportTime;
     }
 }

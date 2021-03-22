@@ -65,15 +65,15 @@ public class DangerVO implements Serializable{
 
     @ApiModelProperty(name = "breakUser", value = "违章人"
             , example = "")
-    private String breakUser;
+    private String breakUserName;
 
-    @ApiModelProperty(name = "responsebilityUserId", value = "责任人id-默认井队长"
+    @ApiModelProperty(name = "responsibilityUserId", value = "责任人id-默认井队长"
             , example = "")
-    private Long responsebilityUserId;
+    private Long responsibilityUserId;
 
-    @ApiModelProperty(name = "responsebilityUser", value = "责任人"
+    @ApiModelProperty(name = "responsibilityUser", value = "责任人"
             , example = "")
-    private String responsebilityUser;
+    private String responsibilityUser;
 
     @ApiModelProperty(name = "changeEndDate", value = "整改结束时间"
             , example = "")
