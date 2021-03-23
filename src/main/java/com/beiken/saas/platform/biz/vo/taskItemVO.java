@@ -99,15 +99,27 @@ public class TaskItemVO implements Serializable {
             , required = false, example = "违章人")
     private String breakUserName;
 
-    @ApiModelProperty(name = "responsibilityUser", value = "责任人"
+    @ApiModelProperty(name = "inspectUserId", value = "检查人"
+            , required = false, example = "违章人")
+    private Long inspectUserId;
+
+    @ApiModelProperty(name = "inspectUserName", value = "检查人"
+            , required = false, example = "违章人")
+    private String inspectUserName;
+
+    @ApiModelProperty(name = "responsibilityUserId", value = "责任人"
             , required = false, example = "")
-    private String responsibilityUser;
+    private String responsibilityUserId;
+
+    @ApiModelProperty(name = "responsibilityUserName", value = "责任人"
+            , required = false, example = "")
+    private String responsibilityUserName;
 
     @ApiModelProperty(name = "resultStatus", value = "检查项结果"
             , required = false, example = "0-合格/1-不合格/2-不涉及")
     private Integer resultStatus;
 
-    @ApiModelProperty(name = "endDate", value = "整改截止日期"
+    @ApiModelProperty(name = "changeEndDate", value = "整改截止日期"
             , required = false, example = "")
-    private Date endDate;
+    private Date changeEndDate;
 }

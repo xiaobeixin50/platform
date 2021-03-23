@@ -952,62 +952,52 @@ public class HiddenDangerDOExample {
             return (Criteria) this;
         }
 
-        public Criteria andDangerLevelEqualTo(String value) {
+        public Criteria andDangerLevelEqualTo(Integer value) {
             addCriterion("danger_level =", value, "dangerLevel");
             return (Criteria) this;
         }
 
-        public Criteria andDangerLevelNotEqualTo(String value) {
+        public Criteria andDangerLevelNotEqualTo(Integer value) {
             addCriterion("danger_level <>", value, "dangerLevel");
             return (Criteria) this;
         }
 
-        public Criteria andDangerLevelGreaterThan(String value) {
+        public Criteria andDangerLevelGreaterThan(Integer value) {
             addCriterion("danger_level >", value, "dangerLevel");
             return (Criteria) this;
         }
 
-        public Criteria andDangerLevelGreaterThanOrEqualTo(String value) {
+        public Criteria andDangerLevelGreaterThanOrEqualTo(Integer value) {
             addCriterion("danger_level >=", value, "dangerLevel");
             return (Criteria) this;
         }
 
-        public Criteria andDangerLevelLessThan(String value) {
+        public Criteria andDangerLevelLessThan(Integer value) {
             addCriterion("danger_level <", value, "dangerLevel");
             return (Criteria) this;
         }
 
-        public Criteria andDangerLevelLessThanOrEqualTo(String value) {
+        public Criteria andDangerLevelLessThanOrEqualTo(Integer value) {
             addCriterion("danger_level <=", value, "dangerLevel");
             return (Criteria) this;
         }
 
-        public Criteria andDangerLevelLike(String value) {
-            addCriterion("danger_level like", value, "dangerLevel");
-            return (Criteria) this;
-        }
-
-        public Criteria andDangerLevelNotLike(String value) {
-            addCriterion("danger_level not like", value, "dangerLevel");
-            return (Criteria) this;
-        }
-
-        public Criteria andDangerLevelIn(List<String> values) {
+        public Criteria andDangerLevelIn(List<Integer> values) {
             addCriterion("danger_level in", values, "dangerLevel");
             return (Criteria) this;
         }
 
-        public Criteria andDangerLevelNotIn(List<String> values) {
+        public Criteria andDangerLevelNotIn(List<Integer> values) {
             addCriterion("danger_level not in", values, "dangerLevel");
             return (Criteria) this;
         }
 
-        public Criteria andDangerLevelBetween(String value1, String value2) {
+        public Criteria andDangerLevelBetween(Integer value1, Integer value2) {
             addCriterion("danger_level between", value1, value2, "dangerLevel");
             return (Criteria) this;
         }
 
-        public Criteria andDangerLevelNotBetween(String value1, String value2) {
+        public Criteria andDangerLevelNotBetween(Integer value1, Integer value2) {
             addCriterion("danger_level not between", value1, value2, "dangerLevel");
             return (Criteria) this;
         }
@@ -1142,73 +1132,73 @@ public class HiddenDangerDOExample {
             return (Criteria) this;
         }
 
-        public Criteria andResponsibilityUserIsNull() {
-            addCriterion("responsibility_user is null");
+        public Criteria andResponsibilityUserNameIsNull() {
+            addCriterion("responsibility_user_name is null");
             return (Criteria) this;
         }
 
-        public Criteria andResponsibilityUserIsNotNull() {
-            addCriterion("responsibility_user is not null");
+        public Criteria andResponsibilityUserNameIsNotNull() {
+            addCriterion("responsibility_user_name is not null");
             return (Criteria) this;
         }
 
-        public Criteria andResponsibilityUserEqualTo(String value) {
-            addCriterion("responsibility_user =", value, "responsibilityUser");
+        public Criteria andResponsibilityUserNameEqualTo(String value) {
+            addCriterion("responsibility_user_name =", value, "responsibilityUserName");
             return (Criteria) this;
         }
 
-        public Criteria andResponsibilityUserNotEqualTo(String value) {
-            addCriterion("responsibility_user <>", value, "responsibilityUser");
+        public Criteria andResponsibilityUserNameNotEqualTo(String value) {
+            addCriterion("responsibility_user_name <>", value, "responsibilityUserName");
             return (Criteria) this;
         }
 
-        public Criteria andResponsibilityUserGreaterThan(String value) {
-            addCriterion("responsibility_user >", value, "responsibilityUser");
+        public Criteria andResponsibilityUserNameGreaterThan(String value) {
+            addCriterion("responsibility_user_name >", value, "responsibilityUserName");
             return (Criteria) this;
         }
 
-        public Criteria andResponsibilityUserGreaterThanOrEqualTo(String value) {
-            addCriterion("responsibility_user >=", value, "responsibilityUser");
+        public Criteria andResponsibilityUserNameGreaterThanOrEqualTo(String value) {
+            addCriterion("responsibility_user_name >=", value, "responsibilityUserName");
             return (Criteria) this;
         }
 
-        public Criteria andResponsibilityUserLessThan(String value) {
-            addCriterion("responsibility_user <", value, "responsibilityUser");
+        public Criteria andResponsibilityUserNameLessThan(String value) {
+            addCriterion("responsibility_user_name <", value, "responsibilityUserName");
             return (Criteria) this;
         }
 
-        public Criteria andResponsibilityUserLessThanOrEqualTo(String value) {
-            addCriterion("responsibility_user <=", value, "responsibilityUser");
+        public Criteria andResponsibilityUserNameLessThanOrEqualTo(String value) {
+            addCriterion("responsibility_user_name <=", value, "responsibilityUserName");
             return (Criteria) this;
         }
 
-        public Criteria andResponsibilityUserLike(String value) {
-            addCriterion("responsibility_user like", value, "responsibilityUser");
+        public Criteria andResponsibilityUserNameLike(String value) {
+            addCriterion("responsibility_user_name like", value, "responsibilityUserName");
             return (Criteria) this;
         }
 
-        public Criteria andResponsibilityUserNotLike(String value) {
-            addCriterion("responsibility_user not like", value, "responsibilityUser");
+        public Criteria andResponsibilityUserNameNotLike(String value) {
+            addCriterion("responsibility_user_name not like", value, "responsibilityUserName");
             return (Criteria) this;
         }
 
-        public Criteria andResponsibilityUserIn(List<String> values) {
-            addCriterion("responsibility_user in", values, "responsibilityUser");
+        public Criteria andResponsibilityUserNameIn(List<String> values) {
+            addCriterion("responsibility_user_name in", values, "responsibilityUserName");
             return (Criteria) this;
         }
 
-        public Criteria andResponsibilityUserNotIn(List<String> values) {
-            addCriterion("responsibility_user not in", values, "responsibilityUser");
+        public Criteria andResponsibilityUserNameNotIn(List<String> values) {
+            addCriterion("responsibility_user_name not in", values, "responsibilityUserName");
             return (Criteria) this;
         }
 
-        public Criteria andResponsibilityUserBetween(String value1, String value2) {
-            addCriterion("responsibility_user between", value1, value2, "responsibilityUser");
+        public Criteria andResponsibilityUserNameBetween(String value1, String value2) {
+            addCriterion("responsibility_user_name between", value1, value2, "responsibilityUserName");
             return (Criteria) this;
         }
 
-        public Criteria andResponsibilityUserNotBetween(String value1, String value2) {
-            addCriterion("responsibility_user not between", value1, value2, "responsibilityUser");
+        public Criteria andResponsibilityUserNameNotBetween(String value1, String value2) {
+            addCriterion("responsibility_user_name not between", value1, value2, "responsibilityUserName");
             return (Criteria) this;
         }
 

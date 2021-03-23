@@ -31,9 +31,9 @@ public class DangerVO implements Serializable{
             , example = "多个英文,号分割")
     private String photo;
 
-    @ApiModelProperty(name = "gmtModified", value = "说明"
+    @ApiModelProperty(name = "reportExtra", value = "说明"
             , example = "")
-    private String extra;
+    private String reportExtra;
 
     @ApiModelProperty(name = "taskCode", value = "任务编码"
             , example = "")
@@ -61,7 +61,7 @@ public class DangerVO implements Serializable{
 
     @ApiModelProperty(name = "dangerLevel", value = "隐患级别"
             , example = "")
-    private String dangerLevel;
+    private Integer dangerLevel;
 
     @ApiModelProperty(name = "breakUser", value = "违章人"
             , example = "")
@@ -73,7 +73,7 @@ public class DangerVO implements Serializable{
 
     @ApiModelProperty(name = "responsibilityUser", value = "责任人"
             , example = "")
-    private String responsibilityUser;
+    private String responsibilityUserName;
 
     @ApiModelProperty(name = "changeEndDate", value = "整改结束时间"
             , example = "")

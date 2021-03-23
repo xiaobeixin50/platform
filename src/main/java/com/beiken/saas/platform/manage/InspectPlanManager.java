@@ -124,8 +124,8 @@ public class InspectPlanManager {
 
     private InspectPlanDOExample buildPlanExample(PlanQuery planQuery) {
         InspectPlanDOExample example = new InspectPlanDOExample();
-        example.setLimitStart(planQuery.getPageNo());
-        example.setCount((planQuery.getPageNo() - 1) * planQuery.getPageSize());
+        example.setLimitStart((planQuery.getPageNo() - 1) * planQuery.getPageSize());
+        example.setCount(planQuery.getPageSize());
         InspectPlanDOExample.Criteria criteria = example.createCriteria()
                 .andInspectPlanCodeLike(Constants.LIKE + planQuery.getPlanCode() + Constants.LIKE)
                 .andNameLike(Constants.LIKE + planQuery.getPlanName() + Constants.LIKE)

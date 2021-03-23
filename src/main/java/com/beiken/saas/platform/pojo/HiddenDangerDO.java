@@ -27,13 +27,13 @@ public class HiddenDangerDO {
 
     private String deptParentName;
 
-    private String dangerLevel;
+    private Integer dangerLevel;
 
     private String breakUserName;
 
     private Long responsibilityUserId;
 
-    private String responsibilityUser;
+    private String responsibilityUserName;
 
     private Date changeEndDate;
 
@@ -165,12 +165,12 @@ public class HiddenDangerDO {
         this.deptParentName = deptParentName == null ? null : deptParentName.trim();
     }
 
-    public String getDangerLevel() {
+    public Integer getDangerLevel() {
         return dangerLevel;
     }
 
-    public void setDangerLevel(String dangerLevel) {
-        this.dangerLevel = dangerLevel == null ? null : dangerLevel.trim();
+    public void setDangerLevel(Integer dangerLevel) {
+        this.dangerLevel = dangerLevel;
     }
 
     public String getBreakUserName() {
@@ -189,12 +189,12 @@ public class HiddenDangerDO {
         this.responsibilityUserId = responsibilityUserId;
     }
 
-    public String getResponsibilityUser() {
-        return responsibilityUser;
+    public String getResponsibilityUserName() {
+        return responsibilityUserName;
     }
 
-    public void setResponsibilityUser(String responsibilityUser) {
-        this.responsibilityUser = responsibilityUser == null ? null : responsibilityUser.trim();
+    public void setResponsibilityUserName(String responsibilityUserName) {
+        this.responsibilityUserName = responsibilityUserName == null ? null : responsibilityUserName.trim();
     }
 
     public Date getChangeEndDate() {

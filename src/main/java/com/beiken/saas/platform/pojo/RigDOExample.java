@@ -512,143 +512,133 @@ public class RigDOExample {
             return (Criteria) this;
         }
 
-        public Criteria andDeptParentCodeIsNull() {
-            addCriterion("dept_parent_code is null");
+        public Criteria andParentDeptIdIsNull() {
+            addCriterion("parent_dept_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andDeptParentCodeIsNotNull() {
-            addCriterion("dept_parent_code is not null");
+        public Criteria andParentDeptIdIsNotNull() {
+            addCriterion("parent_dept_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDeptParentCodeEqualTo(String value) {
-            addCriterion("dept_parent_code =", value, "deptParentCode");
+        public Criteria andParentDeptIdEqualTo(Long value) {
+            addCriterion("parent_dept_id =", value, "parentDeptId");
             return (Criteria) this;
         }
 
-        public Criteria andDeptParentCodeNotEqualTo(String value) {
-            addCriterion("dept_parent_code <>", value, "deptParentCode");
+        public Criteria andParentDeptIdNotEqualTo(Long value) {
+            addCriterion("parent_dept_id <>", value, "parentDeptId");
             return (Criteria) this;
         }
 
-        public Criteria andDeptParentCodeGreaterThan(String value) {
-            addCriterion("dept_parent_code >", value, "deptParentCode");
+        public Criteria andParentDeptIdGreaterThan(Long value) {
+            addCriterion("parent_dept_id >", value, "parentDeptId");
             return (Criteria) this;
         }
 
-        public Criteria andDeptParentCodeGreaterThanOrEqualTo(String value) {
-            addCriterion("dept_parent_code >=", value, "deptParentCode");
+        public Criteria andParentDeptIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("parent_dept_id >=", value, "parentDeptId");
             return (Criteria) this;
         }
 
-        public Criteria andDeptParentCodeLessThan(String value) {
-            addCriterion("dept_parent_code <", value, "deptParentCode");
+        public Criteria andParentDeptIdLessThan(Long value) {
+            addCriterion("parent_dept_id <", value, "parentDeptId");
             return (Criteria) this;
         }
 
-        public Criteria andDeptParentCodeLessThanOrEqualTo(String value) {
-            addCriterion("dept_parent_code <=", value, "deptParentCode");
+        public Criteria andParentDeptIdLessThanOrEqualTo(Long value) {
+            addCriterion("parent_dept_id <=", value, "parentDeptId");
             return (Criteria) this;
         }
 
-        public Criteria andDeptParentCodeLike(String value) {
-            addCriterion("dept_parent_code like", value, "deptParentCode");
+        public Criteria andParentDeptIdIn(List<Long> values) {
+            addCriterion("parent_dept_id in", values, "parentDeptId");
             return (Criteria) this;
         }
 
-        public Criteria andDeptParentCodeNotLike(String value) {
-            addCriterion("dept_parent_code not like", value, "deptParentCode");
+        public Criteria andParentDeptIdNotIn(List<Long> values) {
+            addCriterion("parent_dept_id not in", values, "parentDeptId");
             return (Criteria) this;
         }
 
-        public Criteria andDeptParentCodeIn(List<String> values) {
-            addCriterion("dept_parent_code in", values, "deptParentCode");
+        public Criteria andParentDeptIdBetween(Long value1, Long value2) {
+            addCriterion("parent_dept_id between", value1, value2, "parentDeptId");
             return (Criteria) this;
         }
 
-        public Criteria andDeptParentCodeNotIn(List<String> values) {
-            addCriterion("dept_parent_code not in", values, "deptParentCode");
+        public Criteria andParentDeptIdNotBetween(Long value1, Long value2) {
+            addCriterion("parent_dept_id not between", value1, value2, "parentDeptId");
             return (Criteria) this;
         }
 
-        public Criteria andDeptParentCodeBetween(String value1, String value2) {
-            addCriterion("dept_parent_code between", value1, value2, "deptParentCode");
+        public Criteria andParentDeptNameIsNull() {
+            addCriterion("parent_dept_name is null");
             return (Criteria) this;
         }
 
-        public Criteria andDeptParentCodeNotBetween(String value1, String value2) {
-            addCriterion("dept_parent_code not between", value1, value2, "deptParentCode");
+        public Criteria andParentDeptNameIsNotNull() {
+            addCriterion("parent_dept_name is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDeptParentNameIsNull() {
-            addCriterion("dept_parent_name is null");
+        public Criteria andParentDeptNameEqualTo(String value) {
+            addCriterion("parent_dept_name =", value, "parentDeptName");
             return (Criteria) this;
         }
 
-        public Criteria andDeptParentNameIsNotNull() {
-            addCriterion("dept_parent_name is not null");
+        public Criteria andParentDeptNameNotEqualTo(String value) {
+            addCriterion("parent_dept_name <>", value, "parentDeptName");
             return (Criteria) this;
         }
 
-        public Criteria andDeptParentNameEqualTo(String value) {
-            addCriterion("dept_parent_name =", value, "deptParentName");
+        public Criteria andParentDeptNameGreaterThan(String value) {
+            addCriterion("parent_dept_name >", value, "parentDeptName");
             return (Criteria) this;
         }
 
-        public Criteria andDeptParentNameNotEqualTo(String value) {
-            addCriterion("dept_parent_name <>", value, "deptParentName");
+        public Criteria andParentDeptNameGreaterThanOrEqualTo(String value) {
+            addCriterion("parent_dept_name >=", value, "parentDeptName");
             return (Criteria) this;
         }
 
-        public Criteria andDeptParentNameGreaterThan(String value) {
-            addCriterion("dept_parent_name >", value, "deptParentName");
+        public Criteria andParentDeptNameLessThan(String value) {
+            addCriterion("parent_dept_name <", value, "parentDeptName");
             return (Criteria) this;
         }
 
-        public Criteria andDeptParentNameGreaterThanOrEqualTo(String value) {
-            addCriterion("dept_parent_name >=", value, "deptParentName");
+        public Criteria andParentDeptNameLessThanOrEqualTo(String value) {
+            addCriterion("parent_dept_name <=", value, "parentDeptName");
             return (Criteria) this;
         }
 
-        public Criteria andDeptParentNameLessThan(String value) {
-            addCriterion("dept_parent_name <", value, "deptParentName");
+        public Criteria andParentDeptNameLike(String value) {
+            addCriterion("parent_dept_name like", value, "parentDeptName");
             return (Criteria) this;
         }
 
-        public Criteria andDeptParentNameLessThanOrEqualTo(String value) {
-            addCriterion("dept_parent_name <=", value, "deptParentName");
+        public Criteria andParentDeptNameNotLike(String value) {
+            addCriterion("parent_dept_name not like", value, "parentDeptName");
             return (Criteria) this;
         }
 
-        public Criteria andDeptParentNameLike(String value) {
-            addCriterion("dept_parent_name like", value, "deptParentName");
+        public Criteria andParentDeptNameIn(List<String> values) {
+            addCriterion("parent_dept_name in", values, "parentDeptName");
             return (Criteria) this;
         }
 
-        public Criteria andDeptParentNameNotLike(String value) {
-            addCriterion("dept_parent_name not like", value, "deptParentName");
+        public Criteria andParentDeptNameNotIn(List<String> values) {
+            addCriterion("parent_dept_name not in", values, "parentDeptName");
             return (Criteria) this;
         }
 
-        public Criteria andDeptParentNameIn(List<String> values) {
-            addCriterion("dept_parent_name in", values, "deptParentName");
+        public Criteria andParentDeptNameBetween(String value1, String value2) {
+            addCriterion("parent_dept_name between", value1, value2, "parentDeptName");
             return (Criteria) this;
         }
 
-        public Criteria andDeptParentNameNotIn(List<String> values) {
-            addCriterion("dept_parent_name not in", values, "deptParentName");
-            return (Criteria) this;
-        }
-
-        public Criteria andDeptParentNameBetween(String value1, String value2) {
-            addCriterion("dept_parent_name between", value1, value2, "deptParentName");
-            return (Criteria) this;
-        }
-
-        public Criteria andDeptParentNameNotBetween(String value1, String value2) {
-            addCriterion("dept_parent_name not between", value1, value2, "deptParentName");
+        public Criteria andParentDeptNameNotBetween(String value1, String value2) {
+            addCriterion("parent_dept_name not between", value1, value2, "parentDeptName");
             return (Criteria) this;
         }
 

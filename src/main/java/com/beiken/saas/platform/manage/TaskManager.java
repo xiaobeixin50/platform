@@ -5,14 +5,8 @@ import com.beiken.saas.platform.biz.bo.PageBo;
 import com.beiken.saas.platform.biz.query.TaskQuery;
 import com.beiken.saas.platform.biz.vo.*;
 import com.beiken.saas.platform.controller.UserController;
-import com.beiken.saas.platform.enums.Constants;
-import com.beiken.saas.platform.enums.RigStatusEnum;
-import com.beiken.saas.platform.enums.TaskItemStatusEnum;
-import com.beiken.saas.platform.enums.TaskStatusEnum;
-import com.beiken.saas.platform.mapper.BgInspectItemMapper;
-import com.beiken.saas.platform.mapper.InspectTaskItemMapper;
-import com.beiken.saas.platform.mapper.InspectTaskMapper;
-import com.beiken.saas.platform.mapper.RigMapper;
+import com.beiken.saas.platform.enums.*;
+import com.beiken.saas.platform.mapper.*;
 import com.beiken.saas.platform.pojo.*;
 import com.beiken.saas.platform.utils.DateUtil;
 import com.google.common.collect.Lists;
@@ -45,6 +39,8 @@ public class TaskManager {
     private DangerManager dangerManager;
     @Resource
     private UserController userController;
+    @Resource
+    private DepartmentMapper departmentMapper;
 
 
     /**
@@ -126,6 +122,7 @@ public class TaskManager {
      */
     public PageBo<TaskItemListVO> listTaskItem(String taskCode) {
         PageBo<TaskItemListVO> pageBo = new PageBo<>();
+        List<TaskItemListVO> result = Lists.newArrayList();
 
         Map<String, List<TaskItemListVO>> siteMap = Maps.newHashMap();
 
@@ -143,44 +140,67 @@ public class TaskManager {
         Set<String> bgItemCodeSet = taskItems.stream().map(InspectTaskItemDO::getBgItemCode).collect(Collectors.toSet());
         BgInspectItemDOExample bgItemExample = new BgInspectItemDOExample();
         bgItemExample.createCriteria().andBgItemCodeIn(Lists.newArrayList(bgItemCodeSet));
-        List<BgInspectItemDO> bgInspectItems = bgInspectItemMapper.selectByExample(bgItemExample);
+        List<BgInspectItemDO> bgInspectItems = bgInspectItemMapper.selectByExampleWithBLOBs(bgItemExample);
         if (CollectionUtils.isEmpty(bgInspectItems)) {
             return pageBo;
         }
         Map<String, BgInspectItemDO> bgItemMap = bgInspectItems.stream().collect(Collectors.toMap(BgInspectItemDO::getBgItemCode, p -> p));
+
+        InspectTaskDOExample taskExample = new InspectTaskDOExample();
+        taskExample.createCriteria().andTaskCodeEqualTo(taskCode);
+        List<InspectTaskDO> inspectTaskDOs = taskMapper.selectByExample(taskExample);
+        Long deptId = inspectTaskDOs.get(0).getDeptId();
+
+        UserDO userDO = userController.getCaptUserByDeptId(deptId, Constants.ZERO_INT);
 
         for (InspectTaskItemDO taskItem : taskItems) {
             BgInspectItemDO bgItemDO = bgItemMap.get(taskItem.getBgItemCode());
             if (bgItemDO == null) {
                 continue;
             }
-            TaskItemListVO vo = new TaskItemListVO();
-            vo.setSite(bgItemDO.getSite());
-            vo.setTaskCode(taskCode);
-            vo.setEquipment(Maps.newHashMap());
-
             TaskItemListVO.Extra extra = new TaskItemListVO.Extra();
-            extra.setAdapt(bgItemDO.getAdapt());
-            extra.setControlExtra(bgItemDO.getControlExtra());
-            extra.setBgCode(bgItemDO.getBgItemCode());
+            copyBgItem2Extra(bgItemDO, extra);
             TaskItemStatusEnum index = TaskItemStatusEnum.index(taskItem.getResultStatus());
             extra.setStatus(index == null ? null : index.getMsg());
-            if (!vo.getEquipment().containsKey(bgItemDO.getEquipment())) {
-                List<TaskItemListVO.Extra> extraList = Lists.newArrayList();
-                //todo pbl 如果是隐患 需要查隐患表
-                extraList.add(extra);
-                vo.getEquipment().put(bgItemDO.getEquipment(), extraList);
-            } else {
-                vo.getEquipment().get(bgItemDO.getEquipment()).add(extra);
+            extra.setDeptId(deptId);
+            if (userDO != null) {
+                extra.setResponsibilityUserId(userDO.getId());
+                extra.setResponsibilityUserName(userDO.getName());
             }
+
             if (!siteMap.containsKey(bgItemDO.getSite())) {
+                TaskItemListVO vo = new TaskItemListVO();
+                vo.setSite(bgItemDO.getSite());
+                vo.setTaskCode(taskCode);
+                vo.setEquipment(Maps.newHashMap());
                 List<TaskItemListVO> taskItemList = Lists.newArrayList();
                 taskItemList.add(vo);
+                if (!vo.getEquipment().containsKey(bgItemDO.getEquipment())) {
+                    List<TaskItemListVO.Extra> extraList = Lists.newArrayList();
+                    extraList.add(extra);
+                    vo.getEquipment().put(bgItemDO.getEquipment(), extraList);
+                } else {
+                    vo.getEquipment().get(bgItemDO.getEquipment()).add(extra);
+                }
                 siteMap.put(bgItemDO.getSite(), taskItemList);
             } else {
-                siteMap.get(bgItemDO.getSite()).add(vo);
+                List<TaskItemListVO> taskItemListVOs = siteMap.get(bgItemDO.getSite());
+                for (TaskItemListVO vo : taskItemListVOs) {
+                    if (!vo.getEquipment().containsKey(bgItemDO.getEquipment())) {
+                        List<TaskItemListVO.Extra> extraList = Lists.newArrayList();
+                        extraList.add(extra);
+                        vo.getEquipment().put(bgItemDO.getEquipment(), extraList);
+                    } else {
+                        vo.getEquipment().get(bgItemDO.getEquipment()).add(extra);
+                    }
+                }
             }
+
         }
+        for (String s : siteMap.keySet()) {
+            result.addAll(siteMap.get(s));
+        }
+        pageBo.setItemList(result);
         return pageBo;
     }
 
@@ -240,11 +260,12 @@ public class TaskManager {
     public boolean updateTaskItem(TaskItemVO taskItemVO) {
         InspectTaskItemDOExample example = new InspectTaskItemDOExample();
         example.createCriteria()
-                .andTaskCodeEqualTo(taskItemVO.getItemCode())
+                .andTaskCodeEqualTo(taskItemVO.getTaskCode())
                 .andBgItemCodeEqualTo(taskItemVO.getBgItemCode());
 
+        //todo 加一个photo
         InspectTaskItemDO inspectTaskItem = new InspectTaskItemDO();
-        inspectTaskItem.setEndDate(taskItemVO.getEndDate());
+        inspectTaskItem.setEndDate(taskItemVO.getChangeEndDate());
         inspectTaskItem.setResultStatus(taskItemVO.getResultStatus());
         inspectTaskItem.setReportTime(new Date());
         inspectTaskItem.setReportExtra(taskItemVO.getReportExtra());
@@ -258,6 +279,8 @@ public class TaskManager {
                 TaskItemStatusEnum.index(taskItemVO.getResultStatus()))) {
             DangerVO dangerVO = new DangerVO();
             BeanUtils.copyProperties(taskItemVO, dangerVO);
+            dangerVO.setChangeEndDate(taskItemVO.getChangeEndDate());
+            dangerVO.setReportTime(new Date());
             return  dangerManager.addDanger(dangerVO);
         }
         return true;
@@ -288,17 +311,17 @@ public class TaskManager {
         if (CollectionUtils.isEmpty(bgInspectItems)) {
             return null;
         }
+
+        BeanUtils.copyProperties(taskItemDO, extra);
         BgInspectItemDO bgItemDO = bgInspectItems.get(0);
         HiddenDangerDO hiddenDangerDO = dangerManager.dangerInfoByCode(taskCode, bgItemCode, reportType);
         if (Objects.nonNull(hiddenDangerDO)) {
             BeanUtils.copyProperties(hiddenDangerDO, extra);
         }
-        extra.setBgCode(bgItemDO.getBgCode());
-        extra.setAdapt(bgItemDO.getAdapt());
         TaskItemStatusEnum index = TaskItemStatusEnum.index(taskItemDO.getResultStatus());
         extra.setStatus(index == null ? null : index.getMsg());
-        extra.setControlExtra(bgItemDO.getControlExtra());
         extra.setTaskCode(taskCode);
+        copyBgItem2Extra(bgItemDO, extra);
 
         InspectTaskDOExample taskExample = new InspectTaskDOExample();
         taskExample.createCriteria().andTaskCodeEqualTo(taskCode);
@@ -338,8 +361,8 @@ public class TaskManager {
         InspectTaskDOExample.Criteria criteria = example.createCriteria();
         example.setOrderByClause("start_time desc");
 
-        example.setLimitStart(taskQuery.getPageNo());
-        example.setCount((taskQuery.getPageNo() - 1) * taskQuery.getPageSize());
+        example.setLimitStart((taskQuery.getPageNo() - 1) * taskQuery.getPageSize());
+        example.setCount((taskQuery.getPageSize()));
 
         if (Objects.nonNull(taskQuery.getInspectUserId())) {
             criteria.andInspectUserIdEqualTo(taskQuery.getInspectUserId());
@@ -383,5 +406,13 @@ public class TaskManager {
             taskList.add(taskListVO);
         }
         return taskList;
+    }
+
+    private void copyBgItem2Extra(BgInspectItemDO bgItemDO, TaskItemListVO.Extra extra) {
+        BeanUtils.copyProperties(bgItemDO, extra);
+        extra.setAdapt(bgItemDO.getAdapt());
+        extra.setControlExtra(bgItemDO.getControlExtra());
+        extra.setBgItemCode(bgItemDO.getBgItemCode());
+        extra.setDangerLevel(DangerLevelEnum.index(bgItemDO.getDangerLevel()).getMsg());
     }
 }

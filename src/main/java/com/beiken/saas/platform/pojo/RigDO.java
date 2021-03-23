@@ -15,9 +15,9 @@ public class RigDO {
 
     private String deptName;
 
-    private String deptParentCode;
+    private Long parentDeptId;
 
-    private String deptParentName;
+    private String parentDeptName;
 
     private String area;
 
@@ -77,20 +77,20 @@ public class RigDO {
         this.deptName = deptName == null ? null : deptName.trim();
     }
 
-    public String getDeptParentCode() {
-        return deptParentCode;
+    public Long getParentDeptId() {
+        return parentDeptId;
     }
 
-    public void setDeptParentCode(String deptParentCode) {
-        this.deptParentCode = deptParentCode == null ? null : deptParentCode.trim();
+    public void setParentDeptId(Long parentDeptId) {
+        this.parentDeptId = parentDeptId;
     }
 
-    public String getDeptParentName() {
-        return deptParentName;
+    public String getParentDeptName() {
+        return parentDeptName;
     }
 
-    public void setDeptParentName(String deptParentName) {
-        this.deptParentName = deptParentName == null ? null : deptParentName.trim();
+    public void setParentDeptName(String parentDeptName) {
+        this.parentDeptName = parentDeptName == null ? null : parentDeptName.trim();
     }
 
     public String getArea() {

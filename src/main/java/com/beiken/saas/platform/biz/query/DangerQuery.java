@@ -16,7 +16,7 @@ public class DangerQuery extends BaseQuery implements Serializable{
 
     @ApiModelProperty(name = "dangerLevel", value = "隐患级别"
             , required = false, example = "")
-    private String dangerLevel;
+    private Integer dangerLevel;
 
     @ApiModelProperty(name = "resultStatus", value = "隐患状态"
             , required = false, example = "")

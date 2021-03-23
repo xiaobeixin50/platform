@@ -8,8 +8,8 @@
     <result column="rig_code" jdbcType="VARCHAR" property="rigCode" />
     <result column="dept_id" jdbcType="BIGINT" property="deptId" />
     <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
-    <result column="dept_parent_code" jdbcType="VARCHAR" property="deptParentCode" />
-    <result column="dept_parent_name" jdbcType="VARCHAR" property="deptParentName" />
+    <result column="parent_dept_id" jdbcType="BIGINT" property="parentDeptId" />
+    <result column="parent_dept_name" jdbcType="VARCHAR" property="parentDeptName" />
     <result column="area" jdbcType="VARCHAR" property="area" />
     <result column="model" jdbcType="VARCHAR" property="model" />
     <result column="type" jdbcType="VARCHAR" property="type" />
@@ -77,7 +77,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, gmt_create, gmt_modified, rig_code, dept_id, dept_name, dept_parent_code, dept_parent_name, 
+    id, gmt_create, gmt_modified, rig_code, dept_id, dept_name, parent_dept_id, parent_dept_name, 
     area, model, type, status
   </sql>
   <sql id="Blob_Column_List">
@@ -142,12 +142,12 @@
   <insert id="insert" parameterType="com.beiken.saas.platform.pojo.RigDO">
     insert into sft_rig (id, gmt_create, gmt_modified, 
       rig_code, dept_id, dept_name, 
-      dept_parent_code, dept_parent_name, area, 
+      parent_dept_id, parent_dept_name, area, 
       model, type, status, 
       extra)
     values (#{id,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
       #{rigCode,jdbcType=VARCHAR}, #{deptId,jdbcType=BIGINT}, #{deptName,jdbcType=VARCHAR}, 
-      #{deptParentCode,jdbcType=VARCHAR}, #{deptParentName,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, 
+      #{parentDeptId,jdbcType=BIGINT}, #{parentDeptName,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, 
       #{model,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
       #{extra,jdbcType=LONGVARCHAR})
   </insert>
@@ -172,11 +172,11 @@
       <if test="deptName != null">
         dept_name,
       </if>
-      <if test="deptParentCode != null">
-        dept_parent_code,
+      <if test="parentDeptId != null">
+        parent_dept_id,
       </if>
-      <if test="deptParentName != null">
-        dept_parent_name,
+      <if test="parentDeptName != null">
+        parent_dept_name,
       </if>
       <if test="area != null">
         area,
@@ -213,11 +213,11 @@
       <if test="deptName != null">
         #{deptName,jdbcType=VARCHAR},
       </if>
-      <if test="deptParentCode != null">
-        #{deptParentCode,jdbcType=VARCHAR},
+      <if test="parentDeptId != null">
+        #{parentDeptId,jdbcType=BIGINT},
       </if>
-      <if test="deptParentName != null">
-        #{deptParentName,jdbcType=VARCHAR},
+      <if test="parentDeptName != null">
+        #{parentDeptName,jdbcType=VARCHAR},
       </if>
       <if test="area != null">
         #{area,jdbcType=VARCHAR},
@@ -263,11 +263,11 @@
       <if test="record.deptName != null">
         dept_name = #{record.deptName,jdbcType=VARCHAR},
       </if>
-      <if test="record.deptParentCode != null">
-        dept_parent_code = #{record.deptParentCode,jdbcType=VARCHAR},
+      <if test="record.parentDeptId != null">
+        parent_dept_id = #{record.parentDeptId,jdbcType=BIGINT},
       </if>
-      <if test="record.deptParentName != null">
-        dept_parent_name = #{record.deptParentName,jdbcType=VARCHAR},
+      <if test="record.parentDeptName != null">
+        parent_dept_name = #{record.parentDeptName,jdbcType=VARCHAR},
       </if>
       <if test="record.area != null">
         area = #{record.area,jdbcType=VARCHAR},
@@ -297,8 +297,8 @@
       rig_code = #{record.rigCode,jdbcType=VARCHAR},
       dept_id = #{record.deptId,jdbcType=BIGINT},
       dept_name = #{record.deptName,jdbcType=VARCHAR},
-      dept_parent_code = #{record.deptParentCode,jdbcType=VARCHAR},
-      dept_parent_name = #{record.deptParentName,jdbcType=VARCHAR},
+      parent_dept_id = #{record.parentDeptId,jdbcType=BIGINT},
+      parent_dept_name = #{record.parentDeptName,jdbcType=VARCHAR},
       area = #{record.area,jdbcType=VARCHAR},
       model = #{record.model,jdbcType=VARCHAR},
       type = #{record.type,jdbcType=VARCHAR},
@@ -316,8 +316,8 @@
       rig_code = #{record.rigCode,jdbcType=VARCHAR},
       dept_id = #{record.deptId,jdbcType=BIGINT},
       dept_name = #{record.deptName,jdbcType=VARCHAR},
-      dept_parent_code = #{record.deptParentCode,jdbcType=VARCHAR},
-      dept_parent_name = #{record.deptParentName,jdbcType=VARCHAR},
+      parent_dept_id = #{record.parentDeptId,jdbcType=BIGINT},
+      parent_dept_name = #{record.parentDeptName,jdbcType=VARCHAR},
       area = #{record.area,jdbcType=VARCHAR},
       model = #{record.model,jdbcType=VARCHAR},
       type = #{record.type,jdbcType=VARCHAR},
@@ -344,11 +344,11 @@
       <if test="deptName != null">
         dept_name = #{deptName,jdbcType=VARCHAR},
       </if>
-      <if test="deptParentCode != null">
-        dept_parent_code = #{deptParentCode,jdbcType=VARCHAR},
+      <if test="parentDeptId != null">
+        parent_dept_id = #{parentDeptId,jdbcType=BIGINT},
       </if>
-      <if test="deptParentName != null">
-        dept_parent_name = #{deptParentName,jdbcType=VARCHAR},
+      <if test="parentDeptName != null">
+        parent_dept_name = #{parentDeptName,jdbcType=VARCHAR},
       </if>
       <if test="area != null">
         area = #{area,jdbcType=VARCHAR},
@@ -375,8 +375,8 @@
       rig_code = #{rigCode,jdbcType=VARCHAR},
       dept_id = #{deptId,jdbcType=BIGINT},
       dept_name = #{deptName,jdbcType=VARCHAR},
-      dept_parent_code = #{deptParentCode,jdbcType=VARCHAR},
-      dept_parent_name = #{deptParentName,jdbcType=VARCHAR},
+      parent_dept_id = #{parentDeptId,jdbcType=BIGINT},
+      parent_dept_name = #{parentDeptName,jdbcType=VARCHAR},
       area = #{area,jdbcType=VARCHAR},
       model = #{model,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR},
@@ -391,8 +391,8 @@
       rig_code = #{rigCode,jdbcType=VARCHAR},
       dept_id = #{deptId,jdbcType=BIGINT},
       dept_name = #{deptName,jdbcType=VARCHAR},
-      dept_parent_code = #{deptParentCode,jdbcType=VARCHAR},
-      dept_parent_name = #{deptParentName,jdbcType=VARCHAR},
+      parent_dept_id = #{parentDeptId,jdbcType=BIGINT},
+      parent_dept_name = #{parentDeptName,jdbcType=VARCHAR},
       area = #{area,jdbcType=VARCHAR},
       model = #{model,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR},

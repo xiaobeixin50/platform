@@ -82,7 +82,7 @@ public class DangerManager {
         }
         HiddenDangerDO dangerDO = new HiddenDangerDO();
         BeanUtils.copyProperties(dangerVO, dangerDO);
-        int result = dangerMapper.insertSelective(dangerDO);
+        int result = dangerMapper.insert(dangerDO);
         if (result > 0) {
             return true;
         }
@@ -93,8 +93,8 @@ public class DangerManager {
 
     private HiddenDangerDOExample buildDangerExample(Long userId, DangerQuery dangerQuery) {
         HiddenDangerDOExample example = new HiddenDangerDOExample();
-        example.setLimitStart(dangerQuery.getPageNo());
-        example.setCount((dangerQuery.getPageNo() - 1) * dangerQuery.getPageSize());
+        example.setLimitStart((dangerQuery.getPageNo() - 1) * dangerQuery.getPageSize());
+        example.setCount(dangerQuery.getPageSize());
         example.setOrderByClause("change_end_date " + dangerQuery.getSort());
 
         HiddenDangerDOExample.Criteria criteria = example.createCriteria()

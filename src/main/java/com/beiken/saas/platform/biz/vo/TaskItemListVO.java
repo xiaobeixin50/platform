@@ -41,9 +41,9 @@ public class TaskItemListVO implements Serializable {
                 , required = false, example = "")
         private String taskCode;
 
-        @ApiModelProperty(name = "bgCode", value = "检查项编码"
+        @ApiModelProperty(name = "bgItemCode", value = "检查项编码"
                 , required = false, example = "")
-        private String bgCode;
+        private String bgItemCode;
 
         @ApiModelProperty(name = "controlExtra", value = "控制类型说明"
                 , required = false, example = "")
