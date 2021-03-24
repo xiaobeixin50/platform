@@ -6,16 +6,18 @@ import com.beiken.saas.platform.biz.vo.DangerVO;
 import com.beiken.saas.platform.biz.vo.Result;
 import com.beiken.saas.platform.enums.Constants;
 import com.beiken.saas.platform.manage.DangerManager;
-import com.google.common.collect.Lists;
+import com.beiken.saas.platform.mapper.HiddenDangerMapper;
+import com.beiken.saas.platform.pojo.HiddenDangerDO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * User: panboliang
@@ -29,6 +31,8 @@ public class CustomDangerController {
 
     @Resource
     private DangerManager dangerManager;
+    @Resource
+    private HiddenDangerMapper dangerMapper;
 
     @ApiOperation("隐患列表")
     @ResponseBody
@@ -39,16 +43,7 @@ public class CustomDangerController {
             if (StringUtils.isBlank(dangerQuery.getSort())) {
                 dangerQuery.setSort("ASC");
             }
-           /* if (Objects.isNull(dangerQuery.getRoleType())) {
-                return Result.error(Constants.ERROR, "角色参数错误");
-            }*/
-            //PageBo<DangerVO> pageBo = dangerManager.listByUser(userId, dangerQuery);
-            PageBo<DangerVO> pageBo = new PageBo<>();
-            DangerVO dangerVO = new DangerVO();
-            dangerVO.setDangerCode("VODS-234324");
-            List<DangerVO> list = Lists.newArrayList();
-            list.add(dangerVO);
-            pageBo.setItemList(list);
+            PageBo<DangerVO> pageBo = dangerManager.listByUser(userId, dangerQuery);
             return Result.success(pageBo);
         } catch (Exception e) {
             //log.error("list error", e);
@@ -56,12 +51,34 @@ public class CustomDangerController {
         }
     }
 
-    @ApiOperation("除了列表以外的都用这个接口")
-      @ResponseBody
-      @PostMapping(value = "/update/{dangerCode}")
-      @ApiImplicitParams({@ApiImplicitParam(name = "dangerCode", value = "监理id", required = true, dataType = "Long")})
-      public Result update(@PathVariable String dangerCode, @RequestBody DangerVO dangerVO) {
+    @ApiOperation("隐患列表")
+    @ResponseBody
+    @GetMapping(value = "/info/{dangerId}")
+    public Result info(@PathVariable Long dangerId) {
         try {
+            DangerQuery query = new DangerQuery();
+            query.setDangerId(dangerId);
+            PageBo<DangerVO> pageBo = dangerManager.listByUser(null, query);
+            if (CollectionUtils.isEmpty(pageBo.getItemList())) {
+                return Result.error(Constants.ERROR, "未找到");
+            }
+            DangerVO dangerVO = pageBo.getItemList().get(0);
+            return Result.success(dangerVO);
+        } catch (Exception e) {
+            //log.error("list error", e);
+            return Result.error(Constants.ERROR, e.getMessage());
+        }
+    }
+
+    @ApiOperation("除了列表以外的都用这个接口")
+    @ResponseBody
+    @PostMapping(value = "/update/{dangerId}")
+    public Result update(@PathVariable Long dangerId, @RequestBody DangerVO dangerVO) {
+        try {
+            HiddenDangerDO dangerDO = new HiddenDangerDO();
+            dangerDO.setDeptId(dangerId);
+            BeanUtils.copyProperties(dangerVO, dangerDO);
+            dangerMapper.updateByPrimaryKeyWithBLOBs(dangerDO);
             return Result.success();
         } catch (Exception e) {
             //log.error("list error", e);
@@ -72,9 +89,11 @@ public class CustomDangerController {
     @ApiOperation("主动上报")
     @ResponseBody
     @PostMapping(value = "/add")
-    @ApiImplicitParams({@ApiImplicitParam(name = "dangerVO", value = "dangerVO", required = true, dataType = "DangerVO")})
     public Result add(@RequestBody DangerVO dangerVO) {
         try {
+            HiddenDangerDO dangerDO = new HiddenDangerDO();
+            BeanUtils.copyProperties(dangerVO, dangerDO);
+            dangerMapper.insert(dangerDO);
             return Result.success();
         } catch (Exception e) {
             //log.error("list error", e);

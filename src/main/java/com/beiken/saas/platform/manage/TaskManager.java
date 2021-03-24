@@ -43,6 +43,7 @@ public class TaskManager {
     private DepartmentMapper departmentMapper;
 
 
+
     /**
      * 后台列表
      *
@@ -257,7 +258,7 @@ public class TaskManager {
         return userRigVO;
     }
 
-    public boolean updateTaskItem(TaskItemVO taskItemVO) {
+    public String updateTaskItem(TaskItemVO taskItemVO) {
         InspectTaskItemDOExample example = new InspectTaskItemDOExample();
         example.createCriteria()
                 .andTaskCodeEqualTo(taskItemVO.getTaskCode())
@@ -271,7 +272,7 @@ public class TaskManager {
         inspectTaskItem.setReportExtra(taskItemVO.getReportExtra());
         int updateResult = taskItemMapper.updateByExampleSelective(inspectTaskItem, example);
         if (updateResult < 0) {
-            return false;
+            return "更新任务详情失败";
         }
 
         //这里设计的不好,应该用一个表来存结果,时间紧迫 先这样了...
@@ -281,9 +282,23 @@ public class TaskManager {
             BeanUtils.copyProperties(taskItemVO, dangerVO);
             dangerVO.setChangeEndDate(taskItemVO.getChangeEndDate());
             dangerVO.setReportTime(new Date());
-            return  dangerManager.addDanger(dangerVO);
+            dangerVO.setReportType(Constants.ZERO_INT);
+            dangerVO.setInspectUserId(null);
+            dangerVO.setInspectUserName(null);
+            dangerVO.setFindUserId(taskItemVO.getInspectUserId());
+            dangerVO.setFindUserName(taskItemVO.getInspectUserName());
+            List<Integer> integerList = DangerManager.STATUS_MAP.get(dangerVO.getReportType()).get(dangerVO.getDangerLevel());
+            if (CollectionUtils.isEmpty(integerList)) {
+                return "未传隐患级别";
+            }
+
+            dangerVO.setReportStatus(integerList.get(0));
+            boolean result = dangerManager.addDanger(dangerVO);
+            if (!result) {
+                return "隐患插入失败";
+            }
         }
-        return true;
+        return "true";
     }
 
     /**

@@ -2,20 +2,17 @@ package com.beiken.saas.platform.controller;
 
 import com.beiken.saas.platform.biz.bo.PageBo;
 import com.beiken.saas.platform.biz.query.UserQuery;
-import com.beiken.saas.platform.biz.vo.DeptVO;
-import com.beiken.saas.platform.biz.vo.Result;
-import com.beiken.saas.platform.biz.vo.SelfVO;
-import com.beiken.saas.platform.biz.vo.UserVO;
+import com.beiken.saas.platform.biz.vo.*;
 import com.beiken.saas.platform.enums.Constants;
+import com.beiken.saas.platform.enums.RoleEnum;
 import com.beiken.saas.platform.manage.TaskManager;
 import com.beiken.saas.platform.mapper.DepartmentMapper;
+import com.beiken.saas.platform.mapper.RigMapper;
 import com.beiken.saas.platform.mapper.UserMapper;
-import com.beiken.saas.platform.pojo.DepartmentDO;
-import com.beiken.saas.platform.pojo.DepartmentDOExample;
-import com.beiken.saas.platform.pojo.UserDO;
-import com.beiken.saas.platform.pojo.UserDOExample;
+import com.beiken.saas.platform.pojo.*;
 import com.beiken.saas.platform.utils.MD5Util;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
@@ -25,7 +22,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * User: panboliang
@@ -43,6 +43,8 @@ public class UserController {
     private DepartmentMapper departmentMapper;
     @Resource
     private TaskManager taskManager;
+    @Resource
+    private RigMapper rigMapper;
 
     @ApiOperation("用户信息-个人资料接口(移动管理后台和客户端都可以用)")
     @ResponseBody
@@ -62,13 +64,14 @@ public class UserController {
 //            }
             List<UserDO> userDOs = userMapper.selectByExample(example);
             if (CollectionUtils.isEmpty(userDOs)) {
-                return Result.error(Constants.ERROR,"未查询到当前用户");
+                return Result.error(Constants.ERROR, "未查询到当前用户");
             }
             UserDO userDO = userDOs.get(0);
             Long depId = userDO.getDepId();
 
             UserVO userVO = new UserVO();
             BeanUtils.copyProperties(userDO, userVO);
+            userVO.setRoleType(RoleEnum.index(userDO.getRole()));
 
             DepartmentDO departmentDO = departmentMapper.selectByPrimaryKey(depId);
             if (Objects.nonNull(departmentDO)) {
@@ -104,7 +107,7 @@ public class UserController {
                     .andAccountEqualTo(userQuery.getAccountId())
                     .andPasswordEqualTo(password);
             PageBo<UserVO> userVOPageBo = getUserVOPageBo(example);
-            if (CollectionUtils.isEmpty(userVOPageBo.getItemList())){
+            if (CollectionUtils.isEmpty(userVOPageBo.getItemList())) {
                 return Result.error(Constants.ERROR, "用户名或密码不正确");
             }
             UserVO userVO = userVOPageBo.getItemList().get(0);
@@ -145,7 +148,7 @@ public class UserController {
                 deptVO2.setDeptName("南疆油服第二公司");
                 list.add(deptVO1);
                 list.add(deptVO2);
-            } else if (Constants.ONE_INT.equals(type)){
+            } else if (Constants.ONE_INT.equals(type)) {
                 DeptVO deptVO1 = new DeptVO();
                 UserVO userVO1 = new UserVO();
                 userVO1.setId(1L);
@@ -222,7 +225,6 @@ public class UserController {
     }
 
 
-
     private PageBo<UserVO> getUserVOPageBo(UserDOExample example) {
         List<UserDO> userDOs = userMapper.selectByExample(example);
         List<UserVO> result = Lists.newArrayList();
@@ -243,7 +245,7 @@ public class UserController {
                 .andDepIdEqualTo(deptId);
         if (Constants.ZERO_INT.equals(roleType)) {
             criteria.andRoleEqualTo("井队长");
-        } else if(Constants.ONE_INT.equals(roleType)) {
+        } else if (Constants.ONE_INT.equals(roleType)) {
             criteria.andRoleEqualTo("监理");
         } else {
             criteria.andRoleEqualTo("一线员工");
@@ -253,5 +255,73 @@ public class UserController {
             return null;
         }
         return userDOs.get(0);
+    }
+
+    //先都写这儿了...
+    //管理端查询整个结构
+    public Map<String, Map<String, List<DeptStructVO>>> getUserRigStruct() {
+        Map<String, Map<String, List<DeptStructVO>>> resultMap = Maps.newHashMap();
+
+        List<RigDO> rigDOs = rigMapper.selectByExample(new RigDOExample());
+        Map<Long, List<RigDO>> rigDOMap = Maps.newHashMap();
+        for (RigDO rigDO : rigDOs) {
+            if (!rigDOMap.containsKey(rigDO.getDeptId())) {
+                List<RigDO> rigDOList = Lists.newArrayList();
+                rigDOList.add(rigDO);
+                rigDOMap.put(rigDO.getDeptId(), rigDOList);
+            } else {
+                rigDOMap.get(rigDO.getDeptId()).add(rigDO);
+            }
+        }
+        Set<Long> depIds = rigDOs.stream().map(RigDO::getDeptId).collect(Collectors.toSet());
+        Set<Long> parentDepIds = rigDOs.stream().map(RigDO::getParentDeptId).collect(Collectors.toSet());
+        depIds.addAll(parentDepIds);
+
+        DepartmentDOExample deptExample = new DepartmentDOExample();
+        deptExample.setOrderByClause("level");
+        deptExample.createCriteria().andIdIn(Lists.newArrayList(depIds));
+        List<DepartmentDO> departmentDOs = departmentMapper.selectByExample(deptExample);
+
+        Map<Long, String> deptNameMap = departmentDOs.stream().collect(Collectors.toMap(DepartmentDO::getId, DepartmentDO::getDeptName));
+
+
+        for (DepartmentDO departmentDO : departmentDOs) {
+            //有个坑,上面一定要排序,后面可以改成递归
+            if (!resultMap.containsKey(deptNameMap.get(departmentDO.getId()))
+                    && Constants.ONE_INT.equals(departmentDO.getLevel())) {
+                resultMap.put(deptNameMap.get(departmentDO.getId()), Maps.newHashMap());
+            }
+            if (Constants.TWO_INT.equals(departmentDO.getLevel())) {
+                Map<String, List<DeptStructVO>> childResultMap = resultMap.get(deptNameMap.get(departmentDO.getParentId()));
+                if (!childResultMap.containsKey(deptNameMap.get(departmentDO.getId()))) {
+                    List<DeptStructVO> childList = Lists.newArrayList();
+
+                    DeptStructVO deptStructVO = new DeptStructVO();
+                    deptStructVO.setValue(deptNameMap.get(departmentDO.getId()));
+                    deptStructVO.setVoList(Lists.newArrayList());
+
+                    for (RigDO rigDO : rigDOMap.get(departmentDO.getId())) {
+                        DeptStructVO child = new DeptStructVO();
+                        child.setValue(rigDO.getRigCode());
+                        deptStructVO.getVoList().add(child);
+                    }
+                    childList.add(deptStructVO);
+                    childResultMap.put(deptNameMap.get(departmentDO.getId()), childList);
+                } else {
+                    List<DeptStructVO> list = childResultMap.get(deptNameMap.get(departmentDO.getId()));
+                    DeptStructVO deptStructVO = new DeptStructVO();
+                    deptStructVO.setValue(deptNameMap.get(departmentDO.getId()));
+                    deptStructVO.setVoList(Lists.newArrayList());
+
+                    for (RigDO rigDO : rigDOMap.get(departmentDO.getId())) {
+                        DeptStructVO child = new DeptStructVO();
+                        child.setValue(rigDO.getRigCode());
+                        deptStructVO.getVoList().add(child);
+                    }
+                    list.add(deptStructVO);
+                }
+            }
+        }
+        return resultMap;
     }
 }

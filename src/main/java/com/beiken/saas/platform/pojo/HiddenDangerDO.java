@@ -19,15 +19,17 @@ public class HiddenDangerDO {
 
     private String bgItemCode;
 
-    private String deptCode;
+    private Long deptId;
 
     private String deptName;
 
-    private String deptParentCode;
+    private Long parentDeptId;
 
-    private String deptParentName;
+    private String parentDeptName;
 
     private Integer dangerLevel;
+
+    private String breakUserId;
 
     private String breakUserName;
 
@@ -35,21 +37,13 @@ public class HiddenDangerDO {
 
     private String responsibilityUserName;
 
-    private Date changeEndDate;
+    private Date reportTime;
 
-    private Integer resultStatus;
+    private Date changeEndDate;
 
     private Integer reportType;
 
-    private Long inspectUserId;
-
-    private String inspectUserName;
-
-    private String reportStatus;
-
-    private Date reportTime;
-
-    private Date confirmTime;
+    private Integer reportStatus;
 
     private Long disLevelUserId;
 
@@ -66,6 +60,44 @@ public class HiddenDangerDO {
     private String changeUserName;
 
     private Date changeSubmitTime;
+
+    private Long inspectUserId;
+
+    private String inspectUserName;
+
+    private String inspectExtra;
+
+    private String inspectPhoto;
+
+    private Integer inspectStatus;
+
+    private Date inspectTime;
+
+    private String rigCode;
+
+    private Long rigId;
+
+    private String evnPhoto;
+
+    private String evnExtra;
+
+    private Integer evnStatus;
+
+    private Date evnTime;
+
+    private Long evnUserId;
+
+    private String evnUserName;
+
+    private Long findUserId;
+
+    private String findUserName;
+
+    private Long confirmUserId;
+
+    private String confirmUserName;
+
+    private Date confirmTime;
 
     private String changePlan;
 
@@ -133,12 +165,12 @@ public class HiddenDangerDO {
         this.bgItemCode = bgItemCode == null ? null : bgItemCode.trim();
     }
 
-    public String getDeptCode() {
-        return deptCode;
+    public Long getDeptId() {
+        return deptId;
     }
 
-    public void setDeptCode(String deptCode) {
-        this.deptCode = deptCode == null ? null : deptCode.trim();
+    public void setDeptId(Long deptId) {
+        this.deptId = deptId;
     }
 
     public String getDeptName() {
@@ -149,20 +181,20 @@ public class HiddenDangerDO {
         this.deptName = deptName == null ? null : deptName.trim();
     }
 
-    public String getDeptParentCode() {
-        return deptParentCode;
+    public Long getParentDeptId() {
+        return parentDeptId;
     }
 
-    public void setDeptParentCode(String deptParentCode) {
-        this.deptParentCode = deptParentCode == null ? null : deptParentCode.trim();
+    public void setParentDeptId(Long parentDeptId) {
+        this.parentDeptId = parentDeptId;
     }
 
-    public String getDeptParentName() {
-        return deptParentName;
+    public String getParentDeptName() {
+        return parentDeptName;
     }
 
-    public void setDeptParentName(String deptParentName) {
-        this.deptParentName = deptParentName == null ? null : deptParentName.trim();
+    public void setParentDeptName(String parentDeptName) {
+        this.parentDeptName = parentDeptName == null ? null : parentDeptName.trim();
     }
 
     public Integer getDangerLevel() {
@@ -171,6 +203,14 @@ public class HiddenDangerDO {
 
     public void setDangerLevel(Integer dangerLevel) {
         this.dangerLevel = dangerLevel;
+    }
+
+    public String getBreakUserId() {
+        return breakUserId;
+    }
+
+    public void setBreakUserId(String breakUserId) {
+        this.breakUserId = breakUserId == null ? null : breakUserId.trim();
     }
 
     public String getBreakUserName() {
@@ -197,20 +237,20 @@ public class HiddenDangerDO {
         this.responsibilityUserName = responsibilityUserName == null ? null : responsibilityUserName.trim();
     }
 
+    public Date getReportTime() {
+        return reportTime;
+    }
+
+    public void setReportTime(Date reportTime) {
+        this.reportTime = reportTime;
+    }
+
     public Date getChangeEndDate() {
         return changeEndDate;
     }
 
     public void setChangeEndDate(Date changeEndDate) {
         this.changeEndDate = changeEndDate;
-    }
-
-    public Integer getResultStatus() {
-        return resultStatus;
-    }
-
-    public void setResultStatus(Integer resultStatus) {
-        this.resultStatus = resultStatus;
     }
 
     public Integer getReportType() {
@@ -221,44 +261,12 @@ public class HiddenDangerDO {
         this.reportType = reportType;
     }
 
-    public Long getInspectUserId() {
-        return inspectUserId;
-    }
-
-    public void setInspectUserId(Long inspectUserId) {
-        this.inspectUserId = inspectUserId;
-    }
-
-    public String getInspectUserName() {
-        return inspectUserName;
-    }
-
-    public void setInspectUserName(String inspectUserName) {
-        this.inspectUserName = inspectUserName == null ? null : inspectUserName.trim();
-    }
-
-    public String getReportStatus() {
+    public Integer getReportStatus() {
         return reportStatus;
     }
 
-    public void setReportStatus(String reportStatus) {
-        this.reportStatus = reportStatus == null ? null : reportStatus.trim();
-    }
-
-    public Date getReportTime() {
-        return reportTime;
-    }
-
-    public void setReportTime(Date reportTime) {
-        this.reportTime = reportTime;
-    }
-
-    public Date getConfirmTime() {
-        return confirmTime;
-    }
-
-    public void setConfirmTime(Date confirmTime) {
-        this.confirmTime = confirmTime;
+    public void setReportStatus(Integer reportStatus) {
+        this.reportStatus = reportStatus;
     }
 
     public Long getDisLevelUserId() {
@@ -323,6 +331,158 @@ public class HiddenDangerDO {
 
     public void setChangeSubmitTime(Date changeSubmitTime) {
         this.changeSubmitTime = changeSubmitTime;
+    }
+
+    public Long getInspectUserId() {
+        return inspectUserId;
+    }
+
+    public void setInspectUserId(Long inspectUserId) {
+        this.inspectUserId = inspectUserId;
+    }
+
+    public String getInspectUserName() {
+        return inspectUserName;
+    }
+
+    public void setInspectUserName(String inspectUserName) {
+        this.inspectUserName = inspectUserName == null ? null : inspectUserName.trim();
+    }
+
+    public String getInspectExtra() {
+        return inspectExtra;
+    }
+
+    public void setInspectExtra(String inspectExtra) {
+        this.inspectExtra = inspectExtra == null ? null : inspectExtra.trim();
+    }
+
+    public String getInspectPhoto() {
+        return inspectPhoto;
+    }
+
+    public void setInspectPhoto(String inspectPhoto) {
+        this.inspectPhoto = inspectPhoto == null ? null : inspectPhoto.trim();
+    }
+
+    public Integer getInspectStatus() {
+        return inspectStatus;
+    }
+
+    public void setInspectStatus(Integer inspectStatus) {
+        this.inspectStatus = inspectStatus;
+    }
+
+    public Date getInspectTime() {
+        return inspectTime;
+    }
+
+    public void setInspectTime(Date inspectTime) {
+        this.inspectTime = inspectTime;
+    }
+
+    public String getRigCode() {
+        return rigCode;
+    }
+
+    public void setRigCode(String rigCode) {
+        this.rigCode = rigCode == null ? null : rigCode.trim();
+    }
+
+    public Long getRigId() {
+        return rigId;
+    }
+
+    public void setRigId(Long rigId) {
+        this.rigId = rigId;
+    }
+
+    public String getEvnPhoto() {
+        return evnPhoto;
+    }
+
+    public void setEvnPhoto(String evnPhoto) {
+        this.evnPhoto = evnPhoto == null ? null : evnPhoto.trim();
+    }
+
+    public String getEvnExtra() {
+        return evnExtra;
+    }
+
+    public void setEvnExtra(String evnExtra) {
+        this.evnExtra = evnExtra == null ? null : evnExtra.trim();
+    }
+
+    public Integer getEvnStatus() {
+        return evnStatus;
+    }
+
+    public void setEvnStatus(Integer evnStatus) {
+        this.evnStatus = evnStatus;
+    }
+
+    public Date getEvnTime() {
+        return evnTime;
+    }
+
+    public void setEvnTime(Date evnTime) {
+        this.evnTime = evnTime;
+    }
+
+    public Long getEvnUserId() {
+        return evnUserId;
+    }
+
+    public void setEvnUserId(Long evnUserId) {
+        this.evnUserId = evnUserId;
+    }
+
+    public String getEvnUserName() {
+        return evnUserName;
+    }
+
+    public void setEvnUserName(String evnUserName) {
+        this.evnUserName = evnUserName == null ? null : evnUserName.trim();
+    }
+
+    public Long getFindUserId() {
+        return findUserId;
+    }
+
+    public void setFindUserId(Long findUserId) {
+        this.findUserId = findUserId;
+    }
+
+    public String getFindUserName() {
+        return findUserName;
+    }
+
+    public void setFindUserName(String findUserName) {
+        this.findUserName = findUserName == null ? null : findUserName.trim();
+    }
+
+    public Long getConfirmUserId() {
+        return confirmUserId;
+    }
+
+    public void setConfirmUserId(Long confirmUserId) {
+        this.confirmUserId = confirmUserId;
+    }
+
+    public String getConfirmUserName() {
+        return confirmUserName;
+    }
+
+    public void setConfirmUserName(String confirmUserName) {
+        this.confirmUserName = confirmUserName == null ? null : confirmUserName.trim();
+    }
+
+    public Date getConfirmTime() {
+        return confirmTime;
+    }
+
+    public void setConfirmTime(Date confirmTime) {
+        this.confirmTime = confirmTime;
     }
 
     public String getChangePlan() {

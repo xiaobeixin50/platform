@@ -20,7 +20,7 @@ public enum DangerLevelEnum {
 
     private String msg;
 
-    private static final Map<Integer, DangerLevelEnum> MAP = Maps.newHashMap();
+    public static final Map<Integer, DangerLevelEnum> MAP = Maps.newLinkedHashMap();
 
     static {
         for (DangerLevelEnum item : DangerLevelEnum.values()) {

@@ -1,10 +1,11 @@
 package com.beiken.saas.platform.biz.vo;
 
+import com.beiken.saas.platform.pojo.HiddenDangerDO;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.List;
 
 /**
  * User: panboliang
@@ -12,138 +13,41 @@ import java.util.Date;
  * Time: 下午8:32
  */
 @Data
-public class DangerVO implements Serializable{
+public class DangerVO extends HiddenDangerDO implements Serializable{
     private static final long serialVersionUID = 3842240211543414146L;
 
-    @ApiModelProperty(name = "gmtCreate", value = "隐患创建时间"
-            , example = "")
-    private Date gmtCreate;
-
-    @ApiModelProperty(name = "gmtModified", value = "隐患修改时间"
-            , example = "")
-    private Date gmtModified;
-
-    @ApiModelProperty(name = "dangerCode", value = "隐患编码"
-            , example = "")
-    private String dangerCode;
-
-    @ApiModelProperty(name = "photo", value = "图片地址"
+    @ApiModelProperty(name = "photoList", value = "图片地址返回结果,返回结果用"
             , example = "多个英文,号分割")
-    private String photo;
+    private List<String> photoList;
 
-    @ApiModelProperty(name = "reportExtra", value = "说明"
-            , example = "")
-    private String reportExtra;
+    @ApiModelProperty(name = "inspectPhotoList", value = "监理验收图片地址,返回结果用"
+            , example = "多个英文,号分割")
+    private List<String> inspectPhotoList;
 
-    @ApiModelProperty(name = "taskCode", value = "任务编码"
-            , example = "")
-    private String taskCode;
+    @ApiModelProperty(name = "evnPhotoList", value = "环保部门验收图片地址,返回结果用"
+            , example = "多个英文,号分割")
+    private List<String> evnPhotoList;
 
-    @ApiModelProperty(name = "bgItemCode", value = "检查项编码"
+    @ApiModelProperty(name = "bgItemDetail", value = "eg:非行为类-井控管理-远控台-压力表" +
+            "需要什么自行截取"
             , example = "")
-    private String bgItemCode;
+    private String bgItemDetail;
 
-    @ApiModelProperty(name = "deptId", value = "被检单位id/井队"
+    @ApiModelProperty(name = "dangerLevelStr", value = "隐患级别,中文"
             , example = "")
-    private Long deptId;
+    private String dangerLevelStr;
 
-    @ApiModelProperty(name = "deptName", value = "被检单位名"
+    @ApiModelProperty(name = "breakUserId", value = "违章人id,返回结果用"
             , example = "")
-    private String deptName;
+    private List<String> breakUserIdList;
 
-    @ApiModelProperty(name = "parentDeptId", value = "被检单位上级id,即子公司"
+    @ApiModelProperty(name = "breakUserNameList", value = "违章人姓名列表,返回结果用"
             , example = "")
-    private Long parentDeptId;
+    private List<String> breakUserNameList;
 
-    @ApiModelProperty(name = "parentDeptName", value = "被检单位上级名,子公司名"
+    @ApiModelProperty(name = "processNum", value = "包含的状态(数字), " +
+            "比如有4个状态,就返回[0,1,2,3],具体每个数字代表什么从字典表中查询"
             , example = "")
-    private String parentDeptName;
+    private List<Integer> processNum;
 
-    @ApiModelProperty(name = "dangerLevel", value = "隐患级别"
-            , example = "")
-    private Integer dangerLevel;
-
-    @ApiModelProperty(name = "breakUser", value = "违章人"
-            , example = "")
-    private String breakUserName;
-
-    @ApiModelProperty(name = "responsibilityUserId", value = "责任人id-默认井队长"
-            , example = "")
-    private Long responsibilityUserId;
-
-    @ApiModelProperty(name = "responsibilityUser", value = "责任人"
-            , example = "")
-    private String responsibilityUserName;
-
-    @ApiModelProperty(name = "changeEndDate", value = "整改结束时间"
-            , example = "")
-    private Date changeEndDate;
-
-    @ApiModelProperty(name = "resultStatus", value = "隐患状态"
-            , example = "")
-    private Integer resultStatus;
-
-    @ApiModelProperty(name = "reportType", value = "上报类型"
-            , example = "")
-    private String reportType;
-
-    @ApiModelProperty(name = "inspectUserId", value = "检查人id"
-            , example = "")
-    private Long inspectUserId;
-
-    @ApiModelProperty(name = "inspectUserName", value = "检查人名"
-            , example = "")
-    private String inspectUserName;
-
-    @ApiModelProperty(name = "reportStatus", value = "上报状态"
-            , example = "")
-    private String reportStatus;
-
-    @ApiModelProperty(name = "reportTime", value = "上报时间"
-            , example = "")
-    private Date reportTime;
-
-    @ApiModelProperty(name = "confirmTime", value = "确认时间"
-            , example = "")
-    private Date confirmTime;
-
-    @ApiModelProperty(name = "disLevelUserId", value = "隐患分级人id"
-            , example = "")
-    private Long disLevelUserId;
-
-    @ApiModelProperty(name = "disLevelUserName", value = "隐患分级人名"
-            , example = "")
-    private String disLevelUserName;
-
-    @ApiModelProperty(name = "disLevelTime", value = "分级时间"
-            , example = "")
-    private Date disLevelTime;
-
-    @ApiModelProperty(name = "changeAttach", value = "附件地址"
-            , example = "")
-    private String changeAttach;
-
-    @ApiModelProperty(name = "changeMoney", value = "预算金额"
-            , example = "")
-    private Double changeMoney;
-
-    @ApiModelProperty(name = "changeUserId", value = "方案制定人id"
-            , example = "")
-    private Integer changeUserId;
-
-    @ApiModelProperty(name = "changeUserName", value = "方案制定人名"
-            , example = "")
-    private String changeUserName;
-
-    @ApiModelProperty(name = "changeSubmitTime", value = "方案提交时间"
-            , example = "")
-    private Date changeSubmitTime;
-
-    @ApiModelProperty(name = "changePlan", value = "整改计划"
-            , example = "")
-    private String changePlan;
-
-    @ApiModelProperty(name = "processNum", value = "流程展示数量"
-            , example = "")
-    private Integer processNum;
 }

@@ -95,6 +95,10 @@ public class TaskItemVO implements Serializable {
             , required = false, example = "")
     private String reportExtra;
 
+    @ApiModelProperty(name = "breakUserId", value = "任务检查项"
+            , required = false, example = "违章人id")
+    private String breakUserId;
+
     @ApiModelProperty(name = "breakUser", value = "任务检查项"
             , required = false, example = "违章人")
     private String breakUserName;
@@ -122,4 +126,20 @@ public class TaskItemVO implements Serializable {
     @ApiModelProperty(name = "changeEndDate", value = "整改截止日期"
             , required = false, example = "")
     private Date changeEndDate;
+
+    @ApiModelProperty(name = "deptId", value = "受检井队id"
+            , required = false, example = "")
+    private Long deptId;
+
+    @ApiModelProperty(name = "deptName", value = "受检井队名"
+            , required = false, example = "")
+    private String deptName;
+
+    @ApiModelProperty(name = "rigCode", value = "井code"
+            , required = false, example = "")
+    private String rigCode;
+
+    @ApiModelProperty(name = "rigId", value = "井id"
+            , required = false, example = "")
+    private String rigId;
 }

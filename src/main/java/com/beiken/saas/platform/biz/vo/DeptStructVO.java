@@ -15,10 +15,8 @@ public class DeptStructVO implements Serializable{
 
     private static final long serialVersionUID = -5364148312221930005L;
 
-    private DeptVO deptVO;
+    private String value;
 
-    private List<RigVO> rigVOs;
-
-    private List<DeptStructVO> children;
+    private List<DeptStructVO> voList;
 
 }

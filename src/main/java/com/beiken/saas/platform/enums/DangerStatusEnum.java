@@ -10,8 +10,7 @@ import java.util.Map;
  * Time: 下午5:56
  */
 public enum DangerStatusEnum {
-
-    FINISH(0, "已解决"),
+    WIT_CONFIRM(10, "待确认"),
 
     WAIT_LEVEL(1, "待分级"),
 
@@ -19,17 +18,19 @@ public enum DangerStatusEnum {
 
     WAIT_RESPON_PLAN(3, "待责任单位出方案"),
 
-    WAIT_CHANGE(4, "待整改"),
+    WAIT_CHANGE(4, "待整改验收"),
 
     WAIT_ENV_ACCEPT(5, "待环保部门验收"),
 
-    WIT_CONFIRM(10, "待确认");
+    FINISH(0, "已解决"),
+
+    CLOSE(100, "已关闭");
 
     private Integer status;
 
     private String msg;
 
-    public static final Map<Integer, DangerStatusEnum> MAP = Maps.newHashMap();
+    public static final Map<Integer, DangerStatusEnum> MAP = Maps.newLinkedHashMap();
 
     static {
         for (DangerStatusEnum item : DangerStatusEnum.values()) {

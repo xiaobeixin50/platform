@@ -16,5 +16,7 @@ public class EquipmentVO implements Serializable{
 
     private String value;
 
+    private String bgItemCode;
+
     private List<EquipmentVO> voList;
 }

@@ -105,11 +105,11 @@ public class CustomTaskController {
                     || Objects.isNull(taskItemVO.getResultStatus())) {
                 return Result.error(Constants.ERROR, "参数未传taskCode以及bgItemCode");
             }
-            boolean result = taskManager.updateTaskItem(taskItemVO);
-            if (result) {
+            String result = taskManager.updateTaskItem(taskItemVO);
+            if ("true".equals(result)) {
                 return Result.success();
             }
-            return Result.error(Constants.ERROR, "更新失败,请查看原因");
+            return Result.error(Constants.ERROR, result);
         } catch (Exception e) {
             //log.error("list error", e);
             return Result.error(Constants.ERROR, e.getMessage());

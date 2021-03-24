@@ -46,6 +46,13 @@ public class UserVO implements Serializable{
     @ApiModelProperty(name = "role", value = "角色"
             , required = false, example = "")
     private String role;
+
+    /**
+     * 角色
+     */
+    @ApiModelProperty(name = "roleType", value = "角色类型,0-井队长,1-监理"
+            , required = false, example = "")
+    private Integer roleType;
     /**
      * 头像
      */

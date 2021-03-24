@@ -13,9 +13,10 @@ import java.util.Date;
  */
 public class DateUtil {
 
-    public static final String DEFAULT_PARTERN = "yyyy-MM-dd";
+    public static final String DEFAULT_PARTERN = "yyyy-MM-dd HH:mm:ss";
     public static final String DEFAULT_PARTERN_SIMPLE= "yyyyMMdd";
     public static final String DEFAULT_PARTERN_MONTH= "yyyy-MM";
+    public static final String DEFAULT_PARTERN_DETAIL= "yyyyMMddHHmmss";
 
 
     public static boolean isSameDay(Date date1, Date date2) {
