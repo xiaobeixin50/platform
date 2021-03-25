@@ -8,9 +8,11 @@ import com.beiken.saas.platform.controller.UserController;
 import com.beiken.saas.platform.enums.*;
 import com.beiken.saas.platform.mapper.*;
 import com.beiken.saas.platform.pojo.*;
+import com.beiken.saas.platform.utils.CodeUtil;
 import com.beiken.saas.platform.utils.DateUtil;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -41,6 +43,8 @@ public class TaskManager {
     private UserController userController;
     @Resource
     private DepartmentMapper departmentMapper;
+    @Resource
+    private CodeUtil codeUtil;
 
 
 
@@ -278,6 +282,13 @@ public class TaskManager {
         //这里设计的不好,应该用一个表来存结果,时间紧迫 先这样了...
         if (TaskItemStatusEnum.DISQUALIFY.equals(
                 TaskItemStatusEnum.index(taskItemVO.getResultStatus()))) {
+            if (taskItemVO.getDeptId() == null) {
+                return "未上传隐患单位";
+            }
+            if (StringUtils.isBlank(taskItemVO.getRigCode())) {
+                return "未上传隐患井";
+            }
+            String dangerCode = codeUtil.buildDangerCode(taskItemVO.getDeptId());
             DangerVO dangerVO = new DangerVO();
             BeanUtils.copyProperties(taskItemVO, dangerVO);
             dangerVO.setChangeEndDate(taskItemVO.getChangeEndDate());
@@ -287,7 +298,8 @@ public class TaskManager {
             dangerVO.setInspectUserName(null);
             dangerVO.setFindUserId(taskItemVO.getInspectUserId());
             dangerVO.setFindUserName(taskItemVO.getInspectUserName());
-            List<Integer> integerList = DangerManager.STATUS_MAP.get(dangerVO.getReportType()).get(dangerVO.getDangerLevel());
+            dangerVO.setDangerCode(dangerCode);
+            List<Integer> integerList = Constants.STATUS_MAP.get(dangerVO.getReportType()).get(dangerVO.getDangerLevel());
             if (CollectionUtils.isEmpty(integerList)) {
                 return "未传隐患级别";
             }

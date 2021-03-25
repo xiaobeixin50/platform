@@ -37,6 +37,12 @@ public class HiddenDangerDO {
 
     private String responsibilityUserName;
 
+    private Long confirmUserId;
+
+    private String confirmUserName;
+
+    private Date confirmTime;
+
     private Date reportTime;
 
     private Date changeEndDate;
@@ -50,6 +56,8 @@ public class HiddenDangerDO {
     private String disLevelUserName;
 
     private Date disLevelTime;
+
+    private String changePlan;
 
     private String changeAttach;
 
@@ -93,13 +101,15 @@ public class HiddenDangerDO {
 
     private String findUserName;
 
-    private Long confirmUserId;
+    private Long closeUserId;
 
-    private String confirmUserName;
+    private String closeUserName;
 
-    private Date confirmTime;
+    private String closeExtra;
 
-    private String changePlan;
+    private Date changeEndTime;
+
+    private Date closeTime;
 
     public Long getId() {
         return id;
@@ -237,6 +247,30 @@ public class HiddenDangerDO {
         this.responsibilityUserName = responsibilityUserName == null ? null : responsibilityUserName.trim();
     }
 
+    public Long getConfirmUserId() {
+        return confirmUserId;
+    }
+
+    public void setConfirmUserId(Long confirmUserId) {
+        this.confirmUserId = confirmUserId;
+    }
+
+    public String getConfirmUserName() {
+        return confirmUserName;
+    }
+
+    public void setConfirmUserName(String confirmUserName) {
+        this.confirmUserName = confirmUserName == null ? null : confirmUserName.trim();
+    }
+
+    public Date getConfirmTime() {
+        return confirmTime;
+    }
+
+    public void setConfirmTime(Date confirmTime) {
+        this.confirmTime = confirmTime;
+    }
+
     public Date getReportTime() {
         return reportTime;
     }
@@ -291,6 +325,14 @@ public class HiddenDangerDO {
 
     public void setDisLevelTime(Date disLevelTime) {
         this.disLevelTime = disLevelTime;
+    }
+
+    public String getChangePlan() {
+        return changePlan;
+    }
+
+    public void setChangePlan(String changePlan) {
+        this.changePlan = changePlan == null ? null : changePlan.trim();
     }
 
     public String getChangeAttach() {
@@ -461,35 +503,43 @@ public class HiddenDangerDO {
         this.findUserName = findUserName == null ? null : findUserName.trim();
     }
 
-    public Long getConfirmUserId() {
-        return confirmUserId;
+    public Long getCloseUserId() {
+        return closeUserId;
     }
 
-    public void setConfirmUserId(Long confirmUserId) {
-        this.confirmUserId = confirmUserId;
+    public void setCloseUserId(Long closeUserId) {
+        this.closeUserId = closeUserId;
     }
 
-    public String getConfirmUserName() {
-        return confirmUserName;
+    public String getCloseUserName() {
+        return closeUserName;
     }
 
-    public void setConfirmUserName(String confirmUserName) {
-        this.confirmUserName = confirmUserName == null ? null : confirmUserName.trim();
+    public void setCloseUserName(String closeUserName) {
+        this.closeUserName = closeUserName == null ? null : closeUserName.trim();
     }
 
-    public Date getConfirmTime() {
-        return confirmTime;
+    public String getCloseExtra() {
+        return closeExtra;
     }
 
-    public void setConfirmTime(Date confirmTime) {
-        this.confirmTime = confirmTime;
+    public void setCloseExtra(String closeExtra) {
+        this.closeExtra = closeExtra == null ? null : closeExtra.trim();
     }
 
-    public String getChangePlan() {
-        return changePlan;
+    public Date getChangeEndTime() {
+        return changeEndTime;
     }
 
-    public void setChangePlan(String changePlan) {
-        this.changePlan = changePlan == null ? null : changePlan.trim();
+    public void setChangeEndTime(Date changeEndTime) {
+        this.changeEndTime = changeEndTime;
+    }
+
+    public Date getCloseTime() {
+        return closeTime;
+    }
+
+    public void setCloseTime(Date closeTime) {
+        this.closeTime = closeTime;
     }
 }

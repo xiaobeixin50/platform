@@ -12,7 +12,7 @@ import com.beiken.saas.platform.pojo.HiddenDangerDOExample;
 import com.beiken.saas.platform.utils.CodeUtil;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -36,26 +36,7 @@ public class DangerManager {
 
     private static final Integer INSPECT_USER = 0;
 
-    //key->0-任务上报,1-主动上报
-    public static Map<Integer, Map<Integer, List<Integer>>> STATUS_MAP = Maps.newLinkedHashMap();
-    private static Map<Integer, List<Integer>> TASK_REPORT_MAP = Maps.newLinkedHashMap();
-    private static Map<Integer, List<Integer>> USER_REPORT_MAP = Maps.newLinkedHashMap();
 
-    static {
-        //参考dangerStatusEnum
-        TASK_REPORT_MAP.put(0, Lists.newArrayList(4, 0));
-        TASK_REPORT_MAP.put(1, Lists.newArrayList(1, 3, 4, 0));
-        TASK_REPORT_MAP.put(2, Lists.newArrayList(1, 3, 4, 0));
-        TASK_REPORT_MAP.put(3, Lists.newArrayList(1, 2, 4, 5, 0));
-
-        USER_REPORT_MAP.put(0, Lists.newArrayList(10, 4, 0));
-        USER_REPORT_MAP.put(1, Lists.newArrayList(10, 1, 3, 4, 0));
-        USER_REPORT_MAP.put(2, Lists.newArrayList(10, 1, 3, 4, 0));
-        USER_REPORT_MAP.put(3, Lists.newArrayList(10, 1, 2, 4, 5, 0));
-
-        STATUS_MAP.put(0, TASK_REPORT_MAP);
-        STATUS_MAP.put(1, USER_REPORT_MAP);
-    }
 
     @Resource
     private HiddenDangerMapper dangerMapper;
@@ -77,27 +58,38 @@ public class DangerManager {
         for (HiddenDangerDO dangerDO : hiddenDangerDOs) {
             DangerVO dangerVO = new DangerVO();
             BeanUtils.copyProperties(dangerDO, dangerVO);
-            List<String> photoList = Splitter.on(Constants.COMMON).trimResults().omitEmptyStrings().splitToList(dangerDO.getPhoto());
-            List<String> breakUserIds = Splitter.on(Constants.COMMON).trimResults().omitEmptyStrings().splitToList(dangerDO.getBreakUserId());
-            List<String> breakUserNames = Splitter.on(Constants.COMMON).trimResults().omitEmptyStrings().splitToList(dangerDO.getBreakUserName());
-            List<String> inspectPhotos = Splitter.on(Constants.COMMON).trimResults().omitEmptyStrings().splitToList(dangerDO.getInspectPhoto());
-            List<String> evnPhotos = Splitter.on(Constants.COMMON).trimResults().omitEmptyStrings().splitToList(dangerDO.getEvnPhoto());
-            dangerVO.setPhotoList(photoList);
-            dangerVO.setBreakUserIdList(breakUserIds);
-            dangerVO.setBreakUserNameList(breakUserNames);
-            dangerVO.setInspectPhotoList(inspectPhotos);
-            dangerVO.setEvnPhotoList(evnPhotos);
-            dangerVO.setBreakUserNameList(breakUserNames);
+            if (dangerDO.getPhoto() != null) {
+                List<String> photoList = Splitter.on(Constants.COMMON).trimResults().omitEmptyStrings().splitToList(dangerDO.getPhoto());
+                dangerVO.setPhotoList(photoList);
+            }
+            if (dangerDO.getInspectPhoto() != null) {
+                List<String> inspectPhotos = Splitter.on(Constants.COMMON).trimResults().omitEmptyStrings().splitToList(dangerDO.getInspectPhoto());
+                dangerVO.setInspectPhotoList(inspectPhotos);
+            }
+            if (dangerDO.getEvnPhoto() != null) {
+                List<String> evnPhotos = Splitter.on(Constants.COMMON).trimResults().omitEmptyStrings().splitToList(dangerDO.getEvnPhoto());
+                dangerVO.setEvnPhotoList(evnPhotos);
+            }
+            if (dangerDO.getBreakUserId() != null) {
+                List<String> breakUserIds = Splitter.on(Constants.COMMON).trimResults().omitEmptyStrings().splitToList(dangerDO.getBreakUserId());
+                dangerVO.setBreakUserIdList(breakUserIds);
+            }
+            if (dangerDO.getBreakUserName() != null) {
+                List<String> breakUserNames = Splitter.on(Constants.COMMON).trimResults().omitEmptyStrings().splitToList(dangerDO.getBreakUserName());
+                dangerVO.setBreakUserNameList(breakUserNames);
+            }
             dangerVO.setDangerLevelStr(DangerLevelEnum.index(dangerDO.getDangerLevel()).getMsg());
             BgInspectItemDO itemDO = bgItemMap.get(dangerDO.getBgItemCode());
-            String detail = itemDO.getInspectType()
-                    + Constants.LINE + itemDO.getManageType()
-                    + Constants.LINE + itemDO.getSite()
-                    + Constants.LINE + itemDO.getEquipment();
-            dangerVO.setBgItemDetail(detail);
+            if (itemDO != null) {
+                String detail = itemDO.getInspectType()
+                        + Constants.LINE + itemDO.getManageType()
+                        + Constants.LINE + itemDO.getSite()
+                        + Constants.LINE + itemDO.getEquipment();
 
+                dangerVO.setBgItemDetail(detail);
+            }
             dangerVO.setProcessNum(
-                    STATUS_MAP.get(dangerDO.getReportType()).get(dangerDO.getReportStatus()));
+                    Constants.STATUS_MAP.get(dangerDO.getReportType()).get(dangerDO.getDangerLevel()));
             dangerVOs.add(dangerVO);
         }
         pageBo.setItemList(dangerVOs);
@@ -144,7 +136,7 @@ public class DangerManager {
         if (Objects.nonNull(reportType)) {
             criteria.andReportTypeEqualTo(reportType);
         }
-        List<HiddenDangerDO> hiddenDangerDOs = dangerMapper.selectByExampleWithBLOBs(example);
+        List<HiddenDangerDO> hiddenDangerDOs = dangerMapper.selectByExample(example);
         if (CollectionUtils.isEmpty(hiddenDangerDOs)) {
             return null;
         }
@@ -196,10 +188,10 @@ public class DangerManager {
         if (Objects.nonNull(dangerQuery.getDangerLevel())) {
             criteria.andDangerLevelEqualTo(dangerQuery.getDangerLevel());
         }
-        if (Objects.nonNull(dangerQuery.getRigCode())) {
+        if (StringUtils.isNotBlank(dangerQuery.getRigCode())) {
             criteria.andRigCodeEqualTo(dangerQuery.getRigCode());
         }
-        if (Objects.nonNull(dangerQuery.getBgItemCode())) {
+        if (StringUtils.isNotBlank(dangerQuery.getBgItemCode())) {
             criteria.andBgItemCodeEqualTo(dangerQuery.getBgItemCode());
         }
         if (Objects.nonNull(dangerQuery.getReportType())) {

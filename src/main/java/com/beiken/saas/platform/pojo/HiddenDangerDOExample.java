@@ -1252,6 +1252,196 @@ public class HiddenDangerDOExample {
             return (Criteria) this;
         }
 
+        public Criteria andConfirmUserIdIsNull() {
+            addCriterion("confirm_user_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andConfirmUserIdIsNotNull() {
+            addCriterion("confirm_user_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andConfirmUserIdEqualTo(Long value) {
+            addCriterion("confirm_user_id =", value, "confirmUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andConfirmUserIdNotEqualTo(Long value) {
+            addCriterion("confirm_user_id <>", value, "confirmUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andConfirmUserIdGreaterThan(Long value) {
+            addCriterion("confirm_user_id >", value, "confirmUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andConfirmUserIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("confirm_user_id >=", value, "confirmUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andConfirmUserIdLessThan(Long value) {
+            addCriterion("confirm_user_id <", value, "confirmUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andConfirmUserIdLessThanOrEqualTo(Long value) {
+            addCriterion("confirm_user_id <=", value, "confirmUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andConfirmUserIdIn(List<Long> values) {
+            addCriterion("confirm_user_id in", values, "confirmUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andConfirmUserIdNotIn(List<Long> values) {
+            addCriterion("confirm_user_id not in", values, "confirmUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andConfirmUserIdBetween(Long value1, Long value2) {
+            addCriterion("confirm_user_id between", value1, value2, "confirmUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andConfirmUserIdNotBetween(Long value1, Long value2) {
+            addCriterion("confirm_user_id not between", value1, value2, "confirmUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andConfirmUserNameIsNull() {
+            addCriterion("confirm_user_name is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andConfirmUserNameIsNotNull() {
+            addCriterion("confirm_user_name is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andConfirmUserNameEqualTo(String value) {
+            addCriterion("confirm_user_name =", value, "confirmUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andConfirmUserNameNotEqualTo(String value) {
+            addCriterion("confirm_user_name <>", value, "confirmUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andConfirmUserNameGreaterThan(String value) {
+            addCriterion("confirm_user_name >", value, "confirmUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andConfirmUserNameGreaterThanOrEqualTo(String value) {
+            addCriterion("confirm_user_name >=", value, "confirmUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andConfirmUserNameLessThan(String value) {
+            addCriterion("confirm_user_name <", value, "confirmUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andConfirmUserNameLessThanOrEqualTo(String value) {
+            addCriterion("confirm_user_name <=", value, "confirmUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andConfirmUserNameLike(String value) {
+            addCriterion("confirm_user_name like", value, "confirmUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andConfirmUserNameNotLike(String value) {
+            addCriterion("confirm_user_name not like", value, "confirmUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andConfirmUserNameIn(List<String> values) {
+            addCriterion("confirm_user_name in", values, "confirmUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andConfirmUserNameNotIn(List<String> values) {
+            addCriterion("confirm_user_name not in", values, "confirmUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andConfirmUserNameBetween(String value1, String value2) {
+            addCriterion("confirm_user_name between", value1, value2, "confirmUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andConfirmUserNameNotBetween(String value1, String value2) {
+            addCriterion("confirm_user_name not between", value1, value2, "confirmUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andConfirmTimeIsNull() {
+            addCriterion("confirm_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andConfirmTimeIsNotNull() {
+            addCriterion("confirm_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andConfirmTimeEqualTo(Date value) {
+            addCriterion("confirm_time =", value, "confirmTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andConfirmTimeNotEqualTo(Date value) {
+            addCriterion("confirm_time <>", value, "confirmTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andConfirmTimeGreaterThan(Date value) {
+            addCriterion("confirm_time >", value, "confirmTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andConfirmTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("confirm_time >=", value, "confirmTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andConfirmTimeLessThan(Date value) {
+            addCriterion("confirm_time <", value, "confirmTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andConfirmTimeLessThanOrEqualTo(Date value) {
+            addCriterion("confirm_time <=", value, "confirmTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andConfirmTimeIn(List<Date> values) {
+            addCriterion("confirm_time in", values, "confirmTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andConfirmTimeNotIn(List<Date> values) {
+            addCriterion("confirm_time not in", values, "confirmTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andConfirmTimeBetween(Date value1, Date value2) {
+            addCriterion("confirm_time between", value1, value2, "confirmTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andConfirmTimeNotBetween(Date value1, Date value2) {
+            addCriterion("confirm_time not between", value1, value2, "confirmTime");
+            return (Criteria) this;
+        }
+
         public Criteria andReportTimeIsNull() {
             addCriterion("report_time is null");
             return (Criteria) this;
@@ -1679,6 +1869,76 @@ public class HiddenDangerDOExample {
 
         public Criteria andDisLevelTimeNotBetween(Date value1, Date value2) {
             addCriterion("dis_level_time not between", value1, value2, "disLevelTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangePlanIsNull() {
+            addCriterion("change_plan is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangePlanIsNotNull() {
+            addCriterion("change_plan is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangePlanEqualTo(String value) {
+            addCriterion("change_plan =", value, "changePlan");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangePlanNotEqualTo(String value) {
+            addCriterion("change_plan <>", value, "changePlan");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangePlanGreaterThan(String value) {
+            addCriterion("change_plan >", value, "changePlan");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangePlanGreaterThanOrEqualTo(String value) {
+            addCriterion("change_plan >=", value, "changePlan");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangePlanLessThan(String value) {
+            addCriterion("change_plan <", value, "changePlan");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangePlanLessThanOrEqualTo(String value) {
+            addCriterion("change_plan <=", value, "changePlan");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangePlanLike(String value) {
+            addCriterion("change_plan like", value, "changePlan");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangePlanNotLike(String value) {
+            addCriterion("change_plan not like", value, "changePlan");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangePlanIn(List<String> values) {
+            addCriterion("change_plan in", values, "changePlan");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangePlanNotIn(List<String> values) {
+            addCriterion("change_plan not in", values, "changePlan");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangePlanBetween(String value1, String value2) {
+            addCriterion("change_plan between", value1, value2, "changePlan");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangePlanNotBetween(String value1, String value2) {
+            addCriterion("change_plan not between", value1, value2, "changePlan");
             return (Criteria) this;
         }
 
@@ -3042,193 +3302,323 @@ public class HiddenDangerDOExample {
             return (Criteria) this;
         }
 
-        public Criteria andConfirmUserIdIsNull() {
-            addCriterion("confirm_user_id is null");
+        public Criteria andCloseUserIdIsNull() {
+            addCriterion("close_user_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmUserIdIsNotNull() {
-            addCriterion("confirm_user_id is not null");
+        public Criteria andCloseUserIdIsNotNull() {
+            addCriterion("close_user_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmUserIdEqualTo(Long value) {
-            addCriterion("confirm_user_id =", value, "confirmUserId");
+        public Criteria andCloseUserIdEqualTo(Long value) {
+            addCriterion("close_user_id =", value, "closeUserId");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmUserIdNotEqualTo(Long value) {
-            addCriterion("confirm_user_id <>", value, "confirmUserId");
+        public Criteria andCloseUserIdNotEqualTo(Long value) {
+            addCriterion("close_user_id <>", value, "closeUserId");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmUserIdGreaterThan(Long value) {
-            addCriterion("confirm_user_id >", value, "confirmUserId");
+        public Criteria andCloseUserIdGreaterThan(Long value) {
+            addCriterion("close_user_id >", value, "closeUserId");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmUserIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("confirm_user_id >=", value, "confirmUserId");
+        public Criteria andCloseUserIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("close_user_id >=", value, "closeUserId");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmUserIdLessThan(Long value) {
-            addCriterion("confirm_user_id <", value, "confirmUserId");
+        public Criteria andCloseUserIdLessThan(Long value) {
+            addCriterion("close_user_id <", value, "closeUserId");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmUserIdLessThanOrEqualTo(Long value) {
-            addCriterion("confirm_user_id <=", value, "confirmUserId");
+        public Criteria andCloseUserIdLessThanOrEqualTo(Long value) {
+            addCriterion("close_user_id <=", value, "closeUserId");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmUserIdIn(List<Long> values) {
-            addCriterion("confirm_user_id in", values, "confirmUserId");
+        public Criteria andCloseUserIdIn(List<Long> values) {
+            addCriterion("close_user_id in", values, "closeUserId");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmUserIdNotIn(List<Long> values) {
-            addCriterion("confirm_user_id not in", values, "confirmUserId");
+        public Criteria andCloseUserIdNotIn(List<Long> values) {
+            addCriterion("close_user_id not in", values, "closeUserId");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmUserIdBetween(Long value1, Long value2) {
-            addCriterion("confirm_user_id between", value1, value2, "confirmUserId");
+        public Criteria andCloseUserIdBetween(Long value1, Long value2) {
+            addCriterion("close_user_id between", value1, value2, "closeUserId");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmUserIdNotBetween(Long value1, Long value2) {
-            addCriterion("confirm_user_id not between", value1, value2, "confirmUserId");
+        public Criteria andCloseUserIdNotBetween(Long value1, Long value2) {
+            addCriterion("close_user_id not between", value1, value2, "closeUserId");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmUserNameIsNull() {
-            addCriterion("confirm_user_name is null");
+        public Criteria andCloseUserNameIsNull() {
+            addCriterion("close_user_name is null");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmUserNameIsNotNull() {
-            addCriterion("confirm_user_name is not null");
+        public Criteria andCloseUserNameIsNotNull() {
+            addCriterion("close_user_name is not null");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmUserNameEqualTo(String value) {
-            addCriterion("confirm_user_name =", value, "confirmUserName");
+        public Criteria andCloseUserNameEqualTo(String value) {
+            addCriterion("close_user_name =", value, "closeUserName");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmUserNameNotEqualTo(String value) {
-            addCriterion("confirm_user_name <>", value, "confirmUserName");
+        public Criteria andCloseUserNameNotEqualTo(String value) {
+            addCriterion("close_user_name <>", value, "closeUserName");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmUserNameGreaterThan(String value) {
-            addCriterion("confirm_user_name >", value, "confirmUserName");
+        public Criteria andCloseUserNameGreaterThan(String value) {
+            addCriterion("close_user_name >", value, "closeUserName");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmUserNameGreaterThanOrEqualTo(String value) {
-            addCriterion("confirm_user_name >=", value, "confirmUserName");
+        public Criteria andCloseUserNameGreaterThanOrEqualTo(String value) {
+            addCriterion("close_user_name >=", value, "closeUserName");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmUserNameLessThan(String value) {
-            addCriterion("confirm_user_name <", value, "confirmUserName");
+        public Criteria andCloseUserNameLessThan(String value) {
+            addCriterion("close_user_name <", value, "closeUserName");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmUserNameLessThanOrEqualTo(String value) {
-            addCriterion("confirm_user_name <=", value, "confirmUserName");
+        public Criteria andCloseUserNameLessThanOrEqualTo(String value) {
+            addCriterion("close_user_name <=", value, "closeUserName");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmUserNameLike(String value) {
-            addCriterion("confirm_user_name like", value, "confirmUserName");
+        public Criteria andCloseUserNameLike(String value) {
+            addCriterion("close_user_name like", value, "closeUserName");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmUserNameNotLike(String value) {
-            addCriterion("confirm_user_name not like", value, "confirmUserName");
+        public Criteria andCloseUserNameNotLike(String value) {
+            addCriterion("close_user_name not like", value, "closeUserName");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmUserNameIn(List<String> values) {
-            addCriterion("confirm_user_name in", values, "confirmUserName");
+        public Criteria andCloseUserNameIn(List<String> values) {
+            addCriterion("close_user_name in", values, "closeUserName");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmUserNameNotIn(List<String> values) {
-            addCriterion("confirm_user_name not in", values, "confirmUserName");
+        public Criteria andCloseUserNameNotIn(List<String> values) {
+            addCriterion("close_user_name not in", values, "closeUserName");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmUserNameBetween(String value1, String value2) {
-            addCriterion("confirm_user_name between", value1, value2, "confirmUserName");
+        public Criteria andCloseUserNameBetween(String value1, String value2) {
+            addCriterion("close_user_name between", value1, value2, "closeUserName");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmUserNameNotBetween(String value1, String value2) {
-            addCriterion("confirm_user_name not between", value1, value2, "confirmUserName");
+        public Criteria andCloseUserNameNotBetween(String value1, String value2) {
+            addCriterion("close_user_name not between", value1, value2, "closeUserName");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmTimeIsNull() {
-            addCriterion("confirm_time is null");
+        public Criteria andCloseExtraIsNull() {
+            addCriterion("close_extra is null");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmTimeIsNotNull() {
-            addCriterion("confirm_time is not null");
+        public Criteria andCloseExtraIsNotNull() {
+            addCriterion("close_extra is not null");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmTimeEqualTo(Date value) {
-            addCriterion("confirm_time =", value, "confirmTime");
+        public Criteria andCloseExtraEqualTo(String value) {
+            addCriterion("close_extra =", value, "closeExtra");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmTimeNotEqualTo(Date value) {
-            addCriterion("confirm_time <>", value, "confirmTime");
+        public Criteria andCloseExtraNotEqualTo(String value) {
+            addCriterion("close_extra <>", value, "closeExtra");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmTimeGreaterThan(Date value) {
-            addCriterion("confirm_time >", value, "confirmTime");
+        public Criteria andCloseExtraGreaterThan(String value) {
+            addCriterion("close_extra >", value, "closeExtra");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmTimeGreaterThanOrEqualTo(Date value) {
-            addCriterion("confirm_time >=", value, "confirmTime");
+        public Criteria andCloseExtraGreaterThanOrEqualTo(String value) {
+            addCriterion("close_extra >=", value, "closeExtra");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmTimeLessThan(Date value) {
-            addCriterion("confirm_time <", value, "confirmTime");
+        public Criteria andCloseExtraLessThan(String value) {
+            addCriterion("close_extra <", value, "closeExtra");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmTimeLessThanOrEqualTo(Date value) {
-            addCriterion("confirm_time <=", value, "confirmTime");
+        public Criteria andCloseExtraLessThanOrEqualTo(String value) {
+            addCriterion("close_extra <=", value, "closeExtra");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmTimeIn(List<Date> values) {
-            addCriterion("confirm_time in", values, "confirmTime");
+        public Criteria andCloseExtraLike(String value) {
+            addCriterion("close_extra like", value, "closeExtra");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmTimeNotIn(List<Date> values) {
-            addCriterion("confirm_time not in", values, "confirmTime");
+        public Criteria andCloseExtraNotLike(String value) {
+            addCriterion("close_extra not like", value, "closeExtra");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmTimeBetween(Date value1, Date value2) {
-            addCriterion("confirm_time between", value1, value2, "confirmTime");
+        public Criteria andCloseExtraIn(List<String> values) {
+            addCriterion("close_extra in", values, "closeExtra");
             return (Criteria) this;
         }
 
-        public Criteria andConfirmTimeNotBetween(Date value1, Date value2) {
-            addCriterion("confirm_time not between", value1, value2, "confirmTime");
+        public Criteria andCloseExtraNotIn(List<String> values) {
+            addCriterion("close_extra not in", values, "closeExtra");
+            return (Criteria) this;
+        }
+
+        public Criteria andCloseExtraBetween(String value1, String value2) {
+            addCriterion("close_extra between", value1, value2, "closeExtra");
+            return (Criteria) this;
+        }
+
+        public Criteria andCloseExtraNotBetween(String value1, String value2) {
+            addCriterion("close_extra not between", value1, value2, "closeExtra");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeEndTimeIsNull() {
+            addCriterion("change_end_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeEndTimeIsNotNull() {
+            addCriterion("change_end_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeEndTimeEqualTo(Date value) {
+            addCriterion("change_end_time =", value, "changeEndTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeEndTimeNotEqualTo(Date value) {
+            addCriterion("change_end_time <>", value, "changeEndTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeEndTimeGreaterThan(Date value) {
+            addCriterion("change_end_time >", value, "changeEndTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeEndTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("change_end_time >=", value, "changeEndTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeEndTimeLessThan(Date value) {
+            addCriterion("change_end_time <", value, "changeEndTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeEndTimeLessThanOrEqualTo(Date value) {
+            addCriterion("change_end_time <=", value, "changeEndTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeEndTimeIn(List<Date> values) {
+            addCriterion("change_end_time in", values, "changeEndTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeEndTimeNotIn(List<Date> values) {
+            addCriterion("change_end_time not in", values, "changeEndTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeEndTimeBetween(Date value1, Date value2) {
+            addCriterion("change_end_time between", value1, value2, "changeEndTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeEndTimeNotBetween(Date value1, Date value2) {
+            addCriterion("change_end_time not between", value1, value2, "changeEndTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCloseTimeIsNull() {
+            addCriterion("close_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCloseTimeIsNotNull() {
+            addCriterion("close_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCloseTimeEqualTo(Date value) {
+            addCriterion("close_time =", value, "closeTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCloseTimeNotEqualTo(Date value) {
+            addCriterion("close_time <>", value, "closeTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCloseTimeGreaterThan(Date value) {
+            addCriterion("close_time >", value, "closeTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCloseTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("close_time >=", value, "closeTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCloseTimeLessThan(Date value) {
+            addCriterion("close_time <", value, "closeTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCloseTimeLessThanOrEqualTo(Date value) {
+            addCriterion("close_time <=", value, "closeTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCloseTimeIn(List<Date> values) {
+            addCriterion("close_time in", values, "closeTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCloseTimeNotIn(List<Date> values) {
+            addCriterion("close_time not in", values, "closeTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCloseTimeBetween(Date value1, Date value2) {
+            addCriterion("close_time between", value1, value2, "closeTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCloseTimeNotBetween(Date value1, Date value2) {
+            addCriterion("close_time not between", value1, value2, "closeTime");
             return (Criteria) this;
         }
     }

@@ -112,6 +112,7 @@ public class UserController {
             }
             UserVO userVO = userVOPageBo.getItemList().get(0);
             userVO.setPassword(null);
+
             return Result.success(userVO);
         } catch (Exception e) {
             //log.error("list error", e);
@@ -139,32 +140,35 @@ public class UserController {
     public Result searchDept(String deptName, Long deptId, @RequestParam Integer type, Integer pageNo, Integer pageSize) {
         try {
             List<DeptVO> list = Lists.newArrayList();
+            DepartmentDOExample example = new DepartmentDOExample();
+            DepartmentDOExample.Criteria criteria = example.createCriteria();
+            if (StringUtils.isNotBlank(deptName)) {
+                criteria.andDeptNameLike(Constants.LIKE + deptName + Constants.LIKE);
+            }
             if (Constants.ZERO_INT.equals(type)) {
-                DeptVO deptVO1 = new DeptVO();
-                deptVO1.setDeptId(1L);
-                deptVO1.setDeptName("北疆油服第一公司");
-                DeptVO deptVO2 = new DeptVO();
-                deptVO2.setDeptId(2L);
-                deptVO2.setDeptName("南疆油服第二公司");
-                list.add(deptVO1);
-                list.add(deptVO2);
+                criteria.andLevelEqualTo(Constants.ONE_INT);
+                List<DepartmentDO> departmentDOs = departmentMapper.selectByExample(example);
+                for (DepartmentDO departmentDO : departmentDOs) {
+                    DeptVO deptVO = new DeptVO();
+                    deptVO.setDeptId(departmentDO.getId());
+                    deptVO.setDeptName(departmentDO.getDeptName());
+                    list.add(deptVO);
+                }
             } else if (Constants.ONE_INT.equals(type)) {
-                DeptVO deptVO1 = new DeptVO();
-                UserVO userVO1 = new UserVO();
-                userVO1.setId(1L);
-                userVO1.setName("张三");
-                UserVO userVO2 = new UserVO();
-                userVO2.setId(2L);
-                userVO2.setName("李四");
-                deptVO1.setDeptId(5L);
-                deptVO1.setDeptName("21井队");
-                deptVO1.setUserVO(userVO1);
-                DeptVO deptVO2 = new DeptVO();
-                deptVO2.setDeptId(6L);
-                deptVO2.setDeptName("22井队");
-                deptVO2.setUserVO(userVO2);
-                list.add(deptVO1);
-                list.add(deptVO2);
+                criteria.andParentIdEqualTo(deptId);
+                List<DepartmentDO> departmentDOs = departmentMapper.selectByExample(example);
+                Set<Long> deptIds = departmentDOs.stream().map(DepartmentDO::getId).collect(Collectors.toSet());
+                Map<Long, List<UserVO>> map = getUserByDeptId(Lists.newArrayList(deptIds), "井队长");
+
+                for (Map.Entry<Long, List<UserVO>> entry : map.entrySet()) {
+                    for (UserVO userVO : entry.getValue()) {
+                        DeptVO deptVO = new DeptVO();
+                        deptVO.setDeptId(userVO.getDepId());
+                        deptVO.setDeptName(userVO.getDepName());
+                        deptVO.setUserVO(userVO);
+                        list.add(deptVO);
+                    }
+                }
             }
             return Result.success(list);
         } catch (Exception e) {
@@ -179,27 +183,36 @@ public class UserController {
     public Result searchuser(Long deptId) {
         try {
             List<UserVO> list = Lists.newArrayList();
-            UserVO userVO1 = new UserVO();
-            userVO1.setDepId(deptId);
-            userVO1.setDepName("北疆油服21井队");
-            userVO1.setId(19L);
-            userVO1.setRole("一线员工");
-            userVO1.setName("王麻子");
-
-            UserVO userVO2 = new UserVO();
-            userVO2.setDepId(deptId);
-            userVO2.setDepName("北疆油服21井队");
-            userVO2.setId(20L);
-            userVO2.setRole("一线员工");
-            userVO2.setName("李笑笑");
-
-            list.add(userVO1);
-            list.add(userVO2);
+            Map<Long, List<UserVO>> map = getUserByDeptId(Lists.newArrayList(deptId), "一线员工");
+            for (Map.Entry<Long, List<UserVO>> entry : map.entrySet()) {
+                list.addAll(entry.getValue());
+            }
             return Result.success(list);
         } catch (Exception e) {
             //log.error("list error", e);
             return Result.error("ERROR", e.getMessage());
         }
+    }
+
+    private Map<Long, List<UserVO>> getUserByDeptId(List<Long> deptIds, String role) {
+        Map<Long, List<UserVO>> map = Maps.newHashMap();
+        UserDOExample example = new UserDOExample();
+        example.createCriteria()
+                .andDepIdIn(deptIds)
+                .andRoleEqualTo(role);
+        List<UserDO> userDOs = userMapper.selectByExample(example);
+        for (UserDO userDO : userDOs) {
+            UserVO userVO = new UserVO();
+            BeanUtils.copyProperties(userDO, userVO);
+            userVO.setPassword(null);
+
+            if (map.containsKey(userDO.getDepId())) {
+                map.get(userDO.getDepId()).add(userVO);
+            } else {
+                map.put(userDO.getDepId(), Lists.newArrayList(userVO));
+            }
+        }
+        return map;
     }
 
     @ApiOperation("添加用户")
@@ -232,6 +245,7 @@ public class UserController {
             UserVO userVO = new UserVO();
             BeanUtils.copyProperties(userDO, userVO);
             result.add(userVO);
+            userVO.setRoleType(RoleEnum.index(userDO.getRole()));
         }
         PageBo<UserVO> pageBo = new PageBo<>();
         pageBo.setItemList(result);

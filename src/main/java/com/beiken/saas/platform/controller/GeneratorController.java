@@ -6,6 +6,7 @@ import com.beiken.saas.platform.biz.vo.GeneratorVO;
 import com.beiken.saas.platform.biz.vo.Result;
 import com.beiken.saas.platform.enums.DangerLevelEnum;
 import com.beiken.saas.platform.enums.DangerStatusEnum;
+import com.beiken.saas.platform.enums.ReportTypeEnum;
 import com.beiken.saas.platform.manage.BgManager;
 import com.beiken.saas.platform.pojo.BgInspectItemDO;
 import com.google.common.collect.Lists;
@@ -147,7 +148,7 @@ public class GeneratorController {
 
     private List<GeneratorVO> getDangerReportType() {
         List<GeneratorVO> dangerList = Lists.newArrayList();
-        for (Map.Entry<Integer, DangerStatusEnum> entry : DangerStatusEnum.MAP.entrySet()) {
+        for (Map.Entry<Integer, ReportTypeEnum> entry : ReportTypeEnum.MAP.entrySet()) {
             GeneratorVO generatorVO = new GeneratorVO();
             generatorVO.setCode("DANGER_REPORT_TYPE");
             generatorVO.setText(entry.getValue().getMsg());
