@@ -88,6 +88,9 @@ public class CustomDangerController {
             HiddenDangerDO dangerDO = new HiddenDangerDO();
             BeanUtils.copyProperties(dangerVO, dangerDO);
             dangerDO.setId(dangerId);
+            if (dangerDO.getConfirmUserId() != null) {
+                dangerDO.setReportStatus(DangerStatusEnum.WAIT_LEVEL.getStatus());
+            }
             if (dangerDO.getDisLevelUserId() != null) {
                 dangerDO.setReportStatus(DangerStatusEnum.WAIT_ENV_PLAN.getStatus());
             }

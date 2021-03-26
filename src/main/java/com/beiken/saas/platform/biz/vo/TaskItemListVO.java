@@ -100,5 +100,9 @@ public class TaskItemListVO implements Serializable {
         @ApiModelProperty(name = "extra", value = "情况说明"
                 , required = false, example = "")
         private String reportExtra;
+
+        @ApiModelProperty(name = "rigCode", value = "井code"
+                , required = false, example = "")
+        private String rigCode;
     }
 }

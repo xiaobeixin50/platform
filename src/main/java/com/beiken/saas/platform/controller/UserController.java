@@ -5,6 +5,7 @@ import com.beiken.saas.platform.biz.query.UserQuery;
 import com.beiken.saas.platform.biz.vo.*;
 import com.beiken.saas.platform.enums.Constants;
 import com.beiken.saas.platform.enums.RoleEnum;
+import com.beiken.saas.platform.manage.RigManager;
 import com.beiken.saas.platform.manage.TaskManager;
 import com.beiken.saas.platform.mapper.DepartmentMapper;
 import com.beiken.saas.platform.mapper.RigMapper;
@@ -45,6 +46,8 @@ public class UserController {
     private TaskManager taskManager;
     @Resource
     private RigMapper rigMapper;
+    @Resource
+    private RigManager rigManager;
 
     @ApiOperation("用户信息-个人资料接口(移动管理后台和客户端都可以用)")
     @ResponseBody
@@ -177,6 +180,19 @@ public class UserController {
         }
     }
 
+    @ApiOperation("根据井队查询管理的井")
+    @ResponseBody
+    @GetMapping(value = "/search/rig")
+    public Result searchRig(Long deptId) {
+        try {
+            List<String> list = rigManager.getRigByUserId(Lists.newArrayList(deptId));
+            return Result.success(list);
+        } catch (Exception e) {
+            //log.error("list error", e);
+            return Result.error("ERROR", e.getMessage());
+        }
+    }
+
     @ApiOperation("根据井队id查询用户.(可用在查询违章人,即查询一线员工)")
     @ResponseBody
     @GetMapping(value = "/search/user")
@@ -253,16 +269,12 @@ public class UserController {
     }
 
     //先写这儿吧
-    public UserDO getCaptUserByDeptId(Long deptId, Integer roleType) {
+    public UserDO getCaptUserByDeptId(Long deptId, String role) {
         UserDOExample example = new UserDOExample();
         UserDOExample.Criteria criteria = example.createCriteria()
                 .andDepIdEqualTo(deptId);
-        if (Constants.ZERO_INT.equals(roleType)) {
-            criteria.andRoleEqualTo("井队长");
-        } else if (Constants.ONE_INT.equals(roleType)) {
-            criteria.andRoleEqualTo("监理");
-        } else {
-            criteria.andRoleEqualTo("一线员工");
+        if (StringUtils.isNotBlank(role)) {
+            criteria.andRoleEqualTo(role);
         }
         List<UserDO> userDOs = userMapper.selectByExample(example);
         if (CollectionUtils.isEmpty(userDOs)) {

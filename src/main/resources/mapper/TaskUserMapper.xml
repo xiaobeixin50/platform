@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.beiken.saas.platform.mapper.TaskUserMapper">
+  <resultMap id="BaseResultMap" type="com.beiken.saas.platform.pojo.TaskUserDO">
+    <result column="id" jdbcType="BIGINT" property="id" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="task_id" jdbcType="BIGINT" property="taskId" />
+    <result column="task_code" jdbcType="VARCHAR" property="taskCode" />
+    <result column="inspect_user_id" jdbcType="BIGINT" property="inspectUserId" />
+    <result column="inspect_user_name" jdbcType="VARCHAR" property="inspectUserName" />
+    <result column="task_start_time" jdbcType="TIMESTAMP" property="taskStartTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, gmt_create, gmt_modified, task_id, task_code, inspect_user_id, inspect_user_name, 
+    task_start_time
+  </sql>
+  <select id="selectByExample" parameterType="com.beiken.saas.platform.pojo.TaskUserDOExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from sft_task_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >= 0">
+      limit ${limitStart} , ${count}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.beiken.saas.platform.pojo.TaskUserDOExample">
+    delete from sft_task_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.beiken.saas.platform.pojo.TaskUserDO">
+    insert into sft_task_user (id, gmt_create, gmt_modified, 
+      task_id, task_code, inspect_user_id, 
+      inspect_user_name, task_start_time)
+    values (#{id,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{taskId,jdbcType=BIGINT}, #{taskCode,jdbcType=VARCHAR}, #{inspectUserId,jdbcType=BIGINT}, 
+      #{inspectUserName,jdbcType=VARCHAR}, #{taskStartTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.beiken.saas.platform.pojo.TaskUserDO">
+    insert into sft_task_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+      <if test="taskId != null">
+        task_id,
+      </if>
+      <if test="taskCode != null">
+        task_code,
+      </if>
+      <if test="inspectUserId != null">
+        inspect_user_id,
+      </if>
+      <if test="inspectUserName != null">
+        inspect_user_name,
+      </if>
+      <if test="taskStartTime != null">
+        task_start_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="taskId != null">
+        #{taskId,jdbcType=BIGINT},
+      </if>
+      <if test="taskCode != null">
+        #{taskCode,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectUserId != null">
+        #{inspectUserId,jdbcType=BIGINT},
+      </if>
+      <if test="inspectUserName != null">
+        #{inspectUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="taskStartTime != null">
+        #{taskStartTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.beiken.saas.platform.pojo.TaskUserDOExample" resultType="java.lang.Long">
+    select count(*) from sft_task_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sft_task_user
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.gmtCreate != null">
+        gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.gmtModified != null">
+        gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.taskId != null">
+        task_id = #{record.taskId,jdbcType=BIGINT},
+      </if>
+      <if test="record.taskCode != null">
+        task_code = #{record.taskCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inspectUserId != null">
+        inspect_user_id = #{record.inspectUserId,jdbcType=BIGINT},
+      </if>
+      <if test="record.inspectUserName != null">
+        inspect_user_name = #{record.inspectUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskStartTime != null">
+        task_start_time = #{record.taskStartTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sft_task_user
+    set id = #{record.id,jdbcType=BIGINT},
+      gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      task_id = #{record.taskId,jdbcType=BIGINT},
+      task_code = #{record.taskCode,jdbcType=VARCHAR},
+      inspect_user_id = #{record.inspectUserId,jdbcType=BIGINT},
+      inspect_user_name = #{record.inspectUserName,jdbcType=VARCHAR},
+      task_start_time = #{record.taskStartTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

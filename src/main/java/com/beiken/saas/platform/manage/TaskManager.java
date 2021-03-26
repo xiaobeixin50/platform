@@ -45,6 +45,8 @@ public class TaskManager {
     private DepartmentMapper departmentMapper;
     @Resource
     private CodeUtil codeUtil;
+    @Resource
+    private TaskUserMapper taskUserMapper;
 
 
 
@@ -71,6 +73,40 @@ public class TaskManager {
     }
 
     /**
+     * 查询当前用户有哪些巡检任务code
+     */
+    public List<String> getTaskCodeByInspectUser(Long inspectUserId, Integer pageNo, Integer pageSize) {
+        TaskUserDOExample example = new TaskUserDOExample();
+        if (pageNo != null) {
+            example.setLimitStart((pageNo - 1)*pageSize);
+        }
+        if (pageSize != null) {
+            example.setCount(pageSize);
+        }
+        example.setOrderByClause("gmt_create desc");
+        example.createCriteria().andInspectUserIdEqualTo(inspectUserId);
+        List<TaskUserDO> taskUserDOs = taskUserMapper.selectByExample(example);
+        if (CollectionUtils.isEmpty(taskUserDOs)) {
+            return Collections.emptyList();
+        }
+        Set<String> collect = taskUserDOs.stream().map(TaskUserDO::getTaskCode).collect(Collectors.toSet());
+        return Lists.newArrayList(collect);
+    }
+
+
+    public List<InspectTaskItemDO> getRigByCode(List<String> taskCodes, String rigCode) {
+        InspectTaskItemDOExample example = new InspectTaskItemDOExample();
+        InspectTaskItemDOExample.Criteria criteria = example.createCriteria().andTaskCodeIn(taskCodes);
+        if (StringUtils.isNotBlank(rigCode)) {
+            criteria.andRigCodeEqualTo(rigCode);
+        }
+        List<InspectTaskItemDO> itemDOs = taskItemMapper.selectByExample(example);
+        return itemDOs;
+    }
+
+
+
+    /**
      * 获取巡检任务列表
      *
      * @param userId
@@ -79,19 +115,17 @@ public class TaskManager {
     public PageBo<TaskListVO> listByUser(Long userId, String rigCode, Integer pageNo, Integer pageSize) {
         PageBo<TaskListVO> pageBo = new PageBo<>();
 
-        TaskQuery taskQuery = new TaskQuery();
-        taskQuery.setRigCode(rigCode);
-        taskQuery.setInspectUserId(userId);
-        taskQuery.setPageNo(pageNo);
-        taskQuery.setPageSize(pageSize);
-        InspectTaskDOExample example = buildTaskExample(taskQuery);
+        List<String> taskCodes = getTaskCodeByInspectUser(userId, pageNo, pageSize);
+        List<InspectTaskItemDO> taskItemList = getRigByCode(taskCodes, rigCode);
+        Set<String> taskCodeSet = taskItemList.stream().map(InspectTaskItemDO::getTaskCode).collect(Collectors.toSet());
 
-        List<InspectTaskDO> inspectTasks = taskMapper.selectByExample(example);
+        InspectTaskDOExample taskDOExample = new InspectTaskDOExample();
+        taskDOExample.createCriteria().andTaskCodeIn(Lists.newArrayList(taskCodeSet));
+        List<InspectTaskDO> inspectTasks = taskMapper.selectByExample(taskDOExample);
         if (CollectionUtils.isEmpty(inspectTasks)) {
             return pageBo;
         }
         List<TaskVO> taskVOList = Lists.newArrayList();
-
 
         for (InspectTaskDO inspectTask : inspectTasks) {
             TaskVO taskVO = new TaskVO();
@@ -100,20 +134,22 @@ public class TaskManager {
             taskVO.setTaskEndTime(inspectTask.getEndTime());
 
             InspectTaskItemDOExample taskItemDOExample = new InspectTaskItemDOExample();
-            InspectTaskItemDOExample.Criteria criteria = taskItemDOExample.createCriteria().andTaskCodeEqualTo(inspectTask.getTaskCode());
+            InspectTaskItemDOExample.Criteria criteria = taskItemDOExample.createCriteria().andTaskCodeEqualTo(inspectTask.getTaskCode()).andRigCodeEqualTo(rigCode);
+
             Long totalNum = taskItemMapper.countByExample(taskItemDOExample);
+            taskVO.setItemNum(totalNum);
+
             criteria.andResultStatusEqualTo(TaskStatusEnum.BEGIN.getStatus());
             Long finishNum = taskItemMapper.countByExample(taskItemDOExample);
-            taskVO.setItemNum(totalNum);
             taskVO.setFinishTaskItemNum((double) ((finishNum == 0L ? 0L : finishNum) / ((totalNum == 0) ? 1 : totalNum)));
+
             Long dangerNum = dangerManager.countDangerNumByTask(inspectTask.getTaskCode());
             if (Objects.nonNull(dangerNum) && !Constants.ZERO_LONG.equals(dangerNum)) {
                 taskVO.setDangerNum(dangerNum.intValue());
             }
             taskVOList.add(taskVO);
         }
-
-        long count = taskMapper.countByExample(example);
+        long count = taskMapper.countByExample(taskDOExample);
         pageBo.setItemList(generatorTaskList(taskVOList));
         pageBo.setTotalSize(count);
         return pageBo;
@@ -125,22 +161,13 @@ public class TaskManager {
      * @param taskCode
      * @return
      */
-    public PageBo<TaskItemListVO> listTaskItem(String taskCode) {
+    public PageBo<TaskItemListVO> listTaskItem(String taskCode, String rigCode) {
         PageBo<TaskItemListVO> pageBo = new PageBo<>();
         List<TaskItemListVO> result = Lists.newArrayList();
 
         Map<String, List<TaskItemListVO>> siteMap = Maps.newHashMap();
 
-        InspectTaskItemDOExample example = new InspectTaskItemDOExample();
-        example.createCriteria().andTaskCodeEqualTo(taskCode);
-        List<InspectTaskItemDO> taskItems = taskItemMapper.selectByExample(example);
-        //todo pbl 查隐患
-//        Map<String, InspectTaskItemDO> disQualityMap = taskItems.stream().map(p -> {
-//            if (TaskItemStatusEnum.DISQUALIFY.getStatus().equals(p.getResultStatus())) {
-//                return p;
-//            }
-//            return null;
-//        }).collect(Collectors.toMap(InspectTaskItemDO::getBgItemCode, p -> p));
+        List<InspectTaskItemDO> taskItems = getRigByCode(Lists.newArrayList(taskCode), rigCode);
 
         Set<String> bgItemCodeSet = taskItems.stream().map(InspectTaskItemDO::getBgItemCode).collect(Collectors.toSet());
         BgInspectItemDOExample bgItemExample = new BgInspectItemDOExample();
@@ -151,12 +178,9 @@ public class TaskManager {
         }
         Map<String, BgInspectItemDO> bgItemMap = bgInspectItems.stream().collect(Collectors.toMap(BgInspectItemDO::getBgItemCode, p -> p));
 
-        InspectTaskDOExample taskExample = new InspectTaskDOExample();
-        taskExample.createCriteria().andTaskCodeEqualTo(taskCode);
-        List<InspectTaskDO> inspectTaskDOs = taskMapper.selectByExample(taskExample);
-        Long deptId = inspectTaskDOs.get(0).getDeptId();
+        Long deptId = taskItems.get(0).getDeptId();
 
-        UserDO userDO = userController.getCaptUserByDeptId(deptId, Constants.ZERO_INT);
+        UserDO userDO = userController.getCaptUserByDeptId(deptId, RoleEnum.RIG_MANAGER.getMsg());
 
         for (InspectTaskItemDO taskItem : taskItems) {
             BgInspectItemDO bgItemDO = bgItemMap.get(taskItem.getBgItemCode());
@@ -172,6 +196,7 @@ public class TaskManager {
                 extra.setResponsibilityUserId(userDO.getId());
                 extra.setResponsibilityUserName(userDO.getName());
             }
+            extra.setRigCode(taskItem.getRigCode());
 
             if (!siteMap.containsKey(bgItemDO.getSite())) {
                 TaskItemListVO vo = new TaskItemListVO();
@@ -215,17 +240,11 @@ public class TaskManager {
      * @param userId
      * @return
      */
-    public UserRigVO getTaskUserRig(Long userId) {
+    public UserRigVO getTaskUserRig(Long userId, List<InspectTaskItemDO> taskItemDOs) {
         UserRigVO userRigVO = new UserRigVO();
+        userRigVO.setUserId(userId);
 
-        InspectTaskDOExample example = new InspectTaskDOExample();
-        example.createCriteria().andInspectUserIdEqualTo(userId);
-        List<InspectTaskDO> inspectTaskDOs = taskMapper.selectByExample(example);
-        if (CollectionUtils.isEmpty(inspectTaskDOs)) {
-            return null;
-        }
-
-        Set<Long> rigIdSet = inspectTaskDOs.stream().map(InspectTaskDO::getRigId).collect(Collectors.toSet());
+        Set<Long> rigIdSet = taskItemDOs.stream().map(InspectTaskItemDO::getRigId).collect(Collectors.toSet());
 
         RigDOExample rigExample = new RigDOExample();
         rigExample.createCriteria()
@@ -320,13 +339,14 @@ public class TaskManager {
      * @param bgItemCode
      * @return
      */
-    public TaskItemListVO.Extra info(String taskCode, String bgItemCode, Integer reportType) {
+    public TaskItemListVO.Extra info(String taskCode, String bgItemCode, String rigCode, Integer reportType) {
         TaskItemListVO.Extra extra = new TaskItemListVO.Extra();
 
         InspectTaskItemDOExample example = new InspectTaskItemDOExample();
         example.createCriteria()
                 .andTaskCodeEqualTo(taskCode)
-                .andBgItemCodeEqualTo(bgItemCode);
+                .andBgItemCodeEqualTo(bgItemCode)
+                .andRigCodeEqualTo(rigCode);
         List<InspectTaskItemDO> taskItems = taskItemMapper.selectByExample(example);
         if (CollectionUtils.isEmpty(taskItems)) {
             return null;
@@ -338,7 +358,6 @@ public class TaskManager {
         if (CollectionUtils.isEmpty(bgInspectItems)) {
             return null;
         }
-
         BeanUtils.copyProperties(taskItemDO, extra);
         BgInspectItemDO bgItemDO = bgInspectItems.get(0);
         HiddenDangerDO hiddenDangerDO = dangerManager.dangerInfoByCode(taskCode, bgItemCode, reportType);
@@ -356,7 +375,7 @@ public class TaskManager {
         if (!CollectionUtils.isEmpty(inspectTaskDOs)) {
             Long deptId = inspectTaskDOs.get(0).getDeptId();
             extra.setDeptId(deptId);
-            UserDO userDO = userController.getCaptUserByDeptId(deptId, Constants.ONE_INT);
+            UserDO userDO = userController.getCaptUserByDeptId(deptId, RoleEnum.MANAGER.getMsg());
             if (userDO!= null) {
                 extra.setResponsibilityUserId(userDO.getId());
                 extra.setResponsibilityUserName(userDO.getName());

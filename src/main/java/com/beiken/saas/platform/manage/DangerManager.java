@@ -33,9 +33,12 @@ public class DangerManager {
     private CodeUtil codeUtil;
     @Resource
     private BgManager bgManager;
+    @Resource
+    private TaskManager taskManager;
+    @Resource
+    private DepartManager departManager;
 
-    private static final Integer INSPECT_USER = 0;
-
+    private static final Integer MANAGER_USER = 2;
 
 
     @Resource
@@ -43,6 +46,7 @@ public class DangerManager {
 
     public PageBo<DangerVO> listByUser(Long userId, DangerQuery dangerQuery) {
         PageBo<DangerVO> pageBo = new PageBo<>();
+
 
         List<DangerVO> dangerVOs = Lists.newArrayList();
 
@@ -161,7 +165,6 @@ public class DangerManager {
         return false;
     }
 
-
     private HiddenDangerDOExample buildDangerExample(Long userId, DangerQuery dangerQuery) {
         HiddenDangerDOExample example = new HiddenDangerDOExample();
         example.setLimitStart((dangerQuery.getPageNo() - 1) * dangerQuery.getPageSize());
@@ -175,12 +178,10 @@ public class DangerManager {
         if (Objects.nonNull(dangerQuery.getDangerId())) {
             criteria.andIdEqualTo(dangerQuery.getDangerId());
         }
-        if (dangerQuery.getRoleType() != null) {
-            if (INSPECT_USER.equals(dangerQuery.getRoleType())) {
-                criteria.andFindUserIdEqualTo(userId);
-            } else {
-                criteria.andResponsibilityUserIdEqualTo(userId);
-            }
+        if (dangerQuery.getRoleType() != null && !MANAGER_USER.equals(dangerQuery.getRoleType()) && userId != null) {
+            List<Long> deptIds = departManager.getDeptIdByUserId(userId);
+            criteria.andDeptIdIn(deptIds);
+            //criteria.andFindUserIdEqualTo(userId);
         }
         if (Objects.nonNull(dangerQuery.getReportStatus())) {
             criteria.andReportStatusEqualTo(dangerQuery.getReportStatus());

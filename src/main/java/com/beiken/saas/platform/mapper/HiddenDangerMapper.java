@@ -2,9 +2,8 @@ package com.beiken.saas.platform.mapper;
 
 import com.beiken.saas.platform.pojo.HiddenDangerDO;
 import com.beiken.saas.platform.pojo.HiddenDangerDOExample;
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface HiddenDangerMapper {
     long countByExample(HiddenDangerDOExample example);

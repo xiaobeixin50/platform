@@ -11,8 +11,6 @@ public class InspectTaskItemDO {
 
     private String taskCode;
 
-    private String inspectPlanCode;
-
     private String bgItemCode;
 
     private Integer resultStatus;
@@ -22,6 +20,12 @@ public class InspectTaskItemDO {
     private String reportExtra;
 
     private Date reportTime;
+
+    private String rigCode;
+
+    private Long deptId;
+
+    private Long rigId;
 
     public Long getId() {
         return id;
@@ -53,14 +57,6 @@ public class InspectTaskItemDO {
 
     public void setTaskCode(String taskCode) {
         this.taskCode = taskCode == null ? null : taskCode.trim();
-    }
-
-    public String getInspectPlanCode() {
-        return inspectPlanCode;
-    }
-
-    public void setInspectPlanCode(String inspectPlanCode) {
-        this.inspectPlanCode = inspectPlanCode == null ? null : inspectPlanCode.trim();
     }
 
     public String getBgItemCode() {
@@ -101,5 +97,29 @@ public class InspectTaskItemDO {
 
     public void setReportTime(Date reportTime) {
         this.reportTime = reportTime;
+    }
+
+    public String getRigCode() {
+        return rigCode;
+    }
+
+    public void setRigCode(String rigCode) {
+        this.rigCode = rigCode == null ? null : rigCode.trim();
+    }
+
+    public Long getDeptId() {
+        return deptId;
+    }
+
+    public void setDeptId(Long deptId) {
+        this.deptId = deptId;
+    }
+
+    public Long getRigId() {
+        return rigId;
+    }
+
+    public void setRigId(Long rigId) {
+        this.rigId = rigId;
     }
 }

@@ -3,19 +3,16 @@ package com.beiken.saas.platform.controller.admin;
 import com.beiken.saas.platform.biz.vo.Result;
 import com.beiken.saas.platform.biz.vo.TotalDataVO;
 import com.beiken.saas.platform.enums.Constants;
-import com.beiken.saas.platform.enums.DangerStatusEnum;
-import com.beiken.saas.platform.enums.TaskStatusEnum;
-import com.beiken.saas.platform.mapper.HiddenDangerMapper;
-import com.beiken.saas.platform.mapper.InspectTaskMapper;
-import com.beiken.saas.platform.pojo.HiddenDangerDOExample;
-import com.beiken.saas.platform.pojo.InspectTaskDOExample;
-import com.google.common.collect.Lists;
+import com.beiken.saas.platform.manage.TotalDataManager;
 import com.google.common.collect.Maps;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -31,9 +28,7 @@ import java.util.Map;
 @RequestMapping("/admin/total")
 public class TotalDataController {
     @Resource
-    private HiddenDangerMapper dangerMapper;
-    @Resource
-    private InspectTaskMapper taskMapper;
+    private TotalDataManager totalDataManager;
 
     @ApiOperation("概览第一块")
     @ResponseBody
@@ -42,32 +37,10 @@ public class TotalDataController {
                         ,@ApiImplicitParam(name = "endTime", value = "结束时间", required = false)})
     public Result first(Date startTime, Date endTime) {
         try {
-            TotalDataVO totalDataVO = new TotalDataVO();
-
-            //
-            HiddenDangerDOExample dangerDOExample = new HiddenDangerDOExample();
-            HiddenDangerDOExample.Criteria criteria = dangerDOExample.createCriteria()
-                    .andGmtCreateGreaterThanOrEqualTo(startTime)
-                    .andGmtCreateLessThanOrEqualTo(endTime);
-            long countAllDanger = dangerMapper.countByExample(dangerDOExample);
-            criteria.andReportStatusIn(Lists.newArrayList(
-                    DangerStatusEnum.FINISH.getStatus(), DangerStatusEnum.CLOSE.getStatus()));
-            long countFinishDanger = dangerMapper.countByExample(dangerDOExample);
-
-            //task
-            InspectTaskDOExample taskDOExample = new InspectTaskDOExample();
-            InspectTaskDOExample.Criteria criteria1 = taskDOExample.createCriteria()
-                    .andStartTimeLessThanOrEqualTo(startTime)
-                    .andEndTimeGreaterThanOrEqualTo(endTime);
-            long countAllTask = taskMapper.countByExample(taskDOExample);
-            criteria1.andStatusEqualTo(TaskStatusEnum.AFTER_TIME.getStatus());
-            long countAfterTimeTask = taskMapper.countByExample(taskDOExample);
-
-            totalDataVO.setTaskNum(countAllTask);
-            totalDataVO.setLimitTimeNum(countAfterTimeTask);
-            totalDataVO.setDangerNum(countAllDanger);
-            totalDataVO.setFinishDangerNum(countFinishDanger);
-
+            TotalDataVO totalDataVO = totalDataManager.countDanger(startTime, endTime);
+            TotalDataVO totalDataVO1 = totalDataManager.countTask(startTime, endTime);
+            totalDataVO.setTaskNum(totalDataVO1.getTaskNum());
+            totalDataVO.setLimitTimeNum(totalDataVO1.getLimitTimeNum());
             return Result.success(totalDataVO);
         } catch (Exception e) {
             //log.error("list error", e);
@@ -87,6 +60,7 @@ public class TotalDataController {
             map.put("北疆油服", 12.5);
             map.put("南疆油服", 87.5);
             totalDataVO.setValueMap(map);
+            //totalDataManager.totalCompany(startTime, endTime);
             return Result.success(totalDataVO);
         } catch (Exception e) {
             //log.error("list error", e);

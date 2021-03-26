@@ -4,6 +4,7 @@ import com.beiken.saas.platform.biz.bo.PageBo;
 import com.beiken.saas.platform.biz.vo.*;
 import com.beiken.saas.platform.enums.Constants;
 import com.beiken.saas.platform.manage.TaskManager;
+import com.beiken.saas.platform.pojo.InspectTaskItemDO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -12,6 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -50,7 +52,10 @@ public class CustomTaskController {
     @GetMapping(value = "/rig/{userId}")
     public Result getDeptByUser(@PathVariable Long userId) {
         try {
-            UserRigVO taskUserRig = taskManager.getTaskUserRig(userId);
+            List<String> taskCodes = taskManager.getTaskCodeByInspectUser(userId, null, null);
+            List<InspectTaskItemDO> taskRig = taskManager.getRigByCode(taskCodes, null);
+
+            UserRigVO taskUserRig = taskManager.getTaskUserRig(userId, taskRig);
             if (Objects.isNull(taskUserRig)) {
                 return Result.error(Constants.ERROR, "未找到管理的井");
             }
@@ -67,9 +72,9 @@ public class CustomTaskController {
     @ResponseBody
     @GetMapping(value = "/list/item")
     @ApiImplicitParams({@ApiImplicitParam(name = "taskCode", value = "任务编码", required = true, dataType = "String")})
-    public Result listItem(@RequestParam String taskCode) {
+    public Result listItem(@RequestParam String taskCode, @RequestParam String rigCode) {
         try {
-            PageBo<TaskItemListVO> voPageBo = taskManager.listTaskItem(taskCode);
+            PageBo<TaskItemListVO> voPageBo = taskManager.listTaskItem(taskCode, rigCode);
             return Result.success(voPageBo);
         } catch (Exception e) {
             //log.error("list error", e);
@@ -82,9 +87,9 @@ public class CustomTaskController {
     @GetMapping(value = "/item/info")
     @ApiImplicitParams({@ApiImplicitParam(name = "taskCode", value = "任务编码", required = true, dataType = "String")
             , @ApiImplicitParam(name = "bgCode", value = "检查项code", required = true, dataType = "String")})
-    public Result itemInfo(@RequestParam String taskCode, @RequestParam String bgCode) {
+    public Result itemInfo(@RequestParam String taskCode, @RequestParam String bgCode, @RequestParam String rigCode) {
         try {
-            TaskItemListVO.Extra info = taskManager.info(taskCode, bgCode, Constants.ZERO_INT);
+            TaskItemListVO.Extra info = taskManager.info(taskCode, bgCode, rigCode, Constants.ZERO_INT);
             if (Objects.isNull(info)) {
                 return Result.error(Constants.ERROR, "未找到对应的检查项");
             }
@@ -102,8 +107,9 @@ public class CustomTaskController {
         try {
             if (StringUtils.isBlank(taskItemVO.getTaskCode())
                     || StringUtils.isBlank(taskItemVO.getBgItemCode())
+                    || StringUtils.isBlank(taskItemVO.getRigCode())
                     || Objects.isNull(taskItemVO.getResultStatus())) {
-                return Result.error(Constants.ERROR, "参数未传taskCode以及bgItemCode");
+                return Result.error(Constants.ERROR, "参数未传taskCode以及bgItemCode以及rigCode");
             }
             String result = taskManager.updateTaskItem(taskItemVO);
             if ("true".equals(result)) {

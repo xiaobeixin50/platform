@@ -167,6 +167,16 @@
                enableSelectByExample="true"
                selectByExampleQueryId="true"></table>
 
+        <table tableName="sft_task_user"
+               domainObjectName="TaskUserDO"
+               mapperName="TaskUserMapper"
+
+               enableCountByExample="true"
+               enableUpdateByExample="true"
+               enableDeleteByExample="true"
+               enableSelectByExample="true"
+               selectByExampleQueryId="true"></table>
+
 
     </context>
 </generatorConfiguration>
