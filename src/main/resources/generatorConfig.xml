@@ -176,7 +176,15 @@
                enableDeleteByExample="true"
                enableSelectByExample="true"
                selectByExampleQueryId="true"></table>
+        <table tableName="sft_user_verifycode"
+               domainObjectName="UserVerifyCodeDO"
+               mapperName="UserVerifyCodeMapper"
 
+               enableCountByExample="true"
+               enableUpdateByExample="true"
+               enableDeleteByExample="true"
+               enableSelectByExample="true"
+               selectByExampleQueryId="true"></table>
 
     </context>
 </generatorConfiguration>
