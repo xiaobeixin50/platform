@@ -26,12 +26,12 @@ public class Swagger2Configuration {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("title") //文档标题
+                .title("安全管理系统接口文档") //文档标题
                 .description("安全管理相关接口")//接口概述
                 .version("1.0") //版本号
-                .termsOfServiceUrl(String.format("url"))//服务的域名
-                .license("LICENSE")//证书
-                .licenseUrl("http://www.123.com")//证书的url
+                .termsOfServiceUrl(String.format("localhost"))//服务的域名
+                .license("授权证书")//证书
+                .licenseUrl("http://www.baidu.com")//证书的url
                 .build();
     }
 }
