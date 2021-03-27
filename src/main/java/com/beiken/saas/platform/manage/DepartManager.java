@@ -1,8 +1,10 @@
 package com.beiken.saas.platform.manage;
 
 import com.beiken.saas.platform.mapper.DepartmentMapper;
+import com.beiken.saas.platform.mapper.UserMapper;
 import com.beiken.saas.platform.pojo.DepartmentDO;
 import com.beiken.saas.platform.pojo.DepartmentDOExample;
+import com.beiken.saas.platform.pojo.UserDO;
 import com.google.common.collect.Lists;
 import org.springframework.stereotype.Component;
 
@@ -20,6 +22,8 @@ import java.util.stream.Collectors;
 public class DepartManager {
     @Resource
     private DepartmentMapper departmentMapper;
+    @Resource
+    private UserMapper userMapper;
 
     /**
      * 获取当前用户井队或管理的井队
@@ -28,7 +32,9 @@ public class DepartManager {
      */
     public List<Long> getDeptIdByUserId(Long userId) {
         List<Long> result = Lists.newArrayList();
-        DepartmentDO departmentDO = departmentMapper.selectByPrimaryKey(userId);
+        UserDO userDO = userMapper.selectByPrimaryKey(userId);
+        DepartmentDO departmentDO = departmentMapper.selectByPrimaryKey(userDO.getDepId());
+
         if (departmentDO.getLevel() < 2) {
             DepartmentDOExample example = new DepartmentDOExample();
             example.createCriteria().andParentIdEqualTo(departmentDO.getId());
