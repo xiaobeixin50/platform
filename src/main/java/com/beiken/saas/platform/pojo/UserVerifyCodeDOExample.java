@@ -382,63 +382,73 @@ public class UserVerifyCodeDOExample {
             return (Criteria) this;
         }
 
-        public Criteria andUserIdIsNull() {
-            addCriterion("user_id is null");
+        public Criteria andMobileIsNull() {
+            addCriterion("mobile is null");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdIsNotNull() {
-            addCriterion("user_id is not null");
+        public Criteria andMobileIsNotNull() {
+            addCriterion("mobile is not null");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdEqualTo(Long value) {
-            addCriterion("user_id =", value, "userId");
+        public Criteria andMobileEqualTo(String value) {
+            addCriterion("mobile =", value, "mobile");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdNotEqualTo(Long value) {
-            addCriterion("user_id <>", value, "userId");
+        public Criteria andMobileNotEqualTo(String value) {
+            addCriterion("mobile <>", value, "mobile");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdGreaterThan(Long value) {
-            addCriterion("user_id >", value, "userId");
+        public Criteria andMobileGreaterThan(String value) {
+            addCriterion("mobile >", value, "mobile");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("user_id >=", value, "userId");
+        public Criteria andMobileGreaterThanOrEqualTo(String value) {
+            addCriterion("mobile >=", value, "mobile");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdLessThan(Long value) {
-            addCriterion("user_id <", value, "userId");
+        public Criteria andMobileLessThan(String value) {
+            addCriterion("mobile <", value, "mobile");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdLessThanOrEqualTo(Long value) {
-            addCriterion("user_id <=", value, "userId");
+        public Criteria andMobileLessThanOrEqualTo(String value) {
+            addCriterion("mobile <=", value, "mobile");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdIn(List<Long> values) {
-            addCriterion("user_id in", values, "userId");
+        public Criteria andMobileLike(String value) {
+            addCriterion("mobile like", value, "mobile");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdNotIn(List<Long> values) {
-            addCriterion("user_id not in", values, "userId");
+        public Criteria andMobileNotLike(String value) {
+            addCriterion("mobile not like", value, "mobile");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdBetween(Long value1, Long value2) {
-            addCriterion("user_id between", value1, value2, "userId");
+        public Criteria andMobileIn(List<String> values) {
+            addCriterion("mobile in", values, "mobile");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdNotBetween(Long value1, Long value2) {
-            addCriterion("user_id not between", value1, value2, "userId");
+        public Criteria andMobileNotIn(List<String> values) {
+            addCriterion("mobile not in", values, "mobile");
+            return (Criteria) this;
+        }
+
+        public Criteria andMobileBetween(String value1, String value2) {
+            addCriterion("mobile between", value1, value2, "mobile");
+            return (Criteria) this;
+        }
+
+        public Criteria andMobileNotBetween(String value1, String value2) {
+            addCriterion("mobile not between", value1, value2, "mobile");
             return (Criteria) this;
         }
 

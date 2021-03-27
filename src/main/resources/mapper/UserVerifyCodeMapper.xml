@@ -6,7 +6,7 @@
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
     <result column="verify_code" jdbcType="VARCHAR" property="verifyCode" />
-    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
     <result column="expire_time" jdbcType="TIMESTAMP" property="expireTime" />
     <result column="send_time" jdbcType="TIMESTAMP" property="sendTime" />
     <result column="status" jdbcType="INTEGER" property="status" />
@@ -70,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, gmt_create, gmt_modified, verify_code, user_id, expire_time, send_time, status
+    id, gmt_create, gmt_modified, verify_code, mobile, expire_time, send_time, status
   </sql>
   <select id="selectByExample" parameterType="com.beiken.saas.platform.pojo.UserVerifyCodeDOExample" resultMap="BaseResultMap">
     select
@@ -108,10 +108,10 @@
   </delete>
   <insert id="insert" parameterType="com.beiken.saas.platform.pojo.UserVerifyCodeDO">
     insert into sft_user_verifycode (id, gmt_create, gmt_modified, 
-      verify_code, user_id, expire_time, 
+      verify_code, mobile, expire_time, 
       send_time, status)
     values (#{id,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
-      #{verifyCode,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, #{expireTime,jdbcType=TIMESTAMP}, 
+      #{verifyCode,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{expireTime,jdbcType=TIMESTAMP}, 
       #{sendTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.beiken.saas.platform.pojo.UserVerifyCodeDO">
@@ -129,8 +129,8 @@
       <if test="verifyCode != null">
         verify_code,
       </if>
-      <if test="userId != null">
-        user_id,
+      <if test="mobile != null">
+        mobile,
       </if>
       <if test="expireTime != null">
         expire_time,
@@ -155,8 +155,8 @@
       <if test="verifyCode != null">
         #{verifyCode,jdbcType=VARCHAR},
       </if>
-      <if test="userId != null">
-        #{userId,jdbcType=BIGINT},
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
       </if>
       <if test="expireTime != null">
         #{expireTime,jdbcType=TIMESTAMP},
@@ -190,8 +190,8 @@
       <if test="record.verifyCode != null">
         verify_code = #{record.verifyCode,jdbcType=VARCHAR},
       </if>
-      <if test="record.userId != null">
-        user_id = #{record.userId,jdbcType=BIGINT},
+      <if test="record.mobile != null">
+        mobile = #{record.mobile,jdbcType=VARCHAR},
       </if>
       <if test="record.expireTime != null">
         expire_time = #{record.expireTime,jdbcType=TIMESTAMP},
@@ -213,7 +213,7 @@
       gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
       verify_code = #{record.verifyCode,jdbcType=VARCHAR},
-      user_id = #{record.userId,jdbcType=BIGINT},
+      mobile = #{record.mobile,jdbcType=VARCHAR},
       expire_time = #{record.expireTime,jdbcType=TIMESTAMP},
       send_time = #{record.sendTime,jdbcType=TIMESTAMP},
       status = #{record.status,jdbcType=INTEGER}
@@ -233,8 +233,8 @@
       <if test="verifyCode != null">
         verify_code = #{verifyCode,jdbcType=VARCHAR},
       </if>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=BIGINT},
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
       </if>
       <if test="expireTime != null">
         expire_time = #{expireTime,jdbcType=TIMESTAMP},
@@ -253,7 +253,7 @@
     set gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
       verify_code = #{verifyCode,jdbcType=VARCHAR},
-      user_id = #{userId,jdbcType=BIGINT},
+      mobile = #{mobile,jdbcType=VARCHAR},
       expire_time = #{expireTime,jdbcType=TIMESTAMP},
       send_time = #{sendTime,jdbcType=TIMESTAMP},
       status = #{status,jdbcType=INTEGER}

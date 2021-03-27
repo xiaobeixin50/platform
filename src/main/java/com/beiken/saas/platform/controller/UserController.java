@@ -129,14 +129,15 @@ public class UserController {
     public Result passUpdate(@RequestBody UserQuery userQuery) {
         try {
             if (StringUtils.isBlank(userQuery.getPassword()) ||
-                    Objects.isNull(userQuery.getUserId())) {
+                    Objects.isNull(userQuery.getAccountId())) {
                 return Result.error(Constants.ERROR, "用户id或密码不正确");
             }
             String password = MD5Util.getMD5Str(userQuery.getPassword());
             UserDO userDO = new UserDO();
             userDO.setPassword(password);
-            userDO.setId(userQuery.getUserId());
-            userMapper.updateByPrimaryKey(userDO);
+            UserDOExample example = new UserDOExample();
+            example.createCriteria().andAccountEqualTo(userQuery.getAccountId());
+            userMapper.updateByExampleSelective(userDO, example);
             return Result.success();
         } catch (Exception e) {
             //log.error("list error", e);

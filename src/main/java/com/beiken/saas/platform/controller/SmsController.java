@@ -55,7 +55,7 @@ public class SmsController {
                 userVerifyCodeDO.setGmtCreate(new Date());
                 userVerifyCodeDO.setGmtModified(new Date());
                 userVerifyCodeDO.setExpireTime(expireTime);
-                userVerifyCodeDO.setUserId(param.getUserId());
+                userVerifyCodeDO.setMobile(param.getMobile());
                 userVerifyCodeDO.setVerifyCode(verifyCode);
                 userVerifyCodeDO.setStatus(0);
                 userVerifyCodeMapper.insert(userVerifyCodeDO);
@@ -72,7 +72,7 @@ public class SmsController {
             userVerifyCodeDO.setGmtCreate(new Date());
             userVerifyCodeDO.setGmtModified(new Date());
             userVerifyCodeDO.setExpireTime(expireTime);
-            userVerifyCodeDO.setUserId(param.getUserId());
+            userVerifyCodeDO.setMobile(param.getMobile());
             userVerifyCodeDO.setVerifyCode(verifyCode);
             userVerifyCodeDO.setStatus(0);
             userVerifyCodeMapper.insert(userVerifyCodeDO);
@@ -89,7 +89,7 @@ public class SmsController {
 
         //读取数据库，验证有效性
         UserVerifyCodeDOExample example = new UserVerifyCodeDOExample();
-        example.createCriteria().andUserIdEqualTo(param.getUserId()).andVerifyCodeEqualTo(param.getVerifyCode());
+        example.createCriteria().andMobileEqualTo(param.getMobile()).andVerifyCodeEqualTo(param.getVerifyCode());
         List<UserVerifyCodeDO> verifyCodeList = userVerifyCodeMapper.selectByExample(example);
         if (verifyCodeList.size() == 0) {
             return Result.error("没有验证码", "没有验证码");

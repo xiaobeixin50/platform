@@ -11,7 +11,7 @@ public class UserVerifyCodeDO {
 
     private String verifyCode;
 
-    private Long userId;
+    private String mobile;
 
     private Date expireTime;
 
@@ -51,12 +51,12 @@ public class UserVerifyCodeDO {
         this.verifyCode = verifyCode == null ? null : verifyCode.trim();
     }
 
-    public Long getUserId() {
-        return userId;
+    public String getMobile() {
+        return mobile;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setMobile(String mobile) {
+        this.mobile = mobile == null ? null : mobile.trim();
     }
 
     public Date getExpireTime() {
