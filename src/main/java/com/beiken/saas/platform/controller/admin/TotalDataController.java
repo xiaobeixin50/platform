@@ -4,7 +4,6 @@ import com.beiken.saas.platform.biz.vo.Result;
 import com.beiken.saas.platform.biz.vo.TotalDataVO;
 import com.beiken.saas.platform.enums.Constants;
 import com.beiken.saas.platform.manage.TotalDataManager;
-import com.google.common.collect.Maps;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -56,11 +55,8 @@ public class TotalDataController {
     public Result second(Date startTime, Date endTime) {
         try {
             TotalDataVO totalDataVO = new TotalDataVO();
-            Map<String, Double> map = Maps.newHashMap();
-            map.put("北疆油服", 12.5);
-            map.put("南疆油服", 87.5);
+            Map<String, Double> map = totalDataManager.totalCompany(startTime, endTime);
             totalDataVO.setValueMap(map);
-            //totalDataManager.totalCompany(startTime, endTime);
             return Result.success(totalDataVO);
         } catch (Exception e) {
             //log.error("list error", e);
@@ -76,9 +72,7 @@ public class TotalDataController {
     public Result third(Date startTime, Date endTime) {
         try {
             TotalDataVO totalDataVO = new TotalDataVO();
-            Map<String, Double> map = Maps.newHashMap();
-            map.put("一级隐患", 12.5);
-            map.put("二级隐患", 87.5);
+            Map<String, Double> map = totalDataManager.totalDangerLevel(startTime, endTime);
             totalDataVO.setValueMap(map);
             return Result.success(totalDataVO);
         } catch (Exception e) {

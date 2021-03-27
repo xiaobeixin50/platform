@@ -13,7 +13,7 @@ import java.util.Map;
 
 @Api(value = "/file", description = "文件相关接口", tags = "文件上传")
 @RestController
-@RequestMapping("file")
+@RequestMapping("/file")
 public class FileUploadController {
     private static final String URL_PREFIX = "https://beiken-safety.oss-cn-beijing.aliyuncs.com/";
 
