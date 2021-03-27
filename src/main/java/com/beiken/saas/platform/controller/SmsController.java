@@ -17,10 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -38,20 +35,20 @@ public class SmsController {
     @ApiOperation("发送验证码")
     @RequestMapping(value = "/sendCode", method = {RequestMethod.GET, RequestMethod.POST})
     public @ResponseBody
-    Result<SendVerifyCodeResult> sendVerifyCode( SendVerifyCodeParam param) {
-        if(StringUtils.isEmpty(param.getMobile())){
-            return Result.error("手机号不能为空","手机号不能为空");
+    Result<SendVerifyCodeResult> sendVerifyCode(SendVerifyCodeParam param) {
+        if (StringUtils.isEmpty(param.getMobile())) {
+            return Result.error("手机号不能为空", "手机号不能为空");
         }
-        if(param.getUserId() == null){
-            return Result.error("用户id不能为空","用户id不能为空");
+        if (param.getUserId() == null) {
+            return Result.error("用户id不能为空", "用户id不能为空");
         }
 
         //随机生成6位验证码
         String verifyCode = VerifyCodeGenerator.generateVerifyCode();
         //发送验证码
-        if(param.getMock() != null && param.getMock() == 0){
+        if (param.getMock() != null && param.getMock() == 0) {
             SmsResult smsResult = SmsUtils.sendSmsByTemplate(param.getMobile(), verifyCode);
-            if(smsResult != null && smsResult.getCode() == 0){
+            if (smsResult != null && smsResult.getCode() == 0) {
                 //存储到数据库
                 UserVerifyCodeDO userVerifyCodeDO = new UserVerifyCodeDO();
                 Calendar calendar = Calendar.getInstance();
@@ -65,10 +62,10 @@ public class SmsController {
                 userVerifyCodeDO.setVerifyCode(verifyCode);
                 userVerifyCodeDO.setStatus(0);
                 userVerifyCodeMapper.insert(userVerifyCodeDO);
-            }else{
-                return Result.error("发送验证码失败","发送验证码失败");
+            } else {
+                return Result.error("发送验证码失败", "发送验证码失败");
             }
-        }else{
+        } else {
             //存储到数据库
             UserVerifyCodeDO userVerifyCodeDO = new UserVerifyCodeDO();
             Calendar calendar = Calendar.getInstance();
@@ -98,15 +95,15 @@ public class SmsController {
         UserVerifyCodeDOExample example = new UserVerifyCodeDOExample();
         example.createCriteria().andUserIdEqualTo(param.getUserId()).andVerifyCodeEqualTo(param.getVerifyCode());
         List<UserVerifyCodeDO> verifyCodeList = userVerifyCodeMapper.selectByExample(example);
-        if(verifyCodeList.size()== 0){
+        if (verifyCodeList.size() == 0) {
             return Result.error("没有验证码", "没有验证码");
         }
         UserVerifyCodeDO verifyCode = verifyCodeList.get(0);
-        if(verifyCode.getStatus() != 0){
+        if (verifyCode.getStatus() != 0) {
             return Result.error("验证码状态不正确", "验证码状态不正确");
         }
         Date date = new Date();
-        if(verifyCode.getExpireTime().before(date)) {
+        if (verifyCode.getExpireTime().before(date)) {
             //修改状态
             verifyCode.setStatus(2);
             verifyCode.setGmtModified(new Date());
@@ -123,7 +120,7 @@ public class SmsController {
     }
 
 
-    private int updateStatus(UserVerifyCodeDO record){
+    private int updateStatus(UserVerifyCodeDO record) {
 
         return userVerifyCodeMapper.updateByPrimaryKeySelective(record);
     }
