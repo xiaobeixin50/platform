@@ -176,7 +176,7 @@
                enableDeleteByExample="true"
                enableSelectByExample="true"
                selectByExampleQueryId="true"></table>
-        <table tableName="sft_user_verify_code"
+        <table tableName="sft_user_verifycode"
                domainObjectName="UserVerifyCodeDO"
                mapperName="UserVerifyCodeMapper"
 

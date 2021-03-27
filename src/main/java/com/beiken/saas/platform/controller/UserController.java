@@ -123,6 +123,27 @@ public class UserController {
         }
     }
 
+    @ApiOperation("用户更新密码接口")
+    @ResponseBody
+    @PostMapping(value = "/update/pass")
+    public Result passUpdate(@RequestBody UserQuery userQuery) {
+        try {
+            if (StringUtils.isBlank(userQuery.getPassword()) ||
+                    Objects.isNull(userQuery.getUserId())) {
+                return Result.error(Constants.ERROR, "用户id或密码不正确");
+            }
+            String password = MD5Util.getMD5Str(userQuery.getPassword());
+            UserDO userDO = new UserDO();
+            userDO.setPassword(password);
+            userDO.setId(userQuery.getUserId());
+            userMapper.updateByPrimaryKey(userDO);
+            return Result.success();
+        } catch (Exception e) {
+            //log.error("list error", e);
+            return Result.error(Constants.ERROR, e.getMessage());
+        }
+    }
+
     @ApiOperation("我的接口-客户端")
     @ResponseBody
     @GetMapping(value = "/self/{userId}")

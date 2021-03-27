@@ -16,9 +16,7 @@ import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -33,9 +31,9 @@ public class SmsController {
     private UserVerifyCodeMapper userVerifyCodeMapper;
 
     @ApiOperation("发送验证码")
-    @RequestMapping(value = "/sendCode", method = {RequestMethod.GET, RequestMethod.POST})
+    @PostMapping(value = "/sendCode")
     @ResponseBody
-    public Result<SendVerifyCodeResult> sendVerifyCode(SendVerifyCodeParam param) {
+    public Result<SendVerifyCodeResult> sendVerifyCode(@RequestBody SendVerifyCodeParam param) {
         if (StringUtils.isEmpty(param.getMobile())) {
             return Result.error("手机号不能为空", "手机号不能为空");
         }
@@ -85,9 +83,9 @@ public class SmsController {
     }
 
     @ApiOperation("检查验证码")
-    @RequestMapping(value = "/checkCode", method = {RequestMethod.GET, RequestMethod.POST})
+    @PostMapping(value = "/checkCode")
     @ResponseBody
-    public Result<CheckVerifyCodeResult> checkVerifyCode(CheckVerifyCodeParam param) {
+    public Result<CheckVerifyCodeResult> checkVerifyCode(@RequestBody CheckVerifyCodeParam param) {
 
         //读取数据库，验证有效性
         UserVerifyCodeDOExample example = new UserVerifyCodeDOExample();
