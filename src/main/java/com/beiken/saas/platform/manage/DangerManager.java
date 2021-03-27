@@ -83,14 +83,16 @@ public class DangerManager {
                 dangerVO.setBreakUserNameList(breakUserNames);
             }
             dangerVO.setDangerLevelStr(DangerLevelEnum.index(dangerDO.getDangerLevel()).getMsg());
-            BgInspectItemDO itemDO = bgItemMap.get(dangerDO.getBgItemCode());
-            if (itemDO != null) {
-                String detail = itemDO.getInspectType()
-                        + Constants.LINE + itemDO.getManageType()
-                        + Constants.LINE + itemDO.getSite()
-                        + Constants.LINE + itemDO.getEquipment();
+            if (bgItemMap != null) {
+                BgInspectItemDO itemDO = bgItemMap.get(dangerDO.getBgItemCode());
+                if (itemDO != null) {
+                    String detail = itemDO.getInspectType()
+                            + Constants.LINE + itemDO.getManageType()
+                            + Constants.LINE + itemDO.getSite()
+                            + Constants.LINE + itemDO.getEquipment();
 
-                dangerVO.setBgItemDetail(detail);
+                    dangerVO.setBgItemDetail(detail);
+                }
             }
             dangerVO.setProcessNum(
                     Constants.STATUS_MAP.get(dangerDO.getReportType()).get(dangerDO.getDangerLevel()));
@@ -173,7 +175,7 @@ public class DangerManager {
 
         HiddenDangerDOExample.Criteria criteria = example.createCriteria();
         if (userId != null && dangerQuery.getRoleType() == null) {
-            return null;
+            dangerQuery.setRoleType(MANAGER_USER);
         }
         if (Objects.nonNull(dangerQuery.getDangerId())) {
             criteria.andIdEqualTo(dangerQuery.getDangerId());

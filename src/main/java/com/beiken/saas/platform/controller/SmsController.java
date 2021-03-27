@@ -13,10 +13,9 @@ import com.beiken.saas.platform.utils.VerifyCodeGenerator;
 import com.beiken.saas.platform.utils.model.SmsResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Calendar;
@@ -28,21 +27,16 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/sms")
 public class SmsController {
-
     @Autowired
     private UserVerifyCodeMapper userVerifyCodeMapper;
 
     @ApiOperation("发送验证码")
-    @RequestMapping(value = "/sendCode", method = {RequestMethod.GET, RequestMethod.POST})
-    public @ResponseBody
-    Result<SendVerifyCodeResult> sendVerifyCode(SendVerifyCodeParam param) {
+    @PostMapping(value = "/sendCode")
+    @ResponseBody
+    public Result<SendVerifyCodeResult> sendVerifyCode(@RequestBody SendVerifyCodeParam param) {
         if (StringUtils.isEmpty(param.getMobile())) {
             return Result.error("手机号不能为空", "手机号不能为空");
         }
-        if (param.getUserId() == null) {
-            return Result.error("用户id不能为空", "用户id不能为空");
-        }
-
         //随机生成6位验证码
         String verifyCode = VerifyCodeGenerator.generateVerifyCode();
         //发送验证码
@@ -58,7 +52,7 @@ public class SmsController {
                 userVerifyCodeDO.setGmtCreate(new Date());
                 userVerifyCodeDO.setGmtModified(new Date());
                 userVerifyCodeDO.setExpireTime(expireTime);
-                userVerifyCodeDO.setUserId(param.getUserId());
+                userVerifyCodeDO.setMobile(param.getMobile());
                 userVerifyCodeDO.setVerifyCode(verifyCode);
                 userVerifyCodeDO.setStatus(0);
                 userVerifyCodeMapper.insert(userVerifyCodeDO);
@@ -75,7 +69,7 @@ public class SmsController {
             userVerifyCodeDO.setGmtCreate(new Date());
             userVerifyCodeDO.setGmtModified(new Date());
             userVerifyCodeDO.setExpireTime(expireTime);
-            userVerifyCodeDO.setUserId(param.getUserId());
+            userVerifyCodeDO.setMobile(param.getMobile());
             userVerifyCodeDO.setVerifyCode(verifyCode);
             userVerifyCodeDO.setStatus(0);
             userVerifyCodeMapper.insert(userVerifyCodeDO);
@@ -86,14 +80,13 @@ public class SmsController {
     }
 
     @ApiOperation("检查验证码")
-    @RequestMapping(value = "/checkCode", method = {RequestMethod.GET, RequestMethod.POST})
-    public @ResponseBody
-    Result<CheckVerifyCodeResult> checkVerifyCode(CheckVerifyCodeParam param) {
+    @PostMapping(value = "/checkCode")
+    @ResponseBody
+    public Result<CheckVerifyCodeResult> checkVerifyCode(@RequestBody CheckVerifyCodeParam param) {
 
         //读取数据库，验证有效性
-
         UserVerifyCodeDOExample example = new UserVerifyCodeDOExample();
-        example.createCriteria().andUserIdEqualTo(param.getUserId()).andVerifyCodeEqualTo(param.getVerifyCode());
+        example.createCriteria().andMobileEqualTo(param.getMobile()).andVerifyCodeEqualTo(param.getVerifyCode());
         List<UserVerifyCodeDO> verifyCodeList = userVerifyCodeMapper.selectByExample(example);
         if (verifyCodeList.size() == 0) {
             return Result.error("没有验证码", "没有验证码");
@@ -121,7 +114,6 @@ public class SmsController {
 
 
     private int updateStatus(UserVerifyCodeDO record) {
-
         return userVerifyCodeMapper.updateByPrimaryKeySelective(record);
     }
 

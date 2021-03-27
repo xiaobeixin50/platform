@@ -231,6 +231,21 @@ public class TaskManager {
 
         }
         for (String s : siteMap.keySet()) {
+            int finish = 0;
+            int total = 0;
+            for (TaskItemListVO taskItemListVO : siteMap.get(s)) {
+                for (List<TaskItemListVO.Extra> extras : taskItemListVO.getEquipment().values()) {
+                    for (TaskItemListVO.Extra extra : extras) {
+                        total = total + 1;
+                        if (extra.getStatus() != null) {
+                            finish = finish + 1;
+                        }
+                    }
+                }
+                if (total != 0 && total == finish) {
+                    taskItemListVO.setSiteStatus(1);
+                }
+            }
             result.addAll(siteMap.get(s));
         }
         pageBo.setItemList(result);
@@ -321,6 +336,7 @@ public class TaskManager {
             dangerVO.setFindUserId(taskItemVO.getInspectUserId());
             dangerVO.setFindUserName(taskItemVO.getInspectUserName());
             dangerVO.setDangerCode(dangerCode);
+            dangerVO.setPhoto(taskItemVO.getPhoto());
             List<Integer> integerList = Constants.STATUS_MAP.get(dangerVO.getReportType()).get(dangerVO.getDangerLevel());
             if (CollectionUtils.isEmpty(integerList)) {
                 return "未传隐患级别";
