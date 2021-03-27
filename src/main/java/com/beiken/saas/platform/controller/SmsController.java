@@ -11,7 +11,6 @@ import com.beiken.saas.platform.utils.model.SmsResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,7 +26,6 @@ public class SmsController {
     @RequestMapping(value = "/sendVerifyCode", method = RequestMethod.POST)
     public @ResponseBody
     Result<SendVerifyCodeResult> sendVerifyCode(@RequestBody SendVerifyCodeParam param) {
-
         //随机生成6位验证码
         String verifyCode = VerifyCodeGenerator.generateVerifyCode();
         //发送验证码

@@ -127,6 +127,7 @@ public class CustomDangerController {
             dangerDO.setDangerCode(dangerCode);
             dangerDO.setGmtCreate(new Date());
             dangerDO.setGmtModified(new Date());
+            dangerDO.setReportTime(new Date());
             dangerMapper.insert(dangerDO);
             return Result.success();
         } catch (Exception e) {

@@ -231,6 +231,21 @@ public class TaskManager {
 
         }
         for (String s : siteMap.keySet()) {
+            int finish = 0;
+            int total = 0;
+            for (TaskItemListVO taskItemListVO : siteMap.get(s)) {
+                for (List<TaskItemListVO.Extra> extras : taskItemListVO.getEquipment().values()) {
+                    for (TaskItemListVO.Extra extra : extras) {
+                        total = total + 1;
+                        if (extra.getStatus() != null) {
+                            finish = finish + 1;
+                        }
+                    }
+                }
+                if (total != 0 && total == finish) {
+                    taskItemListVO.setSiteStatus(1);
+                }
+            }
             result.addAll(siteMap.get(s));
         }
         pageBo.setItemList(result);
