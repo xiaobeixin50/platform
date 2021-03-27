@@ -173,7 +173,7 @@ public class DangerManager {
 
         HiddenDangerDOExample.Criteria criteria = example.createCriteria();
         if (userId != null && dangerQuery.getRoleType() == null) {
-            return null;
+            dangerQuery.setRoleType(MANAGER_USER);
         }
         if (Objects.nonNull(dangerQuery.getDangerId())) {
             criteria.andIdEqualTo(dangerQuery.getDangerId());
