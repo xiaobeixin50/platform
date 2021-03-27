@@ -19,6 +19,13 @@ public class FileUploadController {
 
     @ApiOperation("文件上传")
     @ResponseBody
+    @RequestMapping(value="/uploadTest", method = {RequestMethod.POST})
+    public Result<String> uploadFileTest(@RequestParam String type) {
+        return Result.success(type);
+    }
+
+    @ApiOperation("文件上传")
+    @ResponseBody
     @RequestMapping(value="/upload", method = {RequestMethod.POST})
     public Result<String> uploadFile(@RequestParam String type, @RequestParam MultipartFile uploadFile) {
         //根据type获得上传路径
