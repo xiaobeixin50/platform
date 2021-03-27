@@ -14,7 +14,6 @@ import com.beiken.saas.platform.pojo.InspectTaskDOExample;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.springframework.stereotype.Component;
-import springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -63,7 +62,7 @@ public class TotalDataManager {
         DepartmentDOExample example = new DepartmentDOExample();
         example.createCriteria().andLevelEqualTo(Constants.TWO_INT);
         List<DepartmentDO> departmentDOs = departmentMapper.selectByExample(example);
-        return null
+        return null;
 
        /* for (DepartmentDO departmentDO : departmentDOs) {
             HiddenDangerDOExample dangerDOExample = new HiddenDangerDOExample();

@@ -95,6 +95,9 @@ public class TaskManager {
 
 
     public List<InspectTaskItemDO> getRigByCode(List<String> taskCodes, String rigCode) {
+        if (CollectionUtils.isEmpty(taskCodes)) {
+            return Collections.emptyList();
+        }
         InspectTaskItemDOExample example = new InspectTaskItemDOExample();
         InspectTaskItemDOExample.Criteria criteria = example.createCriteria().andTaskCodeIn(taskCodes);
         if (StringUtils.isNotBlank(rigCode)) {
@@ -244,12 +247,12 @@ public class TaskManager {
         UserRigVO userRigVO = new UserRigVO();
         userRigVO.setUserId(userId);
 
-        Set<Long> rigIdSet = taskItemDOs.stream().map(InspectTaskItemDO::getRigId).collect(Collectors.toSet());
+        Set<String> rigIdSet = taskItemDOs.stream().map(InspectTaskItemDO::getRigCode).collect(Collectors.toSet());
 
         RigDOExample rigExample = new RigDOExample();
         rigExample.createCriteria()
                 .andStatusIn(Lists.newArrayList(RigStatusEnum.BEGIN.getStatus(), RigStatusEnum.FINISH.getStatus()))
-                .andIdIn(Lists.newArrayList(rigIdSet));
+                .andRigCodeIn(Lists.newArrayList(rigIdSet));
         List<RigDO> rigDOs = rigMapper.selectByExample(rigExample);
         if (CollectionUtils.isEmpty(rigDOs)) {
             return null;
