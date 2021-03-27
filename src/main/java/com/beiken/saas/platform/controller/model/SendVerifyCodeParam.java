@@ -4,6 +4,8 @@ import lombok.Data;
 
 @Data
 public class SendVerifyCodeParam {
+    private Long userId;
+
     private String mobile;
 
     /**

@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class CheckVerifyCodeParam {
 
-    private String mobile;
+    private Long userId;
     private String verifyCode;
 
 }
