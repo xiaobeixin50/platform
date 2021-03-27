@@ -336,6 +336,7 @@ public class TaskManager {
             dangerVO.setFindUserId(taskItemVO.getInspectUserId());
             dangerVO.setFindUserName(taskItemVO.getInspectUserName());
             dangerVO.setDangerCode(dangerCode);
+            dangerVO.setPhoto(taskItemVO.getPhoto());
             List<Integer> integerList = Constants.STATUS_MAP.get(dangerVO.getReportType()).get(dangerVO.getDangerLevel());
             if (CollectionUtils.isEmpty(integerList)) {
                 return "未传隐患级别";

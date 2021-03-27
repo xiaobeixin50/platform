@@ -37,9 +37,6 @@ public class SmsController {
         if (StringUtils.isEmpty(param.getMobile())) {
             return Result.error("手机号不能为空", "手机号不能为空");
         }
-        if (param.getUserId() == null) {
-            return Result.error("用户id不能为空", "用户id不能为空");
-        }
         //随机生成6位验证码
         String verifyCode = VerifyCodeGenerator.generateVerifyCode();
         //发送验证码
