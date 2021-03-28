@@ -122,7 +122,7 @@ public class DangerManager {
      */
     public Long countDangerNumByInspectUser(Long inspectUserId) {
         HiddenDangerDOExample example = new HiddenDangerDOExample();
-        example.createCriteria().andInspectUserIdEqualTo(inspectUserId);
+        example.createCriteria().andFindUserIdEqualTo(inspectUserId);
         return dangerMapper.countByExample(example);
     }
 
