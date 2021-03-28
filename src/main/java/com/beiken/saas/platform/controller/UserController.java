@@ -115,7 +115,18 @@ public class UserController {
             }
             UserVO userVO = userVOPageBo.getItemList().get(0);
             userVO.setPassword(null);
+            //增加parentDepId查询逻辑
+            DepartmentDO departmentDO = departmentMapper.selectByPrimaryKey(userVO.getDepId());
+            if(departmentDO != null){
+                if(departmentDO.getParentId() != null && departmentDO.getParentId() != 0){
+                    DepartmentDO parentDep = departmentMapper.selectByPrimaryKey(departmentDO.getParentId());
+                    if(parentDep != null){
+                        userVO.setParentDepId(parentDep.getId());
+                        userVO.setParentDepName(parentDep.getDeptName());
+                    }
 
+                }
+            }
             return Result.success(userVO);
         } catch (Exception e) {
             //log.error("list error", e);
