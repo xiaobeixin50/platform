@@ -47,9 +47,14 @@ public class RankController {
             , @ApiImplicitParam(name = "roleName", value = "角色名(井队长/监理)", required = true, dataType = "String")
             , @ApiImplicitParam(name = "pageNo", value = "pageNo", required = false, dataType = "Integer")
             , @ApiImplicitParam(name = "pageSize", value = "pageSize", required = false, dataType = "Integer")})
-    public Result rankReportDanger(@RequestParam Integer time, @RequestParam String roleName) {
-
-        PageBo<RankVO> rankList = getRankList(time, roleName);
+    public Result rankReportDanger(@RequestParam Integer time, @RequestParam String roleName, @RequestParam Integer pageNo, @RequestParam Integer pageSize) {
+        if (pageNo == null) {
+            pageNo = 1;
+        }
+        if (pageSize == null) {
+            pageSize = 10;
+        }
+        PageBo<RankVO> rankList = getRankList(time, roleName, pageNo, pageSize);
         return Result.success(rankList);
 //        PageBo<RankVO> page = new PageBo();
 //        page.setTotalSize(3L);
@@ -125,7 +130,7 @@ public class RankController {
 //        return Result.success(page);
     }
 
-    private PageBo<RankVO> getRankList(Integer time, String roleName) {
+    private PageBo<RankVO> getRankList(Integer time, String roleName, int pageNo, int pageSize) {
         PageBo<RankVO> result = new PageBo<>();
         Date startTime = null;
         Date endTime = null;
@@ -156,11 +161,21 @@ public class RankController {
         //TODO:没有传入pagesize和pageNo
         //这里需要截取一下list
         result.setTotalSize(new Long(rankList.size()));
-        result.setItemList(rankList);
-
-        result.setTotalPage(10L);
-        result.setPageNo(1);
-        result.setPageSize(10);
+        int startIndex = (pageNo - 1) * pageSize;
+        int endIndex = pageNo * pageSize - 1;
+        if(endIndex >= rankList.size()){
+            endIndex = rankList.size();
+        }
+        result.setItemList(rankList.subList(startIndex, endIndex));
+        int totalPage = 0;
+        if (rankList.size() % pageSize == 0) {
+            totalPage = rankList.size() / pageSize;
+        } else {
+            totalPage = rankList.size() / pageSize + 1;
+        }
+        result.setTotalPage(new Long(totalPage));
+        result.setPageNo(pageNo);
+        result.setPageSize(pageSize);
         return result;
     }
 
