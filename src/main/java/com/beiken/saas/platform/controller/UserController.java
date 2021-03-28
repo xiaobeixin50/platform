@@ -115,7 +115,20 @@ public class UserController {
             }
             UserVO userVO = userVOPageBo.getItemList().get(0);
             userVO.setPassword(null);
+            Long depId = userVO.getDepId();
 
+            DepartmentDO departmentDO = departmentMapper.selectByPrimaryKey(depId);
+            if (Objects.nonNull(departmentDO)) {
+                DepartmentDOExample deptExample = new DepartmentDOExample();
+                deptExample.createCriteria()
+                        .andIdEqualTo(departmentDO.getParentId());
+                List<DepartmentDO> departmentDOs = departmentMapper.selectByExample(deptExample);
+                if (!CollectionUtils.isEmpty(departmentDOs)) {
+                    DepartmentDO parentDept = departmentDOs.get(0);
+                    userVO.setParentDepId(parentDept.getId());
+                    userVO.setParentDepName(parentDept.getDeptName());
+                }
+            }
             return Result.success(userVO);
         } catch (Exception e) {
             //log.error("list error", e);

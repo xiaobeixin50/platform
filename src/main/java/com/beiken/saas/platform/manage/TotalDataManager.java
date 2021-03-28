@@ -93,7 +93,7 @@ public class TotalDataManager {
             sum += count;
         }
         for (Map.Entry<String, Long> entry : valueMap.entrySet()) {
-            result.put(entry.getKey(), entry.getValue().doubleValue() / (sum == 0L ? 1 : sum));
+            result.put(entry.getKey(), entry.getValue().doubleValue() / (sum == 0L ? 1 : sum) *100);
         }
 
         return result;
@@ -121,7 +121,7 @@ public class TotalDataManager {
             sum += count;
         }
         for (Map.Entry<String, Long> entry : valueMap.entrySet()) {
-            result.put(entry.getKey(), entry.getValue().doubleValue() / (sum == 0L ? 1 : sum));
+            result.put(entry.getKey(), entry.getValue().doubleValue() / (sum == 0L ? 1 : sum) * 100);
         }
         return result;
     }

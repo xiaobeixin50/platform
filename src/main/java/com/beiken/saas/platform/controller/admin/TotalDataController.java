@@ -8,10 +8,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -34,7 +31,7 @@ public class TotalDataController {
     @GetMapping(value = "/first")
     @ApiImplicitParams({@ApiImplicitParam(name = "startTime", value = "开始时间", required = false)
                         ,@ApiImplicitParam(name = "endTime", value = "结束时间", required = false)})
-    public Result first(Long startTime, Long endTime) {
+    public Result first(@RequestParam Long startTime, @RequestParam Long endTime) {
         try {
             Date startTime1 = new Date(startTime);
             Date endTime1 = new Date(endTime);
@@ -54,7 +51,7 @@ public class TotalDataController {
     @GetMapping(value = "/second")
     @ApiImplicitParams({@ApiImplicitParam(name = "startTime", value = "开始时间", required = false)
             ,@ApiImplicitParam(name = "endTime", value = "结束时间", required = false)})
-    public Result second(Long startTime, Long endTime) {
+    public Result second(@RequestParam Long startTime, @RequestParam Long endTime) {
         try {
             Date startTime1 = new Date(startTime);
             Date endTime1 = new Date(endTime);
@@ -73,7 +70,7 @@ public class TotalDataController {
     @GetMapping(value = "/third")
     @ApiImplicitParams({@ApiImplicitParam(name = "startTime", value = "开始时间", required = false)
             ,@ApiImplicitParam(name = "endTime", value = "结束时间", required = false)})
-    public Result third(Long startTime, Long endTime) {
+    public Result third(@RequestParam Long startTime, @RequestParam Long endTime) {
         try {
             Date startTime1 = new Date(startTime);
             Date endTime1 = new Date(endTime);
