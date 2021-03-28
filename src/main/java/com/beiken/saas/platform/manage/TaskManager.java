@@ -282,6 +282,10 @@ public class TaskManager {
             DeptVO deptVO = new DeptVO();
             deptVO.setDeptId(rigDO.getDeptId());
             deptVO.setDeptName(rigDO.getDeptName());
+
+            DeptVO parentDept = new DeptVO();
+            parentDept.setDeptId(rigDO.getParentDeptId());
+            parentDept.setDeptName(rigDO.getParentDeptName());
             if (!taskTitleMap.containsKey(deptVO)) {
                 List<RigVO> rigList = Lists.newArrayList();
                 rigList.add(rigVO);
@@ -289,7 +293,15 @@ public class TaskManager {
             } else {
                 taskTitleMap.get(deptVO).add(rigVO);
             }
+            if (!taskTitleMap.containsKey(parentDept)) {
+                List<RigVO> rigList = Lists.newArrayList();
+                rigList.add(rigVO);
+                taskTitleMap.put(parentDept, rigList);
+            } else {
+                taskTitleMap.get(parentDept).add(rigVO);
+            }
         }
+
         Map<String, List<RigVO>> resultMap = Maps.newHashMap();
         for (DeptVO deptVO : taskTitleMap.keySet()) {
             resultMap.put(JSONObject.toJSONString(deptVO), taskTitleMap.get(deptVO));
