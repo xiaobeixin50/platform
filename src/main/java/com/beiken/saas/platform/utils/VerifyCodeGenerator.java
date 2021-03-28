@@ -5,7 +5,7 @@ import java.util.Random;
 public class VerifyCodeGenerator {
 
     public static String generateVerifyCode(){
-        int nextInt = new Random().nextInt(899999) + 100000;
+        int nextInt = new Random().nextInt(8999) + 1000;
         return String.valueOf(nextInt);
     }
 
