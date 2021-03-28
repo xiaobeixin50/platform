@@ -17,6 +17,13 @@ import java.util.Map;
 public class FileUploadController {
     private static final String URL_PREFIX = "https://beiken-safety.oss-cn-beijing.aliyuncs.com/";
 
+    @ApiOperation("文件上传测试")
+    @ResponseBody
+    @RequestMapping(value="/uploadGet", method = {RequestMethod.GET})
+    public Result<String> uploadFileTest2(String type) {
+        return Result.success(type);
+    }
+
     @ApiOperation("文件上传")
     @ResponseBody
     @RequestMapping(value="/uploadTest", method = {RequestMethod.POST})
