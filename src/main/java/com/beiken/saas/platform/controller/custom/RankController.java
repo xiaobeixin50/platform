@@ -198,8 +198,8 @@ public class RankController {
         List<RankVO> collect = userIds.stream().map(userId -> {
             RankVO rankVO = new RankVO();
             rankVO.setDangerNum(groupResult.get(userId));
-
-            rankVO.setManageRigNum(rigGroupResult.get(userId) == null ? 0 : rigGroupResult.get(userId));
+            UserDO user = userMap.get(userId);
+            rankVO.setManageRigNum(rigGroupResult.get(user.getDepId()) == null ? 0 : rigGroupResult.get(user.getDepId()));
             UserDO userDO = userMap.get(userId);
             UserVO userVO = convertUserDO(userDO);
             rankVO.setUserVO(userVO);
@@ -207,7 +207,7 @@ public class RankController {
         }).collect(Collectors.toList());
 
         //排序并设置rankNo
-        collect.sort(Comparator.comparingLong(RankVO::getDangerNum));
+        collect.sort(Comparator.comparingLong(RankVO::getDangerNum).reversed());
         int rank = 1;
         for (RankVO rankVO : collect) {
             rankVO.setRankNo(new Long(rank++));
@@ -260,7 +260,7 @@ public class RankController {
         }).collect(Collectors.toList());
 
         //排序并设置rankNo
-        collect.sort(Comparator.comparingLong(RankVO::getDangerNum));
+        collect.sort(Comparator.comparingLong(RankVO::getDangerNum).reversed());
         int rank = 1;
         for (RankVO rankVO : collect) {
             rankVO.setRankNo(new Long(rank++));
