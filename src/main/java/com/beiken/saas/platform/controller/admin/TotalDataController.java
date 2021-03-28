@@ -34,10 +34,12 @@ public class TotalDataController {
     @GetMapping(value = "/first")
     @ApiImplicitParams({@ApiImplicitParam(name = "startTime", value = "开始时间", required = false)
                         ,@ApiImplicitParam(name = "endTime", value = "结束时间", required = false)})
-    public Result first(Date startTime, Date endTime) {
+    public Result first(Long startTime, Long endTime) {
         try {
-            TotalDataVO totalDataVO = totalDataManager.countDanger(startTime, endTime);
-            TotalDataVO totalDataVO1 = totalDataManager.countTask(startTime, endTime);
+            Date startTime1 = new Date(startTime);
+            Date endTime1 = new Date(endTime);
+            TotalDataVO totalDataVO = totalDataManager.countDanger(startTime1, endTime1);
+            TotalDataVO totalDataVO1 = totalDataManager.countTask(startTime1, endTime1);
             totalDataVO.setTaskNum(totalDataVO1.getTaskNum());
             totalDataVO.setLimitTimeNum(totalDataVO1.getLimitTimeNum());
             return Result.success(totalDataVO);
@@ -52,10 +54,12 @@ public class TotalDataController {
     @GetMapping(value = "/second")
     @ApiImplicitParams({@ApiImplicitParam(name = "startTime", value = "开始时间", required = false)
             ,@ApiImplicitParam(name = "endTime", value = "结束时间", required = false)})
-    public Result second(Date startTime, Date endTime) {
+    public Result second(Long startTime, Long endTime) {
         try {
+            Date startTime1 = new Date(startTime);
+            Date endTime1 = new Date(endTime);
             TotalDataVO totalDataVO = new TotalDataVO();
-            Map<String, Double> map = totalDataManager.totalCompany(startTime, endTime);
+            Map<String, Double> map = totalDataManager.totalCompany(startTime1, endTime1);
             totalDataVO.setValueMap(map);
             return Result.success(totalDataVO);
         } catch (Exception e) {
@@ -69,10 +73,12 @@ public class TotalDataController {
     @GetMapping(value = "/third")
     @ApiImplicitParams({@ApiImplicitParam(name = "startTime", value = "开始时间", required = false)
             ,@ApiImplicitParam(name = "endTime", value = "结束时间", required = false)})
-    public Result third(Date startTime, Date endTime) {
+    public Result third(Long startTime, Long endTime) {
         try {
+            Date startTime1 = new Date(startTime);
+            Date endTime1 = new Date(endTime);
             TotalDataVO totalDataVO = new TotalDataVO();
-            Map<String, Double> map = totalDataManager.totalDangerLevel(startTime, endTime);
+            Map<String, Double> map = totalDataManager.totalDangerLevel(startTime1, endTime1);
             totalDataVO.setValueMap(map);
             return Result.success(totalDataVO);
         } catch (Exception e) {
