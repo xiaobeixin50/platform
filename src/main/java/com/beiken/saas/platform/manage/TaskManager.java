@@ -140,7 +140,8 @@ public class TaskManager {
             taskVO.setTaskEndTime(inspectTask.getEndTime());
 
             InspectTaskItemDOExample taskItemDOExample = new InspectTaskItemDOExample();
-            InspectTaskItemDOExample.Criteria criteria = taskItemDOExample.createCriteria().andTaskCodeEqualTo(inspectTask.getTaskCode()).andRigCodeEqualTo(rigCode);
+            InspectTaskItemDOExample.Criteria criteria = taskItemDOExample.createCriteria()
+                    .andTaskCodeEqualTo(inspectTask.getTaskCode()).andRigCodeEqualTo(rigCode);
 
             Long totalNum = taskItemMapper.countByExample(taskItemDOExample);
             taskVO.setItemNum(totalNum);
@@ -149,7 +150,7 @@ public class TaskManager {
             Long finishNum = taskItemMapper.countByExample(taskItemDOExample);
             taskVO.setFinishTaskItemNum((double) ((finishNum == 0L ? 0L : finishNum) / ((totalNum == 0) ? 1 : totalNum)));
 
-            Long dangerNum = dangerManager.countDangerNumByTask(inspectTask.getTaskCode());
+            Long dangerNum = dangerManager.countDangerNumByTask(inspectTask.getTaskCode(), rigCode);
             if (Objects.nonNull(dangerNum) && !Constants.ZERO_LONG.equals(dangerNum)) {
                 taskVO.setDangerNum(dangerNum.intValue());
             }
@@ -308,7 +309,8 @@ public class TaskManager {
         InspectTaskItemDOExample example = new InspectTaskItemDOExample();
         example.createCriteria()
                 .andTaskCodeEqualTo(taskItemVO.getTaskCode())
-                .andBgItemCodeEqualTo(taskItemVO.getBgItemCode());
+                .andBgItemCodeEqualTo(taskItemVO.getBgItemCode())
+                .andRigCodeEqualTo(taskItemVO.getRigCode());
 
         //todo 加一个photo
         InspectTaskItemDO inspectTaskItem = new InspectTaskItemDO();
@@ -317,6 +319,9 @@ public class TaskManager {
         inspectTaskItem.setReportTime(new Date());
         inspectTaskItem.setReportExtra(taskItemVO.getReportExtra());
         inspectTaskItem.setPhoto(taskItemVO.getPhoto());
+        inspectTaskItem.setRigCode(taskItemVO.getRigCode());
+        inspectTaskItem.setBgItemCode(taskItemVO.getBgItemCode());
+        inspectTaskItem.setTaskCode(taskItemVO.getTaskCode());
         int updateResult = taskItemMapper.updateByExampleSelective(inspectTaskItem, example);
         if (updateResult < 0) {
             return "更新任务详情失败";

@@ -114,7 +114,7 @@ public class InspectTaskCreateJob {
 
     private void addTaskUser(InspectPlanVO inspectPlanVO, Date now, Long taskId, String taskCode) throws Exception {
         if (taskId == null) {
-            return ;
+            return;
         }
         for (UserDO userDO : inspectPlanVO.getInspectUserList()) {
             TaskUserDO taskUserDO = new TaskUserDO();
@@ -137,24 +137,22 @@ public class InspectTaskCreateJob {
 
     private Long addTask(InspectPlanVO inspectPlanVO, Date now, String taskCode, DepartmentDO departmentDO) {
 
-            InspectTaskDO taskDO = new InspectTaskDO();
-            taskDO.setGmtCreate(now);
-            taskDO.setGmtModified(now);
-            taskDO.setName(inspectPlanVO.getName());
-            taskDO.setTaskCode(taskCode);
-            taskDO.setInspectPlanCode(inspectPlanVO.getInspectPlanCode());
-            processDate(inspectPlanVO, taskDO, now);
-            taskDO.setStatus(Constants.ZERO_INT);
-            taskDO.setQuickly(inspectPlanVO.getPriority());
-            taskDO.setDeptId(departmentDO.getId());
-            taskDO.setDeptName(departmentDO.getDeptName());
-            int insert = inspectTaskMapper.insert(taskDO);
-            if (insert > 0) {
-                return taskDO.getId();
-            }
-            return null;
+        InspectTaskDO taskDO = new InspectTaskDO();
+        taskDO.setGmtCreate(now);
+        taskDO.setGmtModified(now);
+        taskDO.setName(inspectPlanVO.getName());
+        taskDO.setTaskCode(taskCode);
+        taskDO.setInspectPlanCode(inspectPlanVO.getInspectPlanCode());
+        processDate(inspectPlanVO, taskDO, now);
+        taskDO.setStatus(Constants.ZERO_INT);
+        taskDO.setQuickly(inspectPlanVO.getPriority());
+        taskDO.setDeptId(departmentDO.getId());
+        taskDO.setDeptName(departmentDO.getDeptName());
+        int insert = inspectTaskMapper.insert(taskDO);
+        if (insert > 0) {
+            return taskDO.getId();
         }
-
+        return null;
     }
 
     private void processDate(InspectPlanVO inspectPlanVO, InspectTaskDO taskDO, Date now) {

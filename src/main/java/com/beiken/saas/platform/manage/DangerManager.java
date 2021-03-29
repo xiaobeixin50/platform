@@ -46,8 +46,6 @@ public class DangerManager {
 
     public PageBo<DangerVO> listByUser(Long userId, DangerQuery dangerQuery) {
         PageBo<DangerVO> pageBo = new PageBo<>();
-
-
         List<DangerVO> dangerVOs = Lists.newArrayList();
 
         HiddenDangerDOExample example = buildDangerExample(userId, dangerQuery);
@@ -112,6 +110,12 @@ public class DangerManager {
     public Long countDangerNumByTask(String taskCode) {
         HiddenDangerDOExample example = new HiddenDangerDOExample();
         example.createCriteria().andTaskCodeEqualTo(taskCode);
+        return dangerMapper.countByExample(example);
+    }
+
+    public Long countDangerNumByTask(String taskCode, String rigCode) {
+        HiddenDangerDOExample example = new HiddenDangerDOExample();
+        example.createCriteria().andTaskCodeEqualTo(taskCode).andRigCodeEqualTo(rigCode);
         return dangerMapper.countByExample(example);
     }
 
