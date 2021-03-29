@@ -5,6 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * User: panboliang
@@ -17,6 +18,9 @@ public class DateUtil {
     public static final String DEFAULT_PARTERN_SIMPLE= "yyyyMMdd";
     public static final String DEFAULT_PARTERN_MONTH= "yyyy-MM";
     public static final String DEFAULT_PARTERN_DETAIL= "yyyyMMddHHmmss";
+
+    public static final String KEYUTC = "T";
+    public static final String TIMEZONEUTC  = "UTC";
 
 
     public static boolean isSameDay(Date date1, Date date2) {
@@ -54,4 +58,36 @@ public class DateUtil {
         }
         return defaultVal;
     }
+
+    public static Date parseDate(Object date, String df) {
+        return parseDate(date, df, null);
+    }
+
+    public static Date parseDate(Object date, String df, Date defaultValue) {
+        return parseDate(date, df, defaultValue, false);
+    }
+
+    public static Date parseDate(Object date, String df , Date defaultValue, boolean restrict) {
+        try {
+            if (date == null) {
+                return defaultValue;
+            }
+            String s = date.toString();
+            if (StringUtils.isBlank(s)) {
+                return defaultValue;
+            }
+            SimpleDateFormat formatter = new SimpleDateFormat(df);
+            if (df.contains(KEYUTC)) {
+                formatter.setTimeZone(TimeZone.getTimeZone(TIMEZONEUTC));
+            }
+            if (restrict) {
+                formatter.setLenient(false);
+            }
+            return formatter.parse(s);
+        } catch (Exception e) {
+
+        }
+        return defaultValue;
+    }
+
 }

@@ -17,6 +17,7 @@
     <result column="is_photo" jdbcType="INTEGER" property="isPhoto" />
     <result column="is_card" jdbcType="INTEGER" property="isCard" />
     <result column="card_site" jdbcType="VARCHAR" property="cardSite" />
+    <result column="status" jdbcType="INTEGER" property="status" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.beiken.saas.platform.pojo.BgInspectItemDO">
     <result column="control_extra" jdbcType="LONGVARCHAR" property="controlExtra" />
@@ -81,7 +82,7 @@
   </sql>
   <sql id="Base_Column_List">
     id, gmt_create, gmt_modified, bg_item_code, bg_code, inspect_type, manage_type, region, 
-    equipment, adapt, danger_level, site, is_photo, is_card, card_site
+    equipment, adapt, danger_level, site, is_photo, is_card, card_site, status
   </sql>
   <sql id="Blob_Column_List">
     control_extra
@@ -143,25 +144,28 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.beiken.saas.platform.pojo.BgInspectItemDO">
-    insert into sft_bg_inspect_item (id, gmt_create, gmt_modified, 
-      bg_item_code, bg_code, inspect_type, 
-      manage_type, region, equipment, 
-      adapt, danger_level, site, 
-      is_photo, is_card, card_site, 
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sft_bg_inspect_item (gmt_create, gmt_modified, bg_item_code, 
+      bg_code, inspect_type, manage_type, 
+      region, equipment, adapt, 
+      danger_level, site, is_photo, 
+      is_card, card_site, status, 
       control_extra)
-    values (#{id,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
-      #{bgItemCode,jdbcType=VARCHAR}, #{bgCode,jdbcType=VARCHAR}, #{inspectType,jdbcType=VARCHAR}, 
-      #{manageType,jdbcType=VARCHAR}, #{region,jdbcType=VARCHAR}, #{equipment,jdbcType=VARCHAR}, 
-      #{adapt,jdbcType=VARCHAR}, #{dangerLevel,jdbcType=INTEGER}, #{site,jdbcType=VARCHAR}, 
-      #{isPhoto,jdbcType=INTEGER}, #{isCard,jdbcType=INTEGER}, #{cardSite,jdbcType=VARCHAR}, 
+    values (#{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{bgItemCode,jdbcType=VARCHAR}, 
+      #{bgCode,jdbcType=VARCHAR}, #{inspectType,jdbcType=VARCHAR}, #{manageType,jdbcType=VARCHAR}, 
+      #{region,jdbcType=VARCHAR}, #{equipment,jdbcType=VARCHAR}, #{adapt,jdbcType=VARCHAR}, 
+      #{dangerLevel,jdbcType=INTEGER}, #{site,jdbcType=VARCHAR}, #{isPhoto,jdbcType=INTEGER}, 
+      #{isCard,jdbcType=INTEGER}, #{cardSite,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
       #{controlExtra,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.beiken.saas.platform.pojo.BgInspectItemDO">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into sft_bg_inspect_item
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
       <if test="gmtCreate != null">
         gmt_create,
       </if>
@@ -204,14 +208,14 @@
       <if test="cardSite != null">
         card_site,
       </if>
+      <if test="status != null">
+        status,
+      </if>
       <if test="controlExtra != null">
         control_extra,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
       <if test="gmtCreate != null">
         #{gmtCreate,jdbcType=TIMESTAMP},
       </if>
@@ -253,6 +257,9 @@
       </if>
       <if test="cardSite != null">
         #{cardSite,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
       </if>
       <if test="controlExtra != null">
         #{controlExtra,jdbcType=LONGVARCHAR},
@@ -313,6 +320,9 @@
       <if test="record.cardSite != null">
         card_site = #{record.cardSite,jdbcType=VARCHAR},
       </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
       <if test="record.controlExtra != null">
         control_extra = #{record.controlExtra,jdbcType=LONGVARCHAR},
       </if>
@@ -338,6 +348,7 @@
       is_photo = #{record.isPhoto,jdbcType=INTEGER},
       is_card = #{record.isCard,jdbcType=INTEGER},
       card_site = #{record.cardSite,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
       control_extra = #{record.controlExtra,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -359,7 +370,8 @@
       site = #{record.site,jdbcType=VARCHAR},
       is_photo = #{record.isPhoto,jdbcType=INTEGER},
       is_card = #{record.isCard,jdbcType=INTEGER},
-      card_site = #{record.cardSite,jdbcType=VARCHAR}
+      card_site = #{record.cardSite,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -409,6 +421,9 @@
       <if test="cardSite != null">
         card_site = #{cardSite,jdbcType=VARCHAR},
       </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
       <if test="controlExtra != null">
         control_extra = #{controlExtra,jdbcType=LONGVARCHAR},
       </if>
@@ -431,6 +446,7 @@
       is_photo = #{isPhoto,jdbcType=INTEGER},
       is_card = #{isCard,jdbcType=INTEGER},
       card_site = #{cardSite,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
       control_extra = #{controlExtra,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -449,7 +465,8 @@
       site = #{site,jdbcType=VARCHAR},
       is_photo = #{isPhoto,jdbcType=INTEGER},
       is_card = #{isCard,jdbcType=INTEGER},
-      card_site = #{cardSite,jdbcType=VARCHAR}
+      card_site = #{cardSite,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

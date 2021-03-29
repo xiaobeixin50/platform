@@ -33,6 +33,8 @@ public class BgInspectItemDO {
 
     private String cardSite;
 
+    private Integer status;
+
     private String controlExtra;
 
     public Long getId() {
@@ -153,6 +155,14 @@ public class BgInspectItemDO {
 
     public void setCardSite(String cardSite) {
         this.cardSite = cardSite == null ? null : cardSite.trim();
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public String getControlExtra() {

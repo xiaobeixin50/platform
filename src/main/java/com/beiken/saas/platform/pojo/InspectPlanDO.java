@@ -15,7 +15,7 @@ public class InspectPlanDO {
 
     private String type;
 
-    private String priority;
+    private Integer priority;
 
     private Integer status;
 
@@ -91,12 +91,12 @@ public class InspectPlanDO {
         this.type = type == null ? null : type.trim();
     }
 
-    public String getPriority() {
+    public Integer getPriority() {
         return priority;
     }
 
-    public void setPriority(String priority) {
-        this.priority = priority == null ? null : priority.trim();
+    public void setPriority(Integer priority) {
+        this.priority = priority;
     }
 
     public Integer getStatus() {

@@ -50,7 +50,6 @@ public class TaskManager {
     private TaskUserMapper taskUserMapper;
 
 
-
     /**
      * 后台列表
      *
@@ -79,7 +78,7 @@ public class TaskManager {
     public List<String> getTaskCodeByInspectUser(Long inspectUserId, Integer pageNo, Integer pageSize) {
         TaskUserDOExample example = new TaskUserDOExample();
         if (pageNo != null) {
-            example.setLimitStart((pageNo - 1)*pageSize);
+            example.setLimitStart((pageNo - 1) * pageSize);
         }
         if (pageSize != null) {
             example.setCount(pageSize);
@@ -109,7 +108,6 @@ public class TaskManager {
     }
 
 
-
     /**
      * 获取巡检任务列表
      *
@@ -123,9 +121,13 @@ public class TaskManager {
         List<InspectTaskItemDO> taskItemList = getRigByCode(taskCodes, rigCode);
         Set<String> taskCodeSet = taskItemList.stream().map(InspectTaskItemDO::getTaskCode).collect(Collectors.toSet());
 
+        List<InspectTaskDO> inspectTasks = null;
         InspectTaskDOExample taskDOExample = new InspectTaskDOExample();
-        taskDOExample.createCriteria().andTaskCodeIn(Lists.newArrayList(taskCodeSet));
-        List<InspectTaskDO> inspectTasks = taskMapper.selectByExample(taskDOExample);
+        if (!CollectionUtils.isEmpty(taskCodeSet)) {
+            taskDOExample.createCriteria().andTaskCodeIn(Lists.newArrayList(taskCodeSet));
+            inspectTasks = taskMapper.selectByExample(taskDOExample);
+
+        }
         if (CollectionUtils.isEmpty(inspectTasks)) {
             return pageBo;
         }
@@ -405,7 +407,7 @@ public class TaskManager {
             Long deptId = inspectTaskDOs.get(0).getDeptId();
             extra.setDeptId(deptId);
             UserDO userDO = userController.getCaptUserByDeptId(deptId, RoleEnum.MANAGER.getMsg());
-            if (userDO!= null) {
+            if (userDO != null) {
                 extra.setResponsibilityUserId(userDO.getId());
                 extra.setResponsibilityUserName(userDO.getName());
             }
@@ -428,7 +430,6 @@ public class TaskManager {
         selfVO.setAfterTimeTask(finishTask);
         return selfVO;
     }
-
 
 
     private InspectTaskDOExample buildTaskExample(TaskQuery taskQuery) {
@@ -481,6 +482,19 @@ public class TaskManager {
             taskList.add(taskListVO);
         }
         return taskList;
+    }
+
+    public List<InspectTaskDO> getTaskByPlanCode(String inspectPlanCode, Date startTime, Date endTime) {
+        if (StringUtils.isBlank(inspectPlanCode)) {
+            return Collections.emptyList();
+        }
+        InspectTaskDOExample example = new InspectTaskDOExample();
+        example.createCriteria()
+                .andInspectPlanCodeEqualTo(inspectPlanCode)
+                .andStartTimeLessThanOrEqualTo(startTime)
+                .andEndTimeGreaterThanOrEqualTo(endTime);
+        List<InspectTaskDO> inspectTaskDOs = taskMapper.selectByExample(example);
+        return inspectTaskDOs;
     }
 
     private void copyBgItem2Extra(BgInspectItemDO bgItemDO, TaskItemListVO.Extra extra) {

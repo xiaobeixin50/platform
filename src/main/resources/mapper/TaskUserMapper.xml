@@ -108,19 +108,22 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.beiken.saas.platform.pojo.TaskUserDO">
-    insert into sft_task_user (id, gmt_create, gmt_modified, 
-      task_id, task_code, inspect_user_id, 
-      inspect_user_name, task_start_time)
-    values (#{id,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
-      #{taskId,jdbcType=BIGINT}, #{taskCode,jdbcType=VARCHAR}, #{inspectUserId,jdbcType=BIGINT}, 
-      #{inspectUserName,jdbcType=VARCHAR}, #{taskStartTime,jdbcType=TIMESTAMP})
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sft_task_user (gmt_create, gmt_modified, task_id, 
+      task_code, inspect_user_id, inspect_user_name, 
+      task_start_time)
+    values (#{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{taskId,jdbcType=BIGINT}, 
+      #{taskCode,jdbcType=VARCHAR}, #{inspectUserId,jdbcType=BIGINT}, #{inspectUserName,jdbcType=VARCHAR}, 
+      #{taskStartTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.beiken.saas.platform.pojo.TaskUserDO">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into sft_task_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
       <if test="gmtCreate != null">
         gmt_create,
       </if>
@@ -144,9 +147,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
       <if test="gmtCreate != null">
         #{gmtCreate,jdbcType=TIMESTAMP},
       </if>

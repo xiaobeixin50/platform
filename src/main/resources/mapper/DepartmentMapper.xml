@@ -109,21 +109,22 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.beiken.saas.platform.pojo.DepartmentDO">
-    insert into sft_department (id, gmt_create, gmt_modified, 
-      dept_code, dept_name, dept_type, 
-      parent_id, level, business_type
-      )
-    values (#{id,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
-      #{deptCode,jdbcType=VARCHAR}, #{deptName,jdbcType=VARCHAR}, #{deptType,jdbcType=VARCHAR}, 
-      #{parentId,jdbcType=BIGINT}, #{level,jdbcType=INTEGER}, #{businessType,jdbcType=VARCHAR}
-      )
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sft_department (gmt_create, gmt_modified, dept_code, 
+      dept_name, dept_type, parent_id, 
+      level, business_type)
+    values (#{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{deptCode,jdbcType=VARCHAR}, 
+      #{deptName,jdbcType=VARCHAR}, #{deptType,jdbcType=VARCHAR}, #{parentId,jdbcType=BIGINT}, 
+      #{level,jdbcType=INTEGER}, #{businessType,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.beiken.saas.platform.pojo.DepartmentDO">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into sft_department
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
       <if test="gmtCreate != null">
         gmt_create,
       </if>
@@ -150,9 +151,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
       <if test="gmtCreate != null">
         #{gmtCreate,jdbcType=TIMESTAMP},
       </if>

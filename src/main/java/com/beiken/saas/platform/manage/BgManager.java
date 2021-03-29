@@ -2,6 +2,7 @@ package com.beiken.saas.platform.manage;
 
 
 import com.beiken.saas.platform.biz.vo.EquipmentVO;
+import com.beiken.saas.platform.enums.Constants;
 import com.beiken.saas.platform.mapper.BgInspectItemMapper;
 import com.beiken.saas.platform.pojo.BgInspectItemDO;
 import com.beiken.saas.platform.pojo.BgInspectItemDOExample;
@@ -32,6 +33,12 @@ public class BgManager {
         BgInspectItemDOExample example = new BgInspectItemDOExample();
         example.createCriteria().andBgCodeEqualTo(bgCode);
         return bgInspectItemMapper.countByExample(example);
+    }
+
+    public List<BgInspectItemDO> getBgItemByCode(String bgCode) {
+        BgInspectItemDOExample example = new BgInspectItemDOExample();
+        example.createCriteria().andBgCodeEqualTo(bgCode).andStatusEqualTo(Constants.ONE_INT);
+        return bgInspectItemMapper.selectByExample(example);
     }
 
     public BgInspectItemDO getBgItemDOByItemCode(String bgItemCode) {

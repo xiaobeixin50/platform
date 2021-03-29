@@ -140,23 +140,26 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.beiken.saas.platform.pojo.RigDO">
-    insert into sft_rig (id, gmt_create, gmt_modified, 
-      rig_code, dept_id, dept_name, 
-      parent_dept_id, parent_dept_name, area, 
-      model, type, status, 
-      extra)
-    values (#{id,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
-      #{rigCode,jdbcType=VARCHAR}, #{deptId,jdbcType=BIGINT}, #{deptName,jdbcType=VARCHAR}, 
-      #{parentDeptId,jdbcType=BIGINT}, #{parentDeptName,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, 
-      #{model,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
-      #{extra,jdbcType=LONGVARCHAR})
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sft_rig (gmt_create, gmt_modified, rig_code, 
+      dept_id, dept_name, parent_dept_id, 
+      parent_dept_name, area, model, 
+      type, status, extra
+      )
+    values (#{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{rigCode,jdbcType=VARCHAR}, 
+      #{deptId,jdbcType=BIGINT}, #{deptName,jdbcType=VARCHAR}, #{parentDeptId,jdbcType=BIGINT}, 
+      #{parentDeptName,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, #{model,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{extra,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.beiken.saas.platform.pojo.RigDO">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into sft_rig
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
       <if test="gmtCreate != null">
         gmt_create,
       </if>
@@ -195,9 +198,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
       <if test="gmtCreate != null">
         #{gmtCreate,jdbcType=TIMESTAMP},
       </if>

@@ -54,7 +54,9 @@
                enableUpdateByExample="true"
                enableDeleteByExample="true"
                enableSelectByExample="true"
-               selectByExampleQueryId="true"></table>
+               selectByExampleQueryId="true">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
 
         <table tableName="sft_bg_inspect_item"
                domainObjectName="BgInspectItemDO"
@@ -64,7 +66,9 @@
                enableUpdateByExample="true"
                enableDeleteByExample="true"
                enableSelectByExample="true"
-               selectByExampleQueryId="true"></table>
+               selectByExampleQueryId="true">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
 
         <table tableName="sft_department"
                domainObjectName="DepartmentDO"
@@ -74,7 +78,9 @@
                enableUpdateByExample="true"
                enableDeleteByExample="true"
                enableSelectByExample="true"
-               selectByExampleQueryId="true"></table>
+               selectByExampleQueryId="true">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
 
         <table tableName="sft_inspect_plan"
                domainObjectName="InspectPlanDO"
@@ -85,7 +91,9 @@
                enableUpdateByExample="true"
                enableDeleteByExample="true"
                enableSelectByExample="true"
-               selectByExampleQueryId="true"></table>
+               selectByExampleQueryId="true">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
 
         <table tableName="sft_inspect_plan_dept"
                domainObjectName="InspectPlanDeptDO"
@@ -95,7 +103,9 @@
                enableUpdateByExample="true"
                enableDeleteByExample="true"
                enableSelectByExample="true"
-               selectByExampleQueryId="true"></table>
+               selectByExampleQueryId="true">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
 
         <table tableName="sft_inspect_task"
                domainObjectName="InspectTaskDO"
@@ -105,7 +115,9 @@
                enableUpdateByExample="true"
                enableDeleteByExample="true"
                enableSelectByExample="true"
-               selectByExampleQueryId="true"></table>
+               selectByExampleQueryId="true">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
 
         <table tableName="sft_inspect_task_item"
                domainObjectName="InspectTaskItemDO"
@@ -115,7 +127,9 @@
                enableUpdateByExample="true"
                enableDeleteByExample="true"
                enableSelectByExample="true"
-               selectByExampleQueryId="true"></table>
+               selectByExampleQueryId="true">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
 
         <table tableName="sft_rig"
                domainObjectName="RigDO"
@@ -125,7 +139,9 @@
                enableUpdateByExample="true"
                enableDeleteByExample="true"
                enableSelectByExample="true"
-               selectByExampleQueryId="true"></table>
+               selectByExampleQueryId="true">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
 
         <table tableName="sft_role"
                domainObjectName="RoleDO"
@@ -135,7 +151,9 @@
                enableUpdateByExample="true"
                enableDeleteByExample="true"
                enableSelectByExample="true"
-               selectByExampleQueryId="true"></table>
+               selectByExampleQueryId="true">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
 
         <table tableName="sft_user"
                domainObjectName="UserDO"
@@ -145,7 +163,9 @@
                enableUpdateByExample="true"
                enableDeleteByExample="true"
                enableSelectByExample="true"
-               selectByExampleQueryId="true"></table>
+               selectByExampleQueryId="true">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
 
         <table tableName="sft_hidden_danger"
                domainObjectName="HiddenDangerDO"
@@ -155,7 +175,9 @@
                enableUpdateByExample="true"
                enableDeleteByExample="true"
                enableSelectByExample="true"
-               selectByExampleQueryId="true"></table>
+               selectByExampleQueryId="true">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
 
         <table tableName="sft_hidden_danger_check"
                domainObjectName="HiddenDangerCheckDO"
@@ -165,7 +187,9 @@
                enableUpdateByExample="true"
                enableDeleteByExample="true"
                enableSelectByExample="true"
-               selectByExampleQueryId="true"></table>
+               selectByExampleQueryId="true">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
 
         <table tableName="sft_task_user"
                domainObjectName="TaskUserDO"
@@ -175,7 +199,9 @@
                enableUpdateByExample="true"
                enableDeleteByExample="true"
                enableSelectByExample="true"
-               selectByExampleQueryId="true"></table>
+               selectByExampleQueryId="true">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
         <table tableName="sft_user_verifycode"
                domainObjectName="UserVerifyCodeDO"
                mapperName="UserVerifyCodeMapper"
@@ -184,7 +210,9 @@
                enableUpdateByExample="true"
                enableDeleteByExample="true"
                enableSelectByExample="true"
-               selectByExampleQueryId="true"></table>
+               selectByExampleQueryId="true">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
 
     </context>
 </generatorConfiguration>

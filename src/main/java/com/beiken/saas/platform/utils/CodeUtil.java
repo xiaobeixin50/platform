@@ -2,9 +2,11 @@ package com.beiken.saas.platform.utils;
 
 import com.beiken.saas.platform.mapper.BgInspectItemMapper;
 import com.beiken.saas.platform.mapper.DepartmentMapper;
+import com.beiken.saas.platform.mapper.InspectTaskMapper;
 import com.beiken.saas.platform.pojo.BgInspectItemDOExample;
 import com.beiken.saas.platform.pojo.DepartmentDO;
 import com.beiken.saas.platform.pojo.DepartmentDOExample;
+import com.beiken.saas.platform.pojo.InspectTaskDOExample;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -23,6 +25,8 @@ public class CodeUtil {
     private DepartmentMapper deptMapper;
     @Resource
     private BgInspectItemMapper bgItemMapper;
+    @Resource
+    private InspectTaskMapper taskMapper;
 
     public String buildDeptCode(String company, Integer level) {
         long count = deptMapper.countByExample(new DepartmentDOExample());
@@ -34,6 +38,11 @@ public class CodeUtil {
         String pre = ChineseCharToEnUtil.getAllFirstLetter(company);
         long count = bgItemMapper.countByExample(new BgInspectItemDOExample());
         return pre + bgNo(count);
+    }
+
+    public String buildTaskCode(String deptCode) {
+        long count = taskMapper.countByExample(new InspectTaskDOExample());
+        return deptCode + "-JCRW-" + System.currentTimeMillis() + taskNo(count);
     }
 
     public String buildDangerCode(Long deptId) {
@@ -68,6 +77,23 @@ public class CodeUtil {
         }
         if (s.length() > 0) {
             return "000000" + s;
+        }
+        return s;
+    }
+
+    private String taskNo(Long count) {
+        String s = String.valueOf(count + 1L);
+        if (s.length() > 3) {
+            return s;
+        }
+        if (s.length() > 2) {
+            return  s;
+        }
+        if (s.length() > 1) {
+            return "0" + s;
+        }
+        if (s.length() > 0) {
+            return "00" + s;
         }
         return s;
     }

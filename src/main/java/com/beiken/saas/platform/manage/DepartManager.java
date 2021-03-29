@@ -7,8 +7,10 @@ import com.beiken.saas.platform.pojo.DepartmentDOExample;
 import com.beiken.saas.platform.pojo.UserDO;
 import com.google.common.collect.Lists;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -45,4 +47,15 @@ public class DepartManager {
         result.add(departmentDO.getId());
         return result;
     }
+
+    public List<DepartmentDO> getDeptById(List<Long> deptIds) {
+        if (CollectionUtils.isEmpty(deptIds)) {
+            return Collections.emptyList();
+        }
+        DepartmentDOExample example = new DepartmentDOExample();
+        example.createCriteria().andIdIn(deptIds);
+        List<DepartmentDO> departmentDOs = departmentMapper.selectByExample(example);
+        return departmentDOs;
+    }
+
 }

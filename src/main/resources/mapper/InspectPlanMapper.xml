@@ -8,7 +8,7 @@
     <result column="inspect_plan_code" jdbcType="VARCHAR" property="inspectPlanCode" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="type" jdbcType="VARCHAR" property="type" />
-    <result column="priority" jdbcType="VARCHAR" property="priority" />
+    <result column="priority" jdbcType="INTEGER" property="priority" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="freq" jdbcType="VARCHAR" property="freq" />
     <result column="start_date" jdbcType="TIMESTAMP" property="startDate" />
@@ -148,27 +148,30 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.beiken.saas.platform.pojo.InspectPlanDO">
-    insert into sft_inspect_plan (id, gmt_create, gmt_modified, 
-      inspect_plan_code, name, type, 
-      priority, status, freq, 
-      start_date, end_date, start_time, 
-      end_time, every_day, count_day, 
-      start_number, end_number, bg_code, 
-      step, extra)
-    values (#{id,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
-      #{inspectPlanCode,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
-      #{priority,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{freq,jdbcType=VARCHAR}, 
-      #{startDate,jdbcType=TIMESTAMP}, #{endDate,jdbcType=TIMESTAMP}, #{startTime,jdbcType=VARCHAR}, 
-      #{endTime,jdbcType=VARCHAR}, #{everyDay,jdbcType=INTEGER}, #{countDay,jdbcType=INTEGER}, 
-      #{startNumber,jdbcType=INTEGER}, #{endNumber,jdbcType=INTEGER}, #{bgCode,jdbcType=VARCHAR}, 
-      #{step,jdbcType=INTEGER}, #{extra,jdbcType=LONGVARCHAR})
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sft_inspect_plan (gmt_create, gmt_modified, inspect_plan_code, 
+      name, type, priority, 
+      status, freq, start_date, 
+      end_date, start_time, end_time, 
+      every_day, count_day, start_number, 
+      end_number, bg_code, step, 
+      extra)
+    values (#{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{inspectPlanCode,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{priority,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{freq,jdbcType=VARCHAR}, #{startDate,jdbcType=TIMESTAMP}, 
+      #{endDate,jdbcType=TIMESTAMP}, #{startTime,jdbcType=VARCHAR}, #{endTime,jdbcType=VARCHAR}, 
+      #{everyDay,jdbcType=INTEGER}, #{countDay,jdbcType=INTEGER}, #{startNumber,jdbcType=INTEGER}, 
+      #{endNumber,jdbcType=INTEGER}, #{bgCode,jdbcType=VARCHAR}, #{step,jdbcType=INTEGER}, 
+      #{extra,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.beiken.saas.platform.pojo.InspectPlanDO">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into sft_inspect_plan
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
       <if test="gmtCreate != null">
         gmt_create,
       </if>
@@ -228,9 +231,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
       <if test="gmtCreate != null">
         #{gmtCreate,jdbcType=TIMESTAMP},
       </if>
@@ -247,7 +247,7 @@
         #{type,jdbcType=VARCHAR},
       </if>
       <if test="priority != null">
-        #{priority,jdbcType=VARCHAR},
+        #{priority,jdbcType=INTEGER},
       </if>
       <if test="status != null">
         #{status,jdbcType=INTEGER},
@@ -318,7 +318,7 @@
         type = #{record.type,jdbcType=VARCHAR},
       </if>
       <if test="record.priority != null">
-        priority = #{record.priority,jdbcType=VARCHAR},
+        priority = #{record.priority,jdbcType=INTEGER},
       </if>
       <if test="record.status != null">
         status = #{record.status,jdbcType=INTEGER},
@@ -372,7 +372,7 @@
       inspect_plan_code = #{record.inspectPlanCode,jdbcType=VARCHAR},
       name = #{record.name,jdbcType=VARCHAR},
       type = #{record.type,jdbcType=VARCHAR},
-      priority = #{record.priority,jdbcType=VARCHAR},
+      priority = #{record.priority,jdbcType=INTEGER},
       status = #{record.status,jdbcType=INTEGER},
       freq = #{record.freq,jdbcType=VARCHAR},
       start_date = #{record.startDate,jdbcType=TIMESTAMP},
@@ -398,7 +398,7 @@
       inspect_plan_code = #{record.inspectPlanCode,jdbcType=VARCHAR},
       name = #{record.name,jdbcType=VARCHAR},
       type = #{record.type,jdbcType=VARCHAR},
-      priority = #{record.priority,jdbcType=VARCHAR},
+      priority = #{record.priority,jdbcType=INTEGER},
       status = #{record.status,jdbcType=INTEGER},
       freq = #{record.freq,jdbcType=VARCHAR},
       start_date = #{record.startDate,jdbcType=TIMESTAMP},
@@ -434,7 +434,7 @@
         type = #{type,jdbcType=VARCHAR},
       </if>
       <if test="priority != null">
-        priority = #{priority,jdbcType=VARCHAR},
+        priority = #{priority,jdbcType=INTEGER},
       </if>
       <if test="status != null">
         status = #{status,jdbcType=INTEGER},
@@ -485,7 +485,7 @@
       inspect_plan_code = #{inspectPlanCode,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR},
-      priority = #{priority,jdbcType=VARCHAR},
+      priority = #{priority,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER},
       freq = #{freq,jdbcType=VARCHAR},
       start_date = #{startDate,jdbcType=TIMESTAMP},
@@ -508,7 +508,7 @@
       inspect_plan_code = #{inspectPlanCode,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR},
-      priority = #{priority,jdbcType=VARCHAR},
+      priority = #{priority,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER},
       freq = #{freq,jdbcType=VARCHAR},
       start_date = #{startDate,jdbcType=TIMESTAMP},

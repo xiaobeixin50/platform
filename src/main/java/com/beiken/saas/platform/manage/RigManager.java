@@ -25,7 +25,7 @@ public class RigManager {
     @Resource
     private DepartmentMapper departmentMapper;
 
-    public List<String> getRigByUserId(List<Long> deptIds) {
+    public List<String> getRigByDeptIds(List<Long> deptIds) {
         RigDOExample example = new RigDOExample();
         example.createCriteria().andDeptIdIn(deptIds);
         List<RigDO> rigDOList = rigMapper.selectByExample(example);
@@ -33,5 +33,15 @@ public class RigManager {
             Collections.emptyList();
         }
         return rigDOList.stream().map(RigDO::getRigCode).collect(Collectors.toList());
+    }
+
+    public List<RigDO> getRigDOByDeptId(Long deptId) {
+        RigDOExample example = new RigDOExample();
+        example.createCriteria().andDeptIdEqualTo(deptId);
+        List<RigDO> rigDOList = rigMapper.selectByExample(example);
+        if (CollectionUtils.isEmpty(rigDOList)) {
+            Collections.emptyList();
+        }
+        return rigDOList;
     }
 }

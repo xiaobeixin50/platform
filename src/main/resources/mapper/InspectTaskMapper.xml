@@ -118,25 +118,28 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.beiken.saas.platform.pojo.InspectTaskDO">
-    insert into sft_inspect_task (id, gmt_create, gmt_modified, 
-      name, task_code, inspect_plan_code, 
-      start_time, end_time, finish_time, 
-      status, rig_id, rig_code, 
-      inspect_user_id, inspect_user_name, quickly, 
-      dept_id, dept_name)
-    values (#{id,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
-      #{name,jdbcType=VARCHAR}, #{taskCode,jdbcType=VARCHAR}, #{inspectPlanCode,jdbcType=VARCHAR}, 
-      #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{finishTime,jdbcType=TIMESTAMP}, 
-      #{status,jdbcType=INTEGER}, #{rigId,jdbcType=BIGINT}, #{rigCode,jdbcType=VARCHAR}, 
-      #{inspectUserId,jdbcType=BIGINT}, #{inspectUserName,jdbcType=VARCHAR}, #{quickly,jdbcType=INTEGER}, 
-      #{deptId,jdbcType=BIGINT}, #{deptName,jdbcType=VARCHAR})
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sft_inspect_task (gmt_create, gmt_modified, name, 
+      task_code, inspect_plan_code, start_time, 
+      end_time, finish_time, status, 
+      rig_id, rig_code, inspect_user_id, 
+      inspect_user_name, quickly, dept_id, 
+      dept_name)
+    values (#{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{name,jdbcType=VARCHAR}, 
+      #{taskCode,jdbcType=VARCHAR}, #{inspectPlanCode,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP}, 
+      #{endTime,jdbcType=TIMESTAMP}, #{finishTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, 
+      #{rigId,jdbcType=BIGINT}, #{rigCode,jdbcType=VARCHAR}, #{inspectUserId,jdbcType=BIGINT}, 
+      #{inspectUserName,jdbcType=VARCHAR}, #{quickly,jdbcType=INTEGER}, #{deptId,jdbcType=BIGINT}, 
+      #{deptName,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.beiken.saas.platform.pojo.InspectTaskDO">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into sft_inspect_task
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
       <if test="gmtCreate != null">
         gmt_create,
       </if>
@@ -187,9 +190,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
       <if test="gmtCreate != null">
         #{gmtCreate,jdbcType=TIMESTAMP},
       </if>

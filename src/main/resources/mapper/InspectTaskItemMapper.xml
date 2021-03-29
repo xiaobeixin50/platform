@@ -112,23 +112,24 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.beiken.saas.platform.pojo.InspectTaskItemDO">
-    insert into sft_inspect_task_item (id, gmt_create, gmt_modified, 
-      task_code, bg_item_code, result_status, 
-      end_date, report_extra, report_time, 
-      rig_code, dept_id, rig_id
-      )
-    values (#{id,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
-      #{taskCode,jdbcType=VARCHAR}, #{bgItemCode,jdbcType=VARCHAR}, #{resultStatus,jdbcType=INTEGER}, 
-      #{endDate,jdbcType=TIMESTAMP}, #{reportExtra,jdbcType=VARCHAR}, #{reportTime,jdbcType=TIMESTAMP}, 
-      #{rigCode,jdbcType=VARCHAR}, #{deptId,jdbcType=BIGINT}, #{rigId,jdbcType=BIGINT}
-      )
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sft_inspect_task_item (gmt_create, gmt_modified, task_code, 
+      bg_item_code, result_status, end_date, 
+      report_extra, report_time, rig_code, 
+      dept_id, rig_id)
+    values (#{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{taskCode,jdbcType=VARCHAR}, 
+      #{bgItemCode,jdbcType=VARCHAR}, #{resultStatus,jdbcType=INTEGER}, #{endDate,jdbcType=TIMESTAMP}, 
+      #{reportExtra,jdbcType=VARCHAR}, #{reportTime,jdbcType=TIMESTAMP}, #{rigCode,jdbcType=VARCHAR}, 
+      #{deptId,jdbcType=BIGINT}, #{rigId,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.beiken.saas.platform.pojo.InspectTaskItemDO">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into sft_inspect_task_item
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
       <if test="gmtCreate != null">
         gmt_create,
       </if>
@@ -164,9 +165,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
       <if test="gmtCreate != null">
         #{gmtCreate,jdbcType=TIMESTAMP},
       </if>

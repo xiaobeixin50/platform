@@ -220,7 +220,7 @@ public class UserController {
     @GetMapping(value = "/search/rig")
     public Result searchRig(Long deptId) {
         try {
-            List<String> list = rigManager.getRigByUserId(Lists.newArrayList(deptId));
+            List<String> list = rigManager.getRigByDeptIds(Lists.newArrayList(deptId));
             return Result.success(list);
         } catch (Exception e) {
             //log.error("list error", e);

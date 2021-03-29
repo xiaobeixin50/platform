@@ -161,51 +161,52 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.beiken.saas.platform.pojo.HiddenDangerDO">
-    insert into sft_hidden_danger (id, gmt_create, gmt_modified, 
-      danger_code, photo, report_extra, 
-      task_code, bg_item_code, dept_id, 
-      dept_name, parent_dept_id, parent_dept_name, 
-      danger_level, break_user_id, break_user_name, 
-      responsibility_user_id, responsibility_user_name, 
-      confirm_user_id, confirm_user_name, confirm_time, 
-      report_time, change_end_date, report_type, 
-      report_status, dis_level_user_id, dis_level_user_name, 
-      dis_level_time, change_plan, change_attach, 
-      change_money, change_user_id, change_user_name, 
-      change_submit_time, inspect_user_id, inspect_user_name, 
-      inspect_extra, inspect_photo, inspect_status, 
-      inspect_time, rig_code, rig_id, 
-      evn_photo, evn_extra, evn_status, 
-      evn_time, evn_user_id, evn_user_name, 
-      find_user_id, find_user_name, close_user_id, 
-      close_user_name, close_extra, change_end_time, 
-      close_time)
-    values (#{id,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
-      #{dangerCode,jdbcType=VARCHAR}, #{photo,jdbcType=VARCHAR}, #{reportExtra,jdbcType=VARCHAR}, 
-      #{taskCode,jdbcType=VARCHAR}, #{bgItemCode,jdbcType=VARCHAR}, #{deptId,jdbcType=BIGINT}, 
-      #{deptName,jdbcType=VARCHAR}, #{parentDeptId,jdbcType=BIGINT}, #{parentDeptName,jdbcType=VARCHAR}, 
-      #{dangerLevel,jdbcType=INTEGER}, #{breakUserId,jdbcType=VARCHAR}, #{breakUserName,jdbcType=VARCHAR}, 
-      #{responsibilityUserId,jdbcType=BIGINT}, #{responsibilityUserName,jdbcType=VARCHAR}, 
-      #{confirmUserId,jdbcType=BIGINT}, #{confirmUserName,jdbcType=VARCHAR}, #{confirmTime,jdbcType=TIMESTAMP}, 
-      #{reportTime,jdbcType=TIMESTAMP}, #{changeEndDate,jdbcType=TIMESTAMP}, #{reportType,jdbcType=INTEGER}, 
-      #{reportStatus,jdbcType=INTEGER}, #{disLevelUserId,jdbcType=BIGINT}, #{disLevelUserName,jdbcType=VARCHAR}, 
-      #{disLevelTime,jdbcType=TIMESTAMP}, #{changePlan,jdbcType=VARCHAR}, #{changeAttach,jdbcType=VARCHAR}, 
-      #{changeMoney,jdbcType=DOUBLE}, #{changeUserId,jdbcType=INTEGER}, #{changeUserName,jdbcType=VARCHAR}, 
-      #{changeSubmitTime,jdbcType=TIMESTAMP}, #{inspectUserId,jdbcType=BIGINT}, #{inspectUserName,jdbcType=VARCHAR}, 
-      #{inspectExtra,jdbcType=VARCHAR}, #{inspectPhoto,jdbcType=VARCHAR}, #{inspectStatus,jdbcType=INTEGER}, 
-      #{inspectTime,jdbcType=TIMESTAMP}, #{rigCode,jdbcType=VARCHAR}, #{rigId,jdbcType=BIGINT}, 
-      #{evnPhoto,jdbcType=VARCHAR}, #{evnExtra,jdbcType=VARCHAR}, #{evnStatus,jdbcType=INTEGER}, 
-      #{evnTime,jdbcType=TIMESTAMP}, #{evnUserId,jdbcType=BIGINT}, #{evnUserName,jdbcType=VARCHAR}, 
-      #{findUserId,jdbcType=BIGINT}, #{findUserName,jdbcType=VARCHAR}, #{closeUserId,jdbcType=BIGINT}, 
-      #{closeUserName,jdbcType=VARCHAR}, #{closeExtra,jdbcType=VARCHAR}, #{changeEndTime,jdbcType=TIMESTAMP}, 
-      #{closeTime,jdbcType=TIMESTAMP})
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sft_hidden_danger (gmt_create, gmt_modified, danger_code, 
+      photo, report_extra, task_code, 
+      bg_item_code, dept_id, dept_name, 
+      parent_dept_id, parent_dept_name, danger_level, 
+      break_user_id, break_user_name, responsibility_user_id, 
+      responsibility_user_name, confirm_user_id, confirm_user_name, 
+      confirm_time, report_time, change_end_date, 
+      report_type, report_status, dis_level_user_id, 
+      dis_level_user_name, dis_level_time, change_plan, 
+      change_attach, change_money, change_user_id, 
+      change_user_name, change_submit_time, inspect_user_id, 
+      inspect_user_name, inspect_extra, inspect_photo, 
+      inspect_status, inspect_time, rig_code, 
+      rig_id, evn_photo, evn_extra, 
+      evn_status, evn_time, evn_user_id, 
+      evn_user_name, find_user_id, find_user_name, 
+      close_user_id, close_user_name, close_extra, 
+      change_end_time, close_time)
+    values (#{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{dangerCode,jdbcType=VARCHAR}, 
+      #{photo,jdbcType=VARCHAR}, #{reportExtra,jdbcType=VARCHAR}, #{taskCode,jdbcType=VARCHAR}, 
+      #{bgItemCode,jdbcType=VARCHAR}, #{deptId,jdbcType=BIGINT}, #{deptName,jdbcType=VARCHAR}, 
+      #{parentDeptId,jdbcType=BIGINT}, #{parentDeptName,jdbcType=VARCHAR}, #{dangerLevel,jdbcType=INTEGER}, 
+      #{breakUserId,jdbcType=VARCHAR}, #{breakUserName,jdbcType=VARCHAR}, #{responsibilityUserId,jdbcType=BIGINT}, 
+      #{responsibilityUserName,jdbcType=VARCHAR}, #{confirmUserId,jdbcType=BIGINT}, #{confirmUserName,jdbcType=VARCHAR}, 
+      #{confirmTime,jdbcType=TIMESTAMP}, #{reportTime,jdbcType=TIMESTAMP}, #{changeEndDate,jdbcType=TIMESTAMP}, 
+      #{reportType,jdbcType=INTEGER}, #{reportStatus,jdbcType=INTEGER}, #{disLevelUserId,jdbcType=BIGINT}, 
+      #{disLevelUserName,jdbcType=VARCHAR}, #{disLevelTime,jdbcType=TIMESTAMP}, #{changePlan,jdbcType=VARCHAR}, 
+      #{changeAttach,jdbcType=VARCHAR}, #{changeMoney,jdbcType=DOUBLE}, #{changeUserId,jdbcType=INTEGER}, 
+      #{changeUserName,jdbcType=VARCHAR}, #{changeSubmitTime,jdbcType=TIMESTAMP}, #{inspectUserId,jdbcType=BIGINT}, 
+      #{inspectUserName,jdbcType=VARCHAR}, #{inspectExtra,jdbcType=VARCHAR}, #{inspectPhoto,jdbcType=VARCHAR}, 
+      #{inspectStatus,jdbcType=INTEGER}, #{inspectTime,jdbcType=TIMESTAMP}, #{rigCode,jdbcType=VARCHAR}, 
+      #{rigId,jdbcType=BIGINT}, #{evnPhoto,jdbcType=VARCHAR}, #{evnExtra,jdbcType=VARCHAR}, 
+      #{evnStatus,jdbcType=INTEGER}, #{evnTime,jdbcType=TIMESTAMP}, #{evnUserId,jdbcType=BIGINT}, 
+      #{evnUserName,jdbcType=VARCHAR}, #{findUserId,jdbcType=BIGINT}, #{findUserName,jdbcType=VARCHAR}, 
+      #{closeUserId,jdbcType=BIGINT}, #{closeUserName,jdbcType=VARCHAR}, #{closeExtra,jdbcType=VARCHAR}, 
+      #{changeEndTime,jdbcType=TIMESTAMP}, #{closeTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.beiken.saas.platform.pojo.HiddenDangerDO">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into sft_hidden_danger
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
       <if test="gmtCreate != null">
         gmt_create,
       </if>
@@ -367,9 +368,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=BIGINT},
-      </if>
       <if test="gmtCreate != null">
         #{gmtCreate,jdbcType=TIMESTAMP},
       </if>

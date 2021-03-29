@@ -16,10 +16,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -35,6 +32,10 @@ public class InspectPlanManager {
     private InspectPlanDeptMapper inspectPlanDeptMapper;
     @Resource
     private BgManager bgManager;
+    @Resource
+    private DepartManager departManager;
+    @Resource
+    private UserManager userManager;
 
     public PageBo<InspectPlanVO> planList(PlanQuery planQuery) {
         PageBo<InspectPlanVO> pageBo = new PageBo<>();
@@ -124,8 +125,10 @@ public class InspectPlanManager {
 
     private InspectPlanDOExample buildPlanExample(PlanQuery planQuery) {
         InspectPlanDOExample example = new InspectPlanDOExample();
-        example.setLimitStart((planQuery.getPageNo() - 1) * planQuery.getPageSize());
-        example.setCount(planQuery.getPageSize());
+        if (planQuery.getPageNo() != null) {
+            example.setLimitStart((planQuery.getPageNo() - 1) * planQuery.getPageSize());
+            example.setCount(planQuery.getPageSize());
+        }
         InspectPlanDOExample.Criteria criteria = example.createCriteria()
                 .andInspectPlanCodeLike(Constants.LIKE + planQuery.getPlanCode() + Constants.LIKE)
                 .andNameLike(Constants.LIKE + planQuery.getPlanName() + Constants.LIKE)
@@ -161,6 +164,37 @@ public class InspectPlanManager {
             resultMap.get(planDept.getInspcetPlanCode()).add(planDept);
         }
         return resultMap;
+    }
+
+    public List<InspectPlanVO> queryStartPlan() {
+        List<InspectPlanVO> result = Lists.newArrayList();
+
+        InspectPlanDOExample example = new InspectPlanDOExample();
+        example.createCriteria().andStatusEqualTo(Constants.ONE_INT);
+        List<InspectPlanDO> inspectPlanDOs = inspectPlanMapper.selectByExample(example);
+        for (InspectPlanDO inspectPlanDO : inspectPlanDOs) {
+            InspectPlanVO planVO = new InspectPlanVO();
+            BeanUtils.copyProperties(inspectPlanDO, planVO);
+
+            InspectPlanDeptDOExample planDeptDOExample = new InspectPlanDeptDOExample();
+            planDeptDOExample.createCriteria().andInspcetPlanCodeEqualTo(inspectPlanDO.getInspectPlanCode());
+            //先这么写 时间急迫 可以一次性查询
+            List<InspectPlanDeptDO> inspectPlanDeptDOs = inspectPlanDeptMapper.selectByExample(planDeptDOExample);
+            if (CollectionUtils.isEmpty(inspectPlanDeptDOs)) {
+                continue;
+            }
+            List<Long> deptIds = inspectPlanDeptDOs.stream().map(InspectPlanDeptDO::getDeptId).collect(Collectors.toList());
+            List<Long> inspectUserIds = inspectPlanDeptDOs.stream().map(InspectPlanDeptDO::getInspectUserId).collect(Collectors.toList());
+            List<DepartmentDO> depts = departManager.getDeptById(deptIds);
+            List<UserDO> userDos = userManager.getUserById(inspectUserIds);
+            if (CollectionUtils.isEmpty(depts) || CollectionUtils.isEmpty(userDos)) {
+                continue;
+            }
+            planVO.setDeptList(depts);
+            planVO.setInspectUserList(userDos);
+            result.add(planVO);
+        }
+        return result;
     }
 
 }
