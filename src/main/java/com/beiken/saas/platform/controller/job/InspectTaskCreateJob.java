@@ -56,14 +56,16 @@ public class InspectTaskCreateJob {
             if (!b) {
                 continue;
             }
-
-            String taskCode = codeUtil.buildTaskCode(inspectPlanVO.getDeptList().get(0).getDeptCode());
-            Long taskId = addTask(inspectPlanVO, now, taskCode);
-            if (taskId == null) {
-                throw new Exception("插入task失败");
+            for (DepartmentDO departmentDO : inspectPlanVO.getDeptList()) {
+                String taskCode = codeUtil.buildTaskCode(departmentDO.getDeptCode());
+                Long taskId = addTask(inspectPlanVO, now, taskCode, departmentDO);
+                if (taskId == null) {
+                    throw new Exception("插入task失败");
+                }
+                addTaskUser(inspectPlanVO, now, taskId, taskCode);
+                addTaskItem(inspectPlanVO, now, taskCode);
             }
-            addTaskUser(inspectPlanVO, now, taskId, taskCode);
-            addTaskItem(inspectPlanVO, now, taskCode);
+
         }
     }
 
@@ -133,21 +135,26 @@ public class InspectTaskCreateJob {
         }
     }
 
-    private Long addTask(InspectPlanVO inspectPlanVO, Date now, String taskCode) {
-        InspectTaskDO taskDO = new InspectTaskDO();
-        taskDO.setGmtCreate(now);
-        taskDO.setGmtModified(now);
-        taskDO.setName(inspectPlanVO.getName());
-        taskDO.setTaskCode(taskCode);
-        taskDO.setInspectPlanCode(inspectPlanVO.getInspectPlanCode());
-        processDate(inspectPlanVO, taskDO, now);
-        taskDO.setStatus(Constants.ZERO_INT);
-        taskDO.setQuickly(inspectPlanVO.getPriority());
-        int insert = inspectTaskMapper.insert(taskDO);
-        if (insert > 0) {
-            return taskDO.getId();
+    private Long addTask(InspectPlanVO inspectPlanVO, Date now, String taskCode, DepartmentDO departmentDO) {
+
+            InspectTaskDO taskDO = new InspectTaskDO();
+            taskDO.setGmtCreate(now);
+            taskDO.setGmtModified(now);
+            taskDO.setName(inspectPlanVO.getName());
+            taskDO.setTaskCode(taskCode);
+            taskDO.setInspectPlanCode(inspectPlanVO.getInspectPlanCode());
+            processDate(inspectPlanVO, taskDO, now);
+            taskDO.setStatus(Constants.ZERO_INT);
+            taskDO.setQuickly(inspectPlanVO.getPriority());
+            taskDO.setDeptId(departmentDO.getId());
+            taskDO.setDeptName(departmentDO.getDeptName());
+            int insert = inspectTaskMapper.insert(taskDO);
+            if (insert > 0) {
+                return taskDO.getId();
+            }
+            return null;
         }
-        return null;
+
     }
 
     private void processDate(InspectPlanVO inspectPlanVO, InspectTaskDO taskDO, Date now) {
