@@ -136,15 +136,15 @@ public class RankController {
         List<Long> depIds = userDOS.stream().map(UserDO::getDepId).collect(Collectors.toList());
         //获取管辖井队数量
         RigDOExample rigExample = new RigDOExample();
-        rigExample.createCriteria().andDeptIdIn(depIds);
+        rigExample.createCriteria().andInspectUserIdIn(userIds);
         List<RigDO> rigDOS = rigMapper.selectByExample(rigExample);
-        Map<Long, Long> rigGroupResult = rigDOS.stream().collect(Collectors.groupingBy(RigDO::getDeptId, Collectors.counting()));
+        Map<Long, Long> rigGroupResult = rigDOS.stream().collect(Collectors.groupingBy(RigDO::getInspectUserId, Collectors.counting()));
         //组装结果
         List<RankVO> collect = userIds.stream().map(userId -> {
             RankVO rankVO = new RankVO();
             rankVO.setDangerNum(groupResult.get(userId));
             UserDO user = userMap.get(userId);
-            rankVO.setManageRigNum(rigGroupResult.get(user.getDepId()) == null ? 0 : rigGroupResult.get(user.getDepId()));
+            rankVO.setManageRigNum(rigGroupResult.get(user.getId()) == null ? 0 : rigGroupResult.get(user.getId()));
             UserDO userDO = userMap.get(userId);
             UserVO userVO = convertUserDO(userDO);
             rankVO.setUserVO(userVO);
