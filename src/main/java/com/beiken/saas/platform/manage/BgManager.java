@@ -62,31 +62,39 @@ public class BgManager {
         return bgInspectItemMapper.selectByExample(new BgInspectItemDOExample());
     }
 
-    public Map<String, Map<String, List<EquipmentVO>>> buildEquipment(List<BgInspectItemDO> itemDOList) {
-        Map<String, Map<String, List<EquipmentVO>>> result = Maps.newHashMap();
+    public Map<String, Map<String, Map<String, List<EquipmentVO>>>> buildEquipment(List<BgInspectItemDO> itemDOList) {
+        Map<String, Map<String, Map<String, List<EquipmentVO>>>> result = Maps.newHashMap();
         if (CollectionUtils.isEmpty(itemDOList)) {
             return result;
         }
         for (BgInspectItemDO itemDO : itemDOList) {
-            String key = itemDO.getInspectType() + "/" + itemDO.getManageType();
+            String pkey = itemDO.getInspectType();
             EquipmentVO equipmentVO = new EquipmentVO();
             equipmentVO.setBgItemCode(itemDO.getBgItemCode());
             equipmentVO.setValue(itemDO.getEquipment());
-            if (result.containsKey(key)) {
-                Map<String, List<EquipmentVO>> listMap = result.get(key);
-                if (listMap.containsKey(itemDO.getSite())) {
-                    listMap.get(itemDO.getSite()).add(equipmentVO);
-                } else {
-                    List<EquipmentVO> list = Lists.newArrayList();
-                    list.add(equipmentVO);
-                    listMap.put(itemDO.getSite(),list);
+
+            String skey = itemDO.getManageType();
+            if (result.containsKey(pkey)) {
+                Map<String, Map<String, List<EquipmentVO>>> secondMap = result.get(pkey);
+                if (secondMap.containsKey(skey)) {
+                    Map<String, List<EquipmentVO>> thirdMap = secondMap.get(skey);
+                    if (thirdMap.containsKey(itemDO.getSite())) {
+                        thirdMap.get(itemDO.getSite()).add(equipmentVO);
+                    } else {
+                        List<EquipmentVO> list = Lists.newArrayList();
+                        list.add(equipmentVO);
+                        thirdMap.put(itemDO.getSite(), list);
+                    }
                 }
+
             } else {
-                Map<String, List<EquipmentVO>> childMap = Maps.newHashMap();
+                Map<String, Map<String, List<EquipmentVO>>> secondMap = Maps.newHashMap();
+                Map<String, List<EquipmentVO>> thirdMap = Maps.newHashMap();
                 List<EquipmentVO> childList = Lists.newArrayList();
                 childList.add(equipmentVO);
-                childMap.put(itemDO.getSite(), childList);
-                result.put(key, childMap);
+                thirdMap.put(itemDO.getSite(), childList);
+                secondMap.put(skey, thirdMap);
+                result.put(pkey, secondMap);
             }
         }
         return result;

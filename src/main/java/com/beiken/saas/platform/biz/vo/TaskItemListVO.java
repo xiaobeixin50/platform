@@ -104,5 +104,9 @@ public class TaskItemListVO implements Serializable {
         @ApiModelProperty(name = "rigCode", value = "井code"
                 , required = false, example = "")
         private String rigCode;
+
+        @ApiModelProperty(name = "photoList", value = "photoList"
+                , required = false, example = "")
+        private List<String> photoList;
     }
 }

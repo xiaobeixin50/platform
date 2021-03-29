@@ -4,22 +4,22 @@ import com.beiken.saas.platform.biz.bo.PageBo;
 import com.beiken.saas.platform.biz.vo.RankVO;
 import com.beiken.saas.platform.biz.vo.Result;
 import com.beiken.saas.platform.biz.vo.UserVO;
+import com.beiken.saas.platform.mapper.DepartmentMapper;
 import com.beiken.saas.platform.mapper.HiddenDangerMapper;
 import com.beiken.saas.platform.mapper.RigMapper;
 import com.beiken.saas.platform.mapper.UserMapper;
 import com.beiken.saas.platform.pojo.*;
 import com.beiken.saas.platform.utils.DatesUtils;
-import com.google.common.collect.Lists;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.beans.BeanCopier;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 /**
@@ -36,6 +36,8 @@ public class RankController {
 
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private DepartmentMapper departmentMapper;
 
     @Autowired
     private RigMapper rigMapper;
@@ -249,7 +251,7 @@ public class RankController {
         //查询所有解决的隐患
         HiddenDangerDOExample example = new HiddenDangerDOExample();
         //TODO:reportStatus为1表示解决？
-        example.createCriteria().andReportTimeBetween(startTime, endTime).andReportStatusEqualTo(1);
+        example.createCriteria().andReportTimeBetween(startTime, endTime).andReportStatusEqualTo(0);
         List<HiddenDangerDO> hiddenDangerDOS = hiddenDangerMapper.selectByExample(example);
         if (hiddenDangerDOS.size() == 0) {
             List<RankVO> result = new ArrayList<>();
@@ -270,6 +272,18 @@ public class RankController {
             rankVO.setManageRigNum(0L);
             UserDO userDO = userMap.get(userId);
             UserVO userVO = convertUserDO(userDO);
+            DepartmentDO departmentDO = departmentMapper.selectByPrimaryKey(userVO.getDepId());
+            if (Objects.nonNull(departmentDO)) {
+                DepartmentDOExample deptExample = new DepartmentDOExample();
+                deptExample.createCriteria()
+                        .andIdEqualTo(departmentDO.getParentId());
+                List<DepartmentDO> departmentDOs = departmentMapper.selectByExample(deptExample);
+                if (!CollectionUtils.isEmpty(departmentDOs)) {
+                    DepartmentDO parentDept = departmentDOs.get(0);
+                    userVO.setParentDepId(parentDept.getId());
+                    userVO.setParentDepName(parentDept.getDeptName());
+                }
+            }
             rankVO.setUserVO(userVO);
             return rankVO;
         }).collect(Collectors.toList());

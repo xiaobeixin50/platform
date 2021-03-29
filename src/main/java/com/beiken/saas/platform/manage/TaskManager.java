@@ -10,6 +10,7 @@ import com.beiken.saas.platform.mapper.*;
 import com.beiken.saas.platform.pojo.*;
 import com.beiken.saas.platform.utils.CodeUtil;
 import com.beiken.saas.platform.utils.DateUtil;
+import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.apache.commons.lang3.StringUtils;
@@ -283,22 +284,12 @@ public class TaskManager {
             deptVO.setDeptId(rigDO.getDeptId());
             deptVO.setDeptName(rigDO.getDeptName());
 
-            DeptVO parentDept = new DeptVO();
-            parentDept.setDeptId(rigDO.getParentDeptId());
-            parentDept.setDeptName(rigDO.getParentDeptName());
             if (!taskTitleMap.containsKey(deptVO)) {
                 List<RigVO> rigList = Lists.newArrayList();
                 rigList.add(rigVO);
                 taskTitleMap.put(deptVO, rigList);
             } else {
                 taskTitleMap.get(deptVO).add(rigVO);
-            }
-            if (!taskTitleMap.containsKey(parentDept)) {
-                List<RigVO> rigList = Lists.newArrayList();
-                rigList.add(rigVO);
-                taskTitleMap.put(parentDept, rigList);
-            } else {
-                taskTitleMap.get(parentDept).add(rigVO);
             }
         }
 
@@ -394,6 +385,13 @@ public class TaskManager {
         HiddenDangerDO hiddenDangerDO = dangerManager.dangerInfoByCode(taskCode, bgItemCode, reportType);
         if (Objects.nonNull(hiddenDangerDO)) {
             BeanUtils.copyProperties(hiddenDangerDO, extra);
+            extra.setInspectUserId(hiddenDangerDO.getFindUserId());
+            extra.setInspectUserName(hiddenDangerDO.getFindUserName());
+            String photo = hiddenDangerDO.getPhoto();
+            if (StringUtils.isNotBlank(photo)) {
+                List<String> list = Splitter.on(Constants.COMMON).omitEmptyStrings().trimResults().splitToList(photo);
+                extra.setPhotoList(list);
+            }
         }
         TaskItemStatusEnum index = TaskItemStatusEnum.index(taskItemDO.getResultStatus());
         extra.setStatus(index == null ? null : index.getMsg());

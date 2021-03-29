@@ -89,13 +89,19 @@ public class CustomDangerController {
             BeanUtils.copyProperties(dangerVO, dangerDO);
             dangerDO.setId(dangerId);
             if (dangerDO.getConfirmUserId() != null) {
-                dangerDO.setReportStatus(DangerStatusEnum.WAIT_LEVEL.getStatus());
+                dangerDO.setReportStatus(DangerStatusEnum.WAIT_CHANGE.getStatus());
             }
             if (dangerDO.getDisLevelUserId() != null) {
                 dangerDO.setReportStatus(DangerStatusEnum.WAIT_ENV_PLAN.getStatus());
             }
             if (dangerDO.getChangeUserId()!= null) {
-                dangerDO.setReportStatus(DangerStatusEnum.WAIT_CHANGE.getStatus());
+                List<Integer> status = Constants.STATUS_MAP.get(0).get(dangerDO.getDangerLevel());
+                if (dangerDO.getDangerLevel() > 0) {
+                    dangerDO.setReportStatus(status.get(1));
+                }
+                else {
+                    dangerDO.setReportStatus(status.get(0));
+                }
             }
             if (dangerDO.getInspectStatus() != null) {
                 dangerDO.setReportStatus(dangerDO.getInspectStatus());

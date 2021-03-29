@@ -66,18 +66,21 @@ public class GeneratorController {
         try {
             List<EquipmentVO> result = Lists.newArrayList();
             List<BgInspectItemDO> all = bgManager.getAll();
-            Map<String, Map<String, List<EquipmentVO>>> map = bgManager.buildEquipment(all);
-            for (String s : map.keySet()) {
+            Map<String, Map<String, Map<String, List<EquipmentVO>>>> map = bgManager.buildEquipment(all);
+            for (String pkey : map.keySet()) {
                 EquipmentVO equipmentVO = new EquipmentVO();
-                equipmentVO.setValue(s);
+                equipmentVO.setValue(pkey);
                 equipmentVO.setVoList(Lists.newArrayList());
-                for (List<EquipmentVO> list : map.get(s).values()) {
-                    for (EquipmentVO value : list) {
-                        EquipmentVO child = new EquipmentVO();
-                        child.setValue(value.getValue());
-                        child.setVoList(value.getVoList());
-                        child.setBgItemCode(value.getBgItemCode());
-                        equipmentVO.getVoList().add(child);
+                for (String skey : map.get(pkey).keySet()) {
+                    EquipmentVO skeyVO = new EquipmentVO();
+                    skeyVO.setValue(skey);
+                    skeyVO.setVoList(Lists.newArrayList());
+                    equipmentVO.getVoList().add(skeyVO);
+                    for (String thirdKey : map.get(pkey).get(skey).keySet()) {
+                        EquipmentVO thirdKeyVO = new EquipmentVO();
+                        thirdKeyVO.setValue(thirdKey);
+                        thirdKeyVO.setVoList(map.get(pkey).get(skey).get(thirdKey));
+                        skeyVO.getVoList().add(thirdKeyVO);
                     }
                 }
                 result.add(equipmentVO);
