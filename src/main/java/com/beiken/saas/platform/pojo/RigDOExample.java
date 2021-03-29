@@ -911,6 +911,136 @@ public class RigDOExample {
             addCriterion("status not between", value1, value2, "status");
             return (Criteria) this;
         }
+
+        public Criteria andInspectUserIdIsNull() {
+            addCriterion("inspect_user_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserIdIsNotNull() {
+            addCriterion("inspect_user_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserIdEqualTo(Long value) {
+            addCriterion("inspect_user_id =", value, "inspectUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserIdNotEqualTo(Long value) {
+            addCriterion("inspect_user_id <>", value, "inspectUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserIdGreaterThan(Long value) {
+            addCriterion("inspect_user_id >", value, "inspectUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("inspect_user_id >=", value, "inspectUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserIdLessThan(Long value) {
+            addCriterion("inspect_user_id <", value, "inspectUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserIdLessThanOrEqualTo(Long value) {
+            addCriterion("inspect_user_id <=", value, "inspectUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserIdIn(List<Long> values) {
+            addCriterion("inspect_user_id in", values, "inspectUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserIdNotIn(List<Long> values) {
+            addCriterion("inspect_user_id not in", values, "inspectUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserIdBetween(Long value1, Long value2) {
+            addCriterion("inspect_user_id between", value1, value2, "inspectUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserIdNotBetween(Long value1, Long value2) {
+            addCriterion("inspect_user_id not between", value1, value2, "inspectUserId");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserNameIsNull() {
+            addCriterion("inspect_user_name is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserNameIsNotNull() {
+            addCriterion("inspect_user_name is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserNameEqualTo(String value) {
+            addCriterion("inspect_user_name =", value, "inspectUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserNameNotEqualTo(String value) {
+            addCriterion("inspect_user_name <>", value, "inspectUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserNameGreaterThan(String value) {
+            addCriterion("inspect_user_name >", value, "inspectUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserNameGreaterThanOrEqualTo(String value) {
+            addCriterion("inspect_user_name >=", value, "inspectUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserNameLessThan(String value) {
+            addCriterion("inspect_user_name <", value, "inspectUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserNameLessThanOrEqualTo(String value) {
+            addCriterion("inspect_user_name <=", value, "inspectUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserNameLike(String value) {
+            addCriterion("inspect_user_name like", value, "inspectUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserNameNotLike(String value) {
+            addCriterion("inspect_user_name not like", value, "inspectUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserNameIn(List<String> values) {
+            addCriterion("inspect_user_name in", values, "inspectUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserNameNotIn(List<String> values) {
+            addCriterion("inspect_user_name not in", values, "inspectUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserNameBetween(String value1, String value2) {
+            addCriterion("inspect_user_name between", value1, value2, "inspectUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserNameNotBetween(String value1, String value2) {
+            addCriterion("inspect_user_name not between", value1, value2, "inspectUserName");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

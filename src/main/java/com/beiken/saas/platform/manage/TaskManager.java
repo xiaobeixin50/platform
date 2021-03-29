@@ -316,6 +316,7 @@ public class TaskManager {
         inspectTaskItem.setResultStatus(taskItemVO.getResultStatus());
         inspectTaskItem.setReportTime(new Date());
         inspectTaskItem.setReportExtra(taskItemVO.getReportExtra());
+        inspectTaskItem.setPhoto(taskItemVO.getPhoto());
         int updateResult = taskItemMapper.updateByExampleSelective(inspectTaskItem, example);
         if (updateResult < 0) {
             return "更新任务详情失败";

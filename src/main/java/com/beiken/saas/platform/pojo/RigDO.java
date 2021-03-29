@@ -27,6 +27,10 @@ public class RigDO {
 
     private Integer status;
 
+    private Long inspectUserId;
+
+    private String inspectUserName;
+
     private String extra;
 
     public Long getId() {
@@ -123,6 +127,22 @@ public class RigDO {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Long getInspectUserId() {
+        return inspectUserId;
+    }
+
+    public void setInspectUserId(Long inspectUserId) {
+        this.inspectUserId = inspectUserId;
+    }
+
+    public String getInspectUserName() {
+        return inspectUserName;
+    }
+
+    public void setInspectUserName(String inspectUserName) {
+        this.inspectUserName = inspectUserName == null ? null : inspectUserName.trim();
     }
 
     public String getExtra() {

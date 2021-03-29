@@ -14,6 +14,8 @@
     <result column="model" jdbcType="VARCHAR" property="model" />
     <result column="type" jdbcType="VARCHAR" property="type" />
     <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="inspect_user_id" jdbcType="BIGINT" property="inspectUserId" />
+    <result column="inspect_user_name" jdbcType="VARCHAR" property="inspectUserName" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.beiken.saas.platform.pojo.RigDO">
     <result column="extra" jdbcType="LONGVARCHAR" property="extra" />
@@ -78,7 +80,7 @@
   </sql>
   <sql id="Base_Column_List">
     id, gmt_create, gmt_modified, rig_code, dept_id, dept_name, parent_dept_id, parent_dept_name, 
-    area, model, type, status
+    area, model, type, status, inspect_user_id, inspect_user_name
   </sql>
   <sql id="Blob_Column_List">
     extra
@@ -146,13 +148,13 @@
     insert into sft_rig (gmt_create, gmt_modified, rig_code, 
       dept_id, dept_name, parent_dept_id, 
       parent_dept_name, area, model, 
-      type, status, extra
-      )
+      type, status, inspect_user_id, 
+      inspect_user_name, extra)
     values (#{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{rigCode,jdbcType=VARCHAR}, 
       #{deptId,jdbcType=BIGINT}, #{deptName,jdbcType=VARCHAR}, #{parentDeptId,jdbcType=BIGINT}, 
       #{parentDeptName,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, #{model,jdbcType=VARCHAR}, 
-      #{type,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{extra,jdbcType=LONGVARCHAR}
-      )
+      #{type,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{inspectUserId,jdbcType=BIGINT}, 
+      #{inspectUserName,jdbcType=VARCHAR}, #{extra,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.beiken.saas.platform.pojo.RigDO">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
@@ -193,6 +195,12 @@
       <if test="status != null">
         status,
       </if>
+      <if test="inspectUserId != null">
+        inspect_user_id,
+      </if>
+      <if test="inspectUserName != null">
+        inspect_user_name,
+      </if>
       <if test="extra != null">
         extra,
       </if>
@@ -230,6 +238,12 @@
       </if>
       <if test="status != null">
         #{status,jdbcType=INTEGER},
+      </if>
+      <if test="inspectUserId != null">
+        #{inspectUserId,jdbcType=BIGINT},
+      </if>
+      <if test="inspectUserName != null">
+        #{inspectUserName,jdbcType=VARCHAR},
       </if>
       <if test="extra != null">
         #{extra,jdbcType=LONGVARCHAR},
@@ -281,6 +295,12 @@
       <if test="record.status != null">
         status = #{record.status,jdbcType=INTEGER},
       </if>
+      <if test="record.inspectUserId != null">
+        inspect_user_id = #{record.inspectUserId,jdbcType=BIGINT},
+      </if>
+      <if test="record.inspectUserName != null">
+        inspect_user_name = #{record.inspectUserName,jdbcType=VARCHAR},
+      </if>
       <if test="record.extra != null">
         extra = #{record.extra,jdbcType=LONGVARCHAR},
       </if>
@@ -303,6 +323,8 @@
       model = #{record.model,jdbcType=VARCHAR},
       type = #{record.type,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=INTEGER},
+      inspect_user_id = #{record.inspectUserId,jdbcType=BIGINT},
+      inspect_user_name = #{record.inspectUserName,jdbcType=VARCHAR},
       extra = #{record.extra,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -321,7 +343,9 @@
       area = #{record.area,jdbcType=VARCHAR},
       model = #{record.model,jdbcType=VARCHAR},
       type = #{record.type,jdbcType=VARCHAR},
-      status = #{record.status,jdbcType=INTEGER}
+      status = #{record.status,jdbcType=INTEGER},
+      inspect_user_id = #{record.inspectUserId,jdbcType=BIGINT},
+      inspect_user_name = #{record.inspectUserName,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -362,6 +386,12 @@
       <if test="status != null">
         status = #{status,jdbcType=INTEGER},
       </if>
+      <if test="inspectUserId != null">
+        inspect_user_id = #{inspectUserId,jdbcType=BIGINT},
+      </if>
+      <if test="inspectUserName != null">
+        inspect_user_name = #{inspectUserName,jdbcType=VARCHAR},
+      </if>
       <if test="extra != null">
         extra = #{extra,jdbcType=LONGVARCHAR},
       </if>
@@ -381,6 +411,8 @@
       model = #{model,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
+      inspect_user_id = #{inspectUserId,jdbcType=BIGINT},
+      inspect_user_name = #{inspectUserName,jdbcType=VARCHAR},
       extra = #{extra,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -396,7 +428,9 @@
       area = #{area,jdbcType=VARCHAR},
       model = #{model,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR},
-      status = #{status,jdbcType=INTEGER}
+      status = #{status,jdbcType=INTEGER},
+      inspect_user_id = #{inspectUserId,jdbcType=BIGINT},
+      inspect_user_name = #{inspectUserName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>
