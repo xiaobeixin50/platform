@@ -186,7 +186,7 @@ public class RankController {
             return result;
         }
         //TODO:按照 解决的用户id 分组
-        Map<Long, Long> groupResult = hiddenDangerDOS.stream().collect(Collectors.groupingBy(HiddenDangerDO::getFindUserId, Collectors.counting()));
+        Map<Long, Long> groupResult = hiddenDangerDOS.stream().collect(Collectors.groupingBy(HiddenDangerDO::getResponsibilityUserId, Collectors.counting()));
         //获取所有人的信息,用户名和部门名称
         List<Long> userIds = groupResult.keySet().stream().collect(Collectors.toList());
         UserDOExample userExample = new UserDOExample();
