@@ -383,6 +383,10 @@ public class TaskManager {
             return null;
         }
         BeanUtils.copyProperties(taskItemDO, extra);
+        if (StringUtils.isNotBlank(taskItemDO.getPhoto())) {
+            List<String> photo = Splitter.on(Constants.COMMON).omitEmptyStrings().trimResults().splitToList(taskItemDO.getPhoto());
+            extra.setPhotoList(photo);
+        }
         BgInspectItemDO bgItemDO = bgInspectItems.get(0);
         HiddenDangerDO hiddenDangerDO = dangerManager.dangerInfoByCode(taskCode, bgItemCode, reportType);
         if (Objects.nonNull(hiddenDangerDO)) {

@@ -27,6 +27,8 @@ public class InspectTaskItemDO {
 
     private Long rigId;
 
+    private String photo;
+
     public Long getId() {
         return id;
     }
@@ -121,5 +123,13 @@ public class InspectTaskItemDO {
 
     public void setRigId(Long rigId) {
         this.rigId = rigId;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo == null ? null : photo.trim();
     }
 }

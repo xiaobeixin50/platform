@@ -14,6 +14,7 @@
     <result column="rig_code" jdbcType="VARCHAR" property="rigCode" />
     <result column="dept_id" jdbcType="BIGINT" property="deptId" />
     <result column="rig_id" jdbcType="BIGINT" property="rigId" />
+    <result column="photo" jdbcType="VARCHAR" property="photo" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -75,7 +76,7 @@
   </sql>
   <sql id="Base_Column_List">
     id, gmt_create, gmt_modified, task_code, bg_item_code, result_status, end_date, report_extra, 
-    report_time, rig_code, dept_id, rig_id
+    report_time, rig_code, dept_id, rig_id, photo
   </sql>
   <select id="selectByExample" parameterType="com.beiken.saas.platform.pojo.InspectTaskItemDOExample" resultMap="BaseResultMap">
     select
@@ -118,11 +119,11 @@
     insert into sft_inspect_task_item (gmt_create, gmt_modified, task_code, 
       bg_item_code, result_status, end_date, 
       report_extra, report_time, rig_code, 
-      dept_id, rig_id)
+      dept_id, rig_id, photo)
     values (#{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{taskCode,jdbcType=VARCHAR}, 
       #{bgItemCode,jdbcType=VARCHAR}, #{resultStatus,jdbcType=INTEGER}, #{endDate,jdbcType=TIMESTAMP}, 
       #{reportExtra,jdbcType=VARCHAR}, #{reportTime,jdbcType=TIMESTAMP}, #{rigCode,jdbcType=VARCHAR}, 
-      #{deptId,jdbcType=BIGINT}, #{rigId,jdbcType=BIGINT})
+      #{deptId,jdbcType=BIGINT}, #{rigId,jdbcType=BIGINT}, #{photo,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.beiken.saas.platform.pojo.InspectTaskItemDO">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
@@ -163,6 +164,9 @@
       <if test="rigId != null">
         rig_id,
       </if>
+      <if test="photo != null">
+        photo,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="gmtCreate != null">
@@ -197,6 +201,9 @@
       </if>
       <if test="rigId != null">
         #{rigId,jdbcType=BIGINT},
+      </if>
+      <if test="photo != null">
+        #{photo,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -245,6 +252,9 @@
       <if test="record.rigId != null">
         rig_id = #{record.rigId,jdbcType=BIGINT},
       </if>
+      <if test="record.photo != null">
+        photo = #{record.photo,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -263,7 +273,8 @@
       report_time = #{record.reportTime,jdbcType=TIMESTAMP},
       rig_code = #{record.rigCode,jdbcType=VARCHAR},
       dept_id = #{record.deptId,jdbcType=BIGINT},
-      rig_id = #{record.rigId,jdbcType=BIGINT}
+      rig_id = #{record.rigId,jdbcType=BIGINT},
+      photo = #{record.photo,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -304,6 +315,9 @@
       <if test="rigId != null">
         rig_id = #{rigId,jdbcType=BIGINT},
       </if>
+      <if test="photo != null">
+        photo = #{photo,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -319,7 +333,8 @@
       report_time = #{reportTime,jdbcType=TIMESTAMP},
       rig_code = #{rigCode,jdbcType=VARCHAR},
       dept_id = #{deptId,jdbcType=BIGINT},
-      rig_id = #{rigId,jdbcType=BIGINT}
+      rig_id = #{rigId,jdbcType=BIGINT},
+      photo = #{photo,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>
