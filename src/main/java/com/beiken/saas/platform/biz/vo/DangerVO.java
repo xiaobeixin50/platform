@@ -24,6 +24,7 @@ public class DangerVO extends HiddenDangerDO implements Serializable{
             , example = "多个英文,号分割")
     private List<String> inspectPhotoList;
 
+
     @ApiModelProperty(name = "evnPhotoList", value = "环保部门验收图片地址,返回结果用"
             , example = "多个英文,号分割")
     private List<String> evnPhotoList;

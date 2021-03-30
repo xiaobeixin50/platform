@@ -114,6 +114,9 @@ public class UserController {
                 return Result.error(Constants.ERROR, "用户名或密码不正确");
             }
             UserVO userVO = userVOPageBo.getItemList().get(0);
+            if ("井队长".equals(userVO.getRole()) || "一线员工".equals(userVO.getRole())) {
+                return Result.error(Constants.ERROR, "暂无权限");
+            }
             userVO.setPassword(null);
             Long depId = userVO.getDepId();
 

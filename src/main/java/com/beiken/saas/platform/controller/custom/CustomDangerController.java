@@ -126,9 +126,12 @@ public class CustomDangerController {
                 dangerDO.setReportStatus(DangerStatusEnum.WAIT_CHANGE.getStatus());
             }
 
-            if (dangerDO.getEvnStatus() != null) {
+            if (dangerDO.getEnvUserId() != null) {
+                if (dangerDO.getEnvStatus() == null) {
+                    return Result.error(Constants.ERROR, "未设置隐患状态");
+                }
                 dangerDO.setDangerLevel(dangerVO.getDangerLevel());
-                if (dangerDO.getEvnStatus() == 1) {
+                if (dangerDO.getEnvStatus() == 1) {
                     dangerDO.setReportStatus(DangerStatusEnum.FINISH.getStatus());
                 } else {
                     dangerDO.setReportStatus(DangerStatusEnum.WAIT_CHANGE.getStatus());

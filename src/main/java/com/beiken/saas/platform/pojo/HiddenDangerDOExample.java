@@ -1812,6 +1812,76 @@ public class HiddenDangerDOExample {
             return (Criteria) this;
         }
 
+        public Criteria andDisUserRoleIsNull() {
+            addCriterion("dis_user_role is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisUserRoleIsNotNull() {
+            addCriterion("dis_user_role is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisUserRoleEqualTo(String value) {
+            addCriterion("dis_user_role =", value, "disUserRole");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisUserRoleNotEqualTo(String value) {
+            addCriterion("dis_user_role <>", value, "disUserRole");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisUserRoleGreaterThan(String value) {
+            addCriterion("dis_user_role >", value, "disUserRole");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisUserRoleGreaterThanOrEqualTo(String value) {
+            addCriterion("dis_user_role >=", value, "disUserRole");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisUserRoleLessThan(String value) {
+            addCriterion("dis_user_role <", value, "disUserRole");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisUserRoleLessThanOrEqualTo(String value) {
+            addCriterion("dis_user_role <=", value, "disUserRole");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisUserRoleLike(String value) {
+            addCriterion("dis_user_role like", value, "disUserRole");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisUserRoleNotLike(String value) {
+            addCriterion("dis_user_role not like", value, "disUserRole");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisUserRoleIn(List<String> values) {
+            addCriterion("dis_user_role in", values, "disUserRole");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisUserRoleNotIn(List<String> values) {
+            addCriterion("dis_user_role not in", values, "disUserRole");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisUserRoleBetween(String value1, String value2) {
+            addCriterion("dis_user_role between", value1, value2, "disUserRole");
+            return (Criteria) this;
+        }
+
+        public Criteria andDisUserRoleNotBetween(String value1, String value2) {
+            addCriterion("dis_user_role not between", value1, value2, "disUserRole");
+            return (Criteria) this;
+        }
+
         public Criteria andDisLevelTimeIsNull() {
             addCriterion("dis_level_time is null");
             return (Criteria) this;
@@ -2202,6 +2272,76 @@ public class HiddenDangerDOExample {
             return (Criteria) this;
         }
 
+        public Criteria andChangeUserRoleIsNull() {
+            addCriterion("change_user_role is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeUserRoleIsNotNull() {
+            addCriterion("change_user_role is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeUserRoleEqualTo(String value) {
+            addCriterion("change_user_role =", value, "changeUserRole");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeUserRoleNotEqualTo(String value) {
+            addCriterion("change_user_role <>", value, "changeUserRole");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeUserRoleGreaterThan(String value) {
+            addCriterion("change_user_role >", value, "changeUserRole");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeUserRoleGreaterThanOrEqualTo(String value) {
+            addCriterion("change_user_role >=", value, "changeUserRole");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeUserRoleLessThan(String value) {
+            addCriterion("change_user_role <", value, "changeUserRole");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeUserRoleLessThanOrEqualTo(String value) {
+            addCriterion("change_user_role <=", value, "changeUserRole");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeUserRoleLike(String value) {
+            addCriterion("change_user_role like", value, "changeUserRole");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeUserRoleNotLike(String value) {
+            addCriterion("change_user_role not like", value, "changeUserRole");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeUserRoleIn(List<String> values) {
+            addCriterion("change_user_role in", values, "changeUserRole");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeUserRoleNotIn(List<String> values) {
+            addCriterion("change_user_role not in", values, "changeUserRole");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeUserRoleBetween(String value1, String value2) {
+            addCriterion("change_user_role between", value1, value2, "changeUserRole");
+            return (Criteria) this;
+        }
+
+        public Criteria andChangeUserRoleNotBetween(String value1, String value2) {
+            addCriterion("change_user_role not between", value1, value2, "changeUserRole");
+            return (Criteria) this;
+        }
+
         public Criteria andChangeSubmitTimeIsNull() {
             addCriterion("change_submit_time is null");
             return (Criteria) this;
@@ -2389,6 +2529,76 @@ public class HiddenDangerDOExample {
 
         public Criteria andInspectUserNameNotBetween(String value1, String value2) {
             addCriterion("inspect_user_name not between", value1, value2, "inspectUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserRoleIsNull() {
+            addCriterion("inspect_user_role is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserRoleIsNotNull() {
+            addCriterion("inspect_user_role is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserRoleEqualTo(String value) {
+            addCriterion("inspect_user_role =", value, "inspectUserRole");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserRoleNotEqualTo(String value) {
+            addCriterion("inspect_user_role <>", value, "inspectUserRole");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserRoleGreaterThan(String value) {
+            addCriterion("inspect_user_role >", value, "inspectUserRole");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserRoleGreaterThanOrEqualTo(String value) {
+            addCriterion("inspect_user_role >=", value, "inspectUserRole");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserRoleLessThan(String value) {
+            addCriterion("inspect_user_role <", value, "inspectUserRole");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserRoleLessThanOrEqualTo(String value) {
+            addCriterion("inspect_user_role <=", value, "inspectUserRole");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserRoleLike(String value) {
+            addCriterion("inspect_user_role like", value, "inspectUserRole");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserRoleNotLike(String value) {
+            addCriterion("inspect_user_role not like", value, "inspectUserRole");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserRoleIn(List<String> values) {
+            addCriterion("inspect_user_role in", values, "inspectUserRole");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserRoleNotIn(List<String> values) {
+            addCriterion("inspect_user_role not in", values, "inspectUserRole");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserRoleBetween(String value1, String value2) {
+            addCriterion("inspect_user_role between", value1, value2, "inspectUserRole");
+            return (Criteria) this;
+        }
+
+        public Criteria andInspectUserRoleNotBetween(String value1, String value2) {
+            addCriterion("inspect_user_role not between", value1, value2, "inspectUserRole");
             return (Criteria) this;
         }
 
@@ -2782,393 +2992,463 @@ public class HiddenDangerDOExample {
             return (Criteria) this;
         }
 
-        public Criteria andEvnPhotoIsNull() {
-            addCriterion("evn_photo is null");
+        public Criteria andEnvPhotoIsNull() {
+            addCriterion("env_photo is null");
             return (Criteria) this;
         }
 
-        public Criteria andEvnPhotoIsNotNull() {
-            addCriterion("evn_photo is not null");
+        public Criteria andEnvPhotoIsNotNull() {
+            addCriterion("env_photo is not null");
             return (Criteria) this;
         }
 
-        public Criteria andEvnPhotoEqualTo(String value) {
-            addCriterion("evn_photo =", value, "evnPhoto");
+        public Criteria andEnvPhotoEqualTo(String value) {
+            addCriterion("env_photo =", value, "envPhoto");
             return (Criteria) this;
         }
 
-        public Criteria andEvnPhotoNotEqualTo(String value) {
-            addCriterion("evn_photo <>", value, "evnPhoto");
+        public Criteria andEnvPhotoNotEqualTo(String value) {
+            addCriterion("env_photo <>", value, "envPhoto");
             return (Criteria) this;
         }
 
-        public Criteria andEvnPhotoGreaterThan(String value) {
-            addCriterion("evn_photo >", value, "evnPhoto");
+        public Criteria andEnvPhotoGreaterThan(String value) {
+            addCriterion("env_photo >", value, "envPhoto");
             return (Criteria) this;
         }
 
-        public Criteria andEvnPhotoGreaterThanOrEqualTo(String value) {
-            addCriterion("evn_photo >=", value, "evnPhoto");
+        public Criteria andEnvPhotoGreaterThanOrEqualTo(String value) {
+            addCriterion("env_photo >=", value, "envPhoto");
             return (Criteria) this;
         }
 
-        public Criteria andEvnPhotoLessThan(String value) {
-            addCriterion("evn_photo <", value, "evnPhoto");
+        public Criteria andEnvPhotoLessThan(String value) {
+            addCriterion("env_photo <", value, "envPhoto");
             return (Criteria) this;
         }
 
-        public Criteria andEvnPhotoLessThanOrEqualTo(String value) {
-            addCriterion("evn_photo <=", value, "evnPhoto");
+        public Criteria andEnvPhotoLessThanOrEqualTo(String value) {
+            addCriterion("env_photo <=", value, "envPhoto");
             return (Criteria) this;
         }
 
-        public Criteria andEvnPhotoLike(String value) {
-            addCriterion("evn_photo like", value, "evnPhoto");
+        public Criteria andEnvPhotoLike(String value) {
+            addCriterion("env_photo like", value, "envPhoto");
             return (Criteria) this;
         }
 
-        public Criteria andEvnPhotoNotLike(String value) {
-            addCriterion("evn_photo not like", value, "evnPhoto");
+        public Criteria andEnvPhotoNotLike(String value) {
+            addCriterion("env_photo not like", value, "envPhoto");
             return (Criteria) this;
         }
 
-        public Criteria andEvnPhotoIn(List<String> values) {
-            addCriterion("evn_photo in", values, "evnPhoto");
+        public Criteria andEnvPhotoIn(List<String> values) {
+            addCriterion("env_photo in", values, "envPhoto");
             return (Criteria) this;
         }
 
-        public Criteria andEvnPhotoNotIn(List<String> values) {
-            addCriterion("evn_photo not in", values, "evnPhoto");
+        public Criteria andEnvPhotoNotIn(List<String> values) {
+            addCriterion("env_photo not in", values, "envPhoto");
             return (Criteria) this;
         }
 
-        public Criteria andEvnPhotoBetween(String value1, String value2) {
-            addCriterion("evn_photo between", value1, value2, "evnPhoto");
+        public Criteria andEnvPhotoBetween(String value1, String value2) {
+            addCriterion("env_photo between", value1, value2, "envPhoto");
             return (Criteria) this;
         }
 
-        public Criteria andEvnPhotoNotBetween(String value1, String value2) {
-            addCriterion("evn_photo not between", value1, value2, "evnPhoto");
+        public Criteria andEnvPhotoNotBetween(String value1, String value2) {
+            addCriterion("env_photo not between", value1, value2, "envPhoto");
             return (Criteria) this;
         }
 
-        public Criteria andEvnExtraIsNull() {
-            addCriterion("evn_extra is null");
+        public Criteria andEnvExtraIsNull() {
+            addCriterion("env_extra is null");
             return (Criteria) this;
         }
 
-        public Criteria andEvnExtraIsNotNull() {
-            addCriterion("evn_extra is not null");
+        public Criteria andEnvExtraIsNotNull() {
+            addCriterion("env_extra is not null");
             return (Criteria) this;
         }
 
-        public Criteria andEvnExtraEqualTo(String value) {
-            addCriterion("evn_extra =", value, "evnExtra");
+        public Criteria andEnvExtraEqualTo(String value) {
+            addCriterion("env_extra =", value, "envExtra");
             return (Criteria) this;
         }
 
-        public Criteria andEvnExtraNotEqualTo(String value) {
-            addCriterion("evn_extra <>", value, "evnExtra");
+        public Criteria andEnvExtraNotEqualTo(String value) {
+            addCriterion("env_extra <>", value, "envExtra");
             return (Criteria) this;
         }
 
-        public Criteria andEvnExtraGreaterThan(String value) {
-            addCriterion("evn_extra >", value, "evnExtra");
+        public Criteria andEnvExtraGreaterThan(String value) {
+            addCriterion("env_extra >", value, "envExtra");
             return (Criteria) this;
         }
 
-        public Criteria andEvnExtraGreaterThanOrEqualTo(String value) {
-            addCriterion("evn_extra >=", value, "evnExtra");
+        public Criteria andEnvExtraGreaterThanOrEqualTo(String value) {
+            addCriterion("env_extra >=", value, "envExtra");
             return (Criteria) this;
         }
 
-        public Criteria andEvnExtraLessThan(String value) {
-            addCriterion("evn_extra <", value, "evnExtra");
+        public Criteria andEnvExtraLessThan(String value) {
+            addCriterion("env_extra <", value, "envExtra");
             return (Criteria) this;
         }
 
-        public Criteria andEvnExtraLessThanOrEqualTo(String value) {
-            addCriterion("evn_extra <=", value, "evnExtra");
+        public Criteria andEnvExtraLessThanOrEqualTo(String value) {
+            addCriterion("env_extra <=", value, "envExtra");
             return (Criteria) this;
         }
 
-        public Criteria andEvnExtraLike(String value) {
-            addCriterion("evn_extra like", value, "evnExtra");
+        public Criteria andEnvExtraLike(String value) {
+            addCriterion("env_extra like", value, "envExtra");
             return (Criteria) this;
         }
 
-        public Criteria andEvnExtraNotLike(String value) {
-            addCriterion("evn_extra not like", value, "evnExtra");
+        public Criteria andEnvExtraNotLike(String value) {
+            addCriterion("env_extra not like", value, "envExtra");
             return (Criteria) this;
         }
 
-        public Criteria andEvnExtraIn(List<String> values) {
-            addCriterion("evn_extra in", values, "evnExtra");
+        public Criteria andEnvExtraIn(List<String> values) {
+            addCriterion("env_extra in", values, "envExtra");
             return (Criteria) this;
         }
 
-        public Criteria andEvnExtraNotIn(List<String> values) {
-            addCriterion("evn_extra not in", values, "evnExtra");
+        public Criteria andEnvExtraNotIn(List<String> values) {
+            addCriterion("env_extra not in", values, "envExtra");
             return (Criteria) this;
         }
 
-        public Criteria andEvnExtraBetween(String value1, String value2) {
-            addCriterion("evn_extra between", value1, value2, "evnExtra");
+        public Criteria andEnvExtraBetween(String value1, String value2) {
+            addCriterion("env_extra between", value1, value2, "envExtra");
             return (Criteria) this;
         }
 
-        public Criteria andEvnExtraNotBetween(String value1, String value2) {
-            addCriterion("evn_extra not between", value1, value2, "evnExtra");
+        public Criteria andEnvExtraNotBetween(String value1, String value2) {
+            addCriterion("env_extra not between", value1, value2, "envExtra");
             return (Criteria) this;
         }
 
-        public Criteria andEvnStatusIsNull() {
-            addCriterion("evn_status is null");
+        public Criteria andEnvStatusIsNull() {
+            addCriterion("env_status is null");
             return (Criteria) this;
         }
 
-        public Criteria andEvnStatusIsNotNull() {
-            addCriterion("evn_status is not null");
+        public Criteria andEnvStatusIsNotNull() {
+            addCriterion("env_status is not null");
             return (Criteria) this;
         }
 
-        public Criteria andEvnStatusEqualTo(Integer value) {
-            addCriterion("evn_status =", value, "evnStatus");
+        public Criteria andEnvStatusEqualTo(Integer value) {
+            addCriterion("env_status =", value, "envStatus");
             return (Criteria) this;
         }
 
-        public Criteria andEvnStatusNotEqualTo(Integer value) {
-            addCriterion("evn_status <>", value, "evnStatus");
+        public Criteria andEnvStatusNotEqualTo(Integer value) {
+            addCriterion("env_status <>", value, "envStatus");
             return (Criteria) this;
         }
 
-        public Criteria andEvnStatusGreaterThan(Integer value) {
-            addCriterion("evn_status >", value, "evnStatus");
+        public Criteria andEnvStatusGreaterThan(Integer value) {
+            addCriterion("env_status >", value, "envStatus");
             return (Criteria) this;
         }
 
-        public Criteria andEvnStatusGreaterThanOrEqualTo(Integer value) {
-            addCriterion("evn_status >=", value, "evnStatus");
+        public Criteria andEnvStatusGreaterThanOrEqualTo(Integer value) {
+            addCriterion("env_status >=", value, "envStatus");
             return (Criteria) this;
         }
 
-        public Criteria andEvnStatusLessThan(Integer value) {
-            addCriterion("evn_status <", value, "evnStatus");
+        public Criteria andEnvStatusLessThan(Integer value) {
+            addCriterion("env_status <", value, "envStatus");
             return (Criteria) this;
         }
 
-        public Criteria andEvnStatusLessThanOrEqualTo(Integer value) {
-            addCriterion("evn_status <=", value, "evnStatus");
+        public Criteria andEnvStatusLessThanOrEqualTo(Integer value) {
+            addCriterion("env_status <=", value, "envStatus");
             return (Criteria) this;
         }
 
-        public Criteria andEvnStatusIn(List<Integer> values) {
-            addCriterion("evn_status in", values, "evnStatus");
+        public Criteria andEnvStatusIn(List<Integer> values) {
+            addCriterion("env_status in", values, "envStatus");
             return (Criteria) this;
         }
 
-        public Criteria andEvnStatusNotIn(List<Integer> values) {
-            addCriterion("evn_status not in", values, "evnStatus");
+        public Criteria andEnvStatusNotIn(List<Integer> values) {
+            addCriterion("env_status not in", values, "envStatus");
             return (Criteria) this;
         }
 
-        public Criteria andEvnStatusBetween(Integer value1, Integer value2) {
-            addCriterion("evn_status between", value1, value2, "evnStatus");
+        public Criteria andEnvStatusBetween(Integer value1, Integer value2) {
+            addCriterion("env_status between", value1, value2, "envStatus");
             return (Criteria) this;
         }
 
-        public Criteria andEvnStatusNotBetween(Integer value1, Integer value2) {
-            addCriterion("evn_status not between", value1, value2, "evnStatus");
+        public Criteria andEnvStatusNotBetween(Integer value1, Integer value2) {
+            addCriterion("env_status not between", value1, value2, "envStatus");
             return (Criteria) this;
         }
 
-        public Criteria andEvnTimeIsNull() {
-            addCriterion("evn_time is null");
+        public Criteria andEnvTimeIsNull() {
+            addCriterion("env_time is null");
             return (Criteria) this;
         }
 
-        public Criteria andEvnTimeIsNotNull() {
-            addCriterion("evn_time is not null");
+        public Criteria andEnvTimeIsNotNull() {
+            addCriterion("env_time is not null");
             return (Criteria) this;
         }
 
-        public Criteria andEvnTimeEqualTo(Date value) {
-            addCriterion("evn_time =", value, "evnTime");
+        public Criteria andEnvTimeEqualTo(Date value) {
+            addCriterion("env_time =", value, "envTime");
             return (Criteria) this;
         }
 
-        public Criteria andEvnTimeNotEqualTo(Date value) {
-            addCriterion("evn_time <>", value, "evnTime");
+        public Criteria andEnvTimeNotEqualTo(Date value) {
+            addCriterion("env_time <>", value, "envTime");
             return (Criteria) this;
         }
 
-        public Criteria andEvnTimeGreaterThan(Date value) {
-            addCriterion("evn_time >", value, "evnTime");
+        public Criteria andEnvTimeGreaterThan(Date value) {
+            addCriterion("env_time >", value, "envTime");
             return (Criteria) this;
         }
 
-        public Criteria andEvnTimeGreaterThanOrEqualTo(Date value) {
-            addCriterion("evn_time >=", value, "evnTime");
+        public Criteria andEnvTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("env_time >=", value, "envTime");
             return (Criteria) this;
         }
 
-        public Criteria andEvnTimeLessThan(Date value) {
-            addCriterion("evn_time <", value, "evnTime");
+        public Criteria andEnvTimeLessThan(Date value) {
+            addCriterion("env_time <", value, "envTime");
             return (Criteria) this;
         }
 
-        public Criteria andEvnTimeLessThanOrEqualTo(Date value) {
-            addCriterion("evn_time <=", value, "evnTime");
+        public Criteria andEnvTimeLessThanOrEqualTo(Date value) {
+            addCriterion("env_time <=", value, "envTime");
             return (Criteria) this;
         }
 
-        public Criteria andEvnTimeIn(List<Date> values) {
-            addCriterion("evn_time in", values, "evnTime");
+        public Criteria andEnvTimeIn(List<Date> values) {
+            addCriterion("env_time in", values, "envTime");
             return (Criteria) this;
         }
 
-        public Criteria andEvnTimeNotIn(List<Date> values) {
-            addCriterion("evn_time not in", values, "evnTime");
+        public Criteria andEnvTimeNotIn(List<Date> values) {
+            addCriterion("env_time not in", values, "envTime");
             return (Criteria) this;
         }
 
-        public Criteria andEvnTimeBetween(Date value1, Date value2) {
-            addCriterion("evn_time between", value1, value2, "evnTime");
+        public Criteria andEnvTimeBetween(Date value1, Date value2) {
+            addCriterion("env_time between", value1, value2, "envTime");
             return (Criteria) this;
         }
 
-        public Criteria andEvnTimeNotBetween(Date value1, Date value2) {
-            addCriterion("evn_time not between", value1, value2, "evnTime");
+        public Criteria andEnvTimeNotBetween(Date value1, Date value2) {
+            addCriterion("env_time not between", value1, value2, "envTime");
             return (Criteria) this;
         }
 
-        public Criteria andEvnUserIdIsNull() {
-            addCriterion("evn_user_id is null");
+        public Criteria andEnvUserIdIsNull() {
+            addCriterion("env_user_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andEvnUserIdIsNotNull() {
-            addCriterion("evn_user_id is not null");
+        public Criteria andEnvUserIdIsNotNull() {
+            addCriterion("env_user_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andEvnUserIdEqualTo(Long value) {
-            addCriterion("evn_user_id =", value, "evnUserId");
+        public Criteria andEnvUserIdEqualTo(Long value) {
+            addCriterion("env_user_id =", value, "envUserId");
             return (Criteria) this;
         }
 
-        public Criteria andEvnUserIdNotEqualTo(Long value) {
-            addCriterion("evn_user_id <>", value, "evnUserId");
+        public Criteria andEnvUserIdNotEqualTo(Long value) {
+            addCriterion("env_user_id <>", value, "envUserId");
             return (Criteria) this;
         }
 
-        public Criteria andEvnUserIdGreaterThan(Long value) {
-            addCriterion("evn_user_id >", value, "evnUserId");
+        public Criteria andEnvUserIdGreaterThan(Long value) {
+            addCriterion("env_user_id >", value, "envUserId");
             return (Criteria) this;
         }
 
-        public Criteria andEvnUserIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("evn_user_id >=", value, "evnUserId");
+        public Criteria andEnvUserIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("env_user_id >=", value, "envUserId");
             return (Criteria) this;
         }
 
-        public Criteria andEvnUserIdLessThan(Long value) {
-            addCriterion("evn_user_id <", value, "evnUserId");
+        public Criteria andEnvUserIdLessThan(Long value) {
+            addCriterion("env_user_id <", value, "envUserId");
             return (Criteria) this;
         }
 
-        public Criteria andEvnUserIdLessThanOrEqualTo(Long value) {
-            addCriterion("evn_user_id <=", value, "evnUserId");
+        public Criteria andEnvUserIdLessThanOrEqualTo(Long value) {
+            addCriterion("env_user_id <=", value, "envUserId");
             return (Criteria) this;
         }
 
-        public Criteria andEvnUserIdIn(List<Long> values) {
-            addCriterion("evn_user_id in", values, "evnUserId");
+        public Criteria andEnvUserIdIn(List<Long> values) {
+            addCriterion("env_user_id in", values, "envUserId");
             return (Criteria) this;
         }
 
-        public Criteria andEvnUserIdNotIn(List<Long> values) {
-            addCriterion("evn_user_id not in", values, "evnUserId");
+        public Criteria andEnvUserIdNotIn(List<Long> values) {
+            addCriterion("env_user_id not in", values, "envUserId");
             return (Criteria) this;
         }
 
-        public Criteria andEvnUserIdBetween(Long value1, Long value2) {
-            addCriterion("evn_user_id between", value1, value2, "evnUserId");
+        public Criteria andEnvUserIdBetween(Long value1, Long value2) {
+            addCriterion("env_user_id between", value1, value2, "envUserId");
             return (Criteria) this;
         }
 
-        public Criteria andEvnUserIdNotBetween(Long value1, Long value2) {
-            addCriterion("evn_user_id not between", value1, value2, "evnUserId");
+        public Criteria andEnvUserIdNotBetween(Long value1, Long value2) {
+            addCriterion("env_user_id not between", value1, value2, "envUserId");
             return (Criteria) this;
         }
 
-        public Criteria andEvnUserNameIsNull() {
-            addCriterion("evn_user_name is null");
+        public Criteria andEnvUserNameIsNull() {
+            addCriterion("env_user_name is null");
             return (Criteria) this;
         }
 
-        public Criteria andEvnUserNameIsNotNull() {
-            addCriterion("evn_user_name is not null");
+        public Criteria andEnvUserNameIsNotNull() {
+            addCriterion("env_user_name is not null");
             return (Criteria) this;
         }
 
-        public Criteria andEvnUserNameEqualTo(String value) {
-            addCriterion("evn_user_name =", value, "evnUserName");
+        public Criteria andEnvUserNameEqualTo(String value) {
+            addCriterion("env_user_name =", value, "envUserName");
             return (Criteria) this;
         }
 
-        public Criteria andEvnUserNameNotEqualTo(String value) {
-            addCriterion("evn_user_name <>", value, "evnUserName");
+        public Criteria andEnvUserNameNotEqualTo(String value) {
+            addCriterion("env_user_name <>", value, "envUserName");
             return (Criteria) this;
         }
 
-        public Criteria andEvnUserNameGreaterThan(String value) {
-            addCriterion("evn_user_name >", value, "evnUserName");
+        public Criteria andEnvUserNameGreaterThan(String value) {
+            addCriterion("env_user_name >", value, "envUserName");
             return (Criteria) this;
         }
 
-        public Criteria andEvnUserNameGreaterThanOrEqualTo(String value) {
-            addCriterion("evn_user_name >=", value, "evnUserName");
+        public Criteria andEnvUserNameGreaterThanOrEqualTo(String value) {
+            addCriterion("env_user_name >=", value, "envUserName");
             return (Criteria) this;
         }
 
-        public Criteria andEvnUserNameLessThan(String value) {
-            addCriterion("evn_user_name <", value, "evnUserName");
+        public Criteria andEnvUserNameLessThan(String value) {
+            addCriterion("env_user_name <", value, "envUserName");
             return (Criteria) this;
         }
 
-        public Criteria andEvnUserNameLessThanOrEqualTo(String value) {
-            addCriterion("evn_user_name <=", value, "evnUserName");
+        public Criteria andEnvUserNameLessThanOrEqualTo(String value) {
+            addCriterion("env_user_name <=", value, "envUserName");
             return (Criteria) this;
         }
 
-        public Criteria andEvnUserNameLike(String value) {
-            addCriterion("evn_user_name like", value, "evnUserName");
+        public Criteria andEnvUserNameLike(String value) {
+            addCriterion("env_user_name like", value, "envUserName");
             return (Criteria) this;
         }
 
-        public Criteria andEvnUserNameNotLike(String value) {
-            addCriterion("evn_user_name not like", value, "evnUserName");
+        public Criteria andEnvUserNameNotLike(String value) {
+            addCriterion("env_user_name not like", value, "envUserName");
             return (Criteria) this;
         }
 
-        public Criteria andEvnUserNameIn(List<String> values) {
-            addCriterion("evn_user_name in", values, "evnUserName");
+        public Criteria andEnvUserNameIn(List<String> values) {
+            addCriterion("env_user_name in", values, "envUserName");
             return (Criteria) this;
         }
 
-        public Criteria andEvnUserNameNotIn(List<String> values) {
-            addCriterion("evn_user_name not in", values, "evnUserName");
+        public Criteria andEnvUserNameNotIn(List<String> values) {
+            addCriterion("env_user_name not in", values, "envUserName");
             return (Criteria) this;
         }
 
-        public Criteria andEvnUserNameBetween(String value1, String value2) {
-            addCriterion("evn_user_name between", value1, value2, "evnUserName");
+        public Criteria andEnvUserNameBetween(String value1, String value2) {
+            addCriterion("env_user_name between", value1, value2, "envUserName");
             return (Criteria) this;
         }
 
-        public Criteria andEvnUserNameNotBetween(String value1, String value2) {
-            addCriterion("evn_user_name not between", value1, value2, "evnUserName");
+        public Criteria andEnvUserNameNotBetween(String value1, String value2) {
+            addCriterion("env_user_name not between", value1, value2, "envUserName");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnvUserRoleIsNull() {
+            addCriterion("env_user_role is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnvUserRoleIsNotNull() {
+            addCriterion("env_user_role is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnvUserRoleEqualTo(String value) {
+            addCriterion("env_user_role =", value, "envUserRole");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnvUserRoleNotEqualTo(String value) {
+            addCriterion("env_user_role <>", value, "envUserRole");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnvUserRoleGreaterThan(String value) {
+            addCriterion("env_user_role >", value, "envUserRole");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnvUserRoleGreaterThanOrEqualTo(String value) {
+            addCriterion("env_user_role >=", value, "envUserRole");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnvUserRoleLessThan(String value) {
+            addCriterion("env_user_role <", value, "envUserRole");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnvUserRoleLessThanOrEqualTo(String value) {
+            addCriterion("env_user_role <=", value, "envUserRole");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnvUserRoleLike(String value) {
+            addCriterion("env_user_role like", value, "envUserRole");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnvUserRoleNotLike(String value) {
+            addCriterion("env_user_role not like", value, "envUserRole");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnvUserRoleIn(List<String> values) {
+            addCriterion("env_user_role in", values, "envUserRole");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnvUserRoleNotIn(List<String> values) {
+            addCriterion("env_user_role not in", values, "envUserRole");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnvUserRoleBetween(String value1, String value2) {
+            addCriterion("env_user_role between", value1, value2, "envUserRole");
+            return (Criteria) this;
+        }
+
+        public Criteria andEnvUserRoleNotBetween(String value1, String value2) {
+            addCriterion("env_user_role not between", value1, value2, "envUserRole");
             return (Criteria) this;
         }
 

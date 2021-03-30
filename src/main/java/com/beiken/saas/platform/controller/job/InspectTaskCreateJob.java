@@ -9,6 +9,7 @@ import com.beiken.saas.platform.mapper.TaskUserMapper;
 import com.beiken.saas.platform.pojo.*;
 import com.beiken.saas.platform.utils.CodeUtil;
 import com.beiken.saas.platform.utils.DateUtil;
+import com.beiken.saas.platform.utils.SwitchUtil;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,17 +44,18 @@ public class InspectTaskCreateJob {
     private RigManager rigManager;
     @Resource
     private InspectTaskItemMapper taskItemMapper;
+    @Resource
+    private SwitchUtil switchUtil;
 
 
-    @Scheduled(fixedDelay = 6000000)
+    @Scheduled(fixedDelay = 60000)
     @Transactional(rollbackFor = Exception.class)
     public void createTask() throws Exception {
         List<InspectPlanVO> inspectPlanVOs = inspectPlanManager.queryStartPlan();
         Date now = new Date();
         for (InspectPlanVO inspectPlanVO : inspectPlanVOs) {
             boolean b = canAdd(inspectPlanVO, now);
-            b = false;
-            if (!b) {
+            if (!b && switchUtil.match("enableCreateTask", "true")) {
                 continue;
             }
             for (DepartmentDO departmentDO : inspectPlanVO.getDeptList()) {
@@ -65,7 +67,6 @@ public class InspectTaskCreateJob {
                 addTaskUser(inspectPlanVO, now, taskId, taskCode);
                 addTaskItem(inspectPlanVO, now, taskCode);
             }
-
         }
     }
 

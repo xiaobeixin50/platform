@@ -10,6 +10,7 @@ import com.beiken.saas.platform.mapper.*;
 import com.beiken.saas.platform.pojo.*;
 import com.beiken.saas.platform.utils.CodeUtil;
 import com.beiken.saas.platform.utils.DateUtil;
+import com.beiken.saas.platform.utils.SwitchUtil;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -50,6 +51,8 @@ public class TaskManager {
     private TaskUserMapper taskUserMapper;
     @Resource
     private UserMapper userMapper;
+    @Resource
+    private SwitchUtil switchUtil;
 
 
     /**
@@ -119,6 +122,8 @@ public class TaskManager {
     public PageBo<TaskListVO> listByUser(Long userId, String rigCode, Integer pageNo, Integer pageSize) {
         PageBo<TaskListVO> pageBo = new PageBo<>();
 
+        Date now = new Date();
+
         List<String> taskCodes = getTaskCodeByInspectUser(userId, pageNo, pageSize);
         List<InspectTaskItemDO> taskItemList = getRigByCode(taskCodes, rigCode);
         Set<String> taskCodeSet = taskItemList.stream().map(InspectTaskItemDO::getTaskCode).collect(Collectors.toSet());
@@ -136,6 +141,12 @@ public class TaskManager {
         List<TaskVO> taskVOList = Lists.newArrayList();
 
         for (InspectTaskDO inspectTask : inspectTasks) {
+            if (TaskStatusEnum.NOT_BEGIN.getStatus().equals(inspectTask.getStatus())
+                    && now.compareTo(inspectTask.getEndTime()) < 0
+                    && switchUtil.match("updateAfterTime", "open")) {
+                updateTaskStatus(inspectTask.getTaskCode(), TaskStatusEnum.AFTER_TIME.getStatus());
+                updateAfterTimeTask(inspectTask.getTaskCode());
+            }
             TaskVO taskVO = new TaskVO();
             BeanUtils.copyProperties(inspectTask, taskVO);
             taskVO.setTaskStartTime(inspectTask.getStartTime());
@@ -162,6 +173,26 @@ public class TaskManager {
         pageBo.setItemList(generatorTaskList(taskVOList));
         pageBo.setTotalSize(count);
         return pageBo;
+    }
+
+    public boolean updateTaskStatus(String taskCode, Integer status) {
+        InspectTaskDOExample example = new InspectTaskDOExample();
+        example.createCriteria().andTaskCodeEqualTo(taskCode);
+        InspectTaskDO taskDO = new InspectTaskDO();
+        taskDO.setStatus(status);
+        int result = taskMapper.updateByExampleSelective(taskDO, example);
+        if (result > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public void updateAfterTimeTask(String taskCode) {
+        InspectTaskItemDO taskItemDO = new InspectTaskItemDO();
+        taskItemDO.setResultStatus(TaskItemStatusEnum.AFTER_TIME.getStatus());
+        InspectTaskItemDOExample example = new InspectTaskItemDOExample();
+        example.createCriteria().andTaskCodeEqualTo(taskCode).andResultStatusIsNull();
+        taskItemMapper.updateByExample(taskItemDO, example);
     }
 
     /**
@@ -263,18 +294,6 @@ public class TaskManager {
         }
         pageBo.setItemList(result);
         return pageBo;
-    }
-
-    public boolean updateTaskStatus(String taskCode, Integer status) {
-        InspectTaskDOExample example = new InspectTaskDOExample();
-        example.createCriteria().andTaskCodeEqualTo(taskCode);
-        InspectTaskDO taskDO = new InspectTaskDO();
-        taskDO.setStatus(status);
-        int result = taskMapper.updateByExampleSelective(taskDO, example);
-        if (result > 0) {
-            return true;
-        }
-        return false;
     }
 
 

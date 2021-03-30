@@ -13,7 +13,8 @@ public enum TaskItemStatusEnum {
 
     QUALIFY(0, "合格"),
     DISQUALIFY(1, "不合格"),
-    NON_REFER(2, "不涉及");
+    NON_REFER(2, "不涉及"),
+    AFTER_TIME(3, "已过期");
 
     private Integer status;
 

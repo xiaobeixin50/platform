@@ -55,6 +55,8 @@ public class HiddenDangerDO {
 
     private String disLevelUserName;
 
+    private String disUserRole;
+
     private Date disLevelTime;
 
     private String changePlan;
@@ -67,11 +69,15 @@ public class HiddenDangerDO {
 
     private String changeUserName;
 
+    private String changeUserRole;
+
     private Date changeSubmitTime;
 
     private Long inspectUserId;
 
     private String inspectUserName;
+
+    private String inspectUserRole;
 
     private String inspectExtra;
 
@@ -85,17 +91,19 @@ public class HiddenDangerDO {
 
     private Long rigId;
 
-    private String evnPhoto;
+    private String envPhoto;
 
-    private String evnExtra;
+    private String envExtra;
 
-    private Integer evnStatus;
+    private Integer envStatus;
 
-    private Date evnTime;
+    private Date envTime;
 
-    private Long evnUserId;
+    private Long envUserId;
 
-    private String evnUserName;
+    private String envUserName;
+
+    private String envUserRole;
 
     private Long findUserId;
 
@@ -321,6 +329,14 @@ public class HiddenDangerDO {
         this.disLevelUserName = disLevelUserName == null ? null : disLevelUserName.trim();
     }
 
+    public String getDisUserRole() {
+        return disUserRole;
+    }
+
+    public void setDisUserRole(String disUserRole) {
+        this.disUserRole = disUserRole == null ? null : disUserRole.trim();
+    }
+
     public Date getDisLevelTime() {
         return disLevelTime;
     }
@@ -369,6 +385,14 @@ public class HiddenDangerDO {
         this.changeUserName = changeUserName == null ? null : changeUserName.trim();
     }
 
+    public String getChangeUserRole() {
+        return changeUserRole;
+    }
+
+    public void setChangeUserRole(String changeUserRole) {
+        this.changeUserRole = changeUserRole == null ? null : changeUserRole.trim();
+    }
+
     public Date getChangeSubmitTime() {
         return changeSubmitTime;
     }
@@ -391,6 +415,14 @@ public class HiddenDangerDO {
 
     public void setInspectUserName(String inspectUserName) {
         this.inspectUserName = inspectUserName == null ? null : inspectUserName.trim();
+    }
+
+    public String getInspectUserRole() {
+        return inspectUserRole;
+    }
+
+    public void setInspectUserRole(String inspectUserRole) {
+        this.inspectUserRole = inspectUserRole == null ? null : inspectUserRole.trim();
     }
 
     public String getInspectExtra() {
@@ -441,52 +473,60 @@ public class HiddenDangerDO {
         this.rigId = rigId;
     }
 
-    public String getEvnPhoto() {
-        return evnPhoto;
+    public String getEnvPhoto() {
+        return envPhoto;
     }
 
-    public void setEvnPhoto(String evnPhoto) {
-        this.evnPhoto = evnPhoto == null ? null : evnPhoto.trim();
+    public void setEnvPhoto(String envPhoto) {
+        this.envPhoto = envPhoto == null ? null : envPhoto.trim();
     }
 
-    public String getEvnExtra() {
-        return evnExtra;
+    public String getEnvExtra() {
+        return envExtra;
     }
 
-    public void setEvnExtra(String evnExtra) {
-        this.evnExtra = evnExtra == null ? null : evnExtra.trim();
+    public void setEnvExtra(String envExtra) {
+        this.envExtra = envExtra == null ? null : envExtra.trim();
     }
 
-    public Integer getEvnStatus() {
-        return evnStatus;
+    public Integer getEnvStatus() {
+        return envStatus;
     }
 
-    public void setEvnStatus(Integer evnStatus) {
-        this.evnStatus = evnStatus;
+    public void setEnvStatus(Integer envStatus) {
+        this.envStatus = envStatus;
     }
 
-    public Date getEvnTime() {
-        return evnTime;
+    public Date getEnvTime() {
+        return envTime;
     }
 
-    public void setEvnTime(Date evnTime) {
-        this.evnTime = evnTime;
+    public void setEnvTime(Date envTime) {
+        this.envTime = envTime;
     }
 
-    public Long getEvnUserId() {
-        return evnUserId;
+    public Long getEnvUserId() {
+        return envUserId;
     }
 
-    public void setEvnUserId(Long evnUserId) {
-        this.evnUserId = evnUserId;
+    public void setEnvUserId(Long envUserId) {
+        this.envUserId = envUserId;
     }
 
-    public String getEvnUserName() {
-        return evnUserName;
+    public String getEnvUserName() {
+        return envUserName;
     }
 
-    public void setEvnUserName(String evnUserName) {
-        this.evnUserName = evnUserName == null ? null : evnUserName.trim();
+    public void setEnvUserName(String envUserName) {
+        this.envUserName = envUserName == null ? null : envUserName.trim();
+    }
+
+    public String getEnvUserRole() {
+        return envUserRole;
+    }
+
+    public void setEnvUserRole(String envUserRole) {
+        this.envUserRole = envUserRole == null ? null : envUserRole.trim();
     }
 
     public Long getFindUserId() {

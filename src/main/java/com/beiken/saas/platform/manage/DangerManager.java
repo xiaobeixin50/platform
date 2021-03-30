@@ -68,8 +68,8 @@ public class DangerManager {
                 List<String> inspectPhotos = Splitter.on(Constants.COMMON).trimResults().omitEmptyStrings().splitToList(dangerDO.getInspectPhoto());
                 dangerVO.setInspectPhotoList(inspectPhotos);
             }
-            if (dangerDO.getEvnPhoto() != null) {
-                List<String> evnPhotos = Splitter.on(Constants.COMMON).trimResults().omitEmptyStrings().splitToList(dangerDO.getEvnPhoto());
+            if (dangerDO.getEnvPhoto() != null) {
+                List<String> evnPhotos = Splitter.on(Constants.COMMON).trimResults().omitEmptyStrings().splitToList(dangerDO.getEnvPhoto());
                 dangerVO.setEvnPhotoList(evnPhotos);
             }
             if (dangerDO.getBreakUserId() != null) {

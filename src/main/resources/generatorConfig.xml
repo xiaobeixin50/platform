@@ -214,5 +214,16 @@
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
 
+        <table tableName="sft_switch"
+               domainObjectName="SwitchDO"
+               mapperName="SwitchMapper"
+
+               enableCountByExample="true"
+               enableUpdateByExample="true"
+               enableDeleteByExample="true"
+               enableSelectByExample="true"
+               selectByExampleQueryId="true">
+        </table>
+
     </context>
 </generatorConfiguration>
