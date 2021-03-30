@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.Map;
 
 @Api(value = "/file", description = "文件相关接口", tags = "文件上传")
@@ -56,7 +57,8 @@ public class FileUploadController {
     public Result<String> multiUploadFile(@RequestParam String type, @RequestParam("files") MultipartFile[] files) {
         //根据type获得上传路径
         MultipartFile uploadFile = files[0];
-        String originalName = uploadFile.getOriginalFilename();
+        String postfix = String.valueOf(new Date().getTime());
+        String originalName = uploadFile.getOriginalFilename() + "_" + postfix;
         String objectName = "users/" + originalName;
         Map<String, Object> result = null;
         try{
