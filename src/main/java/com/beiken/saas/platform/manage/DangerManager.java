@@ -70,7 +70,7 @@ public class DangerManager {
             }
             if (dangerDO.getEnvPhoto() != null) {
                 List<String> evnPhotos = Splitter.on(Constants.COMMON).trimResults().omitEmptyStrings().splitToList(dangerDO.getEnvPhoto());
-                dangerVO.setEvnPhotoList(evnPhotos);
+                dangerVO.setEnvPhotoList(evnPhotos);
             }
             if (dangerDO.getBreakUserId() != null) {
                 List<String> breakUserIds = Splitter.on(Constants.COMMON).trimResults().omitEmptyStrings().splitToList(dangerDO.getBreakUserId());
@@ -143,11 +143,12 @@ public class DangerManager {
      * @param reportType
      * @return
      */
-    public HiddenDangerDO dangerInfoByCode(String taskCode, String bgItemCode, Integer reportType) {
+    public HiddenDangerDO dangerInfoByCode(String taskCode, String bgItemCode, String rigCode, Integer reportType) {
         HiddenDangerDOExample example = new HiddenDangerDOExample();
         HiddenDangerDOExample.Criteria criteria = example.createCriteria()
                 .andTaskCodeEqualTo(taskCode)
-                .andBgItemCodeEqualTo(bgItemCode);
+                .andBgItemCodeEqualTo(bgItemCode)
+                .andRigCodeEqualTo(rigCode);
         if (Objects.nonNull(reportType)) {
             criteria.andReportTypeEqualTo(reportType);
         }

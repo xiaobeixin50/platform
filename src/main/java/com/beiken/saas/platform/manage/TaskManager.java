@@ -444,7 +444,7 @@ public class TaskManager {
             extra.setPhotoList(photo);
         }
         BgInspectItemDO bgItemDO = bgInspectItems.get(0);
-        HiddenDangerDO hiddenDangerDO = dangerManager.dangerInfoByCode(taskCode, bgItemCode, reportType);
+        HiddenDangerDO hiddenDangerDO = dangerManager.dangerInfoByCode(taskCode, bgItemCode, rigCode, reportType);
         if (Objects.nonNull(hiddenDangerDO)) {
             BeanUtils.copyProperties(hiddenDangerDO, extra);
             extra.setInspectUserId(hiddenDangerDO.getFindUserId());

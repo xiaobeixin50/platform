@@ -55,8 +55,10 @@ public class InspectTaskCreateJob {
         Date now = new Date();
         for (InspectPlanVO inspectPlanVO : inspectPlanVOs) {
             boolean b = canAdd(inspectPlanVO, now);
-            b = false;
-            if (b) {
+            if (!switchUtil.match("createTask", "true")) {
+                continue;
+            }
+            if (!b) {
                 continue;
             }
             for (DepartmentDO departmentDO : inspectPlanVO.getDeptList()) {

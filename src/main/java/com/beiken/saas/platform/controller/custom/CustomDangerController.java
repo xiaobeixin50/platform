@@ -98,7 +98,7 @@ public class CustomDangerController {
             dangerDO.setId(dangerId);
 
             List<Integer> process = null;
-            if (dangerDO.getIsInspect() != null && orgDanger.getIsInspect() == 1) {
+            if (orgDanger.getIsInspect() != null && orgDanger.getIsInspect() == 1) {
                 process = Constants.STATUS_MAP.get(0).get(dangerDO.getDangerLevel());
             } else {
                 process = Constants.STATUS_MAP.get(dangerDO.getReportType()).get(dangerDO.getDangerLevel());
@@ -118,7 +118,11 @@ public class CustomDangerController {
             }
             if (dangerDO.getDisLevelUserId() != null) {
                 dangerDO.setDangerLevel(dangerVO.getDangerLevel());
-                dangerDO.setReportStatus(process.get(2));
+                if (orgDanger.getReportType() == 0) {
+                    dangerDO.setReportStatus(process.get(1));
+                } else {
+                    dangerDO.setReportStatus(process.get(2));
+                }
             }
             if (dangerDO.getChangeUserId()!= null) {
                 dangerDO.setDangerLevel(dangerVO.getDangerLevel());
