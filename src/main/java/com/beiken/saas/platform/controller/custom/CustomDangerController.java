@@ -9,8 +9,10 @@ import com.beiken.saas.platform.enums.DangerStatusEnum;
 import com.beiken.saas.platform.manage.BgManager;
 import com.beiken.saas.platform.manage.DangerManager;
 import com.beiken.saas.platform.mapper.HiddenDangerMapper;
+import com.beiken.saas.platform.mapper.UserMapper;
 import com.beiken.saas.platform.pojo.BgInspectItemDO;
 import com.beiken.saas.platform.pojo.HiddenDangerDO;
+import com.beiken.saas.platform.pojo.UserDO;
 import com.beiken.saas.platform.utils.CodeUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -43,6 +45,8 @@ public class CustomDangerController {
     private BgManager bgManager;
     @Resource
     private CodeUtil codeUtil;
+    @Resource
+    private UserMapper userMapper;
 
     @ApiOperation("隐患列表")
     @ResponseBody
@@ -85,28 +89,53 @@ public class CustomDangerController {
     @PostMapping(value = "/update/{dangerId}")
     public Result update(@PathVariable Long dangerId, @RequestBody DangerVO dangerVO) {
         try {
+            if (dangerVO.getDangerLevel() == null) {
+                return Result.error(Constants.ERROR, "未传隐患级别");
+            }
+            HiddenDangerDO orgDanger = dangerMapper.selectByPrimaryKey(dangerId);
             HiddenDangerDO dangerDO = new HiddenDangerDO();
             BeanUtils.copyProperties(dangerVO, dangerDO);
             dangerDO.setId(dangerId);
+
+            /*List<Integer> process = null;
+            if (dangerDO.getIsInspect() != null && orgDanger.getIsInspect() == 1) {
+                process = Constants.STATUS_MAP.get(0).get(dangerDO.getDangerLevel());
+            } else {
+                process = Constants.STATUS_MAP.get(dangerDO.getReportType()).get(dangerDO.getDangerLevel());
+            }*/
+            List<Integer> processList = Constants.STATUS_MAP.get(orgDanger.getReportType()).get(dangerDO.getDangerLevel());
+
             if (dangerDO.getConfirmUserId() != null) {
-                dangerDO.setReportStatus(DangerStatusEnum.WAIT_CHANGE.getStatus());
-            }
-            if (dangerDO.getDisLevelUserId() != null) {
-                dangerDO.setReportStatus(DangerStatusEnum.WAIT_ENV_PLAN.getStatus());
-            }
-            if (dangerDO.getChangeUserId()!= null) {
-                List<Integer> status = Constants.STATUS_MAP.get(0).get(dangerDO.getDangerLevel());
-                if (dangerDO.getDangerLevel() > 0) {
-                    dangerDO.setReportStatus(status.get(1));
-                }
-                else {
-                    dangerDO.setReportStatus(status.get(0));
-                }
+                dangerDO.setDangerLevel(dangerVO.getDangerLevel());
+                dangerDO.setReportStatus(processList.get(1));
             }
             if (dangerDO.getInspectStatus() != null) {
-                dangerDO.setReportStatus(dangerDO.getInspectStatus());
+                dangerDO.setDangerLevel(dangerVO.getDangerLevel());
+                if (dangerVO.getDangerLevel() < 3) {
+                    dangerDO.setReportStatus(DangerStatusEnum.FINISH.getStatus());
+                } else {
+                    dangerDO.setReportStatus(DangerStatusEnum.WAIT_ENV_ACCEPT.getStatus());
+                }
+            }
+            if (dangerDO.getDisLevelUserId() != null) {
+                dangerDO.setDangerLevel(dangerVO.getDangerLevel());
+                dangerDO.setReportStatus(processList.get(2));
+            }
+            if (dangerDO.getChangeUserId()!= null) {
+                dangerDO.setDangerLevel(dangerVO.getDangerLevel());
+                dangerDO.setReportStatus(DangerStatusEnum.WAIT_CHANGE.getStatus());
+            }
+
+            if (dangerDO.getEvnStatus() != null) {
+                dangerDO.setDangerLevel(dangerVO.getDangerLevel());
+                if (dangerDO.getEvnStatus() == 1) {
+                    dangerDO.setReportStatus(DangerStatusEnum.FINISH.getStatus());
+                } else {
+                    dangerDO.setReportStatus(DangerStatusEnum.WAIT_CHANGE.getStatus());
+                }
             }
             if (dangerDO.getCloseUserId() != null) {
+                dangerDO.setDangerLevel(dangerVO.getDangerLevel());
                 dangerDO.setReportStatus(DangerStatusEnum.CLOSE.getStatus());
             }
             dangerMapper.updateByPrimaryKeySelective(dangerDO);
@@ -134,6 +163,14 @@ public class CustomDangerController {
             dangerDO.setGmtCreate(new Date());
             dangerDO.setGmtModified(new Date());
             dangerDO.setReportTime(new Date());
+            dangerDO.setIsInspect(0);
+            Long userId = dangerVO.getFindUserId();
+            UserDO userDO = userMapper.selectByPrimaryKey(userId);
+            if (userDO.getRole().equals("监理")) {
+                dangerDO.setIsInspect(1);
+                process = Constants.STATUS_MAP.get(0).get(dangerDO.getDangerLevel());
+                dangerDO.setReportStatus(process.get(0));
+            }
             dangerMapper.insert(dangerDO);
             return Result.success();
         } catch (Exception e) {

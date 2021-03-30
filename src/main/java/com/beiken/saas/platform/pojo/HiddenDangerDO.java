@@ -111,6 +111,8 @@ public class HiddenDangerDO {
 
     private Date closeTime;
 
+    private Integer isInspect;
+
     public Long getId() {
         return id;
     }
@@ -541,5 +543,13 @@ public class HiddenDangerDO {
 
     public void setCloseTime(Date closeTime) {
         this.closeTime = closeTime;
+    }
+
+    public Integer getIsInspect() {
+        return isInspect;
+    }
+
+    public void setIsInspect(Integer isInspect) {
+        this.isInspect = isInspect;
     }
 }

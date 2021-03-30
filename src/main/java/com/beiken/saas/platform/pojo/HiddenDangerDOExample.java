@@ -3621,6 +3621,66 @@ public class HiddenDangerDOExample {
             addCriterion("close_time not between", value1, value2, "closeTime");
             return (Criteria) this;
         }
+
+        public Criteria andIsInspectIsNull() {
+            addCriterion("is_inspect is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsInspectIsNotNull() {
+            addCriterion("is_inspect is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsInspectEqualTo(Integer value) {
+            addCriterion("is_inspect =", value, "isInspect");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsInspectNotEqualTo(Integer value) {
+            addCriterion("is_inspect <>", value, "isInspect");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsInspectGreaterThan(Integer value) {
+            addCriterion("is_inspect >", value, "isInspect");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsInspectGreaterThanOrEqualTo(Integer value) {
+            addCriterion("is_inspect >=", value, "isInspect");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsInspectLessThan(Integer value) {
+            addCriterion("is_inspect <", value, "isInspect");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsInspectLessThanOrEqualTo(Integer value) {
+            addCriterion("is_inspect <=", value, "isInspect");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsInspectIn(List<Integer> values) {
+            addCriterion("is_inspect in", values, "isInspect");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsInspectNotIn(List<Integer> values) {
+            addCriterion("is_inspect not in", values, "isInspect");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsInspectBetween(Integer value1, Integer value2) {
+            addCriterion("is_inspect between", value1, value2, "isInspect");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsInspectNotBetween(Integer value1, Integer value2) {
+            addCriterion("is_inspect not between", value1, value2, "isInspect");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

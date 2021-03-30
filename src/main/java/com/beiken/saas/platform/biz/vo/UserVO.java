@@ -92,4 +92,6 @@ public class UserVO implements Serializable{
     @ApiModelProperty(name = "position", value = "职位"
             , required = false, example = "")
     private String position;
+
+
 }

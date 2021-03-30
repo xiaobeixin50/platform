@@ -92,8 +92,13 @@ public class DangerManager {
                     dangerVO.setBgItemDetail(detail);
                 }
             }
-            dangerVO.setProcessNum(
-                    Constants.STATUS_MAP.get(dangerDO.getReportType()).get(dangerDO.getDangerLevel()));
+            List<Integer> process = null;
+            if (dangerDO.getIsInspect() != null && dangerDO.getIsInspect() == 1) {
+                process = Constants.STATUS_MAP.get(0).get(dangerDO.getDangerLevel());
+            } else {
+                process =Constants.STATUS_MAP.get(dangerDO.getReportType()).get(dangerDO.getDangerLevel());
+            }
+            dangerVO.setProcessNum(process);
             dangerVOs.add(dangerVO);
         }
         pageBo.setItemList(dangerVOs);
@@ -175,7 +180,9 @@ public class DangerManager {
         HiddenDangerDOExample example = new HiddenDangerDOExample();
         example.setLimitStart((dangerQuery.getPageNo() - 1) * dangerQuery.getPageSize());
         example.setCount(dangerQuery.getPageSize());
-        //example.setOrderByClause("change_end_date " + dangerQuery.getSort());
+        String sort = "gmt_modified DESC";
+
+        example.setOrderByClause(sort);
 
         HiddenDangerDOExample.Criteria criteria = example.createCriteria();
         if (userId != null && dangerQuery.getRoleType() == null) {
@@ -188,6 +195,9 @@ public class DangerManager {
             List<Long> deptIds = departManager.getDeptIdByUserId(userId);
             criteria.andDeptIdIn(deptIds);
             //criteria.andFindUserIdEqualTo(userId);
+        }
+        if (StringUtils.isNotBlank(dangerQuery.getDangerName())) {
+            criteria.andReportExtraLike("%" + dangerQuery.getDangerName() + "%");
         }
         if (Objects.nonNull(dangerQuery.getReportStatus())) {
             criteria.andReportStatusEqualTo(dangerQuery.getReportStatus());

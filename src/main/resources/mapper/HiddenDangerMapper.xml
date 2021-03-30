@@ -56,6 +56,7 @@
     <result column="close_extra" jdbcType="VARCHAR" property="closeExtra" />
     <result column="change_end_time" jdbcType="TIMESTAMP" property="changeEndTime" />
     <result column="close_time" jdbcType="TIMESTAMP" property="closeTime" />
+    <result column="is_inspect" jdbcType="INTEGER" property="isInspect" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -124,7 +125,8 @@
     change_money, change_user_id, change_user_name, change_submit_time, inspect_user_id, 
     inspect_user_name, inspect_extra, inspect_photo, inspect_status, inspect_time, rig_code, 
     rig_id, evn_photo, evn_extra, evn_status, evn_time, evn_user_id, evn_user_name, find_user_id, 
-    find_user_name, close_user_id, close_user_name, close_extra, change_end_time, close_time
+    find_user_name, close_user_id, close_user_name, close_extra, change_end_time, close_time, 
+    is_inspect
   </sql>
   <select id="selectByExample" parameterType="com.beiken.saas.platform.pojo.HiddenDangerDOExample" resultMap="BaseResultMap">
     select
@@ -181,7 +183,8 @@
       evn_status, evn_time, evn_user_id, 
       evn_user_name, find_user_id, find_user_name, 
       close_user_id, close_user_name, close_extra, 
-      change_end_time, close_time)
+      change_end_time, close_time, is_inspect
+      )
     values (#{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{dangerCode,jdbcType=VARCHAR}, 
       #{photo,jdbcType=VARCHAR}, #{reportExtra,jdbcType=VARCHAR}, #{taskCode,jdbcType=VARCHAR}, 
       #{bgItemCode,jdbcType=VARCHAR}, #{deptId,jdbcType=BIGINT}, #{deptName,jdbcType=VARCHAR}, 
@@ -199,7 +202,8 @@
       #{evnStatus,jdbcType=INTEGER}, #{evnTime,jdbcType=TIMESTAMP}, #{evnUserId,jdbcType=BIGINT}, 
       #{evnUserName,jdbcType=VARCHAR}, #{findUserId,jdbcType=BIGINT}, #{findUserName,jdbcType=VARCHAR}, 
       #{closeUserId,jdbcType=BIGINT}, #{closeUserName,jdbcType=VARCHAR}, #{closeExtra,jdbcType=VARCHAR}, 
-      #{changeEndTime,jdbcType=TIMESTAMP}, #{closeTime,jdbcType=TIMESTAMP})
+      #{changeEndTime,jdbcType=TIMESTAMP}, #{closeTime,jdbcType=TIMESTAMP}, #{isInspect,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.beiken.saas.platform.pojo.HiddenDangerDO">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
@@ -366,6 +370,9 @@
       <if test="closeTime != null">
         close_time,
       </if>
+      <if test="isInspect != null">
+        is_inspect,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="gmtCreate != null">
@@ -526,6 +533,9 @@
       </if>
       <if test="closeTime != null">
         #{closeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isInspect != null">
+        #{isInspect,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -700,6 +710,9 @@
       <if test="record.closeTime != null">
         close_time = #{record.closeTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.isInspect != null">
+        is_inspect = #{record.isInspect,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -760,7 +773,8 @@
       close_user_name = #{record.closeUserName,jdbcType=VARCHAR},
       close_extra = #{record.closeExtra,jdbcType=VARCHAR},
       change_end_time = #{record.changeEndTime,jdbcType=TIMESTAMP},
-      close_time = #{record.closeTime,jdbcType=TIMESTAMP}
+      close_time = #{record.closeTime,jdbcType=TIMESTAMP},
+      is_inspect = #{record.isInspect,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -927,6 +941,9 @@
       <if test="closeTime != null">
         close_time = #{closeTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="isInspect != null">
+        is_inspect = #{isInspect,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -984,7 +1001,8 @@
       close_user_name = #{closeUserName,jdbcType=VARCHAR},
       close_extra = #{closeExtra,jdbcType=VARCHAR},
       change_end_time = #{changeEndTime,jdbcType=TIMESTAMP},
-      close_time = #{closeTime,jdbcType=TIMESTAMP}
+      close_time = #{closeTime,jdbcType=TIMESTAMP},
+      is_inspect = #{isInspect,jdbcType=INTEGER}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

@@ -12,7 +12,7 @@ import java.util.Map;
 public enum TaskStatusEnum {
 
     NOT_BEGIN(0, "未完成"),
-    BEGIN(1, "已完成"),
+    FINISH(1, "已完成"),
     AFTER_TIME(2, "已过期");
 
     private Integer status;

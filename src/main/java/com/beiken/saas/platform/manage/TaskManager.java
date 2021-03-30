@@ -48,6 +48,8 @@ public class TaskManager {
     private CodeUtil codeUtil;
     @Resource
     private TaskUserMapper taskUserMapper;
+    @Resource
+    private UserMapper userMapper;
 
 
     /**
@@ -146,9 +148,9 @@ public class TaskManager {
             Long totalNum = taskItemMapper.countByExample(taskItemDOExample);
             taskVO.setItemNum(totalNum);
 
-            criteria.andResultStatusEqualTo(TaskStatusEnum.BEGIN.getStatus());
+            criteria.andResultStatusIsNotNull();
             Long finishNum = taskItemMapper.countByExample(taskItemDOExample);
-            taskVO.setFinishTaskItemNum((double) ((finishNum == 0L ? 0L : finishNum) / ((totalNum == 0) ? 1 : totalNum)));
+            taskVO.setFinishTaskItemNum(100.0 * ((finishNum == 0L ? 0L : finishNum) / ((totalNum == 0) ? 1 : totalNum)));
 
             Long dangerNum = dangerManager.countDangerNumByTask(inspectTask.getTaskCode(), rigCode);
             if (Objects.nonNull(dangerNum) && !Constants.ZERO_LONG.equals(dangerNum)) {
@@ -234,6 +236,8 @@ public class TaskManager {
             }
 
         }
+        int totalItem = 0;
+        int totalFinishItem = 0;
         for (String s : siteMap.keySet()) {
             int finish = 0;
             int total = 0;
@@ -241,8 +245,10 @@ public class TaskManager {
                 for (List<TaskItemListVO.Extra> extras : taskItemListVO.getEquipment().values()) {
                     for (TaskItemListVO.Extra extra : extras) {
                         total = total + 1;
+                        totalItem = totalItem + 1;
                         if (extra.getStatus() != null) {
                             finish = finish + 1;
+                            totalFinishItem = totalFinishItem + 1;
                         }
                     }
                 }
@@ -252,9 +258,26 @@ public class TaskManager {
             }
             result.addAll(siteMap.get(s));
         }
+        if (totalItem == totalFinishItem) {
+            updateTaskStatus(taskCode, TaskStatusEnum.FINISH.getStatus());
+        }
         pageBo.setItemList(result);
         return pageBo;
     }
+
+    public boolean updateTaskStatus(String taskCode, Integer status) {
+        InspectTaskDOExample example = new InspectTaskDOExample();
+        example.createCriteria().andTaskCodeEqualTo(taskCode);
+        InspectTaskDO taskDO = new InspectTaskDO();
+        taskDO.setStatus(status);
+        int result = taskMapper.updateByExampleSelective(taskDO, example);
+        if (result > 0) {
+            return true;
+        }
+        return false;
+    }
+
+
 
     /**
      * 查询一个人需要巡检的井
@@ -266,6 +289,9 @@ public class TaskManager {
         UserRigVO userRigVO = new UserRigVO();
         userRigVO.setUserId(userId);
 
+        if (CollectionUtils.isEmpty(taskItemDOs)) {
+            return null;
+        }
         Set<String> rigIdSet = taskItemDOs.stream().map(InspectTaskItemDO::getRigCode).collect(Collectors.toSet());
 
         RigDOExample rigExample = new RigDOExample();
@@ -348,6 +374,12 @@ public class TaskManager {
             dangerVO.setFindUserName(taskItemVO.getInspectUserName());
             dangerVO.setDangerCode(dangerCode);
             dangerVO.setPhoto(taskItemVO.getPhoto());
+            dangerVO.setIsInspect(0);
+            Long userId = dangerVO.getFindUserId();
+            UserDO userDO = userMapper.selectByPrimaryKey(userId);
+            if (userDO.getRole().equals("监理")) {
+                dangerVO.setIsInspect(1);
+            }
             List<Integer> integerList = Constants.STATUS_MAP.get(dangerVO.getReportType()).get(dangerVO.getDangerLevel());
             if (CollectionUtils.isEmpty(integerList)) {
                 return "未传隐患级别";
@@ -399,6 +431,8 @@ public class TaskManager {
             BeanUtils.copyProperties(hiddenDangerDO, extra);
             extra.setInspectUserId(hiddenDangerDO.getFindUserId());
             extra.setInspectUserName(hiddenDangerDO.getFindUserName());
+            extra.setDangerLevel(
+                    DangerLevelEnum.index(hiddenDangerDO.getDangerLevel()) != null ? DangerLevelEnum.index(hiddenDangerDO.getDangerLevel()).getMsg() : null);
             String photo = hiddenDangerDO.getPhoto();
             if (StringUtils.isNotBlank(photo)) {
                 List<String> list = Splitter.on(Constants.COMMON).omitEmptyStrings().trimResults().splitToList(photo);
@@ -409,7 +443,6 @@ public class TaskManager {
         extra.setStatus(index == null ? null : index.getMsg());
         extra.setTaskCode(taskCode);
         copyBgItem2Extra(bgItemDO, extra);
-
         InspectTaskDOExample taskExample = new InspectTaskDOExample();
         taskExample.createCriteria().andTaskCodeEqualTo(taskCode);
         List<InspectTaskDO> inspectTaskDOs = taskMapper.selectByExample(taskExample);
@@ -512,6 +545,5 @@ public class TaskManager {
         extra.setAdapt(bgItemDO.getAdapt());
         extra.setControlExtra(bgItemDO.getControlExtra());
         extra.setBgItemCode(bgItemDO.getBgItemCode());
-        extra.setDangerLevel(DangerLevelEnum.index(bgItemDO.getDangerLevel()).getMsg());
     }
 }

@@ -45,7 +45,7 @@ public class InspectTaskCreateJob {
     private InspectTaskItemMapper taskItemMapper;
 
 
-    @Scheduled(fixedDelay = 60000)
+    @Scheduled(fixedDelay = 6000000)
     @Transactional(rollbackFor = Exception.class)
     public void createTask() throws Exception {
         List<InspectPlanVO> inspectPlanVOs = inspectPlanManager.queryStartPlan();
@@ -86,6 +86,10 @@ public class InspectTaskCreateJob {
             return false;
         }
         return true;
+    }
+
+    private void updateTask() {
+
     }
 
     private void addTaskItem(InspectPlanVO inspectPlanVO, Date now, String taskCode) throws Exception {
