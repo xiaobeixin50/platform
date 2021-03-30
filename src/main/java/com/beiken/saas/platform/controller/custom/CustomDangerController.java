@@ -97,17 +97,16 @@ public class CustomDangerController {
             BeanUtils.copyProperties(dangerVO, dangerDO);
             dangerDO.setId(dangerId);
 
-            /*List<Integer> process = null;
+            List<Integer> process = null;
             if (dangerDO.getIsInspect() != null && orgDanger.getIsInspect() == 1) {
                 process = Constants.STATUS_MAP.get(0).get(dangerDO.getDangerLevel());
             } else {
                 process = Constants.STATUS_MAP.get(dangerDO.getReportType()).get(dangerDO.getDangerLevel());
-            }*/
-            List<Integer> processList = Constants.STATUS_MAP.get(orgDanger.getReportType()).get(dangerDO.getDangerLevel());
+            }
 
             if (dangerDO.getConfirmUserId() != null) {
                 dangerDO.setDangerLevel(dangerVO.getDangerLevel());
-                dangerDO.setReportStatus(processList.get(1));
+                dangerDO.setReportStatus(process.get(1));
             }
             if (dangerDO.getInspectStatus() != null) {
                 dangerDO.setDangerLevel(dangerVO.getDangerLevel());
@@ -119,7 +118,7 @@ public class CustomDangerController {
             }
             if (dangerDO.getDisLevelUserId() != null) {
                 dangerDO.setDangerLevel(dangerVO.getDangerLevel());
-                dangerDO.setReportStatus(processList.get(2));
+                dangerDO.setReportStatus(process.get(2));
             }
             if (dangerDO.getChangeUserId()!= null) {
                 dangerDO.setDangerLevel(dangerVO.getDangerLevel());

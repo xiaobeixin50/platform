@@ -397,6 +397,7 @@ public class TaskManager {
             if (userDO.getRole().equals("监理")) {
                 dangerVO.setIsInspect(1);
             }
+
             List<Integer> integerList = Constants.STATUS_MAP.get(dangerVO.getReportType()).get(dangerVO.getDangerLevel());
             if (CollectionUtils.isEmpty(integerList)) {
                 return "未传隐患级别";
