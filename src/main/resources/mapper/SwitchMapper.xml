@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.beiken.saas.platform.mapper.SwitchMapper">
   <resultMap id="BaseResultMap" type="com.beiken.saas.platform.pojo.SwitchDO">
-    <id column="key" jdbcType="VARCHAR" property="key" />
+    <id column="name" jdbcType="VARCHAR" property="name" />
     <result column="value" jdbcType="VARCHAR" property="value" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -64,7 +64,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    key, value
+    name, value
   </sql>
   <select id="selectByExample" parameterType="com.beiken.saas.platform.pojo.SwitchDOExample" resultMap="BaseResultMap">
     select
@@ -88,11 +88,11 @@
     select 
     <include refid="Base_Column_List" />
     from sft_switch
-    where key = #{key,jdbcType=VARCHAR}
+    where name = #{name,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from sft_switch
-    where key = #{key,jdbcType=VARCHAR}
+    where name = #{name,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.beiken.saas.platform.pojo.SwitchDOExample">
     delete from sft_switch
@@ -101,22 +101,22 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.beiken.saas.platform.pojo.SwitchDO">
-    insert into sft_switch (key, value)
-    values (#{key,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR})
+    insert into sft_switch (name, value)
+    values (#{name,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.beiken.saas.platform.pojo.SwitchDO">
     insert into sft_switch
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="key != null">
-        key,
+      <if test="name != null">
+        name,
       </if>
       <if test="value != null">
         value,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="key != null">
-        #{key,jdbcType=VARCHAR},
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
       </if>
       <if test="value != null">
         #{value,jdbcType=VARCHAR},
@@ -132,8 +132,8 @@
   <update id="updateByExampleSelective" parameterType="map">
     update sft_switch
     <set>
-      <if test="record.key != null">
-        key = #{record.key,jdbcType=VARCHAR},
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
       </if>
       <if test="record.value != null">
         value = #{record.value,jdbcType=VARCHAR},
@@ -145,7 +145,7 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update sft_switch
-    set key = #{record.key,jdbcType=VARCHAR},
+    set name = #{record.name,jdbcType=VARCHAR},
       value = #{record.value,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -158,11 +158,11 @@
         value = #{value,jdbcType=VARCHAR},
       </if>
     </set>
-    where key = #{key,jdbcType=VARCHAR}
+    where name = #{name,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.beiken.saas.platform.pojo.SwitchDO">
     update sft_switch
     set value = #{value,jdbcType=VARCHAR}
-    where key = #{key,jdbcType=VARCHAR}
+    where name = #{name,jdbcType=VARCHAR}
   </update>
 </mapper>

@@ -10,7 +10,7 @@ public interface SwitchMapper {
 
     int deleteByExample(SwitchDOExample example);
 
-    int deleteByPrimaryKey(String key);
+    int deleteByPrimaryKey(String name);
 
     int insert(SwitchDO record);
 
@@ -18,7 +18,7 @@ public interface SwitchMapper {
 
     List<SwitchDO> selectByExample(SwitchDOExample example);
 
-    SwitchDO selectByPrimaryKey(String key);
+    SwitchDO selectByPrimaryKey(String name);
 
     int updateByExampleSelective(@Param("record") SwitchDO record, @Param("example") SwitchDOExample example);
 

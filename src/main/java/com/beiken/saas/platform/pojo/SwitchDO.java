@@ -1,16 +1,16 @@
 package com.beiken.saas.platform.pojo;
 
 public class SwitchDO {
-    private String key;
+    private String name;
 
     private String value;
 
-    public String getKey() {
-        return key;
+    public String getName() {
+        return name;
     }
 
-    public void setKey(String key) {
-        this.key = key == null ? null : key.trim();
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
     }
 
     public String getValue() {

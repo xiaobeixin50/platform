@@ -123,7 +123,6 @@ public class TaskManager {
         PageBo<TaskListVO> pageBo = new PageBo<>();
 
         Date now = new Date();
-
         List<String> taskCodes = getTaskCodeByInspectUser(userId, pageNo, pageSize);
         List<InspectTaskItemDO> taskItemList = getRigByCode(taskCodes, rigCode);
         Set<String> taskCodeSet = taskItemList.stream().map(InspectTaskItemDO::getTaskCode).collect(Collectors.toSet());
@@ -133,7 +132,6 @@ public class TaskManager {
         if (!CollectionUtils.isEmpty(taskCodeSet)) {
             taskDOExample.createCriteria().andTaskCodeIn(Lists.newArrayList(taskCodeSet));
             inspectTasks = taskMapper.selectByExample(taskDOExample);
-
         }
         if (CollectionUtils.isEmpty(inspectTasks)) {
             return pageBo;
