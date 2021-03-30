@@ -56,7 +56,7 @@ public class InspectTaskCreateJob {
         for (InspectPlanVO inspectPlanVO : inspectPlanVOs) {
             boolean b = canAdd(inspectPlanVO, now);
             b = false;
-            if (!b || !switchUtil.match("enableCreateTask", "true")) {
+            if (b) {
                 continue;
             }
             for (DepartmentDO departmentDO : inspectPlanVO.getDeptList()) {
