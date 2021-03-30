@@ -34,7 +34,7 @@ public class TotalDataController {
     public Result first(@RequestParam Long startTime, @RequestParam Long endTime) {
         try {
             Date startTime1 = new Date(startTime);
-            Date endTime1 = new Date(endTime);
+            Date endTime1 = new Date(endTime + 86400000);
             TotalDataVO totalDataVO = totalDataManager.countDanger(startTime1, endTime1);
             TotalDataVO totalDataVO1 = totalDataManager.countTask(startTime1, endTime1);
             totalDataVO.setTaskNum(totalDataVO1.getTaskNum());
@@ -54,7 +54,7 @@ public class TotalDataController {
     public Result second(@RequestParam Long startTime, @RequestParam Long endTime) {
         try {
             Date startTime1 = new Date(startTime);
-            Date endTime1 = new Date(endTime);
+            Date endTime1 = new Date(endTime + 86400000);
             TotalDataVO totalDataVO = new TotalDataVO();
             Map<String, Double> map = totalDataManager.totalCompany(startTime1, endTime1);
             totalDataVO.setValueMap(map);
@@ -73,7 +73,7 @@ public class TotalDataController {
     public Result third(@RequestParam Long startTime, @RequestParam Long endTime) {
         try {
             Date startTime1 = new Date(startTime);
-            Date endTime1 = new Date(endTime);
+            Date endTime1 = new Date(endTime + 86400000);
             TotalDataVO totalDataVO = new TotalDataVO();
             Map<String, Double> map = totalDataManager.totalDangerLevel(startTime1, endTime1);
             totalDataVO.setValueMap(map);
