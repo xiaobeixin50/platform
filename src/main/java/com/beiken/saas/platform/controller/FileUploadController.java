@@ -9,6 +9,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
@@ -39,7 +41,8 @@ public class FileUploadController {
         //根据type获得上传路径
 
         String originalName = uploadFile.getOriginalFilename();
-        String objectName = "users/" + originalName;
+        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        String objectName = "users/" + date + "/" + originalName;
         Map<String, Object> result = null;
         try{
             result = OssUtils.uploadFile(objectName, uploadFile);
@@ -83,4 +86,10 @@ public class FileUploadController {
         }
         return null;
     }
+
+//    public static void main(String[] args) {
+//        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+//        String format1 = format.format(new Date());
+//        System.out.println(format1);
+//    }
 }
