@@ -20,7 +20,7 @@ public enum DangerStatusEnum {
 
     WAIT_CHANGE(4, "待整改验收"),
 
-    WAIT_ENV_ACCEPT(5, "待环保部门验收"),
+    WAIT_ENV_ACCEPT(5, "待环保部验收"),
 
     FINISH(0, "已解决"),
 

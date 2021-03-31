@@ -1,5 +1,6 @@
 package com.beiken.saas.platform.manage;
 
+import com.beiken.saas.platform.enums.RigStatusEnum;
 import com.beiken.saas.platform.mapper.DepartmentMapper;
 import com.beiken.saas.platform.mapper.RigMapper;
 import com.beiken.saas.platform.pojo.RigDO;
@@ -37,7 +38,7 @@ public class RigManager {
 
     public List<RigDO> getRigDOByDeptId(Long deptId) {
         RigDOExample example = new RigDOExample();
-        example.createCriteria().andDeptIdEqualTo(deptId);
+        example.createCriteria().andDeptIdEqualTo(deptId).andStatusEqualTo(RigStatusEnum.BEGIN.getStatus());
         List<RigDO> rigDOList = rigMapper.selectByExample(example);
         if (CollectionUtils.isEmpty(rigDOList)) {
             Collections.emptyList();

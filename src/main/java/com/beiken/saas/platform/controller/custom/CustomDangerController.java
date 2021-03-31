@@ -101,7 +101,7 @@ public class CustomDangerController {
             if (orgDanger.getIsInspect() != null && orgDanger.getIsInspect() == 1) {
                 process = Constants.STATUS_MAP.get(0).get(dangerDO.getDangerLevel());
             } else {
-                process = Constants.STATUS_MAP.get(dangerDO.getReportType()).get(dangerDO.getDangerLevel());
+                process = Constants.STATUS_MAP.get(orgDanger.getReportType()).get(dangerDO.getDangerLevel());
             }
 
             if (dangerDO.getConfirmUserId() != null) {
