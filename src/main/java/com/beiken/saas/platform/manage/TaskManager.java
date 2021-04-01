@@ -20,6 +20,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -130,7 +131,8 @@ public class TaskManager {
         List<InspectTaskDO> inspectTasks = null;
         InspectTaskDOExample taskDOExample = new InspectTaskDOExample();
         if (!CollectionUtils.isEmpty(taskCodeSet)) {
-            taskDOExample.createCriteria().andTaskCodeIn(Lists.newArrayList(taskCodeSet));
+            taskDOExample.createCriteria()
+                    .andTaskCodeIn(Lists.newArrayList(taskCodeSet));
             inspectTasks = taskMapper.selectByExample(taskDOExample);
         }
         if (CollectionUtils.isEmpty(inspectTasks)) {
@@ -159,7 +161,8 @@ public class TaskManager {
 
             criteria.andResultStatusIsNotNull();
             Long finishNum = taskItemMapper.countByExample(taskItemDOExample);
-            taskVO.setFinishTaskItemNum(100.0 * ((finishNum == 0L ? 0L : finishNum) / ((totalNum == 0) ? 1 : totalNum)));
+            BigDecimal bg = new BigDecimal((double)(finishNum == 0L ? 0L : finishNum) / ((totalNum == 0) ? 1 : totalNum) * 100);
+            taskVO.setFinishTaskItemNum(bg.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
 
             Long dangerNum = dangerManager.countDangerNumByTask(inspectTask.getTaskCode(), rigCode);
             if (Objects.nonNull(dangerNum) && !Constants.ZERO_LONG.equals(dangerNum)) {

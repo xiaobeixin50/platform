@@ -18,6 +18,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -103,15 +104,16 @@ public class TotalDataManager {
         Map<String, Long> valueMap = Maps.newHashMap();
         Map<String, Double> result = Maps.newHashMap();
 
-        HiddenDangerDOExample dangerDOExample = new HiddenDangerDOExample();
-        HiddenDangerDOExample.Criteria criteria = dangerDOExample.createCriteria();
-        if (Objects.nonNull(startTime)) {
-            criteria.andGmtCreateGreaterThanOrEqualTo(startTime);
-        }
-        if (Objects.nonNull(endTime)) {
-            criteria.andGmtCreateLessThanOrEqualTo(endTime);
-        }
+
         for (Integer level : DangerLevelEnum.MAP.keySet()) {
+            HiddenDangerDOExample dangerDOExample = new HiddenDangerDOExample();
+            HiddenDangerDOExample.Criteria criteria = dangerDOExample.createCriteria();
+            if (Objects.nonNull(startTime)) {
+                criteria.andGmtCreateGreaterThanOrEqualTo(startTime);
+            }
+            if (Objects.nonNull(endTime)) {
+                criteria.andGmtCreateLessThanOrEqualTo(endTime);
+            }
             criteria.andDangerLevelEqualTo(level);
             long count = dangerMapper.countByExample(dangerDOExample);
             valueMap.put(DangerLevelEnum.MAP.get(level).getMsg(), count);
@@ -121,7 +123,8 @@ public class TotalDataManager {
             sum += count;
         }
         for (Map.Entry<String, Long> entry : valueMap.entrySet()) {
-            result.put(entry.getKey(), entry.getValue().doubleValue() / (sum == 0L ? 1 : sum) * 100);
+            BigDecimal bg = new BigDecimal(entry.getValue().doubleValue() / (sum == 0L ? 1 : sum) * 100);
+            result.put(entry.getKey(), bg.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
         }
         return result;
     }

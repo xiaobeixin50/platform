@@ -62,13 +62,17 @@ public class InspectTaskCreateJob {
                 continue;
             }
             for (DepartmentDO departmentDO : inspectPlanVO.getDeptList()) {
-                String taskCode = codeUtil.buildTaskCode(departmentDO.getDeptCode());
-                Long taskId = addTask(inspectPlanVO, now, taskCode, departmentDO);
-                if (taskId == null) {
-                    throw new Exception("插入task失败");
+                List<RigDO> rigDOList = rigManager.getRigDOByDeptId(departmentDO.getId());
+                for (RigDO rigDO : rigDOList) {
+                    String taskCode = codeUtil.buildTaskCode(departmentDO.getDeptCode());
+                    Long taskId = addTask(inspectPlanVO, now, taskCode, departmentDO);
+                    if (taskId == null) {
+                        throw new Exception("插入task失败");
+                    }
+                    addTaskUser(inspectPlanVO, now, taskId, taskCode);
+                    addTaskItem(inspectPlanVO, now, taskCode, departmentDO, rigDO);
                 }
-                addTaskUser(inspectPlanVO, now, taskId, taskCode);
-                addTaskItem(inspectPlanVO, now, taskCode);
+
             }
         }
     }
@@ -96,26 +100,22 @@ public class InspectTaskCreateJob {
 
     }
 
-    private void addTaskItem(InspectPlanVO inspectPlanVO, Date now, String taskCode) throws Exception {
+    private void addTaskItem(InspectPlanVO inspectPlanVO, Date now, String taskCode
+            , DepartmentDO departmentDO, RigDO rigDO) throws Exception {
         String bgCode = inspectPlanVO.getBgCode();
         List<BgInspectItemDO> itemDOList = bgManager.getBgItemByCode(bgCode);
-        for (DepartmentDO departmentDO : inspectPlanVO.getDeptList()) {
-            List<RigDO> rigDOs = rigManager.getRigDOByDeptId(departmentDO.getId());
-            for (RigDO rigDO : rigDOs) {
-                for (BgInspectItemDO itemDO : itemDOList) {
-                    InspectTaskItemDO taskItemDO = new InspectTaskItemDO();
-                    taskItemDO.setGmtCreate(now);
-                    taskItemDO.setGmtModified(now);
-                    taskItemDO.setTaskCode(taskCode);
-                    taskItemDO.setBgItemCode(itemDO.getBgItemCode());
-                    taskItemDO.setRigCode(rigDO.getRigCode());
-                    taskItemDO.setDeptId(departmentDO.getId());
-                    taskItemDO.setRigId(rigDO.getId());
-                    int insert = taskItemMapper.insert(taskItemDO);
-                    if (insert < 1) {
-                        throw new Exception("插入taskItem失败");
-                    }
-                }
+        for (BgInspectItemDO itemDO : itemDOList) {
+            InspectTaskItemDO taskItemDO = new InspectTaskItemDO();
+            taskItemDO.setGmtCreate(now);
+            taskItemDO.setGmtModified(now);
+            taskItemDO.setTaskCode(taskCode);
+            taskItemDO.setBgItemCode(itemDO.getBgItemCode());
+            taskItemDO.setRigCode(rigDO.getRigCode());
+            taskItemDO.setDeptId(departmentDO.getId());
+            taskItemDO.setRigId(rigDO.getId());
+            int insert = taskItemMapper.insert(taskItemDO);
+            if (insert < 1) {
+                throw new Exception("插入taskItem失败");
             }
         }
     }
@@ -144,7 +144,6 @@ public class InspectTaskCreateJob {
     }
 
     private Long addTask(InspectPlanVO inspectPlanVO, Date now, String taskCode, DepartmentDO departmentDO) {
-
         InspectTaskDO taskDO = new InspectTaskDO();
         taskDO.setGmtCreate(now);
         taskDO.setGmtModified(now);
