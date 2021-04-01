@@ -64,7 +64,7 @@ public class SeveralDayTaskStrategy {
         return true;
     }
 
-    private boolean canAdd(InspectPlanVO inspectPlanVO){
+    private boolean canAdd(InspectPlanVO inspectPlanVO) {
         Date now = new Date();
         long startDateLong = inspectPlanVO.getStartDate().getTime();
         long endDateLong = inspectPlanVO.getEndDate().getTime();
@@ -79,8 +79,8 @@ public class SeveralDayTaskStrategy {
 
         long days = (tsNow - tsStart) / (1000 * 60 * 60 * 24);
         Integer countDay = inspectPlanVO.getCountDay();
-        int startDays = 0;
-        int endDays = 0;
+        int startDays = (int) days / countDay * countDay;
+        int endDays = (int) days / countDay * countDay + countDay - 1;
         String startTime = inspectPlanVO.getStartTime();
         String endTime = inspectPlanVO.getEndTime();
 
@@ -97,6 +97,7 @@ public class SeveralDayTaskStrategy {
         }
         return true;
     }
+
     private void addTaskItem(InspectPlanVO inspectPlanVO, Date now, String taskCode) throws Exception {
         String bgCode = inspectPlanVO.getBgCode();
         List<BgInspectItemDO> itemDOList = bgManager.getBgItemByCode(bgCode);
@@ -171,8 +172,8 @@ public class SeveralDayTaskStrategy {
         long days = DatesUtils.getDiffDays(startDate, now);
         Integer countDay = inspectPlanVO.getCountDay();
 
-        int startDays = (int)days / countDay * countDay;
-        int endDays =  (int)days / countDay * countDay + countDay;
+        int startDays = (int) days / countDay * countDay;
+        int endDays = (int) days / countDay * countDay + countDay - 1;
         String startTime = inspectPlanVO.getStartTime();
         String endTime = inspectPlanVO.getEndTime();
 
