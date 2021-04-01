@@ -267,6 +267,14 @@ public class DatesUtils {
         return cal.getTime();
     }
 
+    // 返回某个日期前几天的日期
+    public static Date getBehindDay(Date date, int i) {
+        Calendar cal = new GregorianCalendar();
+        cal.setTime(date);
+        cal.set(Calendar.DATE, cal.get(Calendar.DATE) + i);
+        return cal.getTime();
+    }
+
     // 获取某年某月到某年某月按天的切片日期集合(间隔天数的集合)
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public static List getTimeList(int beginYear, int beginMonth, int endYear,
