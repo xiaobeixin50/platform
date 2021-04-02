@@ -392,6 +392,7 @@ public class TaskManager {
             dangerVO.setInspectUserName(null);
             dangerVO.setFindUserId(taskItemVO.getInspectUserId());
             dangerVO.setFindUserName(taskItemVO.getInspectUserName());
+            dangerVO.setResponsibilityUserId(Long.valueOf(taskItemVO.getResponsibilityUserId()));
             dangerVO.setDangerCode(dangerCode);
             dangerVO.setPhoto(taskItemVO.getPhoto());
             dangerVO.setIsInspect(0);

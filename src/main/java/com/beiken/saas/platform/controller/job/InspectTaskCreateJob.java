@@ -48,16 +48,17 @@ public class InspectTaskCreateJob {
     private SwitchUtil switchUtil;
 
 
-    @Scheduled(fixedDelay = 6000000)
+    @Scheduled(fixedDelay = 60000000)
     @Transactional(rollbackFor = Exception.class)
     public void createTask() throws Exception {
         List<InspectPlanVO> inspectPlanVOs = inspectPlanManager.queryStartPlan();
         Date now = new Date();
         for (InspectPlanVO inspectPlanVO : inspectPlanVOs) {
             boolean b = canAdd(inspectPlanVO, now);
-            if (!switchUtil.match("createTask", "true")) {
+            /*if (!switchUtil.match("createTask", "true")) {
                 continue;
-            }
+            }*/
+            b= true;
             if (!b) {
                 continue;
             }

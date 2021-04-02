@@ -117,12 +117,12 @@ public class CustomDangerController {
                 }
             }
             if (dangerDO.getDisLevelUserId() != null) {
-                dangerDO.setDangerLevel(dangerVO.getDangerLevel());
-                if (orgDanger.getReportType() == 0) {
+                if (orgDanger.getReportType() == 0 || (orgDanger.getIsInspect() != null && orgDanger.getIsInspect() == 1)) {
                     dangerDO.setReportStatus(process.get(1));
                 } else {
                     dangerDO.setReportStatus(process.get(2));
                 }
+                dangerDO.setDangerLevel(dangerVO.getDangerLevel());
             }
             if (dangerDO.getChangeUserId()!= null) {
                 dangerDO.setDangerLevel(dangerVO.getDangerLevel());
