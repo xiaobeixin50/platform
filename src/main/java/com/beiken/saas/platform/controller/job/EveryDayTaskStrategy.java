@@ -2,7 +2,9 @@ package com.beiken.saas.platform.controller.job;
 
 import com.beiken.saas.platform.biz.vo.InspectPlanVO;
 import com.beiken.saas.platform.enums.Constants;
-import com.beiken.saas.platform.manage.*;
+import com.beiken.saas.platform.manage.BgManager;
+import com.beiken.saas.platform.manage.RigManager;
+import com.beiken.saas.platform.manage.TaskManager;
 import com.beiken.saas.platform.mapper.InspectTaskItemMapper;
 import com.beiken.saas.platform.mapper.InspectTaskMapper;
 import com.beiken.saas.platform.mapper.TaskUserMapper;
@@ -10,26 +12,22 @@ import com.beiken.saas.platform.pojo.*;
 import com.beiken.saas.platform.utils.CodeUtil;
 import com.beiken.saas.platform.utils.DateUtil;
 import com.beiken.saas.platform.utils.SwitchUtil;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 
 /**
- * User: panboliang
- * Date: 21/3/29
- * Time: 下午1:15
+ * 一天几次的策略
  */
 @Component
-public class InspectTaskCreateJob {
-
-    @Resource
-    private InspectPlanManager inspectPlanManager;
+public class EveryDayTaskStrategy {
     @Resource
     private TaskManager taskManager;
+
+    @Resource
+    private SwitchUtil switchUtil;
     @Resource
     private InspectTaskMapper inspectTaskMapper;
     @Resource
@@ -37,48 +35,34 @@ public class InspectTaskCreateJob {
     @Resource
     private CodeUtil codeUtil;
     @Resource
-    private BgManager bgManager;
-    @Resource
-    private DepartManager departManager;
-    @Resource
     private RigManager rigManager;
     @Resource
     private InspectTaskItemMapper taskItemMapper;
+
     @Resource
-    private SwitchUtil switchUtil;
+    private BgManager bgManager;
 
-
-    //@Scheduled(fixedDelay = 60000)
-    @Transactional(rollbackFor = Exception.class)
-    public void createTask() throws Exception {
-        List<InspectPlanVO> inspectPlanVOs = inspectPlanManager.queryStartPlan();
+    public boolean handle(InspectPlanVO inspectPlanVO) throws Exception {
         Date now = new Date();
-        for (InspectPlanVO inspectPlanVO : inspectPlanVOs) {
-            boolean b = canAdd(inspectPlanVO, now);
-            /*if (!switchUtil.match("createTask", "true")) {
-                continue;
-            }*/
-            b= true;
-            if (!b) {
-                continue;
-            }
-            for (DepartmentDO departmentDO : inspectPlanVO.getDeptList()) {
-                List<RigDO> rigDOList = rigManager.getRigDOByDeptId(departmentDO.getId());
-                for (RigDO rigDO : rigDOList) {
-                    String taskCode = codeUtil.buildTaskCode(departmentDO.getDeptCode());
-                    Long taskId = addTask(inspectPlanVO, now, taskCode, departmentDO);
-                    if (taskId == null) {
-                        throw new Exception("插入task失败");
-                    }
-                    addTaskUser(inspectPlanVO, now, taskId, taskCode);
-                    addTaskItem(inspectPlanVO, now, taskCode, departmentDO, rigDO);
-                }
-
-            }
+        boolean b = canAdd(inspectPlanVO);
+        if (!b && switchUtil.match("enableCreateTask", "false")) {
+            return false;
         }
+        for (DepartmentDO departmentDO : inspectPlanVO.getDeptList()) {
+            String taskCode = codeUtil.buildTaskCode(departmentDO.getDeptCode());
+            Long taskId = addTask(inspectPlanVO, now, taskCode, departmentDO);
+            if (taskId == null) {
+                throw new Exception("插入task失败");
+            }
+            addTaskUser(inspectPlanVO, now, taskId, taskCode);
+            addTaskItem(inspectPlanVO, now, taskCode);
+        }
+        return true;
     }
 
-    private boolean canAdd(InspectPlanVO inspectPlanVO, Date now) {
+
+    private boolean canAdd(InspectPlanVO inspectPlanVO){
+        Date now = new Date();
         long startDateLong = inspectPlanVO.getStartDate().getTime();
         long endDateLong = inspectPlanVO.getEndDate().getTime();
         if (now.getTime() < startDateLong || now.getTime() > endDateLong) {
@@ -97,26 +81,26 @@ public class InspectTaskCreateJob {
         return true;
     }
 
-    private void updateTask() {
-
-    }
-
-    private void addTaskItem(InspectPlanVO inspectPlanVO, Date now, String taskCode
-            , DepartmentDO departmentDO, RigDO rigDO) throws Exception {
+    private void addTaskItem(InspectPlanVO inspectPlanVO, Date now, String taskCode) throws Exception {
         String bgCode = inspectPlanVO.getBgCode();
         List<BgInspectItemDO> itemDOList = bgManager.getBgItemByCode(bgCode);
-        for (BgInspectItemDO itemDO : itemDOList) {
-            InspectTaskItemDO taskItemDO = new InspectTaskItemDO();
-            taskItemDO.setGmtCreate(now);
-            taskItemDO.setGmtModified(now);
-            taskItemDO.setTaskCode(taskCode);
-            taskItemDO.setBgItemCode(itemDO.getBgItemCode());
-            taskItemDO.setRigCode(rigDO.getRigCode());
-            taskItemDO.setDeptId(departmentDO.getId());
-            taskItemDO.setRigId(rigDO.getId());
-            int insert = taskItemMapper.insert(taskItemDO);
-            if (insert < 1) {
-                throw new Exception("插入taskItem失败");
+        for (DepartmentDO departmentDO : inspectPlanVO.getDeptList()) {
+            List<RigDO> rigDOs = rigManager.getRigDOByDeptId(departmentDO.getId());
+            for (RigDO rigDO : rigDOs) {
+                for (BgInspectItemDO itemDO : itemDOList) {
+                    InspectTaskItemDO taskItemDO = new InspectTaskItemDO();
+                    taskItemDO.setGmtCreate(now);
+                    taskItemDO.setGmtModified(now);
+                    taskItemDO.setTaskCode(taskCode);
+                    taskItemDO.setBgItemCode(itemDO.getBgItemCode());
+                    taskItemDO.setRigCode(rigDO.getRigCode());
+                    taskItemDO.setDeptId(departmentDO.getId());
+                    taskItemDO.setRigId(rigDO.getId());
+                    int insert = taskItemMapper.insert(taskItemDO);
+                    if (insert < 1) {
+                        throw new Exception("插入taskItem失败");
+                    }
+                }
             }
         }
     }
@@ -145,6 +129,7 @@ public class InspectTaskCreateJob {
     }
 
     private Long addTask(InspectPlanVO inspectPlanVO, Date now, String taskCode, DepartmentDO departmentDO) {
+
         InspectTaskDO taskDO = new InspectTaskDO();
         taskDO.setGmtCreate(now);
         taskDO.setGmtModified(now);
@@ -171,6 +156,4 @@ public class InspectTaskCreateJob {
         taskDO.setStartTime(start);
         taskDO.setEndTime(end);
     }
-
-
 }
