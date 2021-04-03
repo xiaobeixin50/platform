@@ -133,6 +133,7 @@ public class TaskManager {
         if (!CollectionUtils.isEmpty(taskCodeSet)) {
             taskDOExample.createCriteria()
                     .andTaskCodeIn(Lists.newArrayList(taskCodeSet));
+            taskDOExample.setOrderByClause("start_time desc");
             inspectTasks = taskMapper.selectByExample(taskDOExample);
         }
         if (CollectionUtils.isEmpty(inspectTasks)) {
