@@ -2,6 +2,7 @@ package com.beiken.saas.platform.controller.job;
 
 import com.beiken.saas.platform.biz.vo.InspectPlanVO;
 import com.beiken.saas.platform.manage.InspectPlanManager;
+import com.beiken.saas.platform.manage.RigManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +23,8 @@ public class InspectPlanCreateJob {
 
     @Resource
     private InspectPlanManager inspectPlanManager;
+    @Resource
+    private RigManager rigManager;
 
     //@Scheduled(fixedDelay = 60000)
     @Transactional(rollbackFor = Exception.class)
