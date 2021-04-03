@@ -4,6 +4,7 @@ import com.beiken.saas.platform.biz.vo.InspectPlanVO;
 import com.beiken.saas.platform.manage.InspectPlanManager;
 import com.beiken.saas.platform.manage.RigManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,7 +27,8 @@ public class InspectPlanCreateJob {
     @Resource
     private RigManager rigManager;
 
-    //@Scheduled(fixedDelay = 60000)
+    //@Scheduled(cron = "0 15 2 ? * *")
+    @Scheduled(fixedDelay = 60000)
     @Transactional(rollbackFor = Exception.class)
     public void createTask() throws Exception {
         List<InspectPlanVO> inspectPlanVOs = inspectPlanManager.queryStartPlan();

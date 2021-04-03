@@ -48,7 +48,7 @@ public class SeveralDayTaskStrategy {
 
         Date now = new Date();
         boolean b = canAdd(inspectPlanVO);
-        if (!b && switchUtil.match("enableCreateTask", "true")) {
+        if (!b && switchUtil.match("enableCreateTask", "false")) {
             return false;
         }
         for (DepartmentDO departmentDO : inspectPlanVO.getDeptList()) {

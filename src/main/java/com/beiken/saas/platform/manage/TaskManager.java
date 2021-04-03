@@ -145,6 +145,7 @@ public class TaskManager {
                     && now.compareTo(inspectTask.getEndTime()) < 0
                     && switchUtil.match("updateAfterTime", "open")) {
                 updateTaskStatus(inspectTask.getTaskCode(), TaskStatusEnum.AFTER_TIME.getStatus());
+                inspectTask.setStatus(TaskStatusEnum.AFTER_TIME.getStatus());
                 updateAfterTimeTask(inspectTask.getTaskCode());
             }
             TaskVO taskVO = new TaskVO();
@@ -193,7 +194,7 @@ public class TaskManager {
         taskItemDO.setResultStatus(TaskItemStatusEnum.AFTER_TIME.getStatus());
         InspectTaskItemDOExample example = new InspectTaskItemDOExample();
         example.createCriteria().andTaskCodeEqualTo(taskCode).andResultStatusIsNull();
-        taskItemMapper.updateByExample(taskItemDO, example);
+        taskItemMapper.updateByExampleSelective(taskItemDO, example);
     }
 
     /**
