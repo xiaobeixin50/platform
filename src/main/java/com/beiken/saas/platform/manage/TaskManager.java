@@ -163,7 +163,7 @@ public class TaskManager {
             Long totalNum = taskItemMapper.countByExample(taskItemDOExample);
             taskVO.setItemNum(totalNum);
 
-            criteria.andResultStatusIsNotNull();
+            criteria.andResultStatusIn(Lists.newArrayList(0,1,2));
             Long finishNum = taskItemMapper.countByExample(taskItemDOExample);
             BigDecimal bg = new BigDecimal((double)(finishNum == 0L ? 0L : finishNum) / ((totalNum == 0) ? 1 : totalNum) * 100);
             taskVO.setFinishTaskItemNum(bg.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
@@ -295,7 +295,7 @@ public class TaskManager {
                     for (TaskItemListVO.Extra extra : extras) {
                         total = total + 1;
                         totalItem = totalItem + 1;
-                        if (extra.getStatus() != null) {
+                        if (extra.getStatus() != null && !TaskItemStatusEnum.AFTER_TIME.getMsg().equals(extra.getStatus())) {
                             finish = finish + 1;
                             totalFinishItem = totalFinishItem + 1;
                         }
