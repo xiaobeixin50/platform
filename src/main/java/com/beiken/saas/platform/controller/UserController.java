@@ -8,6 +8,7 @@ import com.beiken.saas.platform.enums.RoleEnum;
 import com.beiken.saas.platform.manage.RigManager;
 import com.beiken.saas.platform.manage.TaskManager;
 import com.beiken.saas.platform.mapper.DepartmentMapper;
+import com.beiken.saas.platform.mapper.InspectDeptMapper;
 import com.beiken.saas.platform.mapper.RigMapper;
 import com.beiken.saas.platform.mapper.UserMapper;
 import com.beiken.saas.platform.pojo.*;
@@ -48,6 +49,8 @@ public class UserController {
     private RigMapper rigMapper;
     @Resource
     private RigManager rigManager;
+    @Resource
+    private InspectDeptMapper inspectDeptMapper;
 
     @ApiOperation("用户信息-个人资料接口(移动管理后台和客户端都可以用)")
     @ResponseBody
@@ -75,6 +78,16 @@ public class UserController {
             UserVO userVO = new UserVO();
             BeanUtils.copyProperties(userDO, userVO);
             userVO.setRoleType(RoleEnum.index(userDO.getRole()));
+            if (Constants.INSPECT_USER.equals(userDO.getRole())) {
+                InspectDeptDO inspectDeptDO = null;
+                InspectDeptDOExample deptDOExample = new InspectDeptDOExample();
+                deptDOExample.createCriteria().andInspectUserIdEqualTo(userDO.getId());
+                List<InspectDeptDO> inspectDeptDOs = inspectDeptMapper.selectByExample(deptDOExample);
+                if (!CollectionUtils.isEmpty(inspectDeptDOs)) {
+                    inspectDeptDO = inspectDeptDOs.get(0);
+                    depId = inspectDeptDO.getDeptId();
+                }
+            }
 
             DepartmentDO departmentDO = departmentMapper.selectByPrimaryKey(depId);
             if (Objects.nonNull(departmentDO)) {
@@ -119,6 +132,17 @@ public class UserController {
             }*/
             userVO.setPassword(null);
             Long depId = userVO.getDepId();
+
+            if (Constants.INSPECT_USER.equals(userVO.getRole())) {
+                InspectDeptDO inspectDeptDO = null;
+                InspectDeptDOExample deptDOExample = new InspectDeptDOExample();
+                deptDOExample.createCriteria().andInspectUserIdEqualTo(userVO.getId());
+                List<InspectDeptDO> inspectDeptDOs = inspectDeptMapper.selectByExample(deptDOExample);
+                if (!CollectionUtils.isEmpty(inspectDeptDOs)) {
+                    inspectDeptDO = inspectDeptDOs.get(0);
+                    depId = inspectDeptDO.getDeptId();
+                }
+            }
 
             DepartmentDO departmentDO = departmentMapper.selectByPrimaryKey(depId);
             if (Objects.nonNull(departmentDO)) {

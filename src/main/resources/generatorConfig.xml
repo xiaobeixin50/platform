@@ -223,6 +223,19 @@
                enableDeleteByExample="true"
                enableSelectByExample="true"
                selectByExampleQueryId="true">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+
+        <table tableName="sft_inspect_dept"
+               domainObjectName="InspectDeptDO"
+               mapperName="InspectDeptMapper"
+
+               enableCountByExample="true"
+               enableUpdateByExample="true"
+               enableDeleteByExample="true"
+               enableSelectByExample="true"
+               selectByExampleQueryId="true">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
 
     </context>

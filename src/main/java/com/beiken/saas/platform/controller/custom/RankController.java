@@ -4,10 +4,7 @@ import com.beiken.saas.platform.biz.bo.PageBo;
 import com.beiken.saas.platform.biz.vo.RankVO;
 import com.beiken.saas.platform.biz.vo.Result;
 import com.beiken.saas.platform.biz.vo.UserVO;
-import com.beiken.saas.platform.mapper.DepartmentMapper;
-import com.beiken.saas.platform.mapper.HiddenDangerMapper;
-import com.beiken.saas.platform.mapper.RigMapper;
-import com.beiken.saas.platform.mapper.UserMapper;
+import com.beiken.saas.platform.mapper.*;
 import com.beiken.saas.platform.pojo.*;
 import com.beiken.saas.platform.utils.DatesUtils;
 import io.swagger.annotations.Api;
@@ -19,6 +16,7 @@ import org.springframework.cglib.beans.BeanCopier;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -41,6 +39,9 @@ public class RankController {
 
     @Autowired
     private RigMapper rigMapper;
+
+    @Resource
+    private InspectDeptMapper inspectDeptMapper;
 
     @ApiOperation("监理上传隐患排名")
     @ResponseBody
@@ -133,18 +134,18 @@ public class RankController {
         userExample.createCriteria().andIdIn(userIds);
         List<UserDO> userDOS = userMapper.selectByExample(userExample);
         Map<Long, UserDO> userMap = userDOS.stream().collect(Collectors.toMap(UserDO::getId, item -> item));
-        List<Long> depIds = userDOS.stream().map(UserDO::getDepId).collect(Collectors.toList());
         //获取管辖井队数量
-        RigDOExample rigExample = new RigDOExample();
-        rigExample.createCriteria().andInspectUserIdIn(userIds);
-        List<RigDO> rigDOS = rigMapper.selectByExample(rigExample);
-        Map<Long, Long> rigGroupResult = rigDOS.stream().collect(Collectors.groupingBy(RigDO::getInspectUserId, Collectors.counting()));
+        InspectDeptDOExample inspectDeptDOExample = new InspectDeptDOExample();
+
+        inspectDeptDOExample.createCriteria().andInspectUserIdIn(userIds);
+        List<InspectDeptDO> inspectDeptDOs = inspectDeptMapper.selectByExample(inspectDeptDOExample);
+        Map<Long, Long> deptGroupResult = inspectDeptDOs.stream().collect(Collectors.groupingBy(InspectDeptDO::getInspectUserId, Collectors.counting()));
         //组装结果
         List<RankVO> collect = userIds.stream().map(userId -> {
             RankVO rankVO = new RankVO();
             rankVO.setDangerNum(groupResult.get(userId));
             UserDO user = userMap.get(userId);
-            rankVO.setManageRigNum(rigGroupResult.get(user.getId()) == null ? 0 : rigGroupResult.get(user.getId()));
+            rankVO.setManageRigNum(deptGroupResult.get(user.getId()) == null ? 0 : deptGroupResult.get(user.getId()));
             UserDO userDO = userMap.get(userId);
             UserVO userVO = convertUserDO(userDO);
             rankVO.setUserVO(userVO);
