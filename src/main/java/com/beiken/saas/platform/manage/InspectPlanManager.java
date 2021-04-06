@@ -76,7 +76,7 @@ public class InspectPlanManager {
         return Result.success();
     }
 
-    public Result info(String planCode) {
+    public Result<InspectPlanVO> info(String planCode) {
         PlanQuery planQuery = new PlanQuery();
         planQuery.setPlanCode(planCode);
         PageBo<InspectPlanVO> pageBo = planList(planQuery);
@@ -146,6 +146,16 @@ public class InspectPlanManager {
             criteria.andInspectPlanCodeIn(Lists.newArrayList(inspectPlanCodeSet));
         }
         return example;
+    }
+
+    public InspectPlanDO getByCode(String planCode) {
+        InspectPlanDOExample example = new InspectPlanDOExample();
+        example.createCriteria().andInspectPlanCodeEqualTo(planCode);
+        List<InspectPlanDO> inspectPlanDOs = inspectPlanMapper.selectByExample(example);
+        if (CollectionUtils.isEmpty(inspectPlanDOs)) {
+            return null;
+        }
+        return inspectPlanDOs.get(0);
     }
 
     public Map<String, List<InspectPlanDeptDO>> queryPlanDeptByCodes(Set<String> planCodes) {

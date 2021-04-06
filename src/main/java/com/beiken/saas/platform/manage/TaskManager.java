@@ -54,6 +54,8 @@ public class TaskManager {
     private UserMapper userMapper;
     @Resource
     private SwitchUtil switchUtil;
+    @Resource
+    private InspectPlanManager planManager;
 
 
     /**
@@ -209,12 +211,25 @@ public class TaskManager {
         List<TaskItemListVO> result = Lists.newArrayList();
 
         Map<String, List<TaskItemListVO>> siteMap = Maps.newHashMap();
+        InspectTaskDOExample taskDOExample = new InspectTaskDOExample();
+        taskDOExample.createCriteria().andTaskCodeEqualTo(taskCode);
+        List<InspectTaskDO> inspectTaskDOs = taskMapper.selectByExample(taskDOExample);
+        if (CollectionUtils.isEmpty(inspectTaskDOs)) {
+            return pageBo;
+        }
+        InspectTaskDO taskDO = inspectTaskDOs.get(0);
+        InspectPlanDO inspectPlanDO = planManager.getByCode(taskDO.getInspectPlanCode());
+        if (inspectPlanDO == null) {
+            return pageBo;
+        }
 
         List<InspectTaskItemDO> taskItems = getRigByCode(Lists.newArrayList(taskCode), rigCode);
 
         Set<String> bgItemCodeSet = taskItems.stream().map(InspectTaskItemDO::getBgItemCode).collect(Collectors.toSet());
         BgInspectItemDOExample bgItemExample = new BgInspectItemDOExample();
-        bgItemExample.createCriteria().andBgItemCodeIn(Lists.newArrayList(bgItemCodeSet));
+        bgItemExample.createCriteria()
+                .andBgItemCodeIn(Lists.newArrayList(bgItemCodeSet))
+                .andBgCodeEqualTo(inspectPlanDO.getBgCode());
         List<BgInspectItemDO> bgInspectItems = bgInspectItemMapper.selectByExampleWithBLOBs(bgItemExample);
         if (CollectionUtils.isEmpty(bgInspectItems)) {
             return pageBo;
