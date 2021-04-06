@@ -528,8 +528,10 @@ public class TaskManager {
 
         for (TaskVO taskVO : taskVOList) {
             Date taskStartTime = taskVO.getTaskStartTime();
+            Date taskEndTime = taskVO.getTaskEndTime();
             String key = null;
-            if (DateUtil.isSameDay(taskStartTime, now)) {
+            if (DateUtil.isSameDay(taskStartTime, now)
+                    || (now.compareTo(taskStartTime) >= 0 && now.compareTo(taskEndTime) <= 0)) {
                 key = "今日任务";
             } else {
                 key = DateUtil.formatDate(DateUtil.getStartOfMonth(taskStartTime), DateUtil.DEFAULT_PARTERN_MONTH);
