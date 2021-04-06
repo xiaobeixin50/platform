@@ -1,28 +1,21 @@
 package com.beiken.saas.platform.manage;
 
 import com.beiken.saas.platform.biz.vo.TotalDataVO;
-import com.beiken.saas.platform.enums.Constants;
 import com.beiken.saas.platform.enums.DangerLevelEnum;
 import com.beiken.saas.platform.enums.DangerStatusEnum;
 import com.beiken.saas.platform.enums.TaskStatusEnum;
 import com.beiken.saas.platform.mapper.DepartmentMapper;
 import com.beiken.saas.platform.mapper.HiddenDangerMapper;
+import com.beiken.saas.platform.mapper.InspectDeptMapper;
 import com.beiken.saas.platform.mapper.InspectTaskMapper;
-import com.beiken.saas.platform.pojo.DepartmentDO;
-import com.beiken.saas.platform.pojo.DepartmentDOExample;
-import com.beiken.saas.platform.pojo.HiddenDangerDOExample;
-import com.beiken.saas.platform.pojo.InspectTaskDOExample;
+import com.beiken.saas.platform.pojo.*;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.springframework.stereotype.Component;
-import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -39,6 +32,8 @@ public class TotalDataManager {
     private InspectTaskMapper taskMapper;
     @Resource
     private DepartmentMapper departmentMapper;
+    @Resource
+    private InspectDeptMapper inspectDeptMapper;
 
     public TotalDataVO countDanger(Date startTime, Date endTime) {
         TotalDataVO totalDataVO = new TotalDataVO();
@@ -64,31 +59,30 @@ public class TotalDataManager {
         Map<String, Long> valueMap = Maps.newHashMap();
         Map<String, Double> result = Maps.newHashMap();
 
-        HiddenDangerDOExample dangerDOExample = new HiddenDangerDOExample();
-        HiddenDangerDOExample.Criteria criteria = dangerDOExample.createCriteria();
-        if (Objects.nonNull(startTime)) {
-            criteria.andGmtCreateGreaterThanOrEqualTo(startTime);
-        }
-        if (Objects.nonNull(endTime)) {
-            criteria.andGmtCreateLessThanOrEqualTo(endTime);
+        List<InspectDeptDO> inspectDeptDOs = inspectDeptMapper.selectByExample(new InspectDeptDOExample());
+        Set<Long> deptIds = inspectDeptDOs.stream().map(InspectDeptDO::getDeptId).collect(Collectors.toSet());
+        DepartmentDOExample departmentDOExample = new DepartmentDOExample();
+        departmentDOExample.createCriteria().andIdIn(Lists.newArrayList(deptIds));
+        List<DepartmentDO> departmentDOs = departmentMapper.selectByExample(departmentDOExample);
+
+        for (DepartmentDO departmentDO : departmentDOs) {
+            DepartmentDO parentDept = departmentMapper.selectByPrimaryKey(departmentDO.getParentId());
+            if (!valueMap.containsKey(parentDept.getDeptName())) {
+                valueMap.put(parentDept.getDeptName(), 0L);
+            }
+            HiddenDangerDOExample dangerDOExample = new HiddenDangerDOExample();
+            HiddenDangerDOExample.Criteria criteria = dangerDOExample.createCriteria();
+            if (Objects.nonNull(startTime)) {
+                criteria.andGmtCreateGreaterThanOrEqualTo(startTime);
+            }
+            if (Objects.nonNull(endTime)) {
+                criteria.andGmtCreateLessThanOrEqualTo(endTime);
+            }
+            criteria.andDeptIdEqualTo(departmentDO.getId());
+            long num = dangerMapper.countByExample(dangerDOExample);
+            valueMap.put(parentDept.getDeptName(), valueMap.get(parentDept.getDeptName()) + num);
         }
 
-        DepartmentDOExample example = new DepartmentDOExample();
-        example.createCriteria().andLevelEqualTo(Constants.ONE_INT);
-        List<DepartmentDO> departmentDOs = departmentMapper.selectByExample(example);
-        for (DepartmentDO departmentDO : departmentDOs) {
-            DepartmentDOExample childExample = new DepartmentDOExample();
-            childExample.createCriteria().andParentIdEqualTo(departmentDO.getId());
-            List<DepartmentDO> childDepartList = departmentMapper.selectByExample(childExample);
-            if (CollectionUtils.isEmpty(childDepartList)) {
-                valueMap.put(departmentDO.getDeptName(), 0L);
-                continue;
-            }
-            List<Long> deptIdList = childDepartList.stream().map(DepartmentDO::getId).collect(Collectors.toList());
-            criteria.andDeptIdIn(deptIdList);
-            long count = dangerMapper.countByExample(dangerDOExample);
-            valueMap.put(departmentDO.getDeptName(), count);
-        }
         Long sum = 0L;
         for (Long count : valueMap.values()) {
             sum += count;
