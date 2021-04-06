@@ -143,7 +143,7 @@ public class TaskManager {
 
         for (InspectTaskDO inspectTask : inspectTasks) {
             if (TaskStatusEnum.NOT_BEGIN.getStatus().equals(inspectTask.getStatus())
-                    && now.compareTo(inspectTask.getEndTime()) < 0
+                    && now.compareTo(inspectTask.getEndTime()) > 0
                     && switchUtil.match("updateAfterTime", "open")) {
                 updateTaskStatus(inspectTask.getTaskCode(), TaskStatusEnum.AFTER_TIME.getStatus());
                 inspectTask.setStatus(TaskStatusEnum.AFTER_TIME.getStatus());
