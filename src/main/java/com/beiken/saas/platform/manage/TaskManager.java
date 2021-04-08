@@ -85,13 +85,13 @@ public class TaskManager {
      */
     public List<String> getTaskCodeByInspectUser(Long inspectUserId, Integer pageNo, Integer pageSize) {
         TaskUserDOExample example = new TaskUserDOExample();
-        if (pageNo != null) {
+        /*if (pageNo != null) {
             example.setLimitStart((pageNo - 1) * pageSize);
         }
         if (pageSize != null) {
             example.setCount(pageSize);
         }
-        example.setOrderByClause("gmt_create desc");
+        example.setOrderByClause("gmt_create desc");*/
         example.createCriteria().andInspectUserIdEqualTo(inspectUserId);
         List<TaskUserDO> taskUserDOs = taskUserMapper.selectByExample(example);
         if (CollectionUtils.isEmpty(taskUserDOs)) {
@@ -101,18 +101,44 @@ public class TaskManager {
         return Lists.newArrayList(collect);
     }
 
+    public List<InspectTaskItemDO> getRigByCode(String taskCodes, String rigCode) {
+        List<InspectTaskDO> rigByCode = getRigByCode(Lists.newArrayList(taskCodes), rigCode, null, null, null);
+        if (CollectionUtils.isEmpty(rigByCode)) {
+            return Collections.emptyList();
+        }
+        InspectTaskDO inspectTaskDO = rigByCode.get(0);
+        InspectTaskItemDOExample example = new InspectTaskItemDOExample();
+        example.createCriteria().andTaskCodeEqualTo(taskCodes)
+                .andRigCodeEqualTo(rigCode);
+        List<InspectTaskItemDO> inspectTaskItemDOS = taskItemMapper.selectByExample(example);
+        return inspectTaskItemDOS;
+    }
 
-    public List<InspectTaskItemDO> getRigByCode(List<String> taskCodes, String rigCode) {
+    public List<InspectTaskDO> getRigByCode(List<String> taskCodes, String rigCode
+            , Integer pageNo, Integer pageSize, PageBo pageBo) {
         if (CollectionUtils.isEmpty(taskCodes)) {
             return Collections.emptyList();
         }
-        InspectTaskItemDOExample example = new InspectTaskItemDOExample();
-        InspectTaskItemDOExample.Criteria criteria = example.createCriteria().andTaskCodeIn(taskCodes);
+
+        InspectTaskDOExample example = new InspectTaskDOExample();
+        InspectTaskDOExample.Criteria criteria = example.createCriteria();
+        criteria.andTaskCodeIn(taskCodes);
+        if (pageNo != null) {
+            example.setLimitStart((pageNo - 1) * pageSize);
+            example.setCount(pageSize);
+            criteria.andStartTimeLessThanOrEqualTo(new Date());
+        }
+        example.setOrderByClause("gmt_create desc");
+
         if (StringUtils.isNotBlank(rigCode)) {
             criteria.andRigCodeEqualTo(rigCode);
         }
-        List<InspectTaskItemDO> itemDOs = taskItemMapper.selectByExample(example);
-        return itemDOs;
+        List<InspectTaskDO> inspectTaskDOS = taskMapper.selectByExample(example);
+        long l = taskMapper.countByExample(example);
+        if (Objects.nonNull(pageBo)) {
+            pageBo.setTotalSize(l);
+        }
+        return inspectTaskDOS;
     }
 
 
@@ -127,17 +153,8 @@ public class TaskManager {
 
         Date now = new Date();
         List<String> taskCodes = getTaskCodeByInspectUser(userId, pageNo, pageSize);
-        List<InspectTaskItemDO> taskItemList = getRigByCode(taskCodes, rigCode);
-        Set<String> taskCodeSet = taskItemList.stream().map(InspectTaskItemDO::getTaskCode).collect(Collectors.toSet());
+        List<InspectTaskDO> inspectTasks = getRigByCode(taskCodes, rigCode, pageNo, pageSize, pageBo);
 
-        List<InspectTaskDO> inspectTasks = null;
-        InspectTaskDOExample taskDOExample = new InspectTaskDOExample();
-        if (!CollectionUtils.isEmpty(taskCodeSet)) {
-            taskDOExample.createCriteria()
-                    .andTaskCodeIn(Lists.newArrayList(taskCodeSet));
-            taskDOExample.setOrderByClause("start_time desc");
-            inspectTasks = taskMapper.selectByExample(taskDOExample);
-        }
         if (CollectionUtils.isEmpty(inspectTasks)) {
             return pageBo;
         }
@@ -174,9 +191,7 @@ public class TaskManager {
             }
             taskVOList.add(taskVO);
         }
-        long count = taskMapper.countByExample(taskDOExample);
         pageBo.setItemList(generatorTaskList(taskVOList));
-        pageBo.setTotalSize(count);
         return pageBo;
     }
 
@@ -223,7 +238,10 @@ public class TaskManager {
             return pageBo;
         }
 
-        List<InspectTaskItemDO> taskItems = getRigByCode(Lists.newArrayList(taskCode), rigCode);
+        List<InspectTaskItemDO> taskItems = getRigByCode(taskCode, rigCode);
+        if (CollectionUtils.isEmpty(taskItems)) {
+            return pageBo;
+        }
 
         Set<String> bgItemCodeSet = taskItems.stream().map(InspectTaskItemDO::getBgItemCode).collect(Collectors.toSet());
         BgInspectItemDOExample bgItemExample = new BgInspectItemDOExample();
@@ -322,14 +340,14 @@ public class TaskManager {
      * @param userId
      * @return
      */
-    public UserRigVO getTaskUserRig(Long userId, List<InspectTaskItemDO> taskItemDOs) {
+    public UserRigVO getTaskUserRig(Long userId, List<InspectTaskDO> rigByCode) {
         UserRigVO userRigVO = new UserRigVO();
         userRigVO.setUserId(userId);
 
-        if (CollectionUtils.isEmpty(taskItemDOs)) {
+        if (CollectionUtils.isEmpty(rigByCode)) {
             return null;
         }
-        Set<String> rigIdSet = taskItemDOs.stream().map(InspectTaskItemDO::getRigCode).collect(Collectors.toSet());
+        Set<String> rigIdSet = rigByCode.stream().map(InspectTaskDO::getRigCode).collect(Collectors.toSet());
 
         RigDOExample rigExample = new RigDOExample();
         rigExample.createCriteria()

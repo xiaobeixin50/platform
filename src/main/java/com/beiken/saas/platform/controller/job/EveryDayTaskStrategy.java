@@ -52,7 +52,7 @@ public class EveryDayTaskStrategy {
             List<RigDO> rigDOList = rigManager.getRigDOByDeptId(departmentDO.getId());
             for (RigDO rigDO : rigDOList) {
                 String taskCode = codeUtil.buildTaskCode(departmentDO.getDeptCode());
-                Long taskId = addTask(inspectPlanVO, now, taskCode, departmentDO);
+                Long taskId = addTask(inspectPlanVO, now, taskCode, departmentDO, rigDO);
                 if (taskId == null) {
                     throw new Exception("插入task失败");
                 }
@@ -128,7 +128,8 @@ public class EveryDayTaskStrategy {
         }
     }
 
-    private Long addTask(InspectPlanVO inspectPlanVO, Date now, String taskCode, DepartmentDO departmentDO) {
+    private Long addTask(InspectPlanVO inspectPlanVO, Date now, String taskCode
+            , DepartmentDO departmentDO, RigDO rigDO) {
 
         InspectTaskDO taskDO = new InspectTaskDO();
         taskDO.setGmtCreate(now);
@@ -141,6 +142,7 @@ public class EveryDayTaskStrategy {
         taskDO.setQuickly(inspectPlanVO.getPriority());
         taskDO.setDeptId(departmentDO.getId());
         taskDO.setDeptName(departmentDO.getDeptName());
+        taskDO.setRigCode(rigDO.getRigCode());
         int insert = inspectTaskMapper.insert(taskDO);
         if (insert > 0) {
             return taskDO.getId();

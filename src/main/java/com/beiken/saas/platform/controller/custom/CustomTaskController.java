@@ -4,6 +4,7 @@ import com.beiken.saas.platform.biz.bo.PageBo;
 import com.beiken.saas.platform.biz.vo.*;
 import com.beiken.saas.platform.enums.Constants;
 import com.beiken.saas.platform.manage.TaskManager;
+import com.beiken.saas.platform.pojo.InspectTaskDO;
 import com.beiken.saas.platform.pojo.InspectTaskItemDO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -53,9 +54,9 @@ public class CustomTaskController {
     public Result getDeptByUser(@PathVariable Long userId) {
         try {
             List<String> taskCodes = taskManager.getTaskCodeByInspectUser(userId, null, null);
-            List<InspectTaskItemDO> taskRig = taskManager.getRigByCode(taskCodes, null);
+            List<InspectTaskDO> rigByCode = taskManager.getRigByCode(taskCodes, null, null, null, null);
 
-            UserRigVO taskUserRig = taskManager.getTaskUserRig(userId, taskRig);
+            UserRigVO taskUserRig = taskManager.getTaskUserRig(userId, rigByCode);
             if (Objects.isNull(taskUserRig)) {
                 return Result.error(Constants.ERROR, "未找到管理的井");
             }
