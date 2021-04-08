@@ -85,14 +85,18 @@ public class TaskManager {
      */
     public List<String> getTaskCodeByInspectUser(Long inspectUserId, Integer pageNo, Integer pageSize) {
         TaskUserDOExample example = new TaskUserDOExample();
+        example.setDistinct(true);
         if (pageNo != null) {
+            pageSize = 200;
             example.setLimitStart((pageNo - 1) * pageSize);
         }
         if (pageSize != null) {
             example.setCount(pageSize);
         }
         example.setOrderByClause("gmt_create desc");
-        example.createCriteria().andInspectUserIdEqualTo(inspectUserId);
+        example.createCriteria()
+                .andInspectUserIdEqualTo(inspectUserId)
+                .andTaskStartTimeGreaterThanOrEqualTo(new Date());
         List<TaskUserDO> taskUserDOs = taskUserMapper.selectByExample(example);
         if (CollectionUtils.isEmpty(taskUserDOs)) {
             return Collections.emptyList();
