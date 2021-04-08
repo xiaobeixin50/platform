@@ -89,8 +89,6 @@ public class TaskManager {
         if (pageNo != null) {
             pageSize = 200;
             example.setLimitStart((pageNo - 1) * pageSize);
-        }
-        if (pageSize != null) {
             example.setCount(pageSize);
         }
         example.setOrderByClause("gmt_create desc");
