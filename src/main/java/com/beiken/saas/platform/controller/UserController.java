@@ -211,7 +211,7 @@ public class UserController {
                 criteria.andDeptNameLike(Constants.LIKE + deptName + Constants.LIKE);
             }
             if (Constants.ZERO_INT.equals(type)) {
-                criteria.andLevelEqualTo(Constants.ONE_INT);
+                criteria.andLevelEqualTo(Constants.ONE_INT).andDeptTypeEqualTo("子公司");
                 List<DepartmentDO> departmentDOs = departmentMapper.selectByExample(example);
                 for (DepartmentDO departmentDO : departmentDOs) {
                     DeptVO deptVO = new DeptVO();
@@ -223,6 +223,9 @@ public class UserController {
                 criteria.andParentIdEqualTo(deptId);
                 List<DepartmentDO> departmentDOs = departmentMapper.selectByExample(example);
                 Set<Long> deptIds = departmentDOs.stream().map(DepartmentDO::getId).collect(Collectors.toSet());
+                if (CollectionUtils.isEmpty(deptIds)) {
+                    return Result.error(Constants.ERROR, "未查询到受检单位");
+                }
                 Map<Long, List<UserVO>> map = getUserByDeptId(Lists.newArrayList(deptIds), "井队长");
 
                 for (Map.Entry<Long, List<UserVO>> entry : map.entrySet()) {
