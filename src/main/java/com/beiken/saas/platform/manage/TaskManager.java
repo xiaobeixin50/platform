@@ -150,6 +150,8 @@ public class TaskManager {
      */
     public PageBo<TaskListVO> listByUser(Long userId, String rigCode, Integer pageNo, Integer pageSize) {
         PageBo<TaskListVO> pageBo = new PageBo<>();
+        pageBo.setPageNo(pageNo);
+        pageBo.setPageSize(pageSize);
 
         Date now = new Date();
         List<String> taskCodes = getTaskCodeByInspectUser(userId, pageNo, pageSize);

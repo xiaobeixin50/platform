@@ -19,6 +19,8 @@ public class DangerQuery extends BaseQuery implements Serializable{
             , required = false, example = "")
     private Long dangerId;
 
+    private Long deptId;
+
     @ApiModelProperty(name = "dangerLevel", value = "隐患级别,0-一级隐患,1-二级隐患,以此类推"
             , required = false, example = "")
     private Integer dangerLevel;

@@ -61,7 +61,12 @@ public class BgManager {
         if (CollectionUtils.isEmpty(bgInspectItemDOs)) {
             return null;
         }
-        Map<String, BgInspectItemDO> map = bgInspectItemDOs.stream().collect(Collectors.toMap(BgInspectItemDO::getBgItemCode, p -> p));
+        Map<String, BgInspectItemDO> map = Maps.newHashMap();
+        for (BgInspectItemDO itemDO : bgInspectItemDOs) {
+            if (!map.containsKey(itemDO.getBgItemCode())) {
+                map.put(itemDO.getBgItemCode(), itemDO);
+            }
+        }
         return map;
     }
 

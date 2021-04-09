@@ -192,11 +192,21 @@ public class DangerManager {
         if (Objects.nonNull(dangerQuery.getDangerId())) {
             criteria.andIdEqualTo(dangerQuery.getDangerId());
         }
+        List<Long> deptIds = null;
         if (dangerQuery.getRoleType() != null && !MANAGER_USER.equals(dangerQuery.getRoleType()) && userId != null) {
-            List<Long> deptIds = departManager.getDeptIdByUserId(userId);
-            criteria.andDeptIdIn(deptIds);
+            deptIds = departManager.getDeptIdByUserId(userId);
             //criteria.andFindUserIdEqualTo(userId);
         }
+        if (dangerQuery.getDeptId() != null) {
+            if (deptIds == null) {
+                deptIds = Lists.newArrayList();
+            }
+            deptIds.add(dangerQuery.getDeptId());
+        }
+        if (!CollectionUtils.isEmpty(deptIds)) {
+            criteria.andDeptIdIn(deptIds);
+        }
+
         if (StringUtils.isNotBlank(dangerQuery.getDangerName())) {
             criteria.andReportExtraLike("%" + dangerQuery.getDangerName() + "%");
         }
