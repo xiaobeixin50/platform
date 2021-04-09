@@ -58,20 +58,23 @@ public class InspectTaskCreateJob {
             /*if (!switchUtil.match("createTask", "true")) {
                 continue;
             }*/
-            b= true;
+            b = true;
             if (!b) {
                 continue;
             }
             for (DepartmentDO departmentDO : inspectPlanVO.getDeptList()) {
                 List<RigDO> rigDOList = rigManager.getRigDOByDeptId(departmentDO.getId());
                 for (RigDO rigDO : rigDOList) {
-                    String taskCode = codeUtil.buildTaskCode(departmentDO.getDeptCode());
-                    Long taskId = addTask(inspectPlanVO, now, taskCode, departmentDO);
-                    if (taskId == null) {
-                        throw new Exception("插入task失败");
+                    for (UserDO userDO : inspectPlanVO.getInspectUserList()) {
+                        String taskCode = codeUtil.buildTaskCode(departmentDO.getDeptCode());
+                        Long taskId = addTask(inspectPlanVO, now, taskCode, departmentDO);
+                        if (taskId == null) {
+                            throw new Exception("插入task失败");
+                        }
+                        addTaskUser(inspectPlanVO, now, taskId, taskCode, userDO);
+                        addTaskItem(inspectPlanVO, now, taskCode, departmentDO, rigDO);
                     }
-                    addTaskUser(inspectPlanVO, now, taskId, taskCode);
-                    addTaskItem(inspectPlanVO, now, taskCode, departmentDO, rigDO);
+
                 }
 
             }
@@ -121,26 +124,25 @@ public class InspectTaskCreateJob {
         }
     }
 
-    private void addTaskUser(InspectPlanVO inspectPlanVO, Date now, Long taskId, String taskCode) throws Exception {
+    private void addTaskUser(InspectPlanVO inspectPlanVO, Date now
+            , Long taskId, String taskCode, UserDO userDO) throws Exception {
         if (taskId == null) {
             return;
         }
-        for (UserDO userDO : inspectPlanVO.getInspectUserList()) {
-            TaskUserDO taskUserDO = new TaskUserDO();
-            taskUserDO.setGmtCreate(now);
-            taskUserDO.setGmtModified(now);
-            taskUserDO.setTaskId(taskId);
-            taskUserDO.setTaskCode(taskCode);
-            taskUserDO.setInspectUserId(userDO.getId());
-            taskUserDO.setInspectUserName(userDO.getName());
-            Date startDate = inspectPlanVO.getStartDate();
-            String startTime = inspectPlanVO.getStartTime();
-            Date start = DateUtil.parseDate(DateUtil.formatDate(startDate, DateUtil.DEFAULT_PARTERN).substring(0, 11) + startTime, DateUtil.DEFAULT_PARTERN);
-            taskUserDO.setTaskStartTime(start);
-            int insert = taskUserMapper.insert(taskUserDO);
-            if (insert < 1) {
-                throw new Exception("插入taskItem失败");
-            }
+        TaskUserDO taskUserDO = new TaskUserDO();
+        taskUserDO.setGmtCreate(now);
+        taskUserDO.setGmtModified(now);
+        taskUserDO.setTaskId(taskId);
+        taskUserDO.setTaskCode(taskCode);
+        taskUserDO.setInspectUserId(userDO.getId());
+        taskUserDO.setInspectUserName(userDO.getName());
+        Date startDate = inspectPlanVO.getStartDate();
+        String startTime = inspectPlanVO.getStartTime();
+        Date start = DateUtil.parseDate(DateUtil.formatDate(startDate, DateUtil.DEFAULT_PARTERN).substring(0, 11) + startTime, DateUtil.DEFAULT_PARTERN);
+        taskUserDO.setTaskStartTime(start);
+        int insert = taskUserMapper.insert(taskUserDO);
+        if (insert < 1) {
+            throw new Exception("插入taskItem失败");
         }
     }
 
