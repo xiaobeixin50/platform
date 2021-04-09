@@ -91,7 +91,7 @@ public class TaskManager {
             example.setCount(pageSize);
         }
         example.setOrderByClause("gmt_create desc");*/
-        example.createCriteria().andInspectUserIdEqualTo(inspectUserId);
+        //example.createCriteria().andInspectUserIdEqualTo(inspectUserId);
         example.setOrderByClause("gmt_create desc");
         example.createCriteria()
                 .andInspectUserIdEqualTo(inspectUserId)

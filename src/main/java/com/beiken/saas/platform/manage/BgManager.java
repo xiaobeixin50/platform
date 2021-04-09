@@ -71,7 +71,9 @@ public class BgManager {
     }
 
     public List<BgInspectItemDO> getAll() {
-        return bgInspectItemMapper.selectByExample(new BgInspectItemDOExample());
+        BgInspectItemDOExample example = new BgInspectItemDOExample();
+        example.createCriteria().andBgCodeEqualTo(Constants.ALL_BG_CODE).andStatusEqualTo(Constants.ONE_INT);
+        return bgInspectItemMapper.selectByExample(example);
     }
 
     public Map<String, Map<String, Map<String, List<EquipmentVO>>>> buildEquipment(List<BgInspectItemDO> itemDOList) {
