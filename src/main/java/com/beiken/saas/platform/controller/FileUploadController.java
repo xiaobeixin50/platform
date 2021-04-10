@@ -41,7 +41,9 @@ public class FileUploadController {
 
         String originalName = uploadFile.getOriginalFilename();
         String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-        String objectName = "users/" + date + "/" + originalName;
+        //为了解决类似iphone直接拍摄照片，图片名为重复的问题，所有图片都加上时间戳前缀
+        String timeStamp = String.valueOf(System.currentTimeMillis()) + "_";
+        String objectName = "users/" + date + "/" + timeStamp + originalName;
         Map<String, Object> result = null;
         try{
             result = OssUtils.uploadFile(objectName, uploadFile);
