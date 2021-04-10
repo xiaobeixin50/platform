@@ -129,10 +129,10 @@ public class TotalDataManager {
         InspectTaskDOExample taskDOExample = new InspectTaskDOExample();
         InspectTaskDOExample.Criteria criteria = taskDOExample.createCriteria();
         if (Objects.nonNull(startTime)) {
-            criteria.andStartTimeLessThanOrEqualTo(startTime);
+            criteria.andStartTimeGreaterThanOrEqualTo(startTime);
         }
         if (Objects.nonNull(endTime)) {
-            criteria.andEndTimeGreaterThanOrEqualTo(endTime);
+            criteria.andEndTimeLessThanOrEqualTo(endTime);
         }
         long countAllTask = taskMapper.countByExample(taskDOExample);
         criteria.andStatusEqualTo(TaskStatusEnum.AFTER_TIME.getStatus());
