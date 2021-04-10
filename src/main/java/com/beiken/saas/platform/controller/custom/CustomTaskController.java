@@ -6,6 +6,7 @@ import com.beiken.saas.platform.enums.Constants;
 import com.beiken.saas.platform.manage.TaskManager;
 import com.beiken.saas.platform.pojo.InspectTaskDO;
 import com.beiken.saas.platform.pojo.InspectTaskItemDO;
+import com.google.common.collect.Lists;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -42,6 +43,20 @@ public class CustomTaskController {
         try {
             PageBo<TaskListVO> pageBo = taskManager.listByUser(userId, rigCode, pageNo, pageSize);
             return Result.success(pageBo);
+        } catch (Exception e) {
+            //log.error("list error", e);
+            return Result.error(Constants.ERROR, e.getMessage());
+        }
+    }
+
+    @ApiOperation("获取单个任务状态")
+    @ResponseBody
+    @GetMapping(value = "/info/{taskCode}/{userId}/{rigCode}")
+    public Result taskInfo(@PathVariable String taskCode, @PathVariable Long userId, @PathVariable String rigCode) {
+        try {
+            InspectTaskDO taskByTaskCode = taskManager.getTaskByTaskCode(taskCode, userId);
+            List<TaskVO> taskVOList = taskManager.getTaskVOList(Lists.newArrayList(taskByTaskCode), rigCode);
+            return Result.success(taskVOList.get(0));
         } catch (Exception e) {
             //log.error("list error", e);
             return Result.error(Constants.ERROR, e.getMessage());

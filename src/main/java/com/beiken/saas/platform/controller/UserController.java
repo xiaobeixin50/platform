@@ -78,7 +78,7 @@ public class UserController {
             UserVO userVO = new UserVO();
             BeanUtils.copyProperties(userDO, userVO);
             userVO.setRoleType(RoleEnum.index(userDO.getRole()));
-            if (Constants.INSPECT_USER.equals(userDO.getRole())) {
+            /*if (Constants.INSPECT_USER.equals(userDO.getRole())) {
                 InspectDeptDO inspectDeptDO = null;
                 InspectDeptDOExample deptDOExample = new InspectDeptDOExample();
                 deptDOExample.createCriteria().andInspectUserIdEqualTo(userDO.getId());
@@ -87,7 +87,7 @@ public class UserController {
                     inspectDeptDO = inspectDeptDOs.get(0);
                     depId = inspectDeptDO.getDeptId();
                 }
-            }
+            }*/
 
             DepartmentDO departmentDO = departmentMapper.selectByPrimaryKey(depId);
             if (Objects.nonNull(departmentDO)) {
@@ -133,7 +133,7 @@ public class UserController {
             userVO.setPassword(null);
             Long depId = userVO.getDepId();
 
-            if (Constants.INSPECT_USER.equals(userVO.getRole())) {
+            /*if (Constants.INSPECT_USER.equals(userVO.getRole())) {
                 InspectDeptDO inspectDeptDO = null;
                 InspectDeptDOExample deptDOExample = new InspectDeptDOExample();
                 deptDOExample.createCriteria().andInspectUserIdEqualTo(userVO.getId());
@@ -142,7 +142,7 @@ public class UserController {
                     inspectDeptDO = inspectDeptDOs.get(0);
                     depId = inspectDeptDO.getDeptId();
                 }
-            }
+            }*/
 
             DepartmentDO departmentDO = departmentMapper.selectByPrimaryKey(depId);
             if (Objects.nonNull(departmentDO)) {

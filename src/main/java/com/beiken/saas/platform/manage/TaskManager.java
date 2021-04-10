@@ -156,15 +156,21 @@ public class TaskManager {
         pageBo.setPageNo(pageNo);
         pageBo.setPageSize(pageSize);
 
-        Date now = new Date();
+
         List<String> taskCodes = getTaskCodeByInspectUser(userId, pageNo, pageSize);
         List<InspectTaskDO> inspectTasks = getRigByCode(taskCodes, rigCode, pageNo, pageSize, pageBo);
 
         if (CollectionUtils.isEmpty(inspectTasks)) {
             return pageBo;
         }
-        List<TaskVO> taskVOList = Lists.newArrayList();
+        List<TaskVO> taskVOList = getTaskVOList(inspectTasks, rigCode);
+        pageBo.setItemList(generatorTaskList(taskVOList));
+        return pageBo;
+    }
 
+    public List<TaskVO> getTaskVOList(List<InspectTaskDO> inspectTasks, String rigCode) {
+        List<TaskVO> taskVOList = Lists.newArrayList();
+        Date now = new Date();
         for (InspectTaskDO inspectTask : inspectTasks) {
             if (TaskStatusEnum.NOT_BEGIN.getStatus().equals(inspectTask.getStatus())
                     && now.compareTo(inspectTask.getEndTime()) > 0
@@ -196,8 +202,7 @@ public class TaskManager {
             }
             taskVOList.add(taskVO);
         }
-        pageBo.setItemList(generatorTaskList(taskVOList));
-        return pageBo;
+        return taskVOList;
     }
 
     public boolean updateTaskStatus(String taskCode, Integer status) {
@@ -602,6 +607,21 @@ public class TaskManager {
                 .andEndTimeGreaterThanOrEqualTo(endTime);
         List<InspectTaskDO> inspectTaskDOs = taskMapper.selectByExample(example);
         return inspectTaskDOs;
+    }
+
+    public InspectTaskDO getTaskByTaskCode(String taskCode, Long userId) {
+        if (StringUtils.isBlank(taskCode)) {
+            return null;
+        }
+        InspectTaskDOExample example = new InspectTaskDOExample();
+        example.createCriteria()
+                .andTaskCodeEqualTo(taskCode)
+                .andInspectUserIdEqualTo(userId);
+        List<InspectTaskDO> inspectTaskDOs = taskMapper.selectByExample(example);
+        if (CollectionUtils.isEmpty(inspectTaskDOs)) {
+            return null;
+        }
+        return inspectTaskDOs.get(0);
     }
 
     private void copyBgItem2Extra(BgInspectItemDO bgItemDO, TaskItemListVO.Extra extra) {
