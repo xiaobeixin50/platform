@@ -47,7 +47,7 @@ public class TotalDataManager {
         }
         long countAllDanger = dangerMapper.countByExample(dangerDOExample);
         criteria.andReportStatusIn(Lists.newArrayList(
-                DangerStatusEnum.FINISH.getStatus(), DangerStatusEnum.CLOSE.getStatus()));
+                DangerStatusEnum.FINISH.getStatus()));
         long countFinishDanger = dangerMapper.countByExample(dangerDOExample);
 
         totalDataVO.setDangerNum(countAllDanger);

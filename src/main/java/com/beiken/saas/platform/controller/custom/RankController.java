@@ -198,7 +198,7 @@ public class RankController {
         List<RankVO> collect = userIds.stream().map(userId -> {
             RankVO rankVO = new RankVO();
             rankVO.setDangerNum(groupResult.get(userId));
-            rankVO.setManageRigNum(0L);
+            rankVO.setManageRigNum(1L);
             UserDO userDO = userMap.get(userId);
             UserVO userVO = convertUserDO(userDO);
             DepartmentDO departmentDO = departmentMapper.selectByPrimaryKey(userVO.getDepId());

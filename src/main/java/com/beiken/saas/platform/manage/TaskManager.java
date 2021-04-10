@@ -375,8 +375,9 @@ public class TaskManager {
             rigVO.setStatus(RigStatusEnum.index(rigDO.getStatus()).getMsg());
 
             DeptVO deptVO = new DeptVO();
+            DepartmentDO departmentDO = departmentMapper.selectByPrimaryKey(rigDO.getParentDeptId());
             deptVO.setDeptId(rigDO.getDeptId());
-            deptVO.setDeptName(rigDO.getDeptName());
+            deptVO.setDeptName(departmentDO.getDeptName() + rigDO.getDeptName());
 
             if (!taskTitleMap.containsKey(deptVO)) {
                 List<RigVO> rigList = Lists.newArrayList();
