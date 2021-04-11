@@ -39,6 +39,7 @@ public class Constants {
     public static final String LINE = "-";
     public static final String INSPECT_USER = "监理";
     public static final String RIG_MANAGER = "井队长";
+    public static final String ONLIN_EMP = "一线员工";
     public static final String ALL_BG_CODE = "bg202109090001";
 
     public static final String ERROR = "ERROR";

@@ -9,6 +9,7 @@ import org.springframework.util.CollectionUtils;
 import javax.annotation.Resource;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * User: panboliang
@@ -29,5 +30,13 @@ public class UserManager {
         example.createCriteria().andIdIn(userIds);
         List<UserDO> userDOs = userMapper.selectByExample(example);
         return userDOs;
+    }
+
+    public UserDO getUserById(Long userId) {
+        if (Objects.isNull(userId)) {
+            return null;
+        }
+        UserDO userDO = userMapper.selectByPrimaryKey(userId);
+        return userDO;
     }
 }

@@ -5,6 +5,7 @@ import com.beiken.saas.platform.biz.query.DangerQuery;
 import com.beiken.saas.platform.biz.vo.DangerVO;
 import com.beiken.saas.platform.enums.Constants;
 import com.beiken.saas.platform.enums.DangerLevelEnum;
+import com.beiken.saas.platform.enums.DangerStatusEnum;
 import com.beiken.saas.platform.mapper.EnvMapper;
 import com.beiken.saas.platform.mapper.HiddenDangerMapper;
 import com.beiken.saas.platform.pojo.*;
@@ -38,6 +39,8 @@ public class DangerManager {
     private DepartManager departManager;
     @Resource
     private EnvMapper envMapper;
+    @Resource
+    private UserManager userManager;
 
     private static final Integer MANAGER_USER = 2;
 
@@ -53,12 +56,13 @@ public class DangerManager {
         if (example == null) {
             return pageBo;
         }
-        long count = dangerMapper.countByExample(example);
+        //long count = dangerMapper.countByExample(example);
 
         List<HiddenDangerDO> hiddenDangerDOs = dangerMapper.selectByExample(example);
-        Set<String> set = hiddenDangerDOs.stream().map(HiddenDangerDO::getBgItemCode).collect(Collectors.toSet());
+        List<HiddenDangerDO> hiddenDangerDOS = sortOperation(hiddenDangerDOs, userId, dangerQuery.getPageNo(), dangerQuery.getPageSize());
+        Set<String> set = hiddenDangerDOS.stream().map(HiddenDangerDO::getBgItemCode).collect(Collectors.toSet());
         Map<String, BgInspectItemDO> bgItemMap = bgManager.getBgItemDOByItemCode(Lists.newArrayList(set));
-        for (HiddenDangerDO dangerDO : hiddenDangerDOs) {
+        for (HiddenDangerDO dangerDO : hiddenDangerDOS) {
             DangerVO dangerVO = new DangerVO();
             BeanUtils.copyProperties(dangerDO, dangerVO);
             if (dangerDO.getPhoto() != null) {
@@ -101,14 +105,70 @@ public class DangerManager {
             if (dangerDO.getIsInspect() != null && dangerDO.getIsInspect() == 1) {
                 process = Constants.STATUS_MAP.get(0).get(dangerDO.getDangerLevel());
             } else {
-                process =Constants.STATUS_MAP.get(dangerDO.getReportType()).get(dangerDO.getDangerLevel());
+                process = Constants.STATUS_MAP.get(dangerDO.getReportType()).get(dangerDO.getDangerLevel());
             }
             dangerVO.setProcessNum(process);
             dangerVOs.add(dangerVO);
         }
         pageBo.setItemList(dangerVOs);
-        pageBo.setTotalSize(count);
+        pageBo.setTotalSize((long) hiddenDangerDOS.size());
         return pageBo;
+    }
+
+    public List<HiddenDangerDO> sortOperation(List<HiddenDangerDO> hiddenDangerDOs,
+                              Long userId, Integer pageNo, Integer pageSize) {
+        if (Objects.isNull(userId)) {
+            return Collections.emptyList();
+        }
+        List<HiddenDangerDO> operate = Lists.newArrayList();
+        List<HiddenDangerDO> nonOperate = Lists.newArrayList();
+        List<HiddenDangerDO> result = Lists.newArrayList();
+        UserDO userDO = userManager.getUserById(userId);
+        for (HiddenDangerDO dangerDO : hiddenDangerDOs) {
+            if (Constants.ONLIN_EMP.equals(userDO.getRole())) {
+                return Collections.emptyList();
+            }
+            DangerStatusEnum statusEnum = DangerStatusEnum.index(dangerDO.getReportStatus());
+            if (Constants.RIG_MANAGER.equals(userDO.getRole())) {
+                switch (statusEnum) {
+                    case WAIT_RESPON_PLAN:
+                        operate.add(dangerDO);
+                        break;
+                    default:
+                        nonOperate.add(dangerDO);
+                }
+            } else if (Constants.INSPECT_USER.equals(userDO.getRole())) {
+                switch (statusEnum) {
+                    case WIT_CONFIRM:
+                    case WAIT_CHANGE:
+                        operate.add(dangerDO);
+                        break;
+                    default:
+                        nonOperate.add(dangerDO);
+                }
+            } else {
+                switch (statusEnum) {
+                    case WAIT_LEVEL:
+                    case WAIT_ENV_PLAN:
+                    case WAIT_ENV_ACCEPT:
+                        operate.add(dangerDO);
+                        break;
+                    default:
+                        nonOperate.add(dangerDO);
+                }
+            }
+        }
+        result.addAll(operate);
+        result.addAll(nonOperate);
+        List<HiddenDangerDO> finalResult = Lists.newArrayList();
+        int start = (pageNo - 1) * pageSize;
+        for (int i = start; i < result.size() && i < start + pageSize; i++) {
+            HiddenDangerDO dangerDO = result.get(i);
+            finalResult.add(dangerDO);
+        }
+        return finalResult;
+
+
     }
 
     /**
@@ -184,8 +244,8 @@ public class DangerManager {
 
     private HiddenDangerDOExample buildDangerExample(Long userId, DangerQuery dangerQuery) {
         HiddenDangerDOExample example = new HiddenDangerDOExample();
-        example.setLimitStart((dangerQuery.getPageNo() - 1) * dangerQuery.getPageSize());
-        example.setCount(dangerQuery.getPageSize());
+        /*example.setLimitStart((dangerQuery.getPageNo() - 1) * dangerQuery.getPageSize());
+        example.setCount(dangerQuery.getPageSize());*/
         String sort = "gmt_modified DESC";
 
         example.setOrderByClause(sort);
