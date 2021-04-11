@@ -56,7 +56,7 @@ public class DangerManager {
         if (example == null) {
             return pageBo;
         }
-        //long count = dangerMapper.countByExample(example);
+        long count = dangerMapper.countByExample(example);
 
         List<HiddenDangerDO> hiddenDangerDOs = dangerMapper.selectByExample(example);
         List<HiddenDangerDO> hiddenDangerDOS = sortOperation(hiddenDangerDOs, userId, dangerQuery.getPageNo(), dangerQuery.getPageSize());
@@ -111,7 +111,7 @@ public class DangerManager {
             dangerVOs.add(dangerVO);
         }
         pageBo.setItemList(dangerVOs);
-        pageBo.setTotalSize((long) hiddenDangerDOS.size());
+        pageBo.setTotalSize(count);
         return pageBo;
     }
 
