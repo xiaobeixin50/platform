@@ -238,5 +238,17 @@
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
 
+        <table tableName="sft_env"
+               domainObjectName="EnvDO"
+               mapperName="EnvMapper"
+
+               enableCountByExample="true"
+               enableUpdateByExample="true"
+               enableDeleteByExample="true"
+               enableSelectByExample="true"
+               selectByExampleQueryId="true">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+
     </context>
 </generatorConfiguration>

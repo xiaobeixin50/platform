@@ -8,9 +8,12 @@ import com.beiken.saas.platform.enums.Constants;
 import com.beiken.saas.platform.enums.DangerStatusEnum;
 import com.beiken.saas.platform.manage.BgManager;
 import com.beiken.saas.platform.manage.DangerManager;
+import com.beiken.saas.platform.manage.EnvManager;
+import com.beiken.saas.platform.mapper.EnvMapper;
 import com.beiken.saas.platform.mapper.HiddenDangerMapper;
 import com.beiken.saas.platform.mapper.UserMapper;
 import com.beiken.saas.platform.pojo.BgInspectItemDO;
+import com.beiken.saas.platform.pojo.EnvDO;
 import com.beiken.saas.platform.pojo.HiddenDangerDO;
 import com.beiken.saas.platform.pojo.UserDO;
 import com.beiken.saas.platform.utils.CodeUtil;
@@ -47,6 +50,8 @@ public class CustomDangerController {
     private CodeUtil codeUtil;
     @Resource
     private UserMapper userMapper;
+    @Resource
+    private EnvManager envManager;
 
     @ApiOperation("隐患列表")
     @ResponseBody
@@ -139,6 +144,10 @@ public class CustomDangerController {
                 } else {
                     dangerDO.setReportStatus(DangerStatusEnum.WAIT_CHANGE.getStatus());
                 }
+                EnvDO envDO = new EnvDO();
+                BeanUtils.copyProperties(dangerVO, envDO);
+                envDO.setDangerId(dangerId);
+                envManager.addEnvDO(envDO);
             }
             if (dangerDO.getCloseUserId() != null) {
                 dangerDO.setDangerLevel(dangerVO.getDangerLevel());

@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.beiken.saas.platform.mapper.EnvMapper">
+  <resultMap id="BaseResultMap" type="com.beiken.saas.platform.pojo.EnvDO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="danger_id" jdbcType="BIGINT" property="dangerId" />
+    <result column="env_photo" jdbcType="VARCHAR" property="envPhoto" />
+    <result column="env_extra" jdbcType="VARCHAR" property="envExtra" />
+    <result column="env_status" jdbcType="INTEGER" property="envStatus" />
+    <result column="env_time" jdbcType="TIMESTAMP" property="envTime" />
+    <result column="env_user_id" jdbcType="BIGINT" property="envUserId" />
+    <result column="env_user_name" jdbcType="VARCHAR" property="envUserName" />
+    <result column="env_user_role" jdbcType="VARCHAR" property="envUserRole" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, danger_id, env_photo, env_extra, env_status, env_time, env_user_id, env_user_name, 
+    env_user_role
+  </sql>
+  <select id="selectByExample" parameterType="com.beiken.saas.platform.pojo.EnvDOExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from sft_env
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart >= 0">
+      limit ${limitStart} , ${count}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sft_env
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sft_env
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.beiken.saas.platform.pojo.EnvDOExample">
+    delete from sft_env
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.beiken.saas.platform.pojo.EnvDO">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sft_env (danger_id, env_photo, env_extra, 
+      env_status, env_time, env_user_id, 
+      env_user_name, env_user_role)
+    values (#{dangerId,jdbcType=BIGINT}, #{envPhoto,jdbcType=VARCHAR}, #{envExtra,jdbcType=VARCHAR}, 
+      #{envStatus,jdbcType=INTEGER}, #{envTime,jdbcType=TIMESTAMP}, #{envUserId,jdbcType=BIGINT}, 
+      #{envUserName,jdbcType=VARCHAR}, #{envUserRole,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.beiken.saas.platform.pojo.EnvDO">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sft_env
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dangerId != null">
+        danger_id,
+      </if>
+      <if test="envPhoto != null">
+        env_photo,
+      </if>
+      <if test="envExtra != null">
+        env_extra,
+      </if>
+      <if test="envStatus != null">
+        env_status,
+      </if>
+      <if test="envTime != null">
+        env_time,
+      </if>
+      <if test="envUserId != null">
+        env_user_id,
+      </if>
+      <if test="envUserName != null">
+        env_user_name,
+      </if>
+      <if test="envUserRole != null">
+        env_user_role,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dangerId != null">
+        #{dangerId,jdbcType=BIGINT},
+      </if>
+      <if test="envPhoto != null">
+        #{envPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="envExtra != null">
+        #{envExtra,jdbcType=VARCHAR},
+      </if>
+      <if test="envStatus != null">
+        #{envStatus,jdbcType=INTEGER},
+      </if>
+      <if test="envTime != null">
+        #{envTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="envUserId != null">
+        #{envUserId,jdbcType=BIGINT},
+      </if>
+      <if test="envUserName != null">
+        #{envUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="envUserRole != null">
+        #{envUserRole,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.beiken.saas.platform.pojo.EnvDOExample" resultType="java.lang.Long">
+    select count(*) from sft_env
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sft_env
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.dangerId != null">
+        danger_id = #{record.dangerId,jdbcType=BIGINT},
+      </if>
+      <if test="record.envPhoto != null">
+        env_photo = #{record.envPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="record.envExtra != null">
+        env_extra = #{record.envExtra,jdbcType=VARCHAR},
+      </if>
+      <if test="record.envStatus != null">
+        env_status = #{record.envStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.envTime != null">
+        env_time = #{record.envTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.envUserId != null">
+        env_user_id = #{record.envUserId,jdbcType=BIGINT},
+      </if>
+      <if test="record.envUserName != null">
+        env_user_name = #{record.envUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.envUserRole != null">
+        env_user_role = #{record.envUserRole,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sft_env
+    set id = #{record.id,jdbcType=BIGINT},
+      danger_id = #{record.dangerId,jdbcType=BIGINT},
+      env_photo = #{record.envPhoto,jdbcType=VARCHAR},
+      env_extra = #{record.envExtra,jdbcType=VARCHAR},
+      env_status = #{record.envStatus,jdbcType=INTEGER},
+      env_time = #{record.envTime,jdbcType=TIMESTAMP},
+      env_user_id = #{record.envUserId,jdbcType=BIGINT},
+      env_user_name = #{record.envUserName,jdbcType=VARCHAR},
+      env_user_role = #{record.envUserRole,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.beiken.saas.platform.pojo.EnvDO">
+    update sft_env
+    <set>
+      <if test="dangerId != null">
+        danger_id = #{dangerId,jdbcType=BIGINT},
+      </if>
+      <if test="envPhoto != null">
+        env_photo = #{envPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="envExtra != null">
+        env_extra = #{envExtra,jdbcType=VARCHAR},
+      </if>
+      <if test="envStatus != null">
+        env_status = #{envStatus,jdbcType=INTEGER},
+      </if>
+      <if test="envTime != null">
+        env_time = #{envTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="envUserId != null">
+        env_user_id = #{envUserId,jdbcType=BIGINT},
+      </if>
+      <if test="envUserName != null">
+        env_user_name = #{envUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="envUserRole != null">
+        env_user_role = #{envUserRole,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.beiken.saas.platform.pojo.EnvDO">
+    update sft_env
+    set danger_id = #{dangerId,jdbcType=BIGINT},
+      env_photo = #{envPhoto,jdbcType=VARCHAR},
+      env_extra = #{envExtra,jdbcType=VARCHAR},
+      env_status = #{envStatus,jdbcType=INTEGER},
+      env_time = #{envTime,jdbcType=TIMESTAMP},
+      env_user_id = #{envUserId,jdbcType=BIGINT},
+      env_user_name = #{envUserName,jdbcType=VARCHAR},
+      env_user_role = #{envUserRole,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

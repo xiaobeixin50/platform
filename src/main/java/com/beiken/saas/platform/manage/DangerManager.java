@@ -5,10 +5,9 @@ import com.beiken.saas.platform.biz.query.DangerQuery;
 import com.beiken.saas.platform.biz.vo.DangerVO;
 import com.beiken.saas.platform.enums.Constants;
 import com.beiken.saas.platform.enums.DangerLevelEnum;
+import com.beiken.saas.platform.mapper.EnvMapper;
 import com.beiken.saas.platform.mapper.HiddenDangerMapper;
-import com.beiken.saas.platform.pojo.BgInspectItemDO;
-import com.beiken.saas.platform.pojo.HiddenDangerDO;
-import com.beiken.saas.platform.pojo.HiddenDangerDOExample;
+import com.beiken.saas.platform.pojo.*;
 import com.beiken.saas.platform.utils.CodeUtil;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
@@ -37,6 +36,8 @@ public class DangerManager {
     private TaskManager taskManager;
     @Resource
     private DepartManager departManager;
+    @Resource
+    private EnvMapper envMapper;
 
     private static final Integer MANAGER_USER = 2;
 
@@ -80,6 +81,10 @@ public class DangerManager {
                 List<String> breakUserNames = Splitter.on(Constants.COMMON).trimResults().omitEmptyStrings().splitToList(dangerDO.getBreakUserName());
                 dangerVO.setBreakUserNameList(breakUserNames);
             }
+            EnvDOExample envDOExample = new EnvDOExample();
+            envDOExample.createCriteria().andDangerIdEqualTo(dangerDO.getId());
+            List<EnvDO> envDOS = envMapper.selectByExample(envDOExample);
+            dangerVO.setEnvList(envDOS);
             dangerVO.setDangerLevelStr(DangerLevelEnum.index(dangerDO.getDangerLevel()).getMsg());
             if (bgItemMap != null) {
                 BgInspectItemDO itemDO = bgItemMap.get(dangerDO.getBgItemCode());

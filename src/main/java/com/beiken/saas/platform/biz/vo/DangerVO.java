@@ -1,5 +1,6 @@
 package com.beiken.saas.platform.biz.vo;
 
+import com.beiken.saas.platform.pojo.EnvDO;
 import com.beiken.saas.platform.pojo.HiddenDangerDO;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -50,5 +51,8 @@ public class DangerVO extends HiddenDangerDO implements Serializable{
             "比如有4个状态,就返回[0,1,2,3],具体每个数字代表什么从字典表中查询"
             , example = "")
     private List<Integer> processNum;
+
+    //返回结果用
+    private List<EnvDO> envList;
 
 }
