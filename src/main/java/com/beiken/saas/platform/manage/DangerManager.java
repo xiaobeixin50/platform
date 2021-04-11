@@ -57,12 +57,16 @@ public class DangerManager {
             return pageBo;
         }
         long count = dangerMapper.countByExample(example);
+        List<HiddenDangerDO> hiddenDangerDOs = null;
 
-        List<HiddenDangerDO> hiddenDangerDOs = dangerMapper.selectByExample(example);
+        hiddenDangerDOs = dangerMapper.selectByExample(example);
         List<HiddenDangerDO> hiddenDangerDOS = sortOperation(hiddenDangerDOs, userId, dangerQuery.getPageNo(), dangerQuery.getPageSize());
-        Set<String> set = hiddenDangerDOS.stream().map(HiddenDangerDO::getBgItemCode).collect(Collectors.toSet());
+        if (!CollectionUtils.isEmpty(hiddenDangerDOS)) {
+            hiddenDangerDOs = hiddenDangerDOS;
+        }
+        Set<String> set = hiddenDangerDOs.stream().map(HiddenDangerDO::getBgItemCode).collect(Collectors.toSet());
         Map<String, BgInspectItemDO> bgItemMap = bgManager.getBgItemDOByItemCode(Lists.newArrayList(set));
-        for (HiddenDangerDO dangerDO : hiddenDangerDOS) {
+        for (HiddenDangerDO dangerDO : hiddenDangerDOs) {
             DangerVO dangerVO = new DangerVO();
             BeanUtils.copyProperties(dangerDO, dangerVO);
             if (dangerDO.getPhoto() != null) {
