@@ -4,6 +4,7 @@ import com.beiken.saas.platform.biz.bo.PageBo;
 import com.beiken.saas.platform.biz.vo.RankVO;
 import com.beiken.saas.platform.biz.vo.Result;
 import com.beiken.saas.platform.biz.vo.UserVO;
+import com.beiken.saas.platform.enums.Constants;
 import com.beiken.saas.platform.mapper.*;
 import com.beiken.saas.platform.pojo.*;
 import com.beiken.saas.platform.utils.DatesUtils;
@@ -145,7 +146,11 @@ public class RankController {
             RankVO rankVO = new RankVO();
             rankVO.setDangerNum(groupResult.get(userId));
             UserDO user = userMap.get(userId);
-            rankVO.setManageRigNum(deptGroupResult.get(user.getId()) == null ? 0 : deptGroupResult.get(user.getId()));
+            if (Constants.RIG_MANAGER.equals(user.getRole())) {
+                rankVO.setManageRigNum(1L);
+            } else {
+                rankVO.setManageRigNum(deptGroupResult.get(user.getId()) == null ? 0 : deptGroupResult.get(user.getId()));
+            }
             UserDO userDO = userMap.get(userId);
             UserVO userVO = convertUserDO(userDO);
             rankVO.setUserVO(userVO);
