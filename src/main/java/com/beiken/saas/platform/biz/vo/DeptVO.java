@@ -26,6 +26,9 @@ public class DeptVO implements Serializable{
     @ApiModelProperty(name = "userVO", value = "责任人,默认井队长")
     private UserVO userVO;
 
+    @ApiModelProperty(name = "parentId", value = "父部门id")
+    private Long parentId;
+
 
     @Override
     public boolean equals(Object object) {

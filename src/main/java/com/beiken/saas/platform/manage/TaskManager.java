@@ -378,6 +378,8 @@ public class TaskManager {
             DepartmentDO departmentDO = departmentMapper.selectByPrimaryKey(rigDO.getParentDeptId());
             deptVO.setDeptId(rigDO.getDeptId());
             deptVO.setDeptName(departmentDO.getDeptName() + rigDO.getDeptName());
+            //wulin增加上级部门id
+            deptVO.setParentId(departmentDO.getId());
 
             if (!taskTitleMap.containsKey(deptVO)) {
                 List<RigVO> rigList = Lists.newArrayList();
