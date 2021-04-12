@@ -11,6 +11,13 @@
     <result column="env_user_id" jdbcType="BIGINT" property="envUserId" />
     <result column="env_user_name" jdbcType="VARCHAR" property="envUserName" />
     <result column="env_user_role" jdbcType="VARCHAR" property="envUserRole" />
+    <result column="inspect_user_id" jdbcType="INTEGER" property="inspectUserId" />
+    <result column="inspect_user_name" jdbcType="VARCHAR" property="inspectUserName" />
+    <result column="inspect_user_role" jdbcType="VARCHAR" property="inspectUserRole" />
+    <result column="inspect_extra" jdbcType="VARCHAR" property="inspectExtra" />
+    <result column="inspect_photo" jdbcType="VARCHAR" property="inspectPhoto" />
+    <result column="inspect_status" jdbcType="INTEGER" property="inspectStatus" />
+    <result column="inspect_time" jdbcType="TIMESTAMP" property="inspectTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -72,7 +79,8 @@
   </sql>
   <sql id="Base_Column_List">
     id, danger_id, env_photo, env_extra, env_status, env_time, env_user_id, env_user_name, 
-    env_user_role
+    env_user_role, inspect_user_id, inspect_user_name, inspect_user_role, inspect_extra, 
+    inspect_photo, inspect_status, inspect_time
   </sql>
   <select id="selectByExample" parameterType="com.beiken.saas.platform.pojo.EnvDOExample" resultMap="BaseResultMap">
     select
@@ -114,10 +122,16 @@
     </selectKey>
     insert into sft_env (danger_id, env_photo, env_extra, 
       env_status, env_time, env_user_id, 
-      env_user_name, env_user_role)
+      env_user_name, env_user_role, inspect_user_id, 
+      inspect_user_name, inspect_user_role, inspect_extra, 
+      inspect_photo, inspect_status, inspect_time
+      )
     values (#{dangerId,jdbcType=BIGINT}, #{envPhoto,jdbcType=VARCHAR}, #{envExtra,jdbcType=VARCHAR}, 
       #{envStatus,jdbcType=INTEGER}, #{envTime,jdbcType=TIMESTAMP}, #{envUserId,jdbcType=BIGINT}, 
-      #{envUserName,jdbcType=VARCHAR}, #{envUserRole,jdbcType=VARCHAR})
+      #{envUserName,jdbcType=VARCHAR}, #{envUserRole,jdbcType=VARCHAR}, #{inspectUserId,jdbcType=INTEGER}, 
+      #{inspectUserName,jdbcType=VARCHAR}, #{inspectUserRole,jdbcType=VARCHAR}, #{inspectExtra,jdbcType=VARCHAR}, 
+      #{inspectPhoto,jdbcType=VARCHAR}, #{inspectStatus,jdbcType=INTEGER}, #{inspectTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.beiken.saas.platform.pojo.EnvDO">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
@@ -149,6 +163,27 @@
       <if test="envUserRole != null">
         env_user_role,
       </if>
+      <if test="inspectUserId != null">
+        inspect_user_id,
+      </if>
+      <if test="inspectUserName != null">
+        inspect_user_name,
+      </if>
+      <if test="inspectUserRole != null">
+        inspect_user_role,
+      </if>
+      <if test="inspectExtra != null">
+        inspect_extra,
+      </if>
+      <if test="inspectPhoto != null">
+        inspect_photo,
+      </if>
+      <if test="inspectStatus != null">
+        inspect_status,
+      </if>
+      <if test="inspectTime != null">
+        inspect_time,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="dangerId != null">
@@ -174,6 +209,27 @@
       </if>
       <if test="envUserRole != null">
         #{envUserRole,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectUserId != null">
+        #{inspectUserId,jdbcType=INTEGER},
+      </if>
+      <if test="inspectUserName != null">
+        #{inspectUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectUserRole != null">
+        #{inspectUserRole,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectExtra != null">
+        #{inspectExtra,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectPhoto != null">
+        #{inspectPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectStatus != null">
+        #{inspectStatus,jdbcType=INTEGER},
+      </if>
+      <if test="inspectTime != null">
+        #{inspectTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -213,6 +269,27 @@
       <if test="record.envUserRole != null">
         env_user_role = #{record.envUserRole,jdbcType=VARCHAR},
       </if>
+      <if test="record.inspectUserId != null">
+        inspect_user_id = #{record.inspectUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.inspectUserName != null">
+        inspect_user_name = #{record.inspectUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inspectUserRole != null">
+        inspect_user_role = #{record.inspectUserRole,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inspectExtra != null">
+        inspect_extra = #{record.inspectExtra,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inspectPhoto != null">
+        inspect_photo = #{record.inspectPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inspectStatus != null">
+        inspect_status = #{record.inspectStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.inspectTime != null">
+        inspect_time = #{record.inspectTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -228,7 +305,14 @@
       env_time = #{record.envTime,jdbcType=TIMESTAMP},
       env_user_id = #{record.envUserId,jdbcType=BIGINT},
       env_user_name = #{record.envUserName,jdbcType=VARCHAR},
-      env_user_role = #{record.envUserRole,jdbcType=VARCHAR}
+      env_user_role = #{record.envUserRole,jdbcType=VARCHAR},
+      inspect_user_id = #{record.inspectUserId,jdbcType=INTEGER},
+      inspect_user_name = #{record.inspectUserName,jdbcType=VARCHAR},
+      inspect_user_role = #{record.inspectUserRole,jdbcType=VARCHAR},
+      inspect_extra = #{record.inspectExtra,jdbcType=VARCHAR},
+      inspect_photo = #{record.inspectPhoto,jdbcType=VARCHAR},
+      inspect_status = #{record.inspectStatus,jdbcType=INTEGER},
+      inspect_time = #{record.inspectTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -260,6 +344,27 @@
       <if test="envUserRole != null">
         env_user_role = #{envUserRole,jdbcType=VARCHAR},
       </if>
+      <if test="inspectUserId != null">
+        inspect_user_id = #{inspectUserId,jdbcType=INTEGER},
+      </if>
+      <if test="inspectUserName != null">
+        inspect_user_name = #{inspectUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectUserRole != null">
+        inspect_user_role = #{inspectUserRole,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectExtra != null">
+        inspect_extra = #{inspectExtra,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectPhoto != null">
+        inspect_photo = #{inspectPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectStatus != null">
+        inspect_status = #{inspectStatus,jdbcType=INTEGER},
+      </if>
+      <if test="inspectTime != null">
+        inspect_time = #{inspectTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -272,7 +377,14 @@
       env_time = #{envTime,jdbcType=TIMESTAMP},
       env_user_id = #{envUserId,jdbcType=BIGINT},
       env_user_name = #{envUserName,jdbcType=VARCHAR},
-      env_user_role = #{envUserRole,jdbcType=VARCHAR}
+      env_user_role = #{envUserRole,jdbcType=VARCHAR},
+      inspect_user_id = #{inspectUserId,jdbcType=INTEGER},
+      inspect_user_name = #{inspectUserName,jdbcType=VARCHAR},
+      inspect_user_role = #{inspectUserRole,jdbcType=VARCHAR},
+      inspect_extra = #{inspectExtra,jdbcType=VARCHAR},
+      inspect_photo = #{inspectPhoto,jdbcType=VARCHAR},
+      inspect_status = #{inspectStatus,jdbcType=INTEGER},
+      inspect_time = #{inspectTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

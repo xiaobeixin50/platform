@@ -120,6 +120,10 @@ public class CustomDangerController {
                 } else {
                     dangerDO.setReportStatus(DangerStatusEnum.WAIT_ENV_ACCEPT.getStatus());
                 }
+                EnvDO envDO = new EnvDO();
+                BeanUtils.copyProperties(dangerVO, envDO);
+                envDO.setDangerId(dangerId);
+                envManager.addEnvDO(envDO);
             }
             if (dangerDO.getDisLevelUserId() != null) {
                 if (orgDanger.getReportType() == 0 || (orgDanger.getIsInspect() != null && orgDanger.getIsInspect() == 1)) {

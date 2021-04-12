@@ -90,6 +90,7 @@ public class DangerManager {
                 dangerVO.setBreakUserNameList(breakUserNames);
             }
             EnvDOExample envDOExample = new EnvDOExample();
+            envDOExample.setOrderByClause("gmt_create asc");
             envDOExample.createCriteria().andDangerIdEqualTo(dangerDO.getId());
             List<EnvDO> envDOS = envMapper.selectByExample(envDOExample);
             dangerVO.setEnvList(envDOS);
