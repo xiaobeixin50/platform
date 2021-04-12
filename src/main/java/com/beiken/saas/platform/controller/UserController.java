@@ -4,6 +4,7 @@ import com.beiken.saas.platform.biz.bo.PageBo;
 import com.beiken.saas.platform.biz.query.UserQuery;
 import com.beiken.saas.platform.biz.vo.*;
 import com.beiken.saas.platform.enums.Constants;
+import com.beiken.saas.platform.enums.RigStatusEnum;
 import com.beiken.saas.platform.enums.RoleEnum;
 import com.beiken.saas.platform.manage.RigManager;
 import com.beiken.saas.platform.manage.TaskManager;
@@ -352,8 +353,11 @@ public class UserController {
     //管理端查询整个结构
     public Map<String, Map<String, List<DeptStructVO>>> getUserRigStruct() {
         Map<String, Map<String, List<DeptStructVO>>> resultMap = Maps.newHashMap();
-
-        List<RigDO> rigDOs = rigMapper.selectByExample(new RigDOExample());
+        RigDOExample rigDOExample = new RigDOExample();
+        rigDOExample.createCriteria().andStatusIn(
+                Lists.newArrayList(RigStatusEnum.BEGIN.getStatus(), RigStatusEnum.FINISH.getStatus()));
+        rigDOExample.setOrderByClause("status asc");
+        List<RigDO> rigDOs = rigMapper.selectByExample(rigDOExample);
         Map<Long, List<RigDO>> rigDOMap = Maps.newHashMap();
         for (RigDO rigDO : rigDOs) {
             if (!rigDOMap.containsKey(rigDO.getDeptId())) {
