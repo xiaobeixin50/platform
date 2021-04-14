@@ -22,12 +22,12 @@ public class Constants {
         //参考dangerStatusEnum
         TASK_REPORT_MAP.put(0, Lists.newArrayList(4, 0));
         TASK_REPORT_MAP.put(1, Lists.newArrayList(1, 3, 4, 0));
-        TASK_REPORT_MAP.put(2, Lists.newArrayList(1, 3, 4, 0));
+        TASK_REPORT_MAP.put(2, Lists.newArrayList(1, 3, 4, 5, 0));
         TASK_REPORT_MAP.put(3, Lists.newArrayList(1, 2, 4, 5, 0));
 
         USER_REPORT_MAP.put(0, Lists.newArrayList(10, 4, 0));
         USER_REPORT_MAP.put(1, Lists.newArrayList(10, 1, 3, 4, 0));
-        USER_REPORT_MAP.put(2, Lists.newArrayList(10, 1, 3, 4, 0));
+        USER_REPORT_MAP.put(2, Lists.newArrayList(10, 1, 3, 4, 5, 0));
         USER_REPORT_MAP.put(3, Lists.newArrayList(10, 1, 2, 4, 5, 0));
 
         STATUS_MAP.put(0, TASK_REPORT_MAP);
