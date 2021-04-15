@@ -115,7 +115,7 @@ public class CustomDangerController {
             }
             if (dangerDO.getInspectStatus() != null) {
                 dangerDO.setDangerLevel(dangerVO.getDangerLevel());
-                if (dangerVO.getDangerLevel() < 3) {
+                if (dangerVO.getDangerLevel() < 2) {
                     dangerDO.setReportStatus(DangerStatusEnum.FINISH.getStatus());
                 } else {
                     dangerDO.setReportStatus(DangerStatusEnum.WAIT_ENV_ACCEPT.getStatus());
