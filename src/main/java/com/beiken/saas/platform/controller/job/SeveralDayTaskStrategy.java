@@ -60,7 +60,7 @@ public class SeveralDayTaskStrategy {
                     throw new Exception("插入task失败");
                 }
                 addTaskUser(inspectPlanVO, now, taskId, taskCode);
-                addTaskItem(inspectPlanVO, now, taskCode, rigDO);
+                addTaskItem(inspectPlanVO, now, taskCode, rigDO, departmentDO);
             }
 
         }
@@ -101,23 +101,22 @@ public class SeveralDayTaskStrategy {
         return true;
     }
 
-    private void addTaskItem(InspectPlanVO inspectPlanVO, Date now, String taskCode, RigDO rigDO) throws Exception {
+    private void addTaskItem(InspectPlanVO inspectPlanVO, Date now
+            , String taskCode, RigDO rigDO, DepartmentDO departmentDO) throws Exception {
         String bgCode = inspectPlanVO.getBgCode();
         List<BgInspectItemDO> itemDOList = bgManager.getBgItemByCode(bgCode);
-        for (DepartmentDO departmentDO : inspectPlanVO.getDeptList()) {
-            for (BgInspectItemDO itemDO : itemDOList) {
-                InspectTaskItemDO taskItemDO = new InspectTaskItemDO();
-                taskItemDO.setGmtCreate(now);
-                taskItemDO.setGmtModified(now);
-                taskItemDO.setTaskCode(taskCode);
-                taskItemDO.setBgItemCode(itemDO.getBgItemCode());
-                taskItemDO.setRigCode(rigDO.getRigCode());
-                taskItemDO.setDeptId(departmentDO.getId());
-                taskItemDO.setRigId(rigDO.getId());
-                int insert = taskItemMapper.insert(taskItemDO);
-                if (insert < 1) {
-                    throw new Exception("插入taskItem失败");
-                }
+        for (BgInspectItemDO itemDO : itemDOList) {
+            InspectTaskItemDO taskItemDO = new InspectTaskItemDO();
+            taskItemDO.setGmtCreate(now);
+            taskItemDO.setGmtModified(now);
+            taskItemDO.setTaskCode(taskCode);
+            taskItemDO.setBgItemCode(itemDO.getBgItemCode());
+            taskItemDO.setRigCode(rigDO.getRigCode());
+            taskItemDO.setDeptId(departmentDO.getId());
+            taskItemDO.setRigId(rigDO.getId());
+            int insert = taskItemMapper.insert(taskItemDO);
+            if (insert < 1) {
+                throw new Exception("插入taskItem失败");
             }
         }
     }
