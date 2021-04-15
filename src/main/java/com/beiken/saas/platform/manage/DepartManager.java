@@ -32,7 +32,7 @@ public class DepartManager {
      * @param userId
      * @return
      */
-    public List<Long> getDeptIdByUserId(Long userId) {
+    public List<Long> getDeptAndParentIdByUserId(Long userId) {
         List<Long> result = Lists.newArrayList();
         UserDO userDO = userMapper.selectByPrimaryKey(userId);
         DepartmentDO departmentDO = departmentMapper.selectByPrimaryKey(userDO.getDepId());
@@ -48,6 +48,21 @@ public class DepartManager {
         return result;
     }
 
+    /**
+     * 获取当前用户井队或管理的井队
+     * @param userId
+     * @return
+     */
+    public DepartmentDO getDeptByUserId(Long userId) {
+        UserDO userDO = userMapper.selectByPrimaryKey(userId);
+        if (userDO == null) {
+            return null;
+        }
+        return departmentMapper.selectByPrimaryKey(userDO.getDepId());
+    }
+
+
+
     public List<DepartmentDO> getDeptById(List<Long> deptIds) {
         if (CollectionUtils.isEmpty(deptIds)) {
             return Collections.emptyList();
@@ -56,6 +71,14 @@ public class DepartManager {
         example.createCriteria().andIdIn(deptIds);
         List<DepartmentDO> departmentDOs = departmentMapper.selectByExample(example);
         return departmentDOs;
+    }
+
+    public DepartmentDO getParentByDeptId(Long deptId) {
+        DepartmentDO departmentDO = departmentMapper.selectByPrimaryKey(deptId);
+        if (departmentDO == null) {
+            return null;
+        }
+        return departmentMapper.selectByPrimaryKey(departmentDO.getParentId());
     }
 
 }

@@ -5,6 +5,7 @@ import com.beiken.saas.platform.mapper.DepartmentMapper;
 import com.beiken.saas.platform.mapper.RigMapper;
 import com.beiken.saas.platform.pojo.RigDO;
 import com.beiken.saas.platform.pojo.RigDOExample;
+import com.google.common.collect.Lists;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
@@ -28,7 +29,9 @@ public class RigManager {
 
     public List<String> getRigByDeptIds(List<Long> deptIds) {
         RigDOExample example = new RigDOExample();
-        example.createCriteria().andDeptIdIn(deptIds);
+        example.setOrderByClause("status asc");
+        example.createCriteria().andDeptIdIn(deptIds)
+                .andStatusIn(Lists.newArrayList(RigStatusEnum.BEGIN.getStatus(), RigStatusEnum.FINISH.getStatus()));
         List<RigDO> rigDOList = rigMapper.selectByExample(example);
         if (CollectionUtils.isEmpty(rigDOList)) {
             Collections.emptyList();

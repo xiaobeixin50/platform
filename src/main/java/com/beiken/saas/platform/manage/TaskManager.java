@@ -47,6 +47,8 @@ public class TaskManager {
     @Resource
     private DepartmentMapper departmentMapper;
     @Resource
+    private DepartManager departManager;
+    @Resource
     private CodeUtil codeUtil;
     @Resource
     private TaskUserMapper taskUserMapper;
@@ -350,19 +352,19 @@ public class TaskManager {
      * @param userId
      * @return
      */
-    public UserRigVO getTaskUserRig(Long userId, List<InspectTaskDO> rigByCode) {
+    public UserRigVO getTaskUserRig(Long userId, List<String> rigCodes) {
         UserRigVO userRigVO = new UserRigVO();
         userRigVO.setUserId(userId);
 
-        if (CollectionUtils.isEmpty(rigByCode)) {
+        if (CollectionUtils.isEmpty(rigCodes)) {
             return null;
         }
-        Set<String> rigIdSet = rigByCode.stream().map(InspectTaskDO::getRigCode).collect(Collectors.toSet());
 
         RigDOExample rigExample = new RigDOExample();
+        rigExample.setOrderByClause("status asc");
         rigExample.createCriteria()
                 .andStatusIn(Lists.newArrayList(RigStatusEnum.BEGIN.getStatus(), RigStatusEnum.FINISH.getStatus()))
-                .andRigCodeIn(Lists.newArrayList(rigIdSet));
+                .andRigCodeIn(Lists.newArrayList(rigCodes));
         List<RigDO> rigDOs = rigMapper.selectByExample(rigExample);
         if (CollectionUtils.isEmpty(rigDOs)) {
             return null;
@@ -375,7 +377,7 @@ public class TaskManager {
             rigVO.setStatus(RigStatusEnum.index(rigDO.getStatus()).getMsg());
 
             DeptVO deptVO = new DeptVO();
-            DepartmentDO departmentDO = departmentMapper.selectByPrimaryKey(rigDO.getParentDeptId());
+            DepartmentDO departmentDO = departManager.getParentByDeptId(rigDO.getDeptId());
             deptVO.setDeptId(rigDO.getDeptId());
             deptVO.setDeptName(departmentDO.getDeptName() + rigDO.getDeptName());
             //wulin增加上级部门id

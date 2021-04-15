@@ -264,9 +264,22 @@ public class DangerManager {
         }
         List<Long> deptIds = null;
         if (dangerQuery.getRoleType() != null && !MANAGER_USER.equals(dangerQuery.getRoleType()) && userId != null) {
-            deptIds = departManager.getDeptIdByUserId(userId);
+            deptIds = departManager.getDeptAndParentIdByUserId(userId);
             //criteria.andFindUserIdEqualTo(userId);
         }
+        UserDO userDO = userManager.getUserById(userId);
+        if (userDO == null) {
+            return null;
+        }
+        if (Constants.RIG_MANAGER.equals(userDO.getRole())) {
+            DepartmentDO dept = departManager.getDeptByUserId(userDO.getId());
+            if (deptIds == null) {
+                deptIds = Lists.newArrayList(dept.getId());
+            } else {
+                deptIds.add(dept.getId());
+            }
+        }
+
         if (dangerQuery.getDeptId() != null) {
             if (deptIds == null) {
                 deptIds = Lists.newArrayList();

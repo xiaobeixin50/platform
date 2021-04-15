@@ -3,9 +3,11 @@ package com.beiken.saas.platform.controller.custom;
 import com.beiken.saas.platform.biz.bo.PageBo;
 import com.beiken.saas.platform.biz.vo.*;
 import com.beiken.saas.platform.enums.Constants;
-import com.beiken.saas.platform.manage.TaskManager;
+import com.beiken.saas.platform.manage.*;
+import com.beiken.saas.platform.mapper.InspectDeptMapper;
 import com.beiken.saas.platform.pojo.InspectTaskDO;
 import com.beiken.saas.platform.pojo.InspectTaskItemDO;
+import com.beiken.saas.platform.pojo.UserDO;
 import com.google.common.collect.Lists;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -30,6 +32,12 @@ public class CustomTaskController {
 
     @Resource
     private TaskManager taskManager;
+    @Resource
+    private UserManager userManager;
+    @Resource
+    private InspectDeptManager inspectDeptManager;
+    @Resource
+    private RigManager rigManager;
 
     @ApiOperation("获取单人任务列表")
     @ResponseBody
@@ -68,10 +76,20 @@ public class CustomTaskController {
     @GetMapping(value = "/rig/{userId}")
     public Result getDeptByUser(@PathVariable Long userId) {
         try {
-            List<String> taskCodes = taskManager.getTaskCodeByInspectUser(userId, null, null);
-            List<InspectTaskDO> rigByCode = taskManager.getRigByCode(taskCodes, null, null, null, null);
+            List<Long> deptIdList = Lists.newArrayList();
+            UserDO userById = userManager.getUserById(userId);
+            if (userById == null) {
+                return Result.error(Constants.ERROR, "未找到该人");
+            }
+            if (Constants.INSPECT_USER.equals(userById.getRole())) {
+                List<Long> deptByInsepctUser = inspectDeptManager.getDeptByInsepctUser(userId);
+                deptIdList.addAll(deptByInsepctUser);
+            } else {
+                deptIdList.add(userById.getDepId());
+            }
+            List<String> rigCodes = rigManager.getRigByDeptIds(deptIdList);
 
-            UserRigVO taskUserRig = taskManager.getTaskUserRig(userId, rigByCode);
+            UserRigVO taskUserRig = taskManager.getTaskUserRig(userId, rigCodes);
             if (Objects.isNull(taskUserRig)) {
                 return Result.error(Constants.ERROR, "未找到管理的井");
             }
