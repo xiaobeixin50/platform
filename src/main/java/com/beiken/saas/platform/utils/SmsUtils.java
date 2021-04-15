@@ -24,11 +24,11 @@ public class SmsUtils {
             try {
                 List<BasicNameValuePair> formparams = new ArrayList<>();
                 formparams.add(new BasicNameValuePair("Account","13051499947"));
-                formparams.add(new BasicNameValuePair("Pwd","d03fa62def895f36982b7b26c"));
+                formparams.add(new BasicNameValuePair("Pwd","c930876da89773867226dfb8f"));
                 formparams.add(new BasicNameValuePair("Content",verifyCode));
-                formparams.add(new BasicNameValuePair("TemplateId","193799"));
+                formparams.add(new BasicNameValuePair("TemplateId","196274"));
                 formparams.add(new BasicNameValuePair("Mobile",mobile));
-                formparams.add(new BasicNameValuePair("SignId","394547"));
+                formparams.add(new BasicNameValuePair("SignId","401610"));
                 HttpPost httpPost = new HttpPost("http://api.feige.ee/SmsService/Template");
                 httpPost.setEntity(new UrlEncodedFormEntity(formparams,"UTF-8"));
                 client = HttpClients.createDefault();
