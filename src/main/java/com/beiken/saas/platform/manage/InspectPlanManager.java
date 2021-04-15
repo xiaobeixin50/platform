@@ -176,7 +176,7 @@ public class InspectPlanManager {
         return resultMap;
     }
 
-    public List<InspectPlanVO> queryStartPlan() {
+   /* public List<InspectPlanVO> queryStartPlan() {
         List<InspectPlanVO> result = Lists.newArrayList();
 
         InspectPlanDOExample example = new InspectPlanDOExample();
@@ -203,6 +203,31 @@ public class InspectPlanManager {
             planVO.setDeptList(depts);
             planVO.setInspectUserList(userDos);
             result.add(planVO);
+        }
+        return result;
+    }*/
+
+    public List<InspectPlanVO> queryStartPlan() {
+        List<InspectPlanVO> result = Lists.newArrayList();
+
+        List<InspectPlanDeptDO> inspectPlanDeptDOs = inspectPlanDeptMapper.selectByExample(new InspectPlanDeptDOExample());
+
+        for (InspectPlanDeptDO inspectPlanDeptDO : inspectPlanDeptDOs) {
+            InspectPlanDOExample planDOExample = new InspectPlanDOExample();
+            planDOExample.createCriteria().andInspectPlanCodeEqualTo(inspectPlanDeptDO.getInspcetPlanCode());
+            List<InspectPlanDO> inspectPlanDOS = inspectPlanMapper.selectByExampleWithBLOBs(planDOExample);
+            for (InspectPlanDO inspectPlanDO : inspectPlanDOS) {
+                InspectPlanVO planVO = new InspectPlanVO();
+                BeanUtils.copyProperties(inspectPlanDO, planVO);
+
+                List<DepartmentDO> depts = departManager.getDeptById(Lists.newArrayList(inspectPlanDeptDO.getDeptId()));
+                planVO.setDeptList(depts);
+
+                UserDO userDO = userManager.getUserById(inspectPlanDeptDO.getInspectUserId());
+                planVO.setInspectUserList(Lists.newArrayList(userDO));
+
+                result.add(planVO);
+            }
         }
         return result;
     }

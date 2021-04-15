@@ -73,10 +73,10 @@ public class TotalDataManager {
             HiddenDangerDOExample dangerDOExample = new HiddenDangerDOExample();
             HiddenDangerDOExample.Criteria criteria = dangerDOExample.createCriteria();
             if (Objects.nonNull(startTime)) {
-                criteria.andGmtCreateGreaterThanOrEqualTo(startTime);
+                criteria.andReportTimeGreaterThanOrEqualTo(startTime);
             }
             if (Objects.nonNull(endTime)) {
-                criteria.andGmtCreateLessThanOrEqualTo(endTime);
+                criteria.andReportTimeLessThanOrEqualTo(endTime);
             }
             criteria.andDeptIdEqualTo(departmentDO.getId());
             long num = dangerMapper.countByExample(dangerDOExample);
@@ -88,7 +88,8 @@ public class TotalDataManager {
             sum += count;
         }
         for (Map.Entry<String, Long> entry : valueMap.entrySet()) {
-            result.put(entry.getKey(), entry.getValue().doubleValue() / (sum == 0L ? 1 : sum) *100);
+            BigDecimal bg = new BigDecimal(entry.getValue().doubleValue() / (sum == 0L ? 1 : sum) * 100);
+            result.put(entry.getKey(), bg.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
         }
 
         return result;
