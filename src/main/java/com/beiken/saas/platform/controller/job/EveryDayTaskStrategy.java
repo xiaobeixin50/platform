@@ -80,7 +80,7 @@ public class EveryDayTaskStrategy {
         Date start = DateUtil.parseDate(DateUtil.formatDate(now, DateUtil.DEFAULT_PARTERN).substring(0, 11) + startTime, DateUtil.DEFAULT_PARTERN);
         Date end = DateUtil.parseDate(DateUtil.formatDate(now, DateUtil.DEFAULT_PARTERN).substring(0, 11) + endTime, DateUtil.DEFAULT_PARTERN);
 
-        List<InspectTaskDO> taskDOList = taskManager.getTaskByPlanCode(inspectPlanVO.getInspectPlanCode(), start, end);
+        List<InspectTaskDO> taskDOList = taskManager.getTaskByPlanCode(inspectPlanVO, start, end);
         if (taskDOList.size() >= inspectPlanVO.getEveryDay()) {
             return false;
         }

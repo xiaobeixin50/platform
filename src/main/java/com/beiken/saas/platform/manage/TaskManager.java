@@ -601,13 +601,17 @@ public class TaskManager {
         return taskList;
     }
 
-    public List<InspectTaskDO> getTaskByPlanCode(String inspectPlanCode, Date startTime, Date endTime) {
-        if (StringUtils.isBlank(inspectPlanCode)) {
+    public List<InspectTaskDO> getTaskByPlanCode(InspectPlanVO inspectPlanVO, Date startTime, Date endTime) {
+        if (StringUtils.isBlank(inspectPlanVO.getInspectPlanCode())) {
             return Collections.emptyList();
         }
+        List<Long> userIds = inspectPlanVO.getInspectUserList().stream().map(UserDO::getId).collect(Collectors.toList());
+        List<Long> deptIds = inspectPlanVO.getDeptList().stream().map(DepartmentDO::getId).collect(Collectors.toList());
         InspectTaskDOExample example = new InspectTaskDOExample();
         example.createCriteria()
-                .andInspectPlanCodeEqualTo(inspectPlanCode)
+                .andInspectPlanCodeEqualTo(inspectPlanVO.getInspectPlanCode())
+                .andInspectUserIdIn(userIds)
+                .andDeptIdIn(deptIds)
                 .andStartTimeLessThanOrEqualTo(startTime)
                 .andEndTimeGreaterThanOrEqualTo(endTime);
         List<InspectTaskDO> inspectTaskDOs = taskMapper.selectByExample(example);

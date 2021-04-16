@@ -93,7 +93,7 @@ public class SeveralDayTaskStrategy {
         Date start = DateUtil.parseDate(DateUtil.formatDate(taskStartDate, DateUtil.DEFAULT_PARTERN).substring(0, 11) + startTime, DateUtil.DEFAULT_PARTERN);
         Date end = DateUtil.parseDate(DateUtil.formatDate(taskEndDate, DateUtil.DEFAULT_PARTERN).substring(0, 11) + endTime, DateUtil.DEFAULT_PARTERN);
 
-        List<InspectTaskDO> taskDOList = taskManager.getTaskByPlanCode(inspectPlanVO.getInspectPlanCode(), start, end);
+        List<InspectTaskDO> taskDOList = taskManager.getTaskByPlanCode(inspectPlanVO, start, end);
         //几天一次，所以判断size是1
         if (taskDOList != null && taskDOList.size() >= 1) {
             return false;

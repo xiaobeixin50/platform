@@ -27,8 +27,8 @@ public class InspectPlanCreateJob {
     @Resource
     private RigManager rigManager;
 
-    @Scheduled(cron = "0 15 4 ? * *")
-    //@Scheduled(fixedDelay = )
+    //@Scheduled(cron = "0 15 4 ? * *")
+    @Scheduled(fixedDelay = 3600000)
     @Transactional(rollbackFor = Exception.class)
     public void createTask() throws Exception {
         List<InspectPlanVO> inspectPlanVOs = inspectPlanManager.queryStartPlan();
