@@ -45,6 +45,10 @@ public class TaskItemListVO implements Serializable {
                 , required = false, example = "")
         private String bgItemCode;
 
+        @ApiModelProperty(name = "isPhoto", value = "是否拍照"
+                , required = false, example = "")
+        private Integer isPhoto;
+
         @ApiModelProperty(name = "controlExtra", value = "控制类型说明"
                 , required = false, example = "")
         private String controlExtra;

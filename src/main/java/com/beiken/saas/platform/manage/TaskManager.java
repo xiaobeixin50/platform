@@ -638,5 +638,6 @@ public class TaskManager {
         extra.setAdapt(bgItemDO.getAdapt());
         extra.setControlExtra(bgItemDO.getControlExtra());
         extra.setBgItemCode(bgItemDO.getBgItemCode());
+        extra.setIsPhoto(bgItemDO.getIsPhoto());
     }
 }
