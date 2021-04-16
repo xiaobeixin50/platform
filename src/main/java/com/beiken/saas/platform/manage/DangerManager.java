@@ -269,7 +269,8 @@ public class DangerManager {
         }
         UserDO userDO = userManager.getUserById(userId);
         if (userDO == null) {
-            return null;
+            userDO = new UserDO();
+            userDO.setRole("环保部经理");
         }
         if (Constants.RIG_MANAGER.equals(userDO.getRole())) {
             DepartmentDO dept = departManager.getDeptByUserId(userDO.getId());
