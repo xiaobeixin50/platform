@@ -235,11 +235,11 @@ public class DangerManager {
         }
         Date now = new Date();
         HiddenDangerDO dangerDO = new HiddenDangerDO();
-        dangerDO.setGmtCreate(now);
-        dangerDO.setGmtModified(now);
         BeanUtils.copyProperties(dangerVO, dangerDO);
         String dangerCode = codeUtil.buildDangerCode(dangerVO.getDeptId());
         dangerDO.setDangerCode(dangerCode);
+        dangerDO.setGmtCreate(now);
+        dangerDO.setGmtModified(now);
         int result = dangerMapper.insert(dangerDO);
         if (result > 0) {
             return true;
