@@ -106,7 +106,13 @@ public class TaskManager {
         return Lists.newArrayList(collect);
     }
 
-    public List<InspectTaskItemDO> getRigByCode(String taskCodes, String rigCode) {
+    /**
+     * 获取具体的检查项
+     * @param taskCodes
+     * @param rigCode
+     * @return
+     */
+    public List<InspectTaskItemDO> getInspectTaskItemByCode(String taskCodes, String rigCode) {
         List<InspectTaskDO> rigByCode = getRigByCode(Lists.newArrayList(taskCodes), rigCode, null, null, null);
         if (CollectionUtils.isEmpty(rigByCode)) {
             return Collections.emptyList();
@@ -119,6 +125,16 @@ public class TaskManager {
         return inspectTaskItemDOS;
     }
 
+
+    /**
+     * 根据taskCode和井查询具体的巡检任务
+     * @param taskCodes
+     * @param rigCode
+     * @param pageNo
+     * @param pageSize
+     * @param pageBo
+     * @return
+     */
     public List<InspectTaskDO> getRigByCode(List<String> taskCodes, String rigCode
             , Integer pageNo, Integer pageSize, PageBo pageBo) {
         if (CollectionUtils.isEmpty(taskCodes)) {
@@ -158,7 +174,6 @@ public class TaskManager {
         pageBo.setPageNo(pageNo);
         pageBo.setPageSize(pageSize);
 
-
         List<String> taskCodes = getTaskCodeByInspectUser(userId, pageNo, pageSize);
         List<InspectTaskDO> inspectTasks = getRigByCode(taskCodes, rigCode, pageNo, pageSize, pageBo);
 
@@ -166,19 +181,28 @@ public class TaskManager {
             return pageBo;
         }
         List<TaskVO> taskVOList = getTaskVOList(inspectTasks, rigCode);
+        //获取到列表后需要区分一下今日任务和分月展示的结构
         pageBo.setItemList(generatorTaskList(taskVOList));
         return pageBo;
     }
 
+    /**
+     * 取到个人的任务列表，同时更新过期的任务状态
+     * @param inspectTasks
+     * @param rigCode
+     * @return
+     */
     public List<TaskVO> getTaskVOList(List<InspectTaskDO> inspectTasks, String rigCode) {
         List<TaskVO> taskVOList = Lists.newArrayList();
         Date now = new Date();
         for (InspectTaskDO inspectTask : inspectTasks) {
+            //这里判断如果没开始就不展示
             if (TaskStatusEnum.NOT_BEGIN.getStatus().equals(inspectTask.getStatus())
                     && now.compareTo(inspectTask.getEndTime()) > 0
                     && switchUtil.match("updateAfterTime", "open")) {
                 updateTaskStatus(inspectTask.getTaskCode(), TaskStatusEnum.AFTER_TIME.getStatus());
                 inspectTask.setStatus(TaskStatusEnum.AFTER_TIME.getStatus());
+                //在展示的时候把过期的状态设置，后面做成定时任务
                 updateAfterTimeTask(inspectTask.getTaskCode());
             }
             TaskVO taskVO = new TaskVO();
@@ -237,6 +261,7 @@ public class TaskManager {
         PageBo<TaskItemListVO> pageBo = new PageBo<>();
         List<TaskItemListVO> result = Lists.newArrayList();
 
+        //1.取到具体任务
         Map<String, List<TaskItemListVO>> siteMap = Maps.newHashMap();
         InspectTaskDOExample taskDOExample = new InspectTaskDOExample();
         taskDOExample.createCriteria().andTaskCodeEqualTo(taskCode);
@@ -249,12 +274,13 @@ public class TaskManager {
         if (inspectPlanDO == null) {
             return pageBo;
         }
-
-        List<InspectTaskItemDO> taskItems = getRigByCode(taskCode, rigCode);
+        //2.拿到任务子项
+        List<InspectTaskItemDO> taskItems = getInspectTaskItemByCode(taskCode, rigCode);
         if (CollectionUtils.isEmpty(taskItems)) {
             return pageBo;
         }
 
+        //拿到表格检查项
         Set<String> bgItemCodeSet = taskItems.stream().map(InspectTaskItemDO::getBgItemCode).collect(Collectors.toSet());
         BgInspectItemDOExample bgItemExample = new BgInspectItemDOExample();
         bgItemExample.createCriteria()
@@ -270,6 +296,7 @@ public class TaskManager {
 
         UserDO userDO = userController.getCaptUserByDeptId(deptId, RoleEnum.RIG_MANAGER.getMsg());
 
+        //整个在构建一个数据结构，可以看返回结果
         for (InspectTaskItemDO taskItem : taskItems) {
             BgInspectItemDO bgItemDO = bgItemMap.get(taskItem.getBgItemCode());
             if (bgItemDO == null) {
@@ -315,6 +342,8 @@ public class TaskManager {
             }
 
         }
+
+        //拿到数据结构后对完成进度更新,可另起方法。
         int totalItem = 0;
         int totalFinishItem = 0;
         for (String s : siteMap.keySet()) {
@@ -565,6 +594,11 @@ public class TaskManager {
 
     }
 
+    /**
+     * 区分一下今日任务和分月展示的结构
+     * @param taskVOList
+     * @return
+     */
     private List<TaskListVO> generatorTaskList(List<TaskVO> taskVOList) {
         if (CollectionUtils.isEmpty(taskVOList)) {
             return Collections.emptyList();

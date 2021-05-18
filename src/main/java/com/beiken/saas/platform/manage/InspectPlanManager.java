@@ -37,6 +37,11 @@ public class InspectPlanManager {
     @Resource
     private UserManager userManager;
 
+    /**
+     * 获取检查计划列表
+     * @param planQuery
+     * @return
+     */
     public PageBo<InspectPlanVO> planList(PlanQuery planQuery) {
         PageBo<InspectPlanVO> pageBo = new PageBo<>();
         List<InspectPlanVO> result = Lists.newArrayList();
@@ -148,6 +153,11 @@ public class InspectPlanManager {
         return example;
     }
 
+    /**
+     * 获取检查计划
+     * @param planCode
+     * @return
+     */
     public InspectPlanDO getByCode(String planCode) {
         InspectPlanDOExample example = new InspectPlanDOExample();
         example.createCriteria().andInspectPlanCodeEqualTo(planCode);
@@ -158,6 +168,11 @@ public class InspectPlanManager {
         return inspectPlanDOs.get(0);
     }
 
+    /**
+     * key-> 检查计划code， value-> 受检单位list
+     * @param planCodes
+     * @return
+     */
     public Map<String, List<InspectPlanDeptDO>> queryPlanDeptByCodes(Set<String> planCodes) {
         Map<String, List<InspectPlanDeptDO>> resultMap = Maps.newHashMap();
 

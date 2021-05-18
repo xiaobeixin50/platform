@@ -37,8 +37,6 @@ public class TaskController {
         }
     }
 
-
-
     @ApiOperation("任务详情")
     @ResponseBody
     @GetMapping(value = "/info")

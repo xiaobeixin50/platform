@@ -81,6 +81,7 @@ public class CustomTaskController {
             if (userById == null) {
                 return Result.error(Constants.ERROR, "未找到该人");
             }
+            //监理要查询自己所负责的井/井队
             if (Constants.INSPECT_USER.equals(userById.getRole())) {
                 List<Long> deptByInsepctUser = inspectDeptManager.getDeptByInsepctUser(userId);
                 deptIdList.addAll(deptByInsepctUser);
